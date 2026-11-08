@@ -2,6 +2,26 @@
 
 Short, high-level log of what has been done and why. Newest first.
 
+## 2026-11-08: quantization core + oracle kill-check ready (not yet run on π0.5)
+
+- **Why:** before building any calibration method, check that calibration data can matter at
+  all. Oracle test: calibrate on the test states themselves. If that doesn't shrink the
+  quantized-vs-FP gap under camera shift, no data selection will. Protocol and decision rules:
+  `docs/oracle-experiment.md`.
+- **Built** (branch `itsjiamoon/quant-core`, 59 unit tests on a fake π0.5 with openpi's
+  module names):
+  - `vlacal.quant`: fake-quant W4/A8 grids, GPTQ, SmoothQuant smoothing, static or dynamic
+    activation scales, QuantVLA's 180-layer layout, padding-free statistics, exact undo.
+    Weight grid, GPTQ and SmoothQuant match the official repos to float precision.
+  - `sim/recording.py` + `vlacal.calib.frames`: record every policy query during rollouts;
+    reload as calibration/eval frames.
+  - `vlacal.policy.serve --quant-config --calib`: serve a quantized policy to the sim client.
+  - `scripts/offline_gap.py` + `configs/killcheck/camera.json`: 9 arms (clean, other-camera,
+    oracle, dynamic, weights-only, activations-only, GPTQ), paired CIs vs FP actions.
+- **Next (teammate on Cannon):** `docs/teammate-tasks.md`: batch runner, LIBERO-Plus env,
+  recordings, then the kill-check. QVLA is deferred until the kill-check says calibration data
+  matters.
+
 ## 2026-10-28 (later): E1 notebook ready, not yet run
 
 - **Built:** `notebooks/e1_colab.ipynb` (3 cells, free Colab T4) running

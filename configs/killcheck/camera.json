@@ -1,0 +1,71 @@
+{
+  "notes": {
+    "purpose": "Kill-check: can ANY calibration data shrink the W4A8 quantized-vs-FP action gap under camera shift? See docs/oracle-experiment.md.",
+    "frames": "Recorded with sim/recording.py; directory layout in docs/teammate-tasks.md. Run from the repo root (config paths are relative).",
+    "fixed": "Every calibrated arm uses 4 frames/episode, at most 256 frames, seed 0. Only the calibration source (and, for q_dynamic, the activation-scale mode) changes.",
+    "q_clean_server": "The Q-clean server that recorded split_b_qclean must use exactly the q_clean arm: configs/quant/sq_w4a8_static.json with --calib on the clean calib frames and the default sampling."
+  },
+  "reference": "q_clean",
+  "eval_sets": {
+    "camera_b": {
+      "patterns": ["${VLACAL_DATA_DIR}/frames/plus_camera/split_b_qclean/*.npz"],
+      "per_episode": 8,
+      "max_frames": 512,
+      "seed": 1
+    },
+    "clean_heldout": {
+      "patterns": ["${VLACAL_DATA_DIR}/frames/libero_fp/heldout/*.npz"],
+      "per_episode": 8,
+      "max_frames": 512,
+      "seed": 1
+    }
+  },
+  "arms": [
+    {
+      "name": "q_clean",
+      "config": "configs/quant/sq_w4a8_static.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/libero_fp/calib/*.npz"]}
+    },
+    {
+      "name": "o1_camera_other",
+      "config": "configs/quant/sq_w4a8_static.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/plus_camera/split_a_fp/*.npz"]}
+    },
+    {
+      "name": "o2_test_states",
+      "config": "configs/quant/sq_w4a8_static.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/plus_camera/split_b_qclean/*.npz"]}
+    },
+    {
+      "name": "q_dynamic",
+      "config": "configs/quant/sq_w4a8_dynamic.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/libero_fp/calib/*.npz"]}
+    },
+    {
+      "name": "w4_rtn_only",
+      "config": "configs/quant/rtn_w4.json"
+    },
+    {
+      "name": "a8_static_clean",
+      "config": "configs/quant/a8_static_only.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/libero_fp/calib/*.npz"]}
+    },
+    {
+      "name": "a8_static_o2",
+      "config": "configs/quant/a8_static_only.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/plus_camera/split_b_qclean/*.npz"]},
+      "baseline": "a8_static_clean"
+    },
+    {
+      "name": "gptq_clean",
+      "config": "configs/quant/gptq_w4.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/libero_fp/calib/*.npz"]}
+    },
+    {
+      "name": "gptq_o2",
+      "config": "configs/quant/gptq_w4.json",
+      "calib": {"patterns": ["${VLACAL_DATA_DIR}/frames/plus_camera/split_b_qclean/*.npz"]},
+      "baseline": "gptq_clean"
+    }
+  ]
+}

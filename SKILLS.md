@@ -81,6 +81,22 @@ Put each lesson as: **symptom / fact → what to do**. Add the date you verified
 - After editing `scripts/e1_activation_shift.py`, regenerate the notebook with
   `uv run python scripts/build_e1_notebook.py` (the notebook embeds the script).
 
+## Quantization code (verified 2026-11-08 on a fake model; not yet on real π0.5)
+
+- Calibration statistics must skip padding. π0.5 pads the prompt to 200 tokens and feeds a
+  zero image for the masked third camera; including them distorts ranges and Hessians.
+  `vlacal.quant.capture.TokenMask` handles this; reuse it, don't re-derive masks.
+- openpi keeps `action_in/out_proj` and `time_mlp_*` in fp32 inside a bf16 model. `QLinear`
+  does quantization math in fp32 and the matmul in the layer's own dtype, so an
+  unquantized `QLinear` is bit-identical to the original.
+- Compare against the official code with the vendored copies in `tests/reference/` (licenses
+  kept, `# ruff: noqa`). Upstream GPTQ computes group scales from W *before* the
+  in-block updates; don't "fix" that.
+- The fake model plants large values (1e3) in padding so any leak into statistics is obvious.
+  Its attention must mask padded keys, or the planted values leak through attention into
+  `o_proj` inputs (and 1e4 overflowed to NaN).
+- Comparing arms: same frames, same per-frame noise (`fixed_noise`), same calibration size.
+
 ## Experiment hygiene (project rules, not setup)
 
 - Comparing quantized vs FP: use the **same input frames and the same flow-matching noise

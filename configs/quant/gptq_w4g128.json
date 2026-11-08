@@ -1,0 +1,1 @@
+{"layout": "quantvla", "w_bits": 4, "w_method": "gptq", "w_group_size": 128, "a_bits": null, "a_mode": null, "smooth_alpha": null}

@@ -62,6 +62,7 @@ def run_episode(
     replan_steps=5,
     settle_steps=10,
     on_frame=None,
+    on_query=None,
 ):
     if max_steps < 1 or replan_steps < 1 or settle_steps < 0:
         raise ValueError("Invalid episode length, replanning interval, or settling steps")
@@ -78,6 +79,8 @@ def run_episode(
         if on_frame is not None:
             on_frame(observation["observation/image"])
         if not plan:
+            if on_query is not None:  # e.g. record the exact inputs for calibration sets
+                on_query(observation, step)
             actions = validate_actions(client.infer(observation)["actions"], replan_steps)
             plan.extend(actions[:replan_steps])
             calls += 1

@@ -85,8 +85,10 @@ first tab): https://docs.google.com/document/d/1x8Kt_hxKpZRo6hrYKqQAChF64CAdLnRY
   own Python 3.8 lock. Setup and run scripts invoke explicit Python executables.
 - Cannon is the initial runtime. Setup/conversion are CPU jobs, inference is a full
   A100 GPU job. Keep RepoDisco's conda environment independent.
-- Next after validating the FP episode: fake-quant primitives + Quantizer API
-  (+ RTN as sanity baseline) → SmoothQuant → GPTQ → QVLA.
+- 2026-11-08: fake-quant core (RTN, GPTQ, SmoothQuant, static/dynamic activations, QuantVLA
+  180-layer layout), rollout recording, quantized serving and the offline oracle kill-check
+  exist on `itsjiamoon/quant-core`; not yet run on real π0.5. Plan: `docs/oracle-experiment.md`,
+  `docs/teammate-tasks.md`. QVLA deferred until the kill-check shows calibration data matters.
 
 ## Open / TBD
 
