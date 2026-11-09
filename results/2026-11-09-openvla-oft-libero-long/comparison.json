@@ -1,0 +1,64 @@
+{
+  "paired_episodes": 500,
+  "fp_success_rate": 0.934,
+  "awq_success_rate": 0.934,
+  "awq_minus_fp_percentage_points": 0.0,
+  "paired_bootstrap_95_percent_interval_pp": [
+    -2.1999999999999997,
+    2.1999999999999997
+  ],
+  "awq_only_successes": 15,
+  "fp_only_successes": 15,
+  "per_task": {
+    "0": {
+      "episodes": 50,
+      "fp_successes": 45,
+      "awq_successes": 47
+    },
+    "1": {
+      "episodes": 50,
+      "fp_successes": 50,
+      "awq_successes": 50
+    },
+    "2": {
+      "episodes": 50,
+      "fp_successes": 49,
+      "awq_successes": 49
+    },
+    "3": {
+      "episodes": 50,
+      "fp_successes": 50,
+      "awq_successes": 50
+    },
+    "4": {
+      "episodes": 50,
+      "fp_successes": 47,
+      "awq_successes": 45
+    },
+    "5": {
+      "episodes": 50,
+      "fp_successes": 46,
+      "awq_successes": 46
+    },
+    "6": {
+      "episodes": 50,
+      "fp_successes": 45,
+      "awq_successes": 45
+    },
+    "7": {
+      "episodes": 50,
+      "fp_successes": 49,
+      "awq_successes": 48
+    },
+    "8": {
+      "episodes": 50,
+      "fp_successes": 40,
+      "awq_successes": 42
+    },
+    "9": {
+      "episodes": 50,
+      "fp_successes": 46,
+      "awq_successes": 45
+    }
+  }
+}
