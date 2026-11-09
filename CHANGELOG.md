@@ -237,3 +237,26 @@
 - Local validation: 40 tests passed; Ruff, formatting, shell syntax and diff
   checks passed. GPU smoke and pilot scores are still pending. The nominal result
   report is complete in PR #10; this Plus extension is a separate contribution.
+
+## 2026-11-09 — Sophie / Codex: Plus setup complete; deadline pilot queued
+
+- Completed pinned asset verification and CPU construction of all 70 fixed Plus
+  scenes. Selective extraction materialized 3,674 required files without changing
+  their bytes. Setup-only extraction hooks are absent during scored evaluation.
+- Added a predeclared 14-case subset before observing any Plus outcomes: two cases
+  per category, all ten original tasks, unchanged 520-action horizons and paired
+  seeds. This urgent subset is separate from the planned 70-case pilot. It cannot
+  establish small success-rate differences: one episode is 7.1 percentage points.
+- Submitted parallel evaluations of BF16, AWQ, offline GPTQ, learner-calibrated
+  GPTQ and the BF16-rollout calibration control. Prioritized the three quantized
+  methods requested for the presentation. The urgent subset permits full Ampere
+  GPU models and records hardware per arm; the larger pilot retains A100 hardware.
+- At the final pre-deadline check, scored jobs were still awaiting scheduler
+  allocation and no Plus success rates were available. Queue delay is not a model
+  failure. Do not substitute nominal scores, published scores or illustrative
+  targets for measured quantized Plus results. Private submission manifests retain
+  scheduler details and the exact source commit; comparisons run after completion.
+- Validation: the expanded suite passed 49 local tests; the latest hardware
+  reporting adjustment passed all 12 Plus tests. An earlier 46-test version also
+  passed on Cannon. Nominal results remain BF16/AWQ 93.4%, offline GPTQ 93.0%,
+  learner GPTQ 92.8%, and BF16-rollout-calibrated GPTQ 94.8% (500 episodes each).
