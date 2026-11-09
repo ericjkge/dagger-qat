@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from dqat.eval_plus import checkpoint_view
-from dqat.plus_data import CATEGORIES, select_cases, validate_manifest
+from dqat.plus_data import ARMS, CATEGORIES, PROTOCOL, select_cases, validate_manifest
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -51,3 +51,115 @@ def test_checkpoint_views_isolate_mutable_loader_files(tmp_path):
     assert (a / "model.safetensors").is_symlink()
     assert (a / "model.safetensors").resolve() == (source / "model.safetensors").resolve()
     assert not (a / ".dqat-load.lock").exists()
+
+
+def write_synthetic_pilot(root):
+    from dqat.runio import file_sha256, write_json
+
+    m = manifest()
+    manifest_path = ROOT / "configs/libero-plus-long-pilot-v1.json"
+    for index, arm in enumerate(ARMS):
+        for shard in range(4):
+            cases = select_cases(m, shard, 4)
+            output = root / arm / f"shard-{shard}"
+            output.mkdir(parents=True)
+            meta = dict(
+                status="completed",
+                arm=arm,
+                smoke=False,
+                shard=shard,
+                num_shards=4,
+                expected_cases=[c["task_id"] for c in cases],
+                protocol=PROTOCOL,
+                manifest_sha256=file_sha256(manifest_path),
+                checkpoint_source={"fixture": True},
+                normalization_sha256="b" * 64,
+                git_commit="fixture",
+                git_status="",
+                submodules="fixture",
+                gpu="fixture",
+                torch_version="fixture",
+            )
+            if arm != "fp":
+                digest = str(index) * 64
+                signature = dict(
+                    cache_sha256=digest,
+                    checkpoint_source=meta["checkpoint_source"],
+                    normalization_sha256=meta["normalization_sha256"],
+                    config={"bits": 4},
+                )
+                if arm in ("student", "expert_control"):
+                    signature["calibration_bundle"] = {"provenance": {"arm": arm, "round": 2}}
+                meta["quantization"] = dict(
+                    method="awq" if arm == "awq" else "gptq", cache_sha256=digest, signature=signature
+                )
+            rows = [
+                dict(
+                    c,
+                    arm=arm,
+                    status="completed",
+                    success=(c["case_index"] + index) % 5 != 0,
+                    action_steps=520,
+                    policy_calls=65,
+                    elapsed_seconds=1,
+                    simulator_warning=c["case_index"] == 0,
+                    simulator_warning_counts=[int(c["case_index"] == 0)],
+                    instruction_sha256="c" * 64,
+                    initial_state_sha256="d" * 64,
+                )
+                for c in cases
+            ]
+            write_json(output / "run.json", meta)
+            write_json(
+                output / "summary.json",
+                dict(
+                    status="completed",
+                    arm=arm,
+                    expected_episodes=len(rows),
+                    completed_episodes=len(rows),
+                    errors=0,
+                    successes=sum(r["success"] for r in rows),
+                    warning_episodes=sum(r["simulator_warning"] for r in rows),
+                ),
+            )
+            (output / "episodes.jsonl").write_text("".join(json.dumps(row) + "\n" for row in rows))
+    return manifest_path
+
+
+def test_aggregation_preserves_pairs_and_excludes_warning_union(tmp_path):
+    from dqat.compare_plus import compare_pilot
+
+    report = compare_pilot(tmp_path, write_synthetic_pilot(tmp_path))
+    assert all(x["successes"] == 56 and x["episodes"] == 70 for x in report["methods"].values())
+    pair = report["comparisons"]["awq_minus_fp"]
+    assert pair["difference_percentage_points"] == 0
+    assert pair["candidate_only_successes"] == pair["reference_only_successes"] == 14
+    assert report["simulator_warning_sensitivity"]["excluded_union_cases"] == 1
+    assert report["simulator_warning_sensitivity"]["methods"]["fp"]["successes"] == 56
+    assert report["simulator_warning_sensitivity"]["methods"]["awq"]["successes"] == 55
+    assert all(x["episodes"] == 10 for c in report["per_category"].values() for x in c.values())
+
+
+@pytest.mark.parametrize("corruption", ["missing", "duplicate", "seed", "instruction", "artifact"])
+def test_aggregation_rejects_incomplete_or_unpaired_results(tmp_path, corruption):
+    from dqat.compare_plus import compare_pilot
+
+    path = write_synthetic_pilot(tmp_path)
+    target = tmp_path / "student/shard-0/episodes.jsonl"
+    rows = [json.loads(line) for line in target.read_text().splitlines()]
+    if corruption == "missing":
+        rows.pop()
+    elif corruption == "duplicate":
+        rows.append(rows[0])
+    elif corruption == "seed":
+        rows[0]["seed"] += 1
+    elif corruption == "instruction":
+        rows[0]["instruction_sha256"] = "e" * 64
+    else:
+        meta_path = target.parent / "run.json"
+        meta = json.loads(meta_path.read_text())
+        meta["quantization"]["cache_sha256"] = "f" * 64
+        meta_path.write_text(json.dumps(meta))
+    target.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    with pytest.raises(ValueError):
+        compare_pilot(tmp_path, path)
