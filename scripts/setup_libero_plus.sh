@@ -3,8 +3,10 @@
 set -euo pipefail
 source "$(dirname "$0")/common.sh"
 revision=4976dc30028e805ff8094b55501d532c48fec182
-plus_root="$DQAT_DATA_DIR/vendor/LIBERO-plus-$revision"
-deps="$DQAT_DATA_DIR/libero-plus-deps"
+# Keep the many small source/asset files on home storage. Scratch is used for
+# large downloads/results; its metadata latency can dominate a full checkout.
+plus_root="$DQAT_ROOT/data/vendor/LIBERO-plus-$revision"
+deps="$DQAT_ROOT/data/libero-plus-deps"
 mkdir -p "$(dirname "$plus_root")" "$deps"
 if [[ ! -d "$plus_root/.git" ]]; then
   git clone --depth 1 --filter=blob:none --no-checkout https://github.com/sylvestf/LIBERO-plus.git "$plus_root"

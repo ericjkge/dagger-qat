@@ -13,8 +13,8 @@ source scripts/common.sh
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-8}"
 export MUJOCO_GL=egl PYOPENGL_PLATFORM=egl
 export LIBERO_CONFIG_PATH="$DQAT_DATA_DIR/libero-plus-config"
-export PYTHONPATH="$DQAT_DATA_DIR/libero-plus-deps:$PYTHONPATH"
-plus_root="$DQAT_DATA_DIR/vendor/LIBERO-plus-4976dc30028e805ff8094b55501d532c48fec182"
+export PYTHONPATH="$DQAT_ROOT/data/libero-plus-deps:$PYTHONPATH"
+plus_root="$DQAT_ROOT/data/vendor/LIBERO-plus-4976dc30028e805ff8094b55501d532c48fec182"
 experiment="${1:?Usage: cannon_plus.sbatch EXPERIMENT_ROOT smoke|array}"
 mode="${2:?Missing mode}"
 manifest="${DQAT_PLUS_MANIFEST:-configs/libero-plus-long-pilot-v1.json}"

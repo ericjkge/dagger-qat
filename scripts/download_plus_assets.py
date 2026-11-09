@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import shutil
 import zipfile
 from pathlib import Path
 
@@ -28,10 +29,13 @@ def main():
     if digest.hexdigest() != SHA256:
         raise ValueError("Plus asset archive checksum mismatch")
     root = (args.root / "libero/libero").resolve()
-    marker = args.data_dir / "libero-plus-assets.json"
+    marker = args.root / "assets-source.json"
     identity = dict(dataset="Sylvest/LIBERO-plus", revision=REVISION, sha256=SHA256)
     if not marker.exists():
         with zipfile.ZipFile(archive) as bundle:
+            required_bytes = sum(member.file_size for member in bundle.infolist())
+            if shutil.disk_usage(root).free < required_bytes * 1.1 + (2 << 30):
+                raise RuntimeError("Insufficient space for Plus assets plus extraction headroom")
             for member in bundle.infolist():
                 target = (root / member.filename).resolve()
                 if not target.is_relative_to(root) or not member.filename.startswith("assets/"):
