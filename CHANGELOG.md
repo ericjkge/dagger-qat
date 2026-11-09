@@ -276,3 +276,6 @@
 - All 50 local tests pass, including rejection of mixed rendering protocols and
   hardware. Ruff, shell syntax and diff checks pass. Full-horizon scores remain
   pending; submission identifiers and raw logs stay in ignored private data.
+- The test partition also caps submitted jobs at two, so a five-task array was
+  rejected before execution. Two worker jobs now schedule the five methods
+  sequentially within their allocations, preserving separate per-method records.

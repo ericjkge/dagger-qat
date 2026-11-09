@@ -104,8 +104,10 @@ SHA256-verified Rocky Mesa 23.1.4 library into the project; the existing Python
 environment is unchanged. Evaluation checks the library hash and renderer settings.
 
 Run a seven-category model/rendering smoke before submitting
-`scripts/cannon_plus_mig.sbatch` as array `0-4%2`, with AWQ, offline GPTQ and
-learner GPTQ ahead of the reference arms. The comparator requires
+`scripts/cannon_plus_mig_workers.sbatch` as array `0-1%2`. The test partition caps
+submitted jobs as well as running jobs: worker 0 runs AWQ, learner GPTQ, then the
+rollout control; worker 1 runs offline GPTQ, then BF16. Each uses the single-arm
+launcher `scripts/cannon_plus_mig.sbatch`. The comparator requires
 `--rapid --software-rendering` and matching GPU models. Never pool software-rendered
 episodes with EGL episodes or interpret a cross-renderer difference as a quantizer
 effect. These are exploratory software-rendered results, not the official benchmark.
