@@ -8,6 +8,7 @@ import zipfile
 from pathlib import Path
 
 import yaml
+from filelock import FileLock
 from huggingface_hub import hf_hub_download
 
 REVISION = "dd2bd61b7d9a6fef1abc52d606e983b41886a149"
@@ -19,6 +20,11 @@ def main():
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--data-dir", type=Path, required=True)
     args = parser.parse_args()
+    with FileLock(str(args.root / ".assets.lock"), timeout=3600):
+        prepare_assets(args)
+
+
+def prepare_assets(args):
     archive = Path(
         hf_hub_download("Sylvest/LIBERO-plus", "assets.zip", repo_type="dataset", revision=REVISION)
     )
@@ -36,6 +42,7 @@ def main():
             required_bytes = sum(member.file_size for member in bundle.infolist())
             if shutil.disk_usage(root).free < required_bytes * 1.1 + (2 << 30):
                 raise RuntimeError("Insufficient space for Plus assets plus extraction headroom")
+            print(f"Extracting {len(bundle.infolist())} entries, {required_bytes / 1e9:.2f} GB", flush=True)
             for member in bundle.infolist():
                 target = (root / member.filename).resolve()
                 if not target.is_relative_to(root) or not member.filename.startswith("assets/"):
