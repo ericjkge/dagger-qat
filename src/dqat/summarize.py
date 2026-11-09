@@ -38,6 +38,8 @@ def compare(fp_dir, awq_dir):
         "open_loop_steps",
         "center_crop",
         "num_images",
+        "environment_seed",
+        "environment_image_resolution",
         "use_proprio",
         "submodules",
     ):

@@ -34,8 +34,13 @@
   shell syntax/diff checks passed.
   Setup job `59051313` completed successfully in 39m49s, including real model and
   simulator imports. Parallel asset job `59055904` completed in 4m04s.
-  CPU tests on the exact runtime: job `59057158`. GPU smoke job `59051490` was
-  waiting for priority; broadened the request to full A100 40/80GB cards via
-  `--gres=gpu:1 --constraint=a100` (excludes `a100-mig`).
-  GPU evaluation is pending allocation.
-  No OpenVLA-OFT success rate is claimed yet.
+  CPU tests on the exact runtime: job `59057158`, 18 passed in 83.45s.
+  GPU smoke job `59051490` completed successfully on an A100-SXM4-80GB in 7m12s:
+  task 0 / initial state 0 succeeded in 256 actions (32 policy calls, 35.28s).
+  Saved JSONL, provenance and a rollout video under scratch
+  `results/20261109T033843Z-59051490-fp/`. This single episode is a pipeline check,
+  not a benchmark score.
+  Full paired 500-episode jobs: FP `59063995`, AWQ `59063997`, queued after the
+  successful smoke test. Both request A100-SXM4-80GB GPUs in `gpu,gpu_requeue`.
+  Full benchmark results remain pending.
+  The comparison also rejects mismatched simulator seeds or image resolutions.

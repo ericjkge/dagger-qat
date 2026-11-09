@@ -18,6 +18,8 @@ def make_run(path, method, outcomes):
         open_loop_steps=8,
         center_crop=True,
         num_images=2,
+        environment_seed=0,
+        environment_image_resolution=256,
         use_proprio=True,
         submodules="same pins",
     )
@@ -48,3 +50,15 @@ def test_refuses_partial_and_duplicate_runs(tmp_path):
     (run / "episodes.jsonl").write_text(record + "\n" + record)
     with pytest.raises(ValueError, match="Duplicate"):
         read_run(run)
+
+
+@pytest.mark.parametrize("field", ["environment_seed", "environment_image_resolution"])
+def test_refuses_different_simulator_protocol(tmp_path, field):
+    make_run(tmp_path / "fp", "fp", [True, False])
+    make_run(tmp_path / "awq", "awq", [True, True])
+    path = tmp_path / "awq" / "run.json"
+    metadata = json.loads(path.read_text())
+    metadata[field] += 1
+    path.write_text(json.dumps(metadata))
+    with pytest.raises(ValueError, match=field):
+        compare(tmp_path / "fp", tmp_path / "awq")
