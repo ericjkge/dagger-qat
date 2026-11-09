@@ -12,7 +12,7 @@ from pathlib import Path
 
 import numpy as np
 
-from dqat.plus_data import ARMS, PLUS_REVISION, PROTOCOL, select_cases
+from dqat.plus_data import ARMS, PLUS_REVISION, PROTOCOL, RAPID_PROTOCOL, select_cases, select_rapid_cases
 from dqat.runio import command_output, file_sha256, write_json
 
 
@@ -109,6 +109,7 @@ def main():
     parser.add_argument("--shard", type=int, default=0)
     parser.add_argument("--num-shards", type=int, default=4)
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--rapid", action="store_true", help="Predeclared 14-case subset for an urgent pilot")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.arm != "fp" and (args.cache is None or args.source_run is None):
@@ -117,6 +118,10 @@ def main():
         parser.error("Plus checkout does not match pinned revision")
     manifest = json.loads(args.manifest.read_text())
     cases = select_cases(manifest, args.shard, args.num_shards, args.smoke)
+    if args.rapid:
+        if args.smoke or args.shard != 0 or args.num_shards != 1:
+            parser.error("Rapid pilot uses one full-horizon shard per arm")
+        cases = select_rapid_cases(manifest)
     classification = args.plus_root / "libero/libero/benchmark/task_classification.json"
     if file_sha256(classification) != manifest["classification_sha256"]:
         parser.error("Plus classification metadata differs from pilot manifest")
@@ -127,7 +132,7 @@ def main():
     metadata = dict(
         status="starting",
         arm=args.arm,
-        protocol=PROTOCOL,
+        protocol=RAPID_PROTOCOL if args.rapid else PROTOCOL,
         smoke=args.smoke,
         actual_action_horizon=8 if args.smoke else 520,
         shard=args.shard,

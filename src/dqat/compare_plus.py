@@ -6,15 +6,26 @@ import math
 from pathlib import Path
 
 from dqat.compare_calibration import paired_comparison
-from dqat.plus_data import ARMS, CATEGORIES, PROTOCOL, select_cases, validate_manifest
+from dqat.plus_data import (
+    ARMS,
+    CATEGORIES,
+    PROTOCOL,
+    RAPID_PROTOCOL,
+    select_cases,
+    select_rapid_cases,
+    validate_manifest,
+)
 from dqat.runio import file_sha256, write_json
 
 
-def compare_pilot(root, manifest_path):
+def compare_pilot(root, manifest_path, rapid=False):
     root, manifest_path = Path(root), Path(manifest_path)
     manifest = json.loads(manifest_path.read_text())
     validate_manifest(manifest)
-    expected = {case["task_id"]: case for case in manifest["cases"]}
+    selected = select_rapid_cases(manifest) if rapid else manifest["cases"]
+    protocol = RAPID_PROTOCOL if rapid else PROTOCOL
+    num_shards = 1 if rapid else 4
+    expected = {case["task_id"]: case for case in selected}
     records, metas, common, artifacts = {}, {}, None, {}
     fields = (
         "protocol",
@@ -29,23 +40,23 @@ def compare_pilot(root, manifest_path):
     for arm in ARMS:
         records[arm], metas[arm] = {}, []
         directories = {p.name for p in (root / arm).glob("shard-*") if p.is_dir()}
-        if directories != {f"shard-{s}" for s in range(4)}:
+        if directories != {f"shard-{s}" for s in range(num_shards)}:
             raise ValueError(f"Missing or extra shards for {arm}")
-        for shard in range(4):
+        for shard in range(num_shards):
             path = root / arm / f"shard-{shard}"
             meta = json.loads((path / "run.json").read_text())
             summary = json.loads((path / "summary.json").read_text())
             rows = [json.loads(line) for line in (path / "episodes.jsonl").read_text().splitlines()]
-            cases = select_cases(manifest, shard, 4)
+            cases = selected if rapid else select_cases(manifest, shard, num_shards)
             ids = [c["task_id"] for c in cases]
             if (
                 meta["status"] != "completed"
                 or meta["arm"] != arm
                 or meta["smoke"]
                 or meta["shard"] != shard
-                or meta["num_shards"] != 4
+                or meta["num_shards"] != num_shards
                 or meta["expected_cases"] != ids
-                or meta["protocol"] != PROTOCOL
+                or meta["protocol"] != protocol
                 or meta["manifest_sha256"] != file_sha256(manifest_path)
                 or meta["git_status"] != ""
                 or "error" in meta
@@ -162,8 +173,8 @@ def compare_pilot(root, manifest_path):
     flagged = {k for k in keys if any(records[a][k]["simulator_warning"] for a in ARMS)}
     clean = [k for k in keys if k not in flagged]
     return dict(
-        scope="Exploratory 70-case task/category-balanced Plus-Long pilot; not a full benchmark score",
-        protocol=PROTOCOL,
+        scope=f"Exploratory {len(keys)}-case Plus-Long pilot; not a full benchmark score",
+        protocol=protocol,
         manifest_sha256=common["manifest_sha256"],
         source_commit=common["git_commit"],
         methods=scores(keys),
@@ -202,9 +213,10 @@ if __name__ == "__main__":
     parser.add_argument("--experiment", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--rapid", action="store_true")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Comparison output already exists")
-    result = compare_pilot(args.experiment, args.manifest)
+    result = compare_pilot(args.experiment, args.manifest, rapid=args.rapid)
     write_json(args.output, result)
     print(json.dumps(result, indent=2))

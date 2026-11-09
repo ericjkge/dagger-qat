@@ -140,6 +140,24 @@ def select_cases(manifest, shard, num_shards, smoke=False):
     return [c for c in manifest["cases"] if c["case_index"] % num_shards == shard]
 
 
+RAPID_PROTOCOL = dict(
+    PROTOCOL,
+    name="libero-plus-long-rapid14-v1",
+    cases=14,
+    selection="For category index c, take base tasks (2*c)%10 and (2*c+1)%10 from the frozen 70-case manifest",
+)
+
+
+def select_rapid_cases(manifest):
+    validate_manifest(manifest)
+    return [
+        c
+        for c in manifest["cases"]
+        if c["base_task_id"]
+        in ((2 * CATEGORIES.index(c["category"])) % 10, (2 * CATEGORIES.index(c["category"]) + 1) % 10)
+    ]
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--plus-root", type=Path, required=True)

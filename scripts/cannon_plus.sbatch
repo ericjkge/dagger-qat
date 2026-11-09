@@ -23,14 +23,20 @@ args=(--checkpoint "$DQAT_DATA_DIR/checkpoints/openvla-oft-libero-10"
 if [[ "$mode" == smoke ]]; then
   arm=fp
   args+=(--smoke --shard 0 --num-shards 1 --output "$experiment/smoke")
-elif [[ "$mode" == array ]]; then
+elif [[ "$mode" == array || "$mode" == rapid ]]; then
   index="${SLURM_ARRAY_TASK_ID:?Must be launched as an array}"
   arms=(fp awq offline_gptq student expert_control)
-  arm="${arms[$((index / 4))]}"
-  shard=$((index % 4))
-  args+=(--shard "$shard" --num-shards 4 --output "$experiment/$arm/shard-$shard")
+  if [[ "$mode" == rapid ]]; then
+    arms=(fp offline_gptq student awq expert_control)
+    arm="${arms[$index]}"
+    args+=(--rapid --shard 0 --num-shards 1 --output "$experiment/$arm/shard-0")
+  else
+    arm="${arms[$((index / 4))]}"
+    shard=$((index % 4))
+    args+=(--shard "$shard" --num-shards 4 --output "$experiment/$arm/shard-$shard")
+  fi
 else
-  echo 'Expected smoke or array' >&2; exit 2
+  echo 'Expected smoke, array or rapid' >&2; exit 2
 fi
 case "$arm" in
   fp) ;;

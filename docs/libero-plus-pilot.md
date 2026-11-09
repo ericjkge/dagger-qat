@@ -76,3 +76,18 @@ cluster metadata in private archives; publish only aggregates and public protoco
 
 Sources: [official repository](https://github.com/sylvestf/LIBERO-plus),
 [paper](https://arxiv.org/abs/2510.13626).
+
+## Urgent 14-case subset
+
+Before any Plus outcomes were observed, a 4:30 p.m. deadline prompted a smaller
+parallel attempt on A40 GPUs. For category index `c` in the frozen manifest order,
+select base tasks `(2*c)%10` and `(2*c+1)%10`. This gives two cases per category,
+covering all ten base tasks, and reuses their exact seeds and original 520-action
+horizons. The subset has only zoom-blur and fog cases for sensor noise; it does
+not represent all five noise operators or the full Plus task distribution.
+
+Each of the five methods gets one 14-case job on the same GPU type. Its protocol
+is `libero-plus-long-rapid14-v1`, and its outputs/aggregate are separate from the
+70-case A100 pilot. Fourteen trials are too few for a precise success-rate estimate;
+report exact counts and broad uncertainty, and do not substitute these scores for
+a full benchmark or combine them with the 70-case run.

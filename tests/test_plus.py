@@ -4,7 +4,15 @@ from pathlib import Path
 import pytest
 
 from dqat.eval_plus import checkpoint_view
-from dqat.plus_data import ARMS, CATEGORIES, PROTOCOL, select_cases, validate_manifest
+from dqat.plus_data import (
+    ARMS,
+    CATEGORIES,
+    PROTOCOL,
+    RAPID_PROTOCOL,
+    select_cases,
+    select_rapid_cases,
+    validate_manifest,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -88,14 +96,14 @@ def test_checkpoint_views_isolate_mutable_loader_files(tmp_path):
     assert not (a / ".dqat-load.lock").exists()
 
 
-def write_synthetic_pilot(root):
+def write_synthetic_pilot(root, rapid=False):
     from dqat.runio import file_sha256, write_json
 
     m = manifest()
     manifest_path = ROOT / "configs/libero-plus-long-pilot-v1.json"
     for index, arm in enumerate(ARMS):
-        for shard in range(4):
-            cases = select_cases(m, shard, 4)
+        for shard in range(1 if rapid else 4):
+            cases = select_rapid_cases(m) if rapid else select_cases(m, shard, 4)
             output = root / arm / f"shard-{shard}"
             output.mkdir(parents=True)
             meta = dict(
@@ -103,9 +111,9 @@ def write_synthetic_pilot(root):
                 arm=arm,
                 smoke=False,
                 shard=shard,
-                num_shards=4,
+                num_shards=1 if rapid else 4,
                 expected_cases=[c["task_id"] for c in cases],
-                protocol=PROTOCOL,
+                protocol=RAPID_PROTOCOL if rapid else PROTOCOL,
                 manifest_sha256=file_sha256(manifest_path),
                 checkpoint_source={"fixture": True},
                 normalization_sha256="b" * 64,
@@ -173,6 +181,23 @@ def test_aggregation_preserves_pairs_and_excludes_warning_union(tmp_path):
     assert report["simulator_warning_sensitivity"]["methods"]["fp"]["successes"] == 56
     assert report["simulator_warning_sensitivity"]["methods"]["awq"]["successes"] == 55
     assert all(x["episodes"] == 10 for c in report["per_category"].values() for x in c.values())
+
+
+def test_rapid_subset_covers_all_categories_and_tasks_and_is_reported_separately(tmp_path):
+    from collections import Counter
+
+    from dqat.compare_plus import compare_pilot
+
+    cases = select_rapid_cases(manifest())
+    assert len(cases) == 14
+    assert Counter(c["category"] for c in cases) == Counter({cat: 2 for cat in CATEGORIES})
+    assert {c["base_task_id"] for c in cases} == set(range(10))
+    path = write_synthetic_pilot(tmp_path, rapid=True)
+    report = compare_pilot(tmp_path, path, rapid=True)
+    assert report["protocol"] == RAPID_PROTOCOL
+    assert all(x["episodes"] == 14 for x in report["methods"].values())
+    with pytest.raises(ValueError):
+        compare_pilot(tmp_path, path)
 
 
 @pytest.mark.parametrize("corruption", ["missing", "duplicate", "seed", "instruction", "artifact"])
