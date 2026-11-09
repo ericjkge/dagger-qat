@@ -71,7 +71,10 @@ def search_scale(module, linears, inputs, kwargs, config):
             scales = mean_abs.pow(index / config.scale_grid).clamp(min=1e-4).to(device)
             scales /= (scales.max() * scales.min()).sqrt()
             for linear, weight in zip(linears, originals):
-                linear.weight.copy_(pseudo_quantize(weight.float() * scales, config) / scales)
+                # Simulate the same scaled-weight dtype used by the eventual fused
+                # model; only grid/statistics and loss reductions use float32.
+                stored_scales = scales.to(weight.dtype)
+                linear.weight.copy_(pseudo_quantize(weight * stored_scales, config) / stored_scales)
             error, elements = 0.0, 0
             for x, kw, expected in zip(inputs, kwargs, reference):
                 actual = _output(module(x.to(device), **_to(kw, device)))

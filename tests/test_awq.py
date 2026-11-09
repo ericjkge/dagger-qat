@@ -96,19 +96,22 @@ def test_fused_scaling_preserves_decoder_output(previous, names):
     torch.testing.assert_close(block(x, **kwargs)[0], expected, rtol=2e-5, atol=1e-6)
 
 
-def test_scale_search_preserves_weights_and_beats_rtn_candidate():
+@pytest.mark.parametrize("dtype", [torch.float32, torch.bfloat16])
+def test_scale_search_preserves_weights_and_beats_rtn_candidate(dtype):
     torch.manual_seed(3)
-    linear = nn.Linear(32, 16, bias=False)
-    x = torch.randn(2, 17, 32)
+    linear = nn.Linear(32, 16, bias=False).to(dtype)
+    x = torch.randn(2, 17, 32).to(dtype)
     x[..., :2] *= 25
     original = linear.weight.detach().clone()
     config = AWQConfig(group_size=8)
-    scales = search_scale(linear, [linear], [x], [{}], config)
+    scales = search_scale(linear, [linear], [x], [{}], config).to(dtype)
     torch.testing.assert_close(linear.weight, original, rtol=0, atol=0)
     expected = nn.functional.linear(x, original)
     awq = nn.functional.linear(x, pseudo_quantize(original * scales, config) / scales)
     rtn = nn.functional.linear(x, pseudo_quantize(original, config))
-    assert (awq - expected).square().mean() <= (rtn - expected).square().mean() + 1e-6
+    assert (awq.float() - expected.float()).square().mean() <= (
+        rtn.float() - expected.float()
+    ).square().mean() + 1e-6
 
 
 def test_clip_handles_small_samples_and_improves_grouped_error():

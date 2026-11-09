@@ -29,6 +29,8 @@
   Dependent one-episode FP smoke job: `59051490`.
   Serialize upstream's checkpoint-file updates with a lock so concurrent model
   loads cannot race on the shared checkpoint directory.
-  Local validation: 17 tests passed, Ruff and shell syntax/diff checks passed.
+  Match BF16 scaled-weight rounding during scale search; test both FP32 and BF16
+  search against the RTN candidate. Local validation: 18 tests passed, Ruff and
+  shell syntax/diff checks passed.
   GPU evaluation is pending setup validation.
   No OpenVLA-OFT success rate is claimed yet.
