@@ -2,6 +2,7 @@
 
 import hashlib
 import shutil
+import zlib
 from pathlib import Path, PurePosixPath
 
 
@@ -39,6 +40,12 @@ class AssetDepot:
             return
         if relative not in self.members:
             raise FileNotFoundError(f"Required asset absent from pinned archive: {relative}")
+        if path.is_file():
+            existing = path.read_bytes()
+            member = self.members[relative]
+            if len(existing) == member.file_size and zlib.crc32(existing) == member.CRC:
+                self.extracted[relative] = hashlib.sha256(existing).hexdigest()
+                return
         path.parent.mkdir(parents=True, exist_ok=True)
         temporary = path.with_name(path.name + ".materializing")
         with self.archive.open(self.members[relative]) as source, temporary.open("wb") as target:
@@ -59,9 +66,12 @@ class AssetDepot:
         import numpy as np
         from libero.libero.envs.env_wrapper import ControlEnv
         from robosuite.models.base import MujocoXML
+        from robosuite.utils.binding_utils import MjSim
 
         original_parse = ET.parse
         original_resolve = MujocoXML.resolve_asset_dependency
+        original_from_xml = MjSim.from_xml_string
+        original_from_xml_descriptor = MjSim.__dict__["from_xml_string"]
 
         def parse(source, *args, **kwargs):
             if isinstance(source, (str, Path)):
@@ -73,8 +83,17 @@ class AssetDepot:
             for node in model.asset.findall("./*[@file]"):
                 self.ensure(node.get("file"))
 
+        def from_xml(cls, xml, *args, **kwargs):
+            # Arenas can add/change texture paths after their initial XML load.
+            # Materialize the final simulator's complete file references as well.
+            for node in ET.fromstring(xml).iter():
+                if node.get("file"):
+                    self.ensure(node.get("file"))
+            return original_from_xml(xml, *args, **kwargs)
+
         ET.parse = parse
         MujocoXML.resolve_asset_dependency = resolve
+        MjSim.from_xml_string = classmethod(from_xml)
         try:
             for index, case in enumerate(cases):
                 random.seed(case["seed"])
@@ -90,3 +109,4 @@ class AssetDepot:
         finally:
             ET.parse = original_parse
             MujocoXML.resolve_asset_dependency = original_resolve
+            MjSim.from_xml_string = original_from_xml_descriptor
