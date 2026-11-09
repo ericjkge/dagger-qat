@@ -222,3 +222,81 @@
   nominal benchmark. Preparing a fixed, category/task-balanced 70-case Long
   pilot across all five existing artifacts, with parallel GPU shards. It measures
   transfer of nominal calibration; no Plus data will be used to fit these models.
+
+## 2026-11-09 — Sophie / Codex: LIBERO-Plus pilot prepared
+
+- Added a fixed 70-case Plus-Long manifest: one case per original task/category,
+  with all seven perturbation categories, author difficulty levels and all five
+  noise operators represented. The five nominal artifacts are reused unchanged.
+- Added isolated Plus setup, verified pinned assets, paired per-case seeding,
+  simulator-warning capture and 20 deterministic GPU shards (up to eight at once).
+  Private mutable checkpoint metadata permits concurrent model loading while
+  shared model tensors remain unchanged. Actual BDDL instructions avoid unintended
+  perturbation suffixes in language input; this is a documented paired pilot,
+  not an exact reproduction of the official leaderboard protocol.
+- Local validation: 40 tests passed; Ruff, formatting, shell syntax and diff
+  checks passed. GPU smoke and pilot scores are still pending. The nominal result
+  report is complete in PR #10; this Plus extension is a separate contribution.
+
+## 2026-11-09 — Sophie / Codex: Plus setup complete; deadline pilot queued
+
+- Completed pinned asset verification and CPU construction of all 70 fixed Plus
+  scenes. Selective extraction materialized 3,674 required files without changing
+  their bytes. Setup-only extraction hooks are absent during scored evaluation.
+- Added a predeclared 14-case subset before observing any Plus outcomes: two cases
+  per category, all ten original tasks, unchanged 520-action horizons and paired
+  seeds. This urgent subset is separate from the planned 70-case pilot. It cannot
+  establish small success-rate differences: one episode is 7.1 percentage points.
+- Submitted parallel evaluations of BF16, AWQ, offline GPTQ, learner-calibrated
+  GPTQ and the BF16-rollout calibration control. Prioritized the three quantized
+  methods requested for the presentation. The urgent subset permits full Ampere
+  GPU models and records hardware per arm; the larger pilot retains A100 hardware.
+- At the final pre-deadline check, scored jobs were still awaiting scheduler
+  allocation and no Plus success rates were available. Queue delay is not a model
+  failure. Do not substitute nominal scores, published scores or illustrative
+  targets for measured quantized Plus results. Private submission manifests retain
+  scheduler details and the exact source commit; comparisons run after completion.
+- Validation: the expanded suite passed 49 local tests; the latest hardware
+  reporting adjustment passed all 12 Plus tests. An earlier 46-test version also
+  passed on Cannon. Nominal results remain BF16/AWQ 93.4%, offline GPTQ 93.0%,
+  learner GPTQ 92.8%, and BF16-rollout-calibrated GPTQ 94.8% (500 episodes each).
+
+## 2026-11-09 — Sophie / Codex: validated the test-GPU route for Plus
+
+- Full-GPU allocations remained queued. Prepared an isolated, signature- and
+  hash-verified Mesa/OSMesa renderer to use A100 MIG test GPUs without changing
+  the existing Python packages or frozen quantization artifacts.
+- AWQ loaded on a 20 GB A100 MIG and completed all seven short category checks,
+  including glass blur, without Python errors or simulator warnings. These are
+  eight-action infrastructure checks, not scored full-horizon benchmark episodes.
+- Added a separately identified 14-case OSMesa pilot with the same frozen cases,
+  seeds and 520-action limits. All five arms require matching MIG hardware and
+  renderer settings; the comparator rejects pooling with EGL results. Two jobs
+  run concurrently, with AWQ and GPTQ before the reference arms.
+- All 50 local tests pass, including rejection of mixed rendering protocols and
+  hardware. Ruff, shell syntax and diff checks pass. Full-horizon scores remain
+  pending; submission identifiers and raw logs stay in ignored private data.
+- The test partition also caps submitted jobs at two, so a five-task array was
+  rejected before execution. Two worker jobs now schedule the five methods
+  sequentially within their allocations, preserving separate per-method records.
+- At 16:55 EST, the first scored worker had started AWQ; the offline-GPTQ worker
+  was still queued. No full-horizon Plus episode scores were available yet. The
+  running checkout is frozen at `f76cc2c9cfb1f5fac3336767573db19ef7d86928`;
+  subsequent documentation-only commits are not deployed into active evaluations.
+
+## 2026-11-09 — Sophie / Codex: first scored Plus pilot snapshot
+
+- Audited the 17:30 EST snapshot of the separate 14-case software-rendered pilot.
+  AWQ completed **12/14 (85.7%)** and offline GPTQ **10/14 (71.4%)**, both without
+  recorded Python errors or simulator warnings. These are small fixed-subset
+  scores, not full LIBERO-Plus benchmark scores.
+- Learner-calibrated GPTQ was still running, with five cases completed. On those
+  exact five paired cases it succeeded **4/5**, versus offline GPTQ **3/5**: one
+  learner-only success, no offline-only success. Nine learner cases remained;
+  this partial ordered prefix does not establish an overall improvement. Do not
+  compare learner 4/5 directly against the offline 10/14 total.
+- Checked manifest coverage/order, seeds, state/instruction hashes, full action
+  horizons, summaries, clean source, matching GPU/runtime, and artifact signatures
+  against the completed nominal runs. Raw records and the timestamped audit are
+  private. BF16 and the rollout-control arm are not yet complete; the strict
+  five-method aggregate remains pending. Cannon source stays frozen at `f76cc2c`.

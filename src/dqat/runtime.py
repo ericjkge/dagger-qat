@@ -7,7 +7,8 @@ from pathlib import Path
 
 def prepare_runtime():
     root = Path(__file__).resolve().parents[2]
-    for path in (root / "third_party/openvla-oft", root / "third_party/LIBERO"):
+    libero_root = Path(os.environ.get("DQAT_LIBERO_ROOT", root / "third_party/LIBERO"))
+    for path in (root / "third_party/openvla-oft", libero_root):
         if not path.is_dir():
             raise RuntimeError("Initialize submodules with git submodule update --init --recursive")
         sys.path.insert(0, str(path))
