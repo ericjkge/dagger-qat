@@ -176,3 +176,49 @@
   efficiency claim follows from these measurements. The next proposed experiment
   holds GPTQ and the calibration budget fixed while changing calibration data;
   calibration rollouts must remain separate from evaluation episodes.
+
+## 2026-11-09 — Sophie / Codex: first controlled GPTQ calibration loop
+
+- Implemented the pre-set two-round experiment in `docs/onpolicy-gptq-protocol.md`:
+  learner-controlled collection versus a full-precision-rollout control, each
+  retaining 16 original demo anchors and 16 rollout observations per calibration.
+  Round 2 aggregates eight observations from each round. The unchanged GPTQ
+  method is rebuilt from the original BF16 checkpoint before each update.
+- Collection uses two fresh seeded resets per task per round, checks physical
+  initial configurations against all evaluation states and prior collection
+  states, and samples at eight-action boundaries with independent reservoirs.
+  Valid unsuccessful trajectories are retained. Nonfinite values or simulator
+  warnings abort collection. Hashes bind the stored arrays, actor and round lineage.
+- Two final-round evaluations of 500 episodes each will compare with the
+  completed offline 93.0% GPTQ baseline and with each other. Hyperparameters and
+  the final round are fixed before these evaluations; pipeline-check episodes
+  do not choose updates. No teacher action labels enter this data-only update,
+  and no DAgger imitation-learning guarantee is claimed.
+- Added collection/bundle utilities, calibration-bundle support, Cannon stage
+  launchers and a matched final comparison. Original GPTQ numerics and rollout
+  evaluation remain unchanged. Local validation: 37 tests passed, including
+  exclusion of evaluation states, chunk-boundary collection, warning rejection,
+  replay balance/lineage, corruption detection and paired comparison. Ruff,
+  formatting, shell syntax and diff checks passed. Cannon validation is next.
+- Answered the inner-method question in `docs/research-notes.md`: prioritize AWQ
+  under the same outer loop, an RTN control, OmniQuant, then a carefully compared
+  action-loss update of quantizer parameters. SmoothQuant changes the activation
+  format; QLoRA is an adapter-training baseline. No extra quantizer runs launched.
+
+## 2026-11-09 — Sophie / Codex: completed controlled nominal calibration loop
+
+- Both pre-set round-2 evaluations completed: learner-calibrated GPTQ **464/500
+  (92.8%)**, BF16-rollout-calibrated GPTQ control **474/500 (94.8%)**, versus offline
+  GPTQ **465/500 (93.0%)**. Learner minus offline is −0.2 pp (descriptive paired
+  bootstrap 95% interval [−2.4, +2.0]); learner minus control is −2.0 pp
+  ([−4.0, −0.2]). This first experiment does not demonstrate an on-policy gain.
+- All four collection/calibration stages completed and all 37 tests passed on
+  the actual runtime. Audited all 1,000 new evaluation records and reproduced the
+  strict comparator. The same single failed simulator-instability episode occurs
+  in all five methods; excluding that shared pair leaves the conclusion unchanged.
+- Published aggregate results and caveats under `results/2026-11-09-onpolicy-gptq/`.
+  Raw records, calibration selections and cluster identifiers remain private.
+- User requested LIBERO-Plus to test robustness beyond the nearly saturated
+  nominal benchmark. Preparing a fixed, category/task-balanced 70-case Long
+  pilot across all five existing artifacts, with parallel GPU shards. It measures
+  transfer of nominal calibration; no Plus data will be used to fit these models.

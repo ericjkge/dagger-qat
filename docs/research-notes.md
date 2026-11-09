@@ -95,3 +95,26 @@ establish this claim.
 For Monday's discussion, the open decisions are the collection/validation/test
 split, the first inner-loop candidate, the resource budget, and the OOD protocol.
 Slides and the DAgger/QAT implementation remain separate TODOs.
+
+## 2026-11-09 update: inner methods and the first loop
+
+Offline BF16/AWQ/GPTQ evaluations are complete at 93.4% / 93.4% / 93.0%. The
+[first data-aggregation protocol](onpolicy-gptq-protocol.md) now fixes two rounds,
+16 original-demo anchors plus 16 rollout frames per calibration, and a matched
+expert-rollout control. It keeps GPTQ unchanged and rebuilds from BF16 each round.
+There is no action-supervised update yet.
+
+Recommended next inner methods, conditional on this controlled experiment:
+
+| Method | Purpose |
+| --- | --- |
+| AWQ with the same outer loop | Reuse the implemented quantizer to check whether changing calibration data helps a second method. [AWQ](https://arxiv.org/abs/2306.00978) |
+| RTN | Add a calibration-free control. With fixed weights/grids, an outer data refresh should leave it unchanged. |
+| OmniQuant | A trainable reconstruction baseline with learnable weight clipping and equivalent transformations. [OmniQuant](https://arxiv.org/abs/2308.13137) |
+| Quantizer-parameter QAT | Proposed custom-method candidate: initialize from GPTQ and optimize scales/clipping with teacher action-chunk loss on the aggregated observations. Compare against standard reconstruction and distillation before making a novelty claim. |
+
+SmoothQuant is a later activation-quantization experiment; standard W8A8 changes
+the format relative to the current W4/BF16 scope. QLoRA trains adapters through a
+frozen quantized base and belongs in an adaptation comparison, distinct from
+learning quantizer parameters. [SmoothQuant](https://arxiv.org/abs/2211.10438),
+[QLoRA](https://arxiv.org/abs/2305.14314).

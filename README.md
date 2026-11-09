@@ -2,8 +2,9 @@
 
 DAgger-style quantization-aware training for VLAs: train the quantized policy on states it visits itself, labeled by the full-precision policy, to reduce error accumulation.
 
-**Current step:** matched BF16, AWQ and GPTQ baselines completed. A controlled
-on-policy GPTQ calibration refresh is the next proposed experiment.
+**Current step:** matched BF16, AWQ and GPTQ baselines completed. The first
+controlled [on-policy GPTQ loop](docs/onpolicy-gptq-protocol.md) is being validated:
+two fixed rounds, a 32-observation budget and an expert-rollout control.
 
 The [2026-11-09 three-method LIBERO-Long comparison](results/2026-11-09-openvla-oft-gptq/README.md)
 gives **93.4% (467/500) for unquantized BF16 and AWQ W4/g128**, and
@@ -19,6 +20,8 @@ per-task counts, protocol, the shared simulator-warning sensitivity and provenan
 - `src/dqat/gptq.py` — GPTQ with Hessian error compensation (simulated quantization)
 - `src/dqat/eval_libero.py` — LIBERO-Long eval
 - `src/dqat/calibration.py` — task-balanced training-demo calibration
+- `src/dqat/collect_libero.py` / `loop_data.py` — disjoint rollout collection and replay mixtures
+- `src/dqat/compare_calibration.py` — final-round comparison with offline GPTQ and expert control
 - `src/dqat/summarize.py` — validate and compare paired runs
 - `scripts/` — Linux setup and Cannon Slurm launchers
 - `third_party/` — openvla-oft, LIBERO (submodules)
