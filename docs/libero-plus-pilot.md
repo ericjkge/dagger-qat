@@ -24,7 +24,11 @@ changed here. Quantized execution remains simulated W4/g128 in BF16.
 The upstream Plus implementation is pinned to
 `4976dc30028e805ff8094b55501d532c48fec182`; the official asset dataset to
 `dd2bd61b7d9a6fef1abc52d606e983b41886a149`. The downloaded 6.4 GB ZIP is SHA256
-verified. Plus dependencies and configuration are isolated from nominal LIBERO.
+verified. Its 457,675 entries have a nested `assets/` prefix. Setup extracts shared
+assets and uses a CPU environment-construction pass to materialize the exact
+scene/object files needed by the fixed pilot, recording their hashes. File bytes
+are unchanged; the extraction hooks are used only during setup. Plus dependencies
+and configuration are isolated from nominal LIBERO.
 
 ## Evaluation details
 
@@ -49,11 +53,13 @@ union of flagged cases from every paired arm for a sensitivity comparison.
 ## Parallelism and reporting
 
 Each arm has four deterministic case shards (18, 18, 17, 17 cases): 20 GPU jobs,
-with a requested concurrency cap of eight A100 80 GB GPUs. Each shard gets a
+with a requested concurrency cap of 20 A100 80 GB GPUs after the user requested a
+30-minute turnaround. Each shard gets a
 private copy of mutable checkpoint config/Python files and its own module cache;
 large model tensors remain shared read-only files. This removes model-loading
 serialization without changing model weights. A seven-category smoke includes
-slow glass blur before the array starts. Pipeline smoke outcomes do not select
+slow glass blur and uses eight action steps after settling before the array starts.
+Scored cases retain the full 520-step horizon. Pipeline smoke outcomes do not select
 cases, artifacts or hyperparameters.
 
 Target less than an hour of GPU runtime after setup, subject to measured smoke

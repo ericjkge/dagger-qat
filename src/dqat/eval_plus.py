@@ -129,6 +129,7 @@ def main():
         arm=args.arm,
         protocol=PROTOCOL,
         smoke=args.smoke,
+        actual_action_horizon=8 if args.smoke else 520,
         shard=args.shard,
         num_shards=args.num_shards,
         expected_cases=[c["task_id"] for c in cases],
@@ -187,7 +188,12 @@ def main():
                     env.seed(case["seed"])
                     audited = AuditedEnv(env)
                     result = run_episode(
-                        audited, policy, instruction, initial_state, policy.upstream.process_action
+                        audited,
+                        policy,
+                        instruction,
+                        initial_state,
+                        policy.upstream.process_action,
+                        max_steps=8 if args.smoke else 520,
                     )
                     record.update(result, status="completed")
                 except Exception as exc:

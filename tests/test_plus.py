@@ -36,6 +36,41 @@ def test_rejects_duplicate_cases_or_changed_seeds():
         validate_manifest(m)
 
 
+def test_asset_depot_preserves_bytes_and_materializes_only_needed_files(tmp_path):
+    import hashlib
+    import zipfile
+
+    from dqat.plus_assets import AssetDepot
+
+    archive = tmp_path / "assets.zip"
+    with zipfile.ZipFile(archive, "w") as z:
+        z.writestr("published/nested/assets/textures/a.png", b"texture bytes")
+        z.writestr("published/nested/assets/new_objects/a/mesh.obj", b"mesh bytes")
+    with zipfile.ZipFile(archive) as z:
+        depot = AssetDepot(z, tmp_path / "assets")
+        depot.common_assets()
+        assert (tmp_path / "assets/textures/a.png").read_bytes() == b"texture bytes"
+        mesh = tmp_path / "assets/new_objects/a/mesh.obj"
+        assert not mesh.exists()
+        depot.ensure(mesh)
+        assert mesh.read_bytes() == b"mesh bytes"
+        assert depot.extracted["new_objects/a/mesh.obj"] == hashlib.sha256(b"mesh bytes").hexdigest()
+        with pytest.raises(FileNotFoundError):
+            depot.ensure(tmp_path / "assets/missing.xml")
+
+
+def test_asset_depot_rejects_archive_path_traversal(tmp_path):
+    import zipfile
+
+    from dqat.plus_assets import AssetDepot
+
+    archive = tmp_path / "bad.zip"
+    with zipfile.ZipFile(archive, "w") as z:
+        z.writestr("published/assets/../../escape", b"bad")
+    with zipfile.ZipFile(archive) as z, pytest.raises(ValueError, match="Unsafe"):
+        AssetDepot(z, tmp_path / "assets")
+
+
 def test_checkpoint_views_isolate_mutable_loader_files(tmp_path):
     source = tmp_path / "original"
     source.mkdir()
