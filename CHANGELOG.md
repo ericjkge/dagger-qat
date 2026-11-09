@@ -283,3 +283,20 @@
   was still queued. No full-horizon Plus episode scores were available yet. The
   running checkout is frozen at `f76cc2c9cfb1f5fac3336767573db19ef7d86928`;
   subsequent documentation-only commits are not deployed into active evaluations.
+
+## 2026-11-09 — Sophie / Codex: first scored Plus pilot snapshot
+
+- Audited the 17:30 EST snapshot of the separate 14-case software-rendered pilot.
+  AWQ completed **12/14 (85.7%)** and offline GPTQ **10/14 (71.4%)**, both without
+  recorded Python errors or simulator warnings. These are small fixed-subset
+  scores, not full LIBERO-Plus benchmark scores.
+- Learner-calibrated GPTQ was still running, with five cases completed. On those
+  exact five paired cases it succeeded **4/5**, versus offline GPTQ **3/5**: one
+  learner-only success, no offline-only success. Nine learner cases remained;
+  this partial ordered prefix does not establish an overall improvement. Do not
+  compare learner 4/5 directly against the offline 10/14 total.
+- Checked manifest coverage/order, seeds, state/instruction hashes, full action
+  horizons, summaries, clean source, matching GPU/runtime, and artifact signatures
+  against the completed nominal runs. Raw records and the timestamped audit are
+  private. BF16 and the rollout-control arm are not yet complete; the strict
+  five-method aggregate remains pending. Cannon source stays frozen at `f76cc2c`.
