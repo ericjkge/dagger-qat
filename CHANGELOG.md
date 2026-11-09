@@ -222,3 +222,18 @@
   nominal benchmark. Preparing a fixed, category/task-balanced 70-case Long
   pilot across all five existing artifacts, with parallel GPU shards. It measures
   transfer of nominal calibration; no Plus data will be used to fit these models.
+
+## 2026-11-09 — Sophie / Codex: LIBERO-Plus pilot prepared
+
+- Added a fixed 70-case Plus-Long manifest: one case per original task/category,
+  with all seven perturbation categories, author difficulty levels and all five
+  noise operators represented. The five nominal artifacts are reused unchanged.
+- Added isolated Plus setup, verified pinned assets, paired per-case seeding,
+  simulator-warning capture and 20 deterministic GPU shards (up to eight at once).
+  Private mutable checkpoint metadata permits concurrent model loading while
+  shared model tensors remain unchanged. Actual BDDL instructions avoid unintended
+  perturbation suffixes in language input; this is a documented paired pilot,
+  not an exact reproduction of the official leaderboard protocol.
+- Local validation: 40 tests passed; Ruff, formatting, shell syntax and diff
+  checks passed. GPU smoke and pilot scores are still pending. The nominal result
+  report is complete in PR #10; this Plus extension is a separate contribution.
