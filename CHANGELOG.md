@@ -204,3 +204,21 @@
   under the same outer loop, an RTN control, OmniQuant, then a carefully compared
   action-loss update of quantizer parameters. SmoothQuant changes the activation
   format; QLoRA is an adapter-training baseline. No extra quantizer runs launched.
+
+## 2026-11-09 — Sophie / Codex: completed controlled nominal calibration loop
+
+- Both pre-set round-2 evaluations completed: learner-calibrated GPTQ **464/500
+  (92.8%)**, BF16-rollout-calibrated GPTQ control **474/500 (94.8%)**, versus offline
+  GPTQ **465/500 (93.0%)**. Learner minus offline is −0.2 pp (descriptive paired
+  bootstrap 95% interval [−2.4, +2.0]); learner minus control is −2.0 pp
+  ([−4.0, −0.2]). This first experiment does not demonstrate an on-policy gain.
+- All four collection/calibration stages completed and all 37 tests passed on
+  the actual runtime. Audited all 1,000 new evaluation records and reproduced the
+  strict comparator. The same single failed simulator-instability episode occurs
+  in all five methods; excluding that shared pair leaves the conclusion unchanged.
+- Published aggregate results and caveats under `results/2026-11-09-onpolicy-gptq/`.
+  Raw records, calibration selections and cluster identifiers remain private.
+- User requested LIBERO-Plus to test robustness beyond the nearly saturated
+  nominal benchmark. Preparing a fixed, category/task-balanced 70-case Long
+  pilot across all five existing artifacts, with parallel GPU shards. It measures
+  transfer of nominal calibration; no Plus data will be used to fit these models.

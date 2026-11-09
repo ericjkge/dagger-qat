@@ -1,0 +1,199 @@
+{
+  "methods": {
+    "offline_gptq": {
+      "successes": 465,
+      "episodes": 500,
+      "success_rate": 0.93
+    },
+    "student": {
+      "successes": 464,
+      "episodes": 500,
+      "success_rate": 0.928
+    },
+    "expert_control": {
+      "successes": 474,
+      "episodes": 500,
+      "success_rate": 0.948
+    }
+  },
+  "comparisons": {
+    "student_minus_offline_gptq": {
+      "paired_episodes": 500,
+      "difference_percentage_points": -0.2,
+      "descriptive_paired_bootstrap_95_interval_pp": [
+        -2.4,
+        2.0
+      ],
+      "candidate_only_successes": 16,
+      "reference_only_successes": 17,
+      "shared_successes": 448,
+      "shared_failures": 19
+    },
+    "expert_control_minus_offline_gptq": {
+      "paired_episodes": 500,
+      "difference_percentage_points": 1.7999999999999998,
+      "descriptive_paired_bootstrap_95_interval_pp": [
+        -0.2,
+        4.0
+      ],
+      "candidate_only_successes": 19,
+      "reference_only_successes": 10,
+      "shared_successes": 455,
+      "shared_failures": 16
+    },
+    "student_minus_expert_control": {
+      "paired_episodes": 500,
+      "difference_percentage_points": -2.0,
+      "descriptive_paired_bootstrap_95_interval_pp": [
+        -4.0,
+        -0.2
+      ],
+      "candidate_only_successes": 7,
+      "reference_only_successes": 17,
+      "shared_successes": 457,
+      "shared_failures": 19
+    }
+  },
+  "per_task": {
+    "0": {
+      "offline_gptq": 47,
+      "student": 45,
+      "expert_control": 45
+    },
+    "1": {
+      "offline_gptq": 49,
+      "student": 50,
+      "expert_control": 50
+    },
+    "2": {
+      "offline_gptq": 50,
+      "student": 49,
+      "expert_control": 49
+    },
+    "3": {
+      "offline_gptq": 46,
+      "student": 50,
+      "expert_control": 50
+    },
+    "4": {
+      "offline_gptq": 46,
+      "student": 45,
+      "expert_control": 47
+    },
+    "5": {
+      "offline_gptq": 46,
+      "student": 46,
+      "expert_control": 46
+    },
+    "6": {
+      "offline_gptq": 43,
+      "student": 46,
+      "expert_control": 48
+    },
+    "7": {
+      "offline_gptq": 49,
+      "student": 48,
+      "expert_control": 50
+    },
+    "8": {
+      "offline_gptq": 42,
+      "student": 39,
+      "expert_control": 42
+    },
+    "9": {
+      "offline_gptq": 47,
+      "student": 46,
+      "expert_control": 47
+    }
+  },
+  "protocol": {
+    "name": "gptq-data-aggregation-v1",
+    "rounds": 2,
+    "calibration_observations": 32,
+    "demo_anchors": 16,
+    "rollout_observations": 16,
+    "episodes_per_task_per_round": 2,
+    "reservoir_per_task_per_round": 8,
+    "collection_state_source": "fresh seeded resets, excluding evaluation qpos",
+    "collection_seed_base": 100000,
+    "selection_seed": 7,
+    "teacher_action_labels_for_update": 0,
+    "update": "rebuild unchanged GPTQ from original BF16 checkpoint each round",
+    "primary_evaluation": "round 2, all 500 original paired episodes"
+  },
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 7,
+    "unit": "matched episode"
+  },
+  "limitations": [
+    "One calibration experiment and base seed; descriptive intervals only.",
+    "Audit simulator warnings separately: they may not raise Python exceptions.",
+    "Nominal simulated W4 accuracy; no OOD or packed INT4 efficiency claim."
+  ],
+  "reference_methods": {
+    "bf16": {
+      "successes": 467,
+      "episodes": 500,
+      "success_rate": 0.934
+    },
+    "awq": {
+      "successes": 467,
+      "episodes": 500,
+      "success_rate": 0.934
+    }
+  },
+  "simulator_warning_sensitivity": {
+    "excluded_shared_pairs": 1,
+    "all_five_methods_failed_excluded_pair": true,
+    "episodes_remaining": 499,
+    "methods": {
+      "student": {
+        "successes": 464,
+        "episodes": 499,
+        "success_rate": 0.9298597194388778
+      },
+      "expert_control": {
+        "successes": 474,
+        "episodes": 499,
+        "success_rate": 0.9498997995991983
+      },
+      "offline_gptq": {
+        "successes": 465,
+        "episodes": 499,
+        "success_rate": 0.9318637274549099
+      }
+    },
+    "comparisons": {
+      "student_minus_offline_gptq": {
+        "paired_episodes": 499,
+        "difference_percentage_points": -0.2004008016032064,
+        "descriptive_paired_bootstrap_95_interval_pp": [
+          -2.404809619238477,
+          2.004008016032064
+        ],
+        "candidate_only_successes": 16,
+        "reference_only_successes": 17,
+        "shared_successes": 448,
+        "shared_failures": 18
+      },
+      "student_minus_expert_control": {
+        "paired_episodes": 499,
+        "difference_percentage_points": -2.004008016032064,
+        "descriptive_paired_bootstrap_95_interval_pp": [
+          -4.008016032064128,
+          -0.2004008016032064
+        ],
+        "candidate_only_successes": 7,
+        "reference_only_successes": 17,
+        "shared_successes": 457,
+        "shared_failures": 18
+      }
+    }
+  },
+  "source_commit": "e09670c071d4a3638e6b9e5eb92aa59860f0c313",
+  "calibration_artifact_sha256": {
+    "student": "25f1195afcc598e5bb8bf85d019c02fd66d7e314a730956f5feee11d76c1d34f",
+    "expert_control": "07fc2054b51c25c31587cd8cad73970bcc3f780a9bbfd2c5488a1b6bee8bccb4"
+  }
+}
