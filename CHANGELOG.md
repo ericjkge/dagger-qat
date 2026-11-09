@@ -279,3 +279,7 @@
 - The test partition also caps submitted jobs at two, so a five-task array was
   rejected before execution. Two worker jobs now schedule the five methods
   sequentially within their allocations, preserving separate per-method records.
+- At 16:55 EST, the first scored worker had started AWQ; the offline-GPTQ worker
+  was still queued. No full-horizon Plus episode scores were available yet. The
+  running checkout is frozen at `f76cc2c9cfb1f5fac3336767573db19ef7d86928`;
+  subsequent documentation-only commits are not deployed into active evaluations.
