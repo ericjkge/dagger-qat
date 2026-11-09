@@ -144,6 +144,7 @@ RAPID_PROTOCOL = dict(
     PROTOCOL,
     name="libero-plus-long-rapid14-v1",
     cases=14,
+    hardware="Available full Ampere GPUs: A100, A40 or RTX A6000; record each arm's hardware",
     selection="For category index c, take base tasks (2*c)%10 and (2*c+1)%10 from the frozen 70-case manifest",
 )
 

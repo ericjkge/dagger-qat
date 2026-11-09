@@ -37,6 +37,8 @@ def compare_pilot(root, manifest_path, rapid=False):
         "gpu",
         "torch_version",
     )
+    if rapid:
+        fields = tuple(field for field in fields if field != "gpu")
     for arm in ARMS:
         records[arm], metas[arm] = {}, []
         directories = {p.name for p in (root / arm).glob("shard-*") if p.is_dir()}
@@ -177,6 +179,7 @@ def compare_pilot(root, manifest_path, rapid=False):
         protocol=protocol,
         manifest_sha256=common["manifest_sha256"],
         source_commit=common["git_commit"],
+        gpu_by_arm={arm: sorted({meta["gpu"] for meta in metas[arm]}) for arm in ARMS},
         methods=scores(keys),
         comparisons=pairs(keys),
         per_category={cat: scores([k for k in keys if expected[k]["category"] == cat]) for cat in CATEGORIES},
@@ -200,6 +203,9 @@ def compare_pilot(root, manifest_path, rapid=False):
             interpretation="descriptive for fixed pilot; no across-seed/task-population inference",
         ),
         limitations=[
+            "Urgent subset allows different full Ampere GPU models across arms; see gpu_by_arm."
+            if rapid
+            else "Matched GPU model across all full-pilot shards.",
             "One variant per task/category and one seed per case.",
             "Balanced pilot is not a probability sample of the full benchmark.",
             "Nominal calibration transferred unchanged; no Plus-trained update.",
