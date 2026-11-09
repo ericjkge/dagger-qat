@@ -41,6 +41,17 @@ def test_paired_discordance(tmp_path):
     assert result["fp_only_successes"] == 0
 
 
+def test_gptq_comparison_labels_and_discordance(tmp_path):
+    make_run(tmp_path / "fp", "fp", [True, False])
+    make_run(tmp_path / "gptq", "gptq", [False, True])
+    result = compare(tmp_path / "fp", tmp_path / "gptq")
+    assert result["gptq_success_rate"] == 0.5
+    assert result["gptq_minus_fp_percentage_points"] == 0
+    assert result["gptq_only_successes"] == result["fp_only_successes"] == 1
+    assert result["per_task"]["0"]["gptq_successes"] == 1
+    assert "awq_success_rate" not in result
+
+
 def test_refuses_partial_and_duplicate_runs(tmp_path):
     run = tmp_path / "run"
     make_run(run, "fp", [True])

@@ -21,10 +21,18 @@ def command_output(*args):
     return subprocess.check_output(args, text=True).strip()
 
 
+def file_sha256(path):
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkpoint", type=Path, required=True)
-    parser.add_argument("--method", choices=("fp", "awq"), required=True)
+    parser.add_argument("--method", choices=("fp", "awq", "gptq"), required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--tasks", type=int, nargs="+", default=list(range(10)))
     parser.add_argument("--episodes", type=int, default=50, help="Trials per task, initial states 0..N-1")
@@ -32,6 +40,7 @@ def main():
     parser.add_argument("--dataset-dir", type=Path)
     parser.add_argument("--calibration-samples", type=int, default=32)
     parser.add_argument("--awq-cache", type=Path)
+    parser.add_argument("--gptq-cache", type=Path)
     parser.add_argument("--videos", action="store_true")
     args = parser.parse_args()
     if not 1 <= args.episodes <= 50:
@@ -42,9 +51,10 @@ def main():
         or any(t not in range(10) for t in args.tasks)
     ):
         parser.error("--tasks must be distinct task IDs between 0 and 9")
-    if args.method == "awq" and (args.awq_cache is None or args.dataset_dir is None):
-        parser.error("AWQ requires --awq-cache and --dataset-dir")
-    if args.method == "awq" and args.calibration_samples < 10:
+    cache = args.awq_cache if args.method == "awq" else args.gptq_cache
+    if args.method != "fp" and (cache is None or args.dataset_dir is None):
+        parser.error(f"{args.method.upper()} requires --{args.method}-cache and --dataset-dir")
+    if args.method != "fp" and args.calibration_samples < 10:
         parser.error("Use at least 10 calibration samples to cover every task")
     if not args.checkpoint.is_dir():
         parser.error("--checkpoint must be the local pinned checkpoint directory")
@@ -59,7 +69,9 @@ def main():
             key: str(value) if isinstance(value, Path) else value for key, value in vars(args).items()
         },
         "method": args.method,
-        "precision": "unquantized BF16" if args.method == "fp" else "AWQ W4A16 simulated in BF16",
+        "precision": (
+            "unquantized BF16" if args.method == "fp" else f"{args.method.upper()} W4A16 simulated in BF16"
+        ),
         "suite": "libero_10",
         "seed": args.seed,
         "settle_steps": 10,
@@ -87,11 +99,17 @@ def main():
         from libero.libero import benchmark
 
         metadata.update(torch_version=torch.__version__, gpu=torch.cuda.get_device_name(), status="running")
-        if args.method == "awq":
-            from dqat.awq import AWQConfig, apply_artifacts, calibrate
+        if args.method != "fp":
             from dqat.calibration import load_demonstrations
 
-            config = AWQConfig()
+            if args.method == "awq":
+                from dqat.awq import AWQConfig, apply_artifacts, calibrate
+
+                config = AWQConfig()
+            else:
+                from dqat.gptq import REFERENCE_REVISION, GPTQConfig, apply_artifacts, calibrate
+
+                config = GPTQConfig()
             samples, manifest = load_demonstrations(args.dataset_dir, args.calibration_samples, args.seed)
             signature = {
                 "format_version": 1,
@@ -100,26 +118,36 @@ def main():
                 "dataset_source": json.loads((args.dataset_dir.parent / "source.json").read_text()),
                 "config": asdict(config),
                 "calibration_manifest": manifest,
-                "normalization_sha256": hashlib.sha256(
-                    (args.checkpoint / "dataset_statistics.json").read_bytes()
-                ).hexdigest(),
+                "normalization_sha256": file_sha256(args.checkpoint / "dataset_statistics.json"),
             }
-            if args.awq_cache.exists():
-                artifact = torch.load(args.awq_cache, map_location="cpu", weights_only=True)
+            if args.method == "gptq":
+                signature.update(
+                    method="gptq",
+                    reference_revision=REFERENCE_REVISION,
+                    column_order="natural",
+                    symmetric=False,
+                    true_sequential=True,
+                    calibration_path="quantized earlier projections and decoder blocks",
+                    artifact_format="packed uint4 codes; float32 group scales; uint8 zero points",
+                )
+            if cache.exists():
+                artifact = torch.load(cache, map_location="cpu", weights_only=True)
                 if artifact["signature"] != signature:
                     raise ValueError(
-                        "AWQ cache does not match this checkpoint, calibration set or quantization config"
+                        f"{args.method.upper()} cache does not match checkpoint, calibration or config"
                     )
                 apply_artifacts(policy.model, artifact["layers"], config)
+                del artifact
             else:
                 layers = calibrate(policy, samples, config)
-                args.awq_cache.parent.mkdir(parents=True, exist_ok=True)
-                temporary = args.awq_cache.with_suffix(".tmp")
+                cache.parent.mkdir(parents=True, exist_ok=True)
+                temporary = cache.with_suffix(".tmp")
                 torch.save({"signature": signature, "layers": layers}, temporary)
-                temporary.replace(args.awq_cache)
-            metadata["awq"] = signature
-            metadata["awq"]["quantized_scope"] = "Seven linear projections per Llama decoder block only"
-            metadata["awq"]["cache_sha256"] = hashlib.sha256(args.awq_cache.read_bytes()).hexdigest()
+                temporary.replace(cache)
+                del layers
+            metadata[args.method] = signature
+            metadata[args.method]["quantized_scope"] = "Seven linear projections per Llama decoder block only"
+            metadata[args.method]["cache_sha256"] = file_sha256(cache)
             del samples
         # Quantizer search must not alter the evaluation RNG stream.
         policy.upstream.set_seed_everywhere(args.seed)

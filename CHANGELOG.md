@@ -92,3 +92,31 @@
 - Contribution is in PR #8 (`codex/libero-long-baselines`); the immediate paired
   baseline task is complete. Monday slides and DAgger/QAT implementation remain
   separate TODOs.
+
+## 2026-11-09 — Sophie / Codex: matched GPTQ baseline preparation
+
+- Added a GPTQ arm with the same OpenVLA-OFT checkpoint, 32 task-balanced training
+  observations, seven decoder projections per layer, W4/g128 asymmetric format,
+  and 500-episode paired LIBERO-Long protocol as the completed FP/AWQ experiment.
+- Adapted original GPTQ revision `2d65066eeb06a5c9ff5184d8cebdf33662c67faf` with
+  natural column order, 128-column blocks, 1% Hessian damping and true-sequential
+  calibration. Subsequent decoder groups/blocks use quantized activations; no
+  environment rollout data is used for calibration yet.
+- Added packed-code calibration artifacts that reconstruct BF16 weights, explicit
+  cache provenance, the GPTQ launcher option and paired comparison support.
+  This remains a simulated-quantization accuracy experiment.
+- Numerical port matched the original implementation exactly on synthetic FP32
+  and BF16 checks. Local suite: 28 tests passed. Fixtures preserve original GPTQ
+  outputs; integration tests cover multimodal capture, sequential propagation,
+  protected modules and artifact replay. Allow small FP32 tolerance across BLAS
+  implementations while requiring exact BF16 fixture agreement.
+- Cannon authentication renewed. GPU calibration/smoke validation and the full
+  benchmark are the next steps; no GPTQ success rate is available yet. Publish
+  only aggregate results and public protocol details; keep raw records and
+  internal cluster metadata in the local run archive.
+- Follow-up log audit identified one shared MuJoCo acceleration-instability case
+  in each previous baseline, counted as a failure without a Python exception.
+  Clarified this in the baseline report: raw scores remain 467/500 for both;
+  excluding the flagged pair gives 467/499 (93.6%) for both. Keep warning-based
+  sensitivity analysis separate from the original raw scores. Added the generated
+  MuJoCo log to `.gitignore` without deleting it.

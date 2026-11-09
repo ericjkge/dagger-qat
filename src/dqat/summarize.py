@@ -1,4 +1,4 @@
-"""Compare complete, paired FP and AWQ evaluations; reject partial or mismatched runs."""
+"""Compare complete, paired FP and AWQ/GPTQ runs; reject partial or mismatched runs."""
 
 import argparse
 import json
@@ -24,11 +24,12 @@ def read_run(directory):
     return metadata, indexed
 
 
-def compare(fp_dir, awq_dir):
+def compare(fp_dir, quantized_dir):
     fp_meta, fp = read_run(fp_dir)
-    awq_meta, awq = read_run(awq_dir)
-    if fp_meta["method"] != "fp" or awq_meta["method"] != "awq":
-        raise ValueError("Expected an FP run followed by an AWQ run")
+    quant_meta, quantized = read_run(quantized_dir)
+    method = quant_meta["method"]
+    if fp_meta["method"] != "fp" or method not in ("awq", "gptq"):
+        raise ValueError("Expected an FP run followed by an AWQ or GPTQ run")
     for key in (
         "checkpoint_source",
         "suite",
@@ -43,28 +44,28 @@ def compare(fp_dir, awq_dir):
         "use_proprio",
         "submodules",
     ):
-        if fp_meta[key] != awq_meta[key]:
+        if fp_meta[key] != quant_meta[key]:
             raise ValueError(f"Incompatible paired runs: {key}")
-    if fp.keys() != awq.keys():
+    if fp.keys() != quantized.keys():
         raise ValueError("Evaluation episode identities differ")
     keys = sorted(fp)
-    differences = np.array([int(awq[key]) - int(fp[key]) for key in keys])
+    differences = np.array([int(quantized[key]) - int(fp[key]) for key in keys])
     # Bootstrap complete pairs; this is descriptive for this task/seed sample.
     rng = np.random.default_rng(7)
     boot = rng.choice(differences, size=(10000, len(keys)), replace=True).mean(axis=1)
     return {
         "paired_episodes": len(keys),
         "fp_success_rate": sum(fp.values()) / len(keys),
-        "awq_success_rate": sum(awq.values()) / len(keys),
-        "awq_minus_fp_percentage_points": float(differences.mean() * 100),
+        f"{method}_success_rate": sum(quantized.values()) / len(keys),
+        f"{method}_minus_fp_percentage_points": float(differences.mean() * 100),
         "paired_bootstrap_95_percent_interval_pp": (np.quantile(boot, [0.025, 0.975]) * 100).tolist(),
-        "awq_only_successes": int((differences == 1).sum()),
+        f"{method}_only_successes": int((differences == 1).sum()),
         "fp_only_successes": int((differences == -1).sum()),
         "per_task": {
             str(task): {
                 "episodes": sum(key[0] == task for key in keys),
                 "fp_successes": sum(fp[key] for key in keys if key[0] == task),
-                "awq_successes": sum(awq[key] for key in keys if key[0] == task),
+                f"{method}_successes": sum(quantized[key] for key in keys if key[0] == task),
             }
             for task in sorted({key[0] for key in keys})
         },
@@ -74,6 +75,12 @@ def compare(fp_dir, awq_dir):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fp", type=Path, required=True)
-    parser.add_argument("--awq", type=Path, required=True)
+    quantizer = parser.add_mutually_exclusive_group(required=True)
+    quantizer.add_argument("--awq", type=Path)
+    quantizer.add_argument("--gptq", type=Path)
     args = parser.parse_args()
-    print(json.dumps(compare(args.fp, args.awq), indent=2))
+    candidate = args.awq if args.awq is not None else args.gptq
+    candidate_method = json.loads((candidate / "run.json").read_text())["method"]
+    if candidate_method != ("awq" if args.awq is not None else "gptq"):
+        parser.error("Candidate run method does not match the selected command-line option")
+    print(json.dumps(compare(args.fp, candidate), indent=2))
