@@ -68,8 +68,10 @@ Weights are quantized/dequantized and stored in BF16, so these are task-accuracy
 results, not packed INT4 memory or kernel-speed measurements. The bootstrap
 interval describes this episode sample, without accounting for variation across
 training/calibration seeds or tasks. No OOD conclusion follows from nominal
-LIBERO success. GPTQ, a DAgger-style update and perturbed evaluations remain next
-experiments; the [research notes](../../docs/research-notes.md) describe controls.
+LIBERO success. The subsequent [completed GPTQ comparison](../2026-11-09-openvla-oft-gptq/README.md)
+adds a 93.0% GPTQ result under the same protocol. A DAgger-style update and
+perturbed evaluations remain next experiments; the
+[research notes](../../docs/research-notes.md) describe controls.
 
 ## Reproducibility
 

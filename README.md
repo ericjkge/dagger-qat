@@ -2,14 +2,16 @@
 
 DAgger-style quantization-aware training for VLAs: train the quantized policy on states it visits itself, labeled by the full-precision policy, to reduce error accumulation.
 
-**Current step:** initial FP/AWQ baselines completed; GPTQ calibration and its smoke
-rollout passed, and the matched 500-episode evaluation is running on Cannon.
+**Current step:** matched BF16, AWQ and GPTQ baselines completed. A controlled
+on-policy GPTQ calibration refresh is the next proposed experiment.
 
-The [2026-11-09 paired LIBERO-Long run](results/2026-11-09-openvla-oft-libero-long/README.md)
-finished at **93.4% (467/500) for both unquantized BF16 and AWQ W4/g128**.
-Each method has 15 successes that the other misses. This is a single base-seed
-nominal evaluation with simulated quantization; see the report for protocol,
-per-task results, uncertainty and reproducibility details.
+The [2026-11-09 three-method LIBERO-Long comparison](results/2026-11-09-openvla-oft-gptq/README.md)
+gives **93.4% (467/500) for unquantized BF16 and AWQ W4/g128**, and
+**93.0% (465/500) for GPTQ W4/g128**. GPTQ is 0.4 percentage points below either
+baseline, with a descriptive paired-bootstrap 95% interval of [−2.6, +1.8] pp.
+This does not establish a performance difference or equivalence. It is a nominal
+evaluation with one base seed and simulated quantization; the report includes
+per-task counts, protocol, the shared simulator-warning sensitivity and provenance.
 
 ## Layout
 - `src/dqat/policy.py` — load OFT checkpoint, predict actions
@@ -26,7 +28,7 @@ per-task results, uncertainty and reproducibility details.
 
 Use `moojink/openvla-7b-oft-finetuned-libero-10` on `libero_10` (LIBERO-Long).
 The **FP baseline is unquantized BF16**, matching upstream, rather than all-FP32.
-Both arms use the L1 action head, two images, proprioception, 90% center crop,
+All arms use the L1 action head, two images, proprioception, 90% center crop,
 eight actions per policy call, 10 settling steps, and a 520-action horizon.
 The default evaluation covers all 10 tasks × 50 initial states, seed 7. Episodes
 are paired across arms. Before **every episode**, the policy seed is
