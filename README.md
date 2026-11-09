@@ -12,6 +12,7 @@ DAgger-style quantization-aware training for VLAs: train the quantized policy on
 - `src/dqat/summarize.py` — validate and compare paired runs
 - `scripts/` — Linux setup and Cannon Slurm launchers
 - `third_party/` — openvla-oft, LIBERO (submodules)
+- [Research notes](docs/research-notes.md) — literature, on-policy/OOD hypotheses and proposed ablations
 
 ## Baseline protocol
 

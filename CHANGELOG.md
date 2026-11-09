@@ -40,7 +40,26 @@
   Saved JSONL, provenance and a rollout video under scratch
   `results/20261109T033843Z-59051490-fp/`. This single episode is a pipeline check,
   not a benchmark score.
-  Full paired 500-episode jobs: FP `59063995`, AWQ `59063997`, queued after the
-  successful smoke test. Both request A100-SXM4-80GB GPUs in `gpu,gpu_requeue`.
-  Full benchmark results remain pending.
+  Full paired 500-episode jobs: FP `59063995`, AWQ `59063997`. Separated AWQ
+  calibration plus one rollout into job `59064488` (two-hour limit); the full
+  AWQ run depends on its successful completion and reuses the saved artifact.
+  FP has an eight-hour reservation; AWQ has five hours after measuring rollout
+  throughput. FP and AWQ validation started at 22:54:39 EST on separate
+  A100-SXM4-80GB GPUs on `holygpu8a27601` (`gpu_requeue`). Full AWQ started at
+  23:06:40 EST on the same node/GPU type. Restoring the artifact reproduced the
+  calibration smoke's 384-action success for initial state 0.
+  AWQ validation `59064488` completed 0:0 in 9m28s. All 32 decoder layers were
+  calibrated; the smoke episode succeeded in 384 actions / 48 calls (16.81s).
+  Records/video: `results/20261109T035441Z-59064488-awq/`; calibration artifact:
+  `calibration/awq-w4g128-32frames-seed7.pt` (164MiB), SHA256
+  `af08ac980fc3276d820baa93ad054509b51c831469ef4fee9a71a4388a10e7e6`.
+  Full-run output directories: `results/20261109T035441Z-59063995-fp/` and
+  `results/20261109T040641Z-59063997-awq/`.
+  Full benchmark results remain pending; retain partial runs if preempted and
+  rerun to completion before reporting a score.
   The comparison also rejects mismatched simulator seeds or image resolutions.
+- Incorporated the team's additional on-policy/OOD notes and read the shared
+  discussion. Added `docs/research-notes.md` with primary-source reading notes
+  for DAgger, VLAQuantBench, QAIL, SQIL and recent LoopQ; a data/objective ablation
+  plan; and qualifications on DAgger guarantees, GPTQ curvature and QAT/QLoRA.
+  These are proposed next experiments, not completed GPTQ, DAgger, QAT or OOD runs.
