@@ -13,10 +13,18 @@ interval is **[-2.2, +2.2] pp** (10,000 resamples, bootstrap seed 7). There are
 452 shared successes, 15 FP-only successes, 15 AWQ-only successes, and 18 shared
 failures. Equal totals do not imply identical behavior or establish equivalence.
 
-Both jobs completed with exit code 0:0, zero infrastructure errors and zero
+Both jobs completed with exit code 0:0, zero recorded Python exceptions and zero
 restarts. All 1,000 episode records were checked for complete task/state/seed
 pairing, unique identities, valid success flags, action/call counts, and agreement
-with the summaries. Timeouts at 520 actions are policy failures.
+with the summaries. Timeouts at 520 actions are recorded as unsuccessful episodes.
+
+**Follow-up simulator audit:** while preparing GPTQ, the simulator log revealed a
+MuJoCo acceleration-instability warning in one shared episode, which both methods
+counted as unsuccessful. This warning did not raise a Python exception and was
+not annotated in the original per-episode records. The raw 500-episode scores
+above are retained; excluding that single flagged pair gives **467/499 (93.6%)
+for each method**, with the same 0.0-point difference. Warning-affected episodes
+should be examined separately from ordinary policy failures in subsequent runs.
 
 ## Per-task successes
 
@@ -60,8 +68,10 @@ Weights are quantized/dequantized and stored in BF16, so these are task-accuracy
 results, not packed INT4 memory or kernel-speed measurements. The bootstrap
 interval describes this episode sample, without accounting for variation across
 training/calibration seeds or tasks. No OOD conclusion follows from nominal
-LIBERO success. GPTQ, a DAgger-style update and perturbed evaluations remain next
-experiments; the [research notes](../../docs/research-notes.md) describe controls.
+LIBERO success. The subsequent [completed GPTQ comparison](../2026-11-09-openvla-oft-gptq/README.md)
+adds a 93.0% GPTQ result under the same protocol. A DAgger-style update and
+perturbed evaluations remain next experiments; the
+[research notes](../../docs/research-notes.md) describe controls.
 
 ## Reproducibility
 

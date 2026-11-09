@@ -75,7 +75,8 @@
   pp. There are 452 shared successes, 15 successes unique to each method, and
   18 shared failures. Equal aggregate scores do not establish equivalence.
 - Independently checked all 1,000 episode identities, seeds, task names, success
-  flags, action/call counts, summaries and provenance. Zero infrastructure errors.
+  flags, action/call counts, summaries and provenance. Zero recorded Python
+  exceptions; the later simulator-warning audit below qualifies this result.
   Rechecked the cached AWQ artifact SHA256 against the run metadata.
 - Published the aggregate comparison and per-task report under
   `results/2026-11-09-openvla-oft-libero-long/`. Complete episode records,
@@ -92,3 +93,86 @@
 - Contribution is in PR #8 (`codex/libero-long-baselines`); the immediate paired
   baseline task is complete. Monday slides and DAgger/QAT implementation remain
   separate TODOs.
+
+## 2026-11-09 — Sophie / Codex: matched GPTQ baseline launched
+
+- Added a GPTQ arm with the same OpenVLA-OFT checkpoint, 32 task-balanced training
+  observations, seven decoder projections per layer, W4/g128 asymmetric format,
+  and 500-episode paired LIBERO-Long protocol as the completed FP/AWQ experiment.
+- Adapted original GPTQ revision `2d65066eeb06a5c9ff5184d8cebdf33662c67faf` with
+  natural column order, 128-column blocks, 1% Hessian damping and true-sequential
+  calibration. Subsequent decoder groups/blocks use quantized activations; no
+  environment rollout data is used for calibration yet.
+- Added packed-code calibration artifacts that reconstruct BF16 weights, explicit
+  cache provenance, the GPTQ launcher option and paired comparison support.
+  This remains a simulated-quantization accuracy experiment.
+- Numerical port matched the original implementation exactly on synthetic FP32
+  and BF16 checks. Local suite: 28 tests passed. Fixtures preserve original GPTQ
+  outputs; integration tests cover multimodal capture, sequential propagation,
+  protected modules and artifact replay. Allow small FP32 tolerance across BLAS
+  implementations while requiring exact BF16 fixture agreement.
+- Cannon's exact-runtime suite passed all 28 tests in 61.82 seconds. All 32
+  decoder layers calibrated on an A100-SXM4-80GB, and the one-episode smoke
+  rollout succeeded in 256 actions / 32 policy calls. The calibration/smoke job
+  completed 0:0 in 9m20s, without restarts or simulator-instability warnings.
+  This is a pipeline check, not a GPTQ benchmark score.
+- Verified that the 32 calibration observations, checkpoint and dataset
+  revisions, normalization statistics, protected scope and evaluation protocol
+  match the earlier baselines. Run source is clean at
+  `a90c67c9eac5ddf9ba44a9c03ac2b4240c39cd93`. Saved GPTQ artifact SHA256:
+  `d97fba21c6b297b248b6997477e811dafc5cc82dab07cd5dd7030db818ecef42`.
+- The full 500-episode GPTQ evaluation has started on the same GPU type using
+  the validated cache. Cache reload reproduced the smoke episode's success and
+  256-action / 32-call outcome; the first eight episodes completed without
+  recorded errors or simulator-instability warnings. Its score is pending.
+  PR #9 is a draft stacked on #8;
+  after completion, validate all episode pairs, inspect simulator warnings,
+  and compare with both completed baselines before reporting results. Job
+  identifiers and output paths are in the ignored local `data/gptq-submission.json`.
+  Publish only aggregate results and public protocol details; keep raw records
+  and internal cluster metadata in the local run archive.
+- Follow-up log audit identified one shared MuJoCo acceleration-instability case
+  in each previous baseline, counted as a failure without a Python exception.
+  Clarified this in the baseline report: raw scores remain 467/500 for both;
+  excluding the flagged pair gives 467/499 (93.6%) for both. Keep warning-based
+  sensitivity analysis separate from the original raw scores. Added the generated
+  MuJoCo log to `.gitignore` without deleting it.
+- Follow-up status check at 10:47 EST: the GPTQ full run is still running, with
+  63/500 episodes completed and no recorded episode errors or simulator-instability
+  warnings so far. No final summary exists yet; a complete three-way score
+  comparison is pending. The completed BF16 and AWQ scores remain 467/500 each.
+- Follow-up at 11:45 EST: 412/500 episodes completed after 1h13m; the run is still
+  active and has no final summary. Zero recorded Python errors. Its one MuJoCo
+  instability warning matches the same paired episode flagged in both earlier
+  baselines; all three count that episode as unsuccessful. Preserve the planned
+  raw-score and shared-warning-exclusion comparisons when GPTQ finishes.
+
+## 2026-11-09 — Sophie / Codex: completed GPTQ and three-method comparison
+
+- GPTQ completed at 12:02 EST, exit 0:0, in 1h29m37s with zero restarts and zero
+  recorded Python exceptions. **GPTQ: 465/500 (93.0%)**, versus **467/500 (93.4%)**
+  for both unquantized BF16 and AWQ W4/g128.
+- GPTQ minus either baseline is **−0.4 percentage points**, with a descriptive
+  paired-bootstrap 95% interval of **[−2.6, +1.8] pp**. In each pairwise comparison
+  GPTQ wins 15 episodes and loses 17; 450 succeed in both and 18 fail in both.
+  Across all three methods, 439 episodes succeed in every arm and 14 fail in
+  every arm. Close totals do not establish equivalence or a clear regression.
+- Validated all 1,500 records for expected identities, task names, seeds,
+  action/call counts, status and summary agreement. Confirmed matching checkpoint,
+  runtime, GPU type, protocol, calibration observations and normalization;
+  independently rechecked the saved GPTQ cache SHA256. The original BF16/AWQ
+  aggregate comparison reproduces exactly.
+- The final GPTQ log contains one simulator-instability warning in the same
+  paired episode flagged in both prior baselines. All three record a failure.
+  Excluding that shared pair gives BF16/AWQ **467/499 (93.6%)** and GPTQ
+  **465/499 (93.2%)**; the difference remains about −0.4 pp. Keep this sensitivity
+  result separate from the primary 500-episode scores.
+- Added `results/2026-11-09-openvla-oft-gptq/` with aggregate pairwise comparisons,
+  per-task counts, uncertainty, simulator sensitivity and public provenance.
+  Raw records, logs and scheduler evidence remain in ignored local data and on
+  Cannon. PR #9 now includes the completed results, stacked on the still-open #8.
+- This completes fixed-demonstration BF16/AWQ/GPTQ baseline evaluation. No
+  on-policy refresh, DAgger/QAT update, new quantizer, OOD result or packed INT4
+  efficiency claim follows from these measurements. The next proposed experiment
+  holds GPTQ and the calibration budget fixed while changing calibration data;
+  calibration rollouts must remain separate from evaluation episodes.

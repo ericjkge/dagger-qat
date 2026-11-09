@@ -2,17 +2,21 @@
 
 DAgger-style quantization-aware training for VLAs: train the quantized policy on states it visits itself, labeled by the full-precision policy, to reduce error accumulation.
 
-**Current step:** initial FP/AWQ baselines completed; GPTQ and on-policy iterations are next.
+**Current step:** matched BF16, AWQ and GPTQ baselines completed. A controlled
+on-policy GPTQ calibration refresh is the next proposed experiment.
 
-The [2026-11-09 paired LIBERO-Long run](results/2026-11-09-openvla-oft-libero-long/README.md)
-finished at **93.4% (467/500) for both unquantized BF16 and AWQ W4/g128**.
-Each method has 15 successes that the other misses. This is a single base-seed
-nominal evaluation with simulated quantization; see the report for protocol,
-per-task results, uncertainty and reproducibility details.
+The [2026-11-09 three-method LIBERO-Long comparison](results/2026-11-09-openvla-oft-gptq/README.md)
+gives **93.4% (467/500) for unquantized BF16 and AWQ W4/g128**, and
+**93.0% (465/500) for GPTQ W4/g128**. GPTQ is 0.4 percentage points below either
+baseline, with a descriptive paired-bootstrap 95% interval of [−2.6, +1.8] pp.
+This does not establish a performance difference or equivalence. It is a nominal
+evaluation with one base seed and simulated quantization; the report includes
+per-task counts, protocol, the shared simulator-warning sensitivity and provenance.
 
 ## Layout
 - `src/dqat/policy.py` — load OFT checkpoint, predict actions
 - `src/dqat/awq.py` — AWQ (simulated quantization)
+- `src/dqat/gptq.py` — GPTQ with Hessian error compensation (simulated quantization)
 - `src/dqat/eval_libero.py` — LIBERO-Long eval
 - `src/dqat/calibration.py` — task-balanced training-demo calibration
 - `src/dqat/summarize.py` — validate and compare paired runs
@@ -24,7 +28,7 @@ per-task results, uncertainty and reproducibility details.
 
 Use `moojink/openvla-7b-oft-finetuned-libero-10` on `libero_10` (LIBERO-Long).
 The **FP baseline is unquantized BF16**, matching upstream, rather than all-FP32.
-Both arms use the L1 action head, two images, proprioception, 90% center crop,
+All arms use the L1 action head, two images, proprioception, 90% center crop,
 eight actions per policy call, 10 settling steps, and a 520-action horizon.
 The default evaluation covers all 10 tasks × 50 initial states, seed 7. Episodes
 are paired across arms. Before **every episode**, the policy seed is
@@ -56,6 +60,29 @@ The checkpoint, dataset, Transformers fork, OpenVLA-OFT and LIBERO revisions are
 pinned. `requirements-runtime.txt` pins direct dependencies; setup saves the
 resolved transitive versions in `$DQAT_DATA_DIR/runtime-freeze.txt`.
 
+## GPTQ baseline
+
+GPTQ uses the same checkpoint, 32 calibration observations, decoder-only W4/g128
+scope and paired evaluation protocol. It adapts the original
+[IST-DASLab implementation](https://github.com/IST-DASLab/gptq/tree/2d65066eeb06a5c9ff5184d8cebdf33662c67faf),
+retaining Apache-2.0 attribution in `licenses/gptq.txt`. Settings are asymmetric
+per-output-channel groups, natural column order (activation ordering disabled),
+128-column compensation blocks and damping of 1% of the Hessian diagonal mean.
+Weights and Hessian calculations use float32; evaluation weights are BF16.
+
+Calibration is true-sequential: Q/K/V, attention output, MLP up/gate, then MLP
+down. Later groups and blocks see earlier quantization errors, as in the reference
+GPTQ Llama implementation. This is an internal calibration path, not on-policy
+environment data collection. AWQ's original-output propagation is preserved.
+Both methods use their native grid/search rules at the same bit width and scope.
+
+The GPTQ cache saves packed four-bit codes plus float32 group scales and integer
+zero points. Loading reconstructs BF16 weights for the existing inference engine;
+the artifact's compact storage does not constitute a packed-kernel benchmark.
+Cache metadata includes the reference revision, exact calibration manifest and
+settings. Raw records, runtime inventories and cluster details remain local;
+public result reports contain aggregate measurements.
+
 ## Cannon
 
 From a **new checkout** (keep the previous π0.5 environment separate):
@@ -85,6 +112,15 @@ sbatch scripts/cannon_eval.sbatch fp
 sbatch scripts/cannon_eval.sbatch awq
 ```
 
+Validate GPTQ on one episode before running its full benchmark with the saved cache:
+
+```bash
+gptq_smoke=$(sbatch --parsable --time=02:00:00 scripts/cannon_eval.sbatch \
+  gptq --tasks 0 --episodes 1 --videos)
+sbatch --dependency="afterok:$gptq_smoke" --time=05:00:00 \
+  scripts/cannon_eval.sbatch gptq
+```
+
 The AWQ job calibrates once and saves reusable scale/clipping parameters before
 evaluation. Jobs request one full A100 (40GB or 80GB), eight CPUs and 64GB RAM; adjust the
 partition/GPU to your allocation. The `a100` feature excludes `a100-mig` nodes.
@@ -100,13 +136,14 @@ On another Linux GPU machine, use `bash scripts/setup.sh` then
 Each invocation creates a fresh `$DQAT_DATA_DIR/results/<run-id>-<method>/` with
 `run.json`, `episodes.jsonl` and `summary.json`; `--videos` also writes MP4s.
 Metadata includes Git and submodule versions, checkpoint revision, GPU, exact
-settings, calibration selections and AWQ artifact hash. Environment/model errors
+settings, calibration selections and the quantizer artifact hash. Environment/model errors
 are `status: error, success: null` and fail the job. Completed horizon timeouts
 are legitimate task failures. Partial summaries must not be treated as full scores.
 
 ```bash
 source scripts/common.sh
 "$DQAT_PYTHON" -m dqat.summarize --fp /path/to/fp-run --awq /path/to/awq-run
+"$DQAT_PYTHON" -m dqat.summarize --fp /path/to/fp-run --gptq /path/to/gptq-run
 "$DQAT_PYTHON" -m pytest -q
 ```
 
@@ -116,5 +153,8 @@ a paired bootstrap interval. A single seed is an initial baseline, not a
 reproduction of upstream's three-seed paper result. Local CPU tests cover the
 quantization grid, scaling invariance, clipping/search error, artifact replay,
 multimodal decoder capture, demo preprocessing and rollout failure semantics.
+GPTQ checks additionally compare against synthetic outputs generated by the
+original implementation, cover variable-length Hessian accumulation, verify
+quantized-block propagation, and replay packed artifacts through real Llama layers.
 
 Session status and experiment handoffs belong in `CHANGELOG.md`.

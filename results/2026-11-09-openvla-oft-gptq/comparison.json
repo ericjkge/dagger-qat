@@ -1,0 +1,217 @@
+{
+  "paired_episodes": 500,
+  "methods": {
+    "fp": {
+      "successes": 467,
+      "episodes": 500,
+      "success_rate": 0.934
+    },
+    "awq": {
+      "successes": 467,
+      "episodes": 500,
+      "success_rate": 0.934
+    },
+    "gptq": {
+      "successes": 465,
+      "episodes": 500,
+      "success_rate": 0.93
+    }
+  },
+  "pairwise_comparisons": {
+    "awq_vs_fp": {
+      "reference": "fp",
+      "candidate": "awq",
+      "paired_episodes": 500,
+      "candidate_minus_reference_percentage_points": 0.0,
+      "paired_bootstrap_95_percent_interval_pp": [
+        -2.1999999999999997,
+        2.1999999999999997
+      ],
+      "candidate_only_successes": 15,
+      "reference_only_successes": 15,
+      "shared_successes": 452,
+      "shared_failures": 18
+    },
+    "gptq_vs_fp": {
+      "reference": "fp",
+      "candidate": "gptq",
+      "paired_episodes": 500,
+      "candidate_minus_reference_percentage_points": -0.4,
+      "paired_bootstrap_95_percent_interval_pp": [
+        -2.6,
+        1.7999999999999998
+      ],
+      "candidate_only_successes": 15,
+      "reference_only_successes": 17,
+      "shared_successes": 450,
+      "shared_failures": 18
+    },
+    "gptq_vs_awq": {
+      "reference": "awq",
+      "candidate": "gptq",
+      "paired_episodes": 500,
+      "candidate_minus_reference_percentage_points": -0.4,
+      "paired_bootstrap_95_percent_interval_pp": [
+        -2.6,
+        1.7999999999999998
+      ],
+      "candidate_only_successes": 15,
+      "reference_only_successes": 17,
+      "shared_successes": 450,
+      "shared_failures": 18
+    }
+  },
+  "per_task": {
+    "0": {
+      "episodes": 50,
+      "fp_successes": 45,
+      "awq_successes": 47,
+      "gptq_successes": 47
+    },
+    "1": {
+      "episodes": 50,
+      "fp_successes": 50,
+      "awq_successes": 50,
+      "gptq_successes": 49
+    },
+    "2": {
+      "episodes": 50,
+      "fp_successes": 49,
+      "awq_successes": 49,
+      "gptq_successes": 50
+    },
+    "3": {
+      "episodes": 50,
+      "fp_successes": 50,
+      "awq_successes": 50,
+      "gptq_successes": 46
+    },
+    "4": {
+      "episodes": 50,
+      "fp_successes": 47,
+      "awq_successes": 45,
+      "gptq_successes": 46
+    },
+    "5": {
+      "episodes": 50,
+      "fp_successes": 46,
+      "awq_successes": 46,
+      "gptq_successes": 46
+    },
+    "6": {
+      "episodes": 50,
+      "fp_successes": 45,
+      "awq_successes": 45,
+      "gptq_successes": 43
+    },
+    "7": {
+      "episodes": 50,
+      "fp_successes": 49,
+      "awq_successes": 48,
+      "gptq_successes": 49
+    },
+    "8": {
+      "episodes": 50,
+      "fp_successes": 40,
+      "awq_successes": 42,
+      "gptq_successes": 42
+    },
+    "9": {
+      "episodes": 50,
+      "fp_successes": 46,
+      "awq_successes": 45,
+      "gptq_successes": 47
+    }
+  },
+  "three_method_outcomes": {
+    "bit_order": [
+      "fp",
+      "awq",
+      "gptq"
+    ],
+    "counts": {
+      "000": 14,
+      "001": 4,
+      "010": 4,
+      "011": 11,
+      "100": 4,
+      "101": 11,
+      "110": 13,
+      "111": 439
+    }
+  },
+  "simulator_warning_sensitivity": {
+    "excluded_shared_pairs": 1,
+    "episodes_remaining": 499,
+    "all_methods_failed_excluded_pair": true,
+    "methods": {
+      "fp": {
+        "successes": 467,
+        "episodes": 499,
+        "success_rate": 0.935871743486974
+      },
+      "awq": {
+        "successes": 467,
+        "episodes": 499,
+        "success_rate": 0.935871743486974
+      },
+      "gptq": {
+        "successes": 465,
+        "episodes": 499,
+        "success_rate": 0.9318637274549099
+      }
+    },
+    "pairwise_comparisons": {
+      "awq_vs_fp": {
+        "reference": "fp",
+        "candidate": "awq",
+        "paired_episodes": 499,
+        "candidate_minus_reference_percentage_points": 0.0,
+        "paired_bootstrap_95_percent_interval_pp": [
+          -2.2044088176352705,
+          2.2044088176352705
+        ],
+        "candidate_only_successes": 15,
+        "reference_only_successes": 15,
+        "shared_successes": 452,
+        "shared_failures": 17
+      },
+      "gptq_vs_fp": {
+        "reference": "fp",
+        "candidate": "gptq",
+        "paired_episodes": 499,
+        "candidate_minus_reference_percentage_points": -0.4008016032064128,
+        "paired_bootstrap_95_percent_interval_pp": [
+          -2.6052104208416833,
+          1.8036072144288577
+        ],
+        "candidate_only_successes": 15,
+        "reference_only_successes": 17,
+        "shared_successes": 450,
+        "shared_failures": 17
+      },
+      "gptq_vs_awq": {
+        "reference": "awq",
+        "candidate": "gptq",
+        "paired_episodes": 499,
+        "candidate_minus_reference_percentage_points": -0.4008016032064128,
+        "paired_bootstrap_95_percent_interval_pp": [
+          -2.6052104208416833,
+          1.8036072144288577
+        ],
+        "candidate_only_successes": 15,
+        "reference_only_successes": 17,
+        "shared_successes": 450,
+        "shared_failures": 17
+      }
+    }
+  },
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 7,
+    "resampling_unit": "matched episode",
+    "interval_type": "percentile",
+    "interpretation": "descriptive for this task/seed sample; not across-seed or across-task uncertainty"
+  },
+  "scope": "Nominal LIBERO-Long; unquantized BF16 vs decoder-only AWQ/GPTQ W4/g128 with BF16 inference; one base seed; no on-policy update or packed INT4 efficiency measurement."
+}
