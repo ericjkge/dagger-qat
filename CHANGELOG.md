@@ -176,3 +176,31 @@
   efficiency claim follows from these measurements. The next proposed experiment
   holds GPTQ and the calibration budget fixed while changing calibration data;
   calibration rollouts must remain separate from evaluation episodes.
+
+## 2026-11-09 — Sophie / Codex: first controlled GPTQ calibration loop
+
+- Implemented the pre-set two-round experiment in `docs/onpolicy-gptq-protocol.md`:
+  learner-controlled collection versus a full-precision-rollout control, each
+  retaining 16 original demo anchors and 16 rollout observations per calibration.
+  Round 2 aggregates eight observations from each round. The unchanged GPTQ
+  method is rebuilt from the original BF16 checkpoint before each update.
+- Collection uses two fresh seeded resets per task per round, checks physical
+  initial configurations against all evaluation states and prior collection
+  states, and samples at eight-action boundaries with independent reservoirs.
+  Valid unsuccessful trajectories are retained. Nonfinite values or simulator
+  warnings abort collection. Hashes bind the stored arrays, actor and round lineage.
+- Two final-round evaluations of 500 episodes each will compare with the
+  completed offline 93.0% GPTQ baseline and with each other. Hyperparameters and
+  the final round are fixed before these evaluations; pipeline-check episodes
+  do not choose updates. No teacher action labels enter this data-only update,
+  and no DAgger imitation-learning guarantee is claimed.
+- Added collection/bundle utilities, calibration-bundle support, Cannon stage
+  launchers and a matched final comparison. Original GPTQ numerics and rollout
+  evaluation remain unchanged. Local validation: 37 tests passed, including
+  exclusion of evaluation states, chunk-boundary collection, warning rejection,
+  replay balance/lineage, corruption detection and paired comparison. Ruff,
+  formatting, shell syntax and diff checks passed. Cannon validation is next.
+- Answered the inner-method question in `docs/research-notes.md`: prioritize AWQ
+  under the same outer loop, an RTN control, OmniQuant, then a carefully compared
+  action-loss update of quantizer parameters. SmoothQuant changes the activation
+  format; QLoRA is an adapter-training baseline. No extra quantizer runs launched.

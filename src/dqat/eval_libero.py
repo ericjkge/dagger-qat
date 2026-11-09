@@ -1,32 +1,14 @@
 """Paired LIBERO-Long baselines, retaining per-episode records and provenance."""
 
 import argparse
-import hashlib
 import json
 import os
-import subprocess
 import time
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-
-def write_json(path, value):
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
-    temporary.replace(path)
-
-
-def command_output(*args):
-    return subprocess.check_output(args, text=True).strip()
-
-
-def file_sha256(path):
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+from dqat.runio import command_output, file_sha256, write_json
 
 
 def main():
@@ -41,8 +23,11 @@ def main():
     parser.add_argument("--calibration-samples", type=int, default=32)
     parser.add_argument("--awq-cache", type=Path)
     parser.add_argument("--gptq-cache", type=Path)
+    parser.add_argument("--calibration-bundle", type=Path, help="Validated on-policy/control GPTQ mixture")
     parser.add_argument("--videos", action="store_true")
     args = parser.parse_args()
+    if args.calibration_bundle is not None and args.method != "gptq":
+        parser.error("Observation-bundle calibration is currently supported only for GPTQ")
     if not 1 <= args.episodes <= 50:
         parser.error("--episodes must be between 1 and 50")
     if (
@@ -110,16 +95,30 @@ def main():
                 from dqat.gptq import REFERENCE_REVISION, GPTQConfig, apply_artifacts, calibrate
 
                 config = GPTQConfig()
-            samples, manifest = load_demonstrations(args.dataset_dir, args.calibration_samples, args.seed)
+            dataset_source = json.loads((args.dataset_dir.parent / "source.json").read_text())
+            bundle_identity = None
+            if args.calibration_bundle is None:
+                samples, manifest = load_demonstrations(args.dataset_dir, args.calibration_samples, args.seed)
+            else:
+                from dqat.loop_data import load_calibration_bundle
+
+                samples, manifest, bundle_identity = load_calibration_bundle(
+                    args.calibration_bundle,
+                    metadata["checkpoint_source"],
+                    dataset_source,
+                    args.calibration_samples,
+                )
             signature = {
                 "format_version": 1,
                 "checkpoint": str(args.checkpoint.resolve()),
                 "checkpoint_source": metadata["checkpoint_source"],
-                "dataset_source": json.loads((args.dataset_dir.parent / "source.json").read_text()),
+                "dataset_source": dataset_source,
                 "config": asdict(config),
                 "calibration_manifest": manifest,
                 "normalization_sha256": file_sha256(args.checkpoint / "dataset_statistics.json"),
             }
+            if bundle_identity is not None:
+                signature["calibration_bundle"] = bundle_identity
             if args.method == "gptq":
                 signature.update(
                     method="gptq",
