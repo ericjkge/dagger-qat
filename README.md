@@ -75,8 +75,9 @@ sbatch scripts/cannon_eval.sbatch awq
 ```
 
 The AWQ job calibrates once and saves reusable scale/clipping parameters before
-evaluation. Jobs request one full A100 40GB, eight CPUs and 64GB RAM; adjust the
-partition/GPU to your allocation. Slurm owns `CUDA_VISIBLE_DEVICES`. GPU requeue
+evaluation. Jobs request one full A100 (40GB or 80GB), eight CPUs and 64GB RAM; adjust the
+partition/GPU to your allocation. The `a100` feature excludes `a100-mig` nodes.
+Slurm owns `CUDA_VISIBLE_DEVICES`. GPU requeue
 jobs may be preempted; an interrupted run is incomplete and must be rerun into
 a fresh output directory before reporting its score.
 

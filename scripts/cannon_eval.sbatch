@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=dqat-libero-long
 #SBATCH --partition=gpu_requeue
-#SBATCH --gres=gpu:nvidia_a100-sxm4-40gb:1
+#SBATCH --gres=gpu:1
+#SBATCH --constraint=a100
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=12:00:00

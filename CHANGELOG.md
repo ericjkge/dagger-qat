@@ -32,5 +32,10 @@
   Match BF16 scaled-weight rounding during scale search; test both FP32 and BF16
   search against the RTN candidate. Local validation: 18 tests passed, Ruff and
   shell syntax/diff checks passed.
-  GPU evaluation is pending setup validation.
+  Setup job `59051313` completed successfully in 39m49s, including real model and
+  simulator imports. Parallel asset job `59055904` completed in 4m04s.
+  CPU tests on the exact runtime: job `59057158`. GPU smoke job `59051490` was
+  waiting for priority; broadened the request to full A100 40/80GB cards via
+  `--gres=gpu:1 --constraint=a100` (excludes `a100-mig`).
+  GPU evaluation is pending allocation.
   No OpenVLA-OFT success rate is claimed yet.
