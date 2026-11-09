@@ -2,7 +2,8 @@
 
 DAgger-style quantization-aware training for VLAs: train the quantized policy on states it visits itself, labeled by the full-precision policy, to reduce error accumulation.
 
-**Current step:** initial FP/AWQ baselines completed; matched GPTQ is being validated.
+**Current step:** initial FP/AWQ baselines completed; GPTQ calibration and its smoke
+rollout passed, and the matched 500-episode evaluation is running on Cannon.
 
 The [2026-11-09 paired LIBERO-Long run](results/2026-11-09-openvla-oft-libero-long/README.md)
 finished at **93.4% (467/500) for both unquantized BF16 and AWQ W4/g128**.
@@ -133,7 +134,7 @@ On another Linux GPU machine, use `bash scripts/setup.sh` then
 Each invocation creates a fresh `$DQAT_DATA_DIR/results/<run-id>-<method>/` with
 `run.json`, `episodes.jsonl` and `summary.json`; `--videos` also writes MP4s.
 Metadata includes Git and submodule versions, checkpoint revision, GPU, exact
-settings, calibration selections and AWQ artifact hash. Environment/model errors
+settings, calibration selections and the quantizer artifact hash. Environment/model errors
 are `status: error, success: null` and fail the job. Completed horizon timeouts
 are legitimate task failures. Partial summaries must not be treated as full scores.
 

@@ -75,7 +75,8 @@
   pp. There are 452 shared successes, 15 successes unique to each method, and
   18 shared failures. Equal aggregate scores do not establish equivalence.
 - Independently checked all 1,000 episode identities, seeds, task names, success
-  flags, action/call counts, summaries and provenance. Zero infrastructure errors.
+  flags, action/call counts, summaries and provenance. Zero recorded Python
+  exceptions; the later simulator-warning audit below qualifies this result.
   Rechecked the cached AWQ artifact SHA256 against the run metadata.
 - Published the aggregate comparison and per-task report under
   `results/2026-11-09-openvla-oft-libero-long/`. Complete episode records,
@@ -93,7 +94,7 @@
   baseline task is complete. Monday slides and DAgger/QAT implementation remain
   separate TODOs.
 
-## 2026-11-09 — Sophie / Codex: matched GPTQ baseline preparation
+## 2026-11-09 — Sophie / Codex: matched GPTQ baseline launched
 
 - Added a GPTQ arm with the same OpenVLA-OFT checkpoint, 32 task-balanced training
   observations, seven decoder projections per layer, W4/g128 asymmetric format,
@@ -110,10 +111,26 @@
   outputs; integration tests cover multimodal capture, sequential propagation,
   protected modules and artifact replay. Allow small FP32 tolerance across BLAS
   implementations while requiring exact BF16 fixture agreement.
-- Cannon authentication renewed. GPU calibration/smoke validation and the full
-  benchmark are the next steps; no GPTQ success rate is available yet. Publish
-  only aggregate results and public protocol details; keep raw records and
-  internal cluster metadata in the local run archive.
+- Cannon's exact-runtime suite passed all 28 tests in 61.82 seconds. All 32
+  decoder layers calibrated on an A100-SXM4-80GB, and the one-episode smoke
+  rollout succeeded in 256 actions / 32 policy calls. The calibration/smoke job
+  completed 0:0 in 9m20s, without restarts or simulator-instability warnings.
+  This is a pipeline check, not a GPTQ benchmark score.
+- Verified that the 32 calibration observations, checkpoint and dataset
+  revisions, normalization statistics, protected scope and evaluation protocol
+  match the earlier baselines. Run source is clean at
+  `a90c67c9eac5ddf9ba44a9c03ac2b4240c39cd93`. Saved GPTQ artifact SHA256:
+  `d97fba21c6b297b248b6997477e811dafc5cc82dab07cd5dd7030db818ecef42`.
+- The full 500-episode GPTQ evaluation has started on the same GPU type using
+  the validated cache. Cache reload reproduced the smoke episode's success and
+  256-action / 32-call outcome; the first eight episodes completed without
+  recorded errors or simulator-instability warnings. Its score is pending.
+  PR #9 is a draft stacked on #8;
+  after completion, validate all episode pairs, inspect simulator warnings,
+  and compare with both completed baselines before reporting results. Job
+  identifiers and output paths are in the ignored local `data/gptq-submission.json`.
+  Publish only aggregate results and public protocol details; keep raw records
+  and internal cluster metadata in the local run archive.
 - Follow-up log audit identified one shared MuJoCo acceleration-instability case
   in each previous baseline, counted as a failure without a Python exception.
   Clarified this in the baseline report: raw scores remain 467/500 for both;
