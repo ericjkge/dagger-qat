@@ -25,7 +25,10 @@
   `/n/home13/sophiezeng/dagger-qat`, scratch data at
   `/n/netscratch/amin_lab/Everyone/sophiezeng/dagger-qat`.
   Initial CPU setup job `59049206` caught a Protobuf/TF Metadata version conflict;
-  pinned Protobuf 3.20.3 for the TF 2.15/TFDS 4.9.3 stack. Setup retry in progress.
+  pinned Protobuf 3.20.3 for the TF 2.15/TFDS 4.9.3 stack. Setup retry: `59051313`.
+  Dependent one-episode FP smoke job: `59051490`.
+  Serialize upstream's checkpoint-file updates with a lock so concurrent model
+  loads cannot race on the shared checkpoint directory.
   Local validation: 17 tests passed, Ruff and shell syntax/diff checks passed.
   GPU evaluation is pending setup validation.
   No OpenVLA-OFT success rate is claimed yet.

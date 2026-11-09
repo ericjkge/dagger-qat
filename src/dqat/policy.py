@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 
 import numpy as np
+from filelock import FileLock
 
 
 class OFTPolicy:
@@ -38,14 +39,17 @@ class OFTPolicy:
         # Keep that official behavior while allowing launch from our repository root.
         previous_directory = Path.cwd()
         try:
-            os.chdir(root / "third_party/openvla-oft")
-            (
-                self.model,
-                self.action_head,
-                self.proprio_projector,
-                self.noisy_action_projector,
-                self.processor,
-            ) = upstream.initialize_model(self.cfg)
+            # Both arms may start on different nodes. Upstream edits config/modeling
+            # files during loading, so serialize that operation on shared storage.
+            with FileLock(str(Path(self.cfg.pretrained_checkpoint) / ".dqat-load.lock"), timeout=1800):
+                os.chdir(root / "third_party/openvla-oft")
+                (
+                    self.model,
+                    self.action_head,
+                    self.proprio_projector,
+                    self.noisy_action_projector,
+                    self.processor,
+                ) = upstream.initialize_model(self.cfg)
         finally:
             os.chdir(previous_directory)
         # OFT predicts an entire action chunk in one forward; no generation KV cache is needed.

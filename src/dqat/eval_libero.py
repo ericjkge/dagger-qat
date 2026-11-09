@@ -44,6 +44,8 @@ def main():
         parser.error("--tasks must be distinct task IDs between 0 and 9")
     if args.method == "awq" and (args.awq_cache is None or args.dataset_dir is None):
         parser.error("AWQ requires --awq-cache and --dataset-dir")
+    if args.method == "awq" and args.calibration_samples < 10:
+        parser.error("Use at least 10 calibration samples to cover every task")
     if not args.checkpoint.is_dir():
         parser.error("--checkpoint must be the local pinned checkpoint directory")
     if not (args.checkpoint / "source.json").is_file():
@@ -65,6 +67,8 @@ def main():
         "open_loop_steps": 8,
         "center_crop": True,
         "num_images": 2,
+        "environment_seed": 0,
+        "environment_image_resolution": 256,
         "use_proprio": True,
         "slurm_job_id": os.environ.get("SLURM_JOB_ID"),
         "git_commit": command_output("git", "rev-parse", "HEAD"),
