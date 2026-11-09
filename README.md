@@ -2,7 +2,13 @@
 
 DAgger-style quantization-aware training for VLAs: train the quantized policy on states it visits itself, labeled by the full-precision policy, to reduce error accumulation.
 
-**Current step:** baselines — OpenVLA-OFT on LIBERO-Long, full precision vs. AWQ.
+**Current step:** initial FP/AWQ baselines completed; GPTQ and on-policy iterations are next.
+
+The [2026-11-09 paired LIBERO-Long run](results/2026-11-09-openvla-oft-libero-long/README.md)
+finished at **93.4% (467/500) for both unquantized BF16 and AWQ W4/g128**.
+Each method has 15 successes that the other misses. This is a single base-seed
+nominal evaluation with simulated quantization; see the report for protocol,
+per-task results, uncertainty and reproducibility details.
 
 ## Layout
 - `src/dqat/policy.py` — load OFT checkpoint, predict actions
@@ -21,9 +27,13 @@ The **FP baseline is unquantized BF16**, matching upstream, rather than all-FP32
 Both arms use the L1 action head, two images, proprioception, 90% center crop,
 eight actions per policy call, 10 settling steps, and a 520-action horizon.
 The default evaluation covers all 10 tasks × 50 initial states, seed 7. Episodes
-are paired across arms; the policy seed is `7 + 1000 * task_id + initial_state_id`
-and the environment seed is fixed to 0, as upstream requires. This per-episode
-seeding differs from upstream's single initial RNG seed and is recorded explicitly.
+are paired across arms. Before **every episode**, the policy seed is
+`7 + 1000 * task_id + initial_state_id`, followed by `env.seed(0)`. In LIBERO,
+the latter resets the process-wide NumPy RNG to 0; Python/Torch keep the
+per-episode seed. Upstream seeds global RNGs once and the environment when it is
+created, so this paired protocol uses a different reseeding schedule. Scores
+should be compared within this protocol, not presented as an upstream paper
+reproduction.
 
 AWQ uses **W4, group size 128, asymmetric integer zero points**, with a 20-point
 activation-aware scaling search and per-group clipping. It quantizes the seven

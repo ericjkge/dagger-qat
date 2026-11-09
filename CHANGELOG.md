@@ -55,11 +55,40 @@
   `af08ac980fc3276d820baa93ad054509b51c831469ef4fee9a71a4388a10e7e6`.
   Full-run output directories: `results/20261109T035441Z-59063995-fp/` and
   `results/20261109T040641Z-59063997-awq/`.
-  Full benchmark results remain pending; retain partial runs if preempted and
-  rerun to completion before reporting a score.
+  Full benchmark completion and scores are recorded in the 2026-11-09 entry below.
+  For future preemptions, retain partial runs and rerun to completion before
+  reporting a score.
   The comparison also rejects mismatched simulator seeds or image resolutions.
 - Incorporated the team's additional on-policy/OOD notes and read the shared
   discussion. Added `docs/research-notes.md` with primary-source reading notes
   for DAgger, VLAQuantBench, QAIL, SQIL and recent LoopQ; a data/objective ablation
   plan; and qualifications on DAgger guarantees, GPTQ curvature and QAT/QLoRA.
   These are proposed next experiments, not completed GPTQ, DAgger, QAT or OOD runs.
+
+## 2026-11-09 — Sophie / Codex: completed paired LIBERO-Long baselines
+
+- Both full Cannon jobs completed 0:0 without restarts: BF16 in about 1h32m;
+  AWQ in about 1h28m. Both used A100-SXM4-80GB GPUs, clean source
+  `ef1fa1608b8299b44307f1ae6c1ca2167decd246`, and 500 episodes (10 tasks × 50 states).
+- **BF16: 467/500 (93.4%). AWQ W4/g128: 467/500 (93.4%).** AWQ minus FP is
+  0.0 percentage points; descriptive paired bootstrap 95% interval [-2.2, +2.2]
+  pp. There are 452 shared successes, 15 successes unique to each method, and
+  18 shared failures. Equal aggregate scores do not establish equivalence.
+- Independently checked all 1,000 episode identities, seeds, task names, success
+  flags, action/call counts, summaries and provenance. Zero infrastructure errors.
+  Rechecked the cached AWQ artifact SHA256 against the run metadata.
+- Published the aggregate comparison and per-task report under
+  `results/2026-11-09-openvla-oft-libero-long/`. Complete episode records,
+  calibration selections, environment inventory and scheduler provenance are
+  retained locally and on Cannon. The public result files contain aggregate data.
+- Clarified the seeding difference from upstream: this evaluator reseeds before
+  every episode; `env.seed(0)` also resets NumPy globally, while Python/Torch retain
+  `7 + 1000 * task_id + initial_state_id`. The two arms share that protocol. These
+  scores are not an exact reproduction of upstream's three-seed paper result.
+- Interpretation: nominal task accuracy is tied under this protected decoder-only
+  W4 scope. This does not measure packed INT4 efficiency or OOD robustness. Next
+  steps remain matched RTN/GPTQ, a controlled on-policy data refresh, then a new
+  inner method if the earlier gates support it; see `docs/research-notes.md`.
+- Contribution is in PR #8 (`codex/libero-long-baselines`); the immediate paired
+  baseline task is complete. Monday slides and DAgger/QAT implementation remain
+  separate TODOs.
