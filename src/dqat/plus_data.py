@@ -148,6 +148,20 @@ RAPID_PROTOCOL = dict(
     selection="For category index c, take base tasks (2*c)%10 and (2*c+1)%10 from the frozen 70-case manifest",
 )
 
+OSMESA_LIBRARY_SHA256 = "8e8ad6bc3f6d443555d495505e8f2b2f8a07fcfef27cf0f7538ad2c82b328f1c"
+OSMESA_RAPID_PROTOCOL = dict(
+    RAPID_PROTOCOL,
+    name="libero-plus-long-rapid14-osmesa-v1",
+    hardware="Matched NVIDIA A100 MIG 3g.20gb across all arms",
+    rendering=dict(
+        backend="osmesa",
+        driver="llvmpipe",
+        mesa="23.1.4-4.el8_10",
+        library_sha256=OSMESA_LIBRARY_SHA256,
+        threads=4,
+    ),
+)
+
 
 def select_rapid_cases(manifest):
     validate_manifest(manifest)

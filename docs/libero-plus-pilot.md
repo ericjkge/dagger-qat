@@ -93,3 +93,19 @@ is `libero-plus-long-rapid14-v1`, and its outputs/aggregate are separate from th
 70-case A100 pilot. Fourteen trials are too few for a precise success-rate estimate;
 report exact counts and broad uncertainty, and do not substitute these scores for
 a full benchmark or combine them with the 70-case run.
+
+## Separate software-rendered MIG pilot
+
+To use Cannon's test-GPU queue while full GPUs remain queued, a separate
+`libero-plus-long-rapid14-osmesa-v1` protocol reuses the same 14 cases and frozen
+artifacts. Every arm uses an A100 MIG 3g.20gb and OSMesa/llvmpipe rendering with
+four CPU rendering threads. `scripts/setup_osmesa.sh` extracts the signature- and
+SHA256-verified Rocky Mesa 23.1.4 library into the project; the existing Python
+environment is unchanged. Evaluation checks the library hash and renderer settings.
+
+Run a seven-category model/rendering smoke before submitting
+`scripts/cannon_plus_mig.sbatch` as array `0-4%2`, with AWQ, offline GPTQ and
+learner GPTQ ahead of the reference arms. The comparator requires
+`--rapid --software-rendering` and matching GPU models. Never pool software-rendered
+episodes with EGL episodes or interpret a cross-renderer difference as a quantizer
+effect. These are exploratory software-rendered results, not the official benchmark.

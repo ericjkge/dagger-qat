@@ -260,3 +260,19 @@
   reporting adjustment passed all 12 Plus tests. An earlier 46-test version also
   passed on Cannon. Nominal results remain BF16/AWQ 93.4%, offline GPTQ 93.0%,
   learner GPTQ 92.8%, and BF16-rollout-calibrated GPTQ 94.8% (500 episodes each).
+
+## 2026-11-09 — Sophie / Codex: validated the test-GPU route for Plus
+
+- Full-GPU allocations remained queued. Prepared an isolated, signature- and
+  hash-verified Mesa/OSMesa renderer to use A100 MIG test GPUs without changing
+  the existing Python packages or frozen quantization artifacts.
+- AWQ loaded on a 20 GB A100 MIG and completed all seven short category checks,
+  including glass blur, without Python errors or simulator warnings. These are
+  eight-action infrastructure checks, not scored full-horizon benchmark episodes.
+- Added a separately identified 14-case OSMesa pilot with the same frozen cases,
+  seeds and 520-action limits. All five arms require matching MIG hardware and
+  renderer settings; the comparator rejects pooling with EGL results. Two jobs
+  run concurrently, with AWQ and GPTQ before the reference arms.
+- All 50 local tests pass, including rejection of mixed rendering protocols and
+  hardware. Ruff, shell syntax and diff checks pass. Full-horizon scores remain
+  pending; submission identifiers and raw logs stay in ignored private data.

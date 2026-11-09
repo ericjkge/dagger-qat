@@ -9,6 +9,7 @@ from dqat.compare_calibration import paired_comparison
 from dqat.plus_data import (
     ARMS,
     CATEGORIES,
+    OSMESA_RAPID_PROTOCOL,
     PROTOCOL,
     RAPID_PROTOCOL,
     select_cases,
@@ -18,12 +19,14 @@ from dqat.plus_data import (
 from dqat.runio import file_sha256, write_json
 
 
-def compare_pilot(root, manifest_path, rapid=False):
+def compare_pilot(root, manifest_path, rapid=False, software_rendering=False):
+    if software_rendering and not rapid:
+        raise ValueError("Software-rendering comparison requires the separate rapid protocol")
     root, manifest_path = Path(root), Path(manifest_path)
     manifest = json.loads(manifest_path.read_text())
     validate_manifest(manifest)
     selected = select_rapid_cases(manifest) if rapid else manifest["cases"]
-    protocol = RAPID_PROTOCOL if rapid else PROTOCOL
+    protocol = OSMESA_RAPID_PROTOCOL if software_rendering else RAPID_PROTOCOL if rapid else PROTOCOL
     num_shards = 1 if rapid else 4
     expected = {case["task_id"]: case for case in selected}
     records, metas, common, artifacts = {}, {}, None, {}
@@ -37,7 +40,7 @@ def compare_pilot(root, manifest_path, rapid=False):
         "gpu",
         "torch_version",
     )
-    if rapid:
+    if rapid and not software_rendering:
         fields = tuple(field for field in fields if field != "gpu")
     for arm in ARMS:
         records[arm], metas[arm] = {}, []
@@ -204,8 +207,11 @@ def compare_pilot(root, manifest_path, rapid=False):
         ),
         limitations=[
             "Urgent subset allows different full Ampere GPU models across arms; see gpu_by_arm."
-            if rapid
-            else "Matched GPU model across all full-pilot shards.",
+            if rapid and not software_rendering
+            else "Matched GPU model across arms and shards.",
+            "Software-rendered MIG pilot is separate from EGL results; do not pool the two renderers."
+            if software_rendering
+            else "EGL rendering.",
             "One variant per task/category and one seed per case.",
             "Balanced pilot is not a probability sample of the full benchmark.",
             "Nominal calibration transferred unchanged; no Plus-trained update.",
@@ -220,9 +226,12 @@ if __name__ == "__main__":
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--rapid", action="store_true")
+    parser.add_argument("--software-rendering", action="store_true")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Comparison output already exists")
-    result = compare_pilot(args.experiment, args.manifest, rapid=args.rapid)
+    result = compare_pilot(
+        args.experiment, args.manifest, rapid=args.rapid, software_rendering=args.software_rendering
+    )
     write_json(args.output, result)
     print(json.dumps(result, indent=2))

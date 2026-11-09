@@ -7,6 +7,7 @@ from dqat.eval_plus import checkpoint_view
 from dqat.plus_data import (
     ARMS,
     CATEGORIES,
+    OSMESA_RAPID_PROTOCOL,
     PROTOCOL,
     RAPID_PROTOCOL,
     select_cases,
@@ -96,7 +97,7 @@ def test_checkpoint_views_isolate_mutable_loader_files(tmp_path):
     assert not (a / ".dqat-load.lock").exists()
 
 
-def write_synthetic_pilot(root, rapid=False):
+def write_synthetic_pilot(root, rapid=False, software_rendering=False):
     from dqat.runio import file_sha256, write_json
 
     m = manifest()
@@ -113,7 +114,11 @@ def write_synthetic_pilot(root, rapid=False):
                 shard=shard,
                 num_shards=1 if rapid else 4,
                 expected_cases=[c["task_id"] for c in cases],
-                protocol=RAPID_PROTOCOL if rapid else PROTOCOL,
+                protocol=OSMESA_RAPID_PROTOCOL
+                if software_rendering
+                else RAPID_PROTOCOL
+                if rapid
+                else PROTOCOL,
                 manifest_sha256=file_sha256(manifest_path),
                 checkpoint_source={"fixture": True},
                 normalization_sha256="b" * 64,
@@ -198,6 +203,25 @@ def test_rapid_subset_covers_all_categories_and_tasks_and_is_reported_separately
     assert all(x["episodes"] == 14 for x in report["methods"].values())
     with pytest.raises(ValueError):
         compare_pilot(tmp_path, path)
+
+
+def test_software_rendering_cannot_be_pooled_with_egl_or_mixed_hardware(tmp_path):
+    from dqat.compare_plus import compare_pilot
+
+    path = write_synthetic_pilot(tmp_path, rapid=True, software_rendering=True)
+    report = compare_pilot(tmp_path, path, rapid=True, software_rendering=True)
+    assert report["protocol"] == OSMESA_RAPID_PROTOCOL
+    assert all(x["episodes"] == 14 for x in report["methods"].values())
+    with pytest.raises(ValueError):
+        compare_pilot(tmp_path, path, rapid=True)
+    with pytest.raises(ValueError):
+        compare_pilot(tmp_path, path, software_rendering=True)
+    meta_path = tmp_path / "student/shard-0/run.json"
+    meta = json.loads(meta_path.read_text())
+    meta["gpu"] = "different GPU"
+    meta_path.write_text(json.dumps(meta))
+    with pytest.raises(ValueError, match="runtime differs"):
+        compare_pilot(tmp_path, path, rapid=True, software_rendering=True)
 
 
 @pytest.mark.parametrize("corruption", ["missing", "duplicate", "seed", "instruction", "artifact"])

@@ -12,7 +12,16 @@ from pathlib import Path
 
 import numpy as np
 
-from dqat.plus_data import ARMS, PLUS_REVISION, PROTOCOL, RAPID_PROTOCOL, select_cases, select_rapid_cases
+from dqat.plus_data import (
+    ARMS,
+    OSMESA_LIBRARY_SHA256,
+    OSMESA_RAPID_PROTOCOL,
+    PLUS_REVISION,
+    PROTOCOL,
+    RAPID_PROTOCOL,
+    select_cases,
+    select_rapid_cases,
+)
 from dqat.runio import command_output, file_sha256, write_json
 
 
@@ -110,10 +119,33 @@ def main():
     parser.add_argument("--num-shards", type=int, default=4)
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--rapid", action="store_true", help="Predeclared 14-case subset for an urgent pilot")
+    parser.add_argument(
+        "--software-rendering", action="store_true", help="Separate matched MIG/OSMesa rapid pilot"
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.arm != "fp" and (args.cache is None or args.source_run is None):
         parser.error("Quantized arms require an existing cache and completed source run")
+    if args.software_rendering:
+        if not args.rapid:
+            parser.error("Software-rendered scores use the separate rapid protocol")
+        required_env = dict(
+            MUJOCO_GL="osmesa",
+            PYOPENGL_PLATFORM="osmesa",
+            GALLIUM_DRIVER="llvmpipe",
+            LIBGL_ALWAYS_SOFTWARE="1",
+            LP_NUM_THREADS="4",
+        )
+        if any(os.environ.get(k) != v for k, v in required_env.items()):
+            parser.error("Software-rendering environment does not match the fixed protocol")
+        library = Path(os.environ.get("DQAT_OSMESA_LIBRARY", ""))
+        if not library.is_file() or file_sha256(library) != OSMESA_LIBRARY_SHA256:
+            parser.error("OSMesa library differs from the verified runtime")
+        import ctypes
+
+        ctypes.CDLL(str(library.resolve()), mode=ctypes.RTLD_GLOBAL)
+    elif not args.smoke and os.environ.get("MUJOCO_GL", "egl") != "egl":
+        parser.error("Non-EGL scored runs require the separate software-rendering protocol")
     if command_output("git", "-C", str(args.plus_root), "rev-parse", "HEAD") != PLUS_REVISION:
         parser.error("Plus checkout does not match pinned revision")
     manifest = json.loads(args.manifest.read_text())
@@ -132,7 +164,11 @@ def main():
     metadata = dict(
         status="starting",
         arm=args.arm,
-        protocol=RAPID_PROTOCOL if args.rapid else PROTOCOL,
+        protocol=OSMESA_RAPID_PROTOCOL
+        if args.software_rendering
+        else RAPID_PROTOCOL
+        if args.rapid
+        else PROTOCOL,
         smoke=args.smoke,
         actual_action_horizon=8 if args.smoke else 520,
         shard=args.shard,
@@ -164,6 +200,8 @@ def main():
         if not Path(get_libero_path("benchmark_root")).resolve().is_relative_to(args.plus_root.resolve()):
             raise ValueError("Wrong LIBERO config loaded")
         metadata.update(status="running", gpu=torch.cuda.get_device_name(), torch_version=torch.__version__)
+        if args.software_rendering and "MIG 3g.20gb" not in metadata["gpu"]:
+            raise ValueError("Software-rendering pilot requires the predeclared A100 MIG device")
         if args.arm != "fp":
             metadata["quantization"] = restore_quantizer(
                 policy, args.arm, args.cache, args.source_run, metadata["checkpoint_source"]
