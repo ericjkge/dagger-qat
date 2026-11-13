@@ -2,7 +2,7 @@
 slug: phase-and-action-sensitive
 status: running
 hypothesis: At matched average bits b̄, worst-phase action-sensitive bit allocation over {2,3,4,8} gives higher LIBERO-Long success than the same allocation using the phase-agnostic mean, with the gain concentrated in grasp/place.
-kill_criterion: (pending baseline in brief)
+kill_criterion: At every b̄ tested, if mean LIBERO-Long success over ≥3 seeds does not exceed both uniform b̄-bit RTN and the phase-agnostic-mean allocator by more than 2 SE of the paired per-episode difference, the direction is dead.
 best_metric:
 started: 2026-11-13
 ---
@@ -19,12 +19,19 @@ and the gain comes mainly from grasp and place.
 
 ## Kill criterion
 
-Not yet fixed. The brief's Baseline section is empty and the AWQ baseline is
-out of scope (see current state). The criterion will be fixed against the
-brief's baseline before the first evaluation run. Proposed: at each b̄ tested,
-if mean success over ≥ 3 seeds is not above the phase-agnostic-mean allocation
-and uniform b̄-bit quantization by more than 2 SE of the paired difference, the
-direction is dead.
+Fixed 2026-11-13, before any run. Baselines (human, 2026-11-13), all using the
+same symmetric RTN g128 quantizer and the same quantizable layers:
+
+- **uniform**: every quantizable layer at b̄ bits;
+- **phase-agnostic**: the same allocator with max_p replaced by the mean over
+  all sampled frames (same frames, same k);
+- **full precision**: unquantized BF16, the ceiling.
+
+Episodes are paired across arms. At every b̄ tested: if mean success over ≥ 3
+seeds does not exceed **both** uniform and phase-agnostic by more than 2 SE of
+the paired per-episode difference, the direction is dead. Beating uniform but
+not phase-agnostic means sensitivity allocation helps but the phase split does
+not; that also kills this direction, which is about the phase split.
 
 ## Current state
 
@@ -66,6 +73,8 @@ Jobs:
   installed.
 - 59511042, the same script with `src`, `third_party/openvla-oft` and
   `third_party/LIBERO` on PYTHONPATH, as in `scripts/common.sh`. Same header.
+  COMPLETED in 2.5 min: `vla env OK`, torch 2.2.0+cu121, transformers 4.40.1,
+  libero_10 has 10 tasks. Jobs must export that PYTHONPATH.
 
 Proposed first-pass choices (awaiting confirmation):
 - Unit W_j = one whole linear layer: Llama 32 blocks × 7, DINOv2 ViT-L 24 × 4,
@@ -93,9 +102,9 @@ quantization work.
 
 ## Blocked on
 
-1. **Unspecified parts of the brief.** Baseline and evaluation sections are
-   empty. Also open: unit granularity of W_j; weighting within A (steps,
-   gripper dimension, normalized units); the quantizer Q_b; phase-window
+1. **Unspecified parts of the brief.** Evaluation protocol (episodes, seeds,
+   b̄ values) is open. Also open: unit granularity of W_j; weighting within A (steps,
+   gripper dimension, normalized units); whether 8 means INT8; phase-window
    definitions; per-unit vs global worst phase and phase normalization; greedy
    vs exact allocation; the meaning of b̄ and its values; per-phase failure
    attribution; k and frames per phase; rollout count and seeds for collecting
