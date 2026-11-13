@@ -32,7 +32,7 @@ most reasonable for a first-pass setup".
 | worst phase (human) | s(W_j,b) = max_p s^(p)(W_j,b) per layer, no phase normalization; log the argmax phase per layer |
 | allocation (human) | greedy: all layers start at 8; repeatedly demote the layer/target bit with the lowest (Δs)/(Δbits·#params), any lower bit allowed, until parameter-weighted mean ≤ b̄; same code for the phase-agnostic arm |
 | seeds | "seed" = calibration seed (frame sample + projections u): 7, 8, 9 for both allocator arms. The policy, simulator and init states are deterministic, so uniform and FP are run once |
-| evaluation | LIBERO-Long 10 tasks × 50 init states, episode seed 7 + 1000·task + init, env.seed(0); arms run in priority order uniform, worst-s7, phase-s7, worst-s7-head, fp, worst-s8, phase-s8, worst-s9, phase-s9 |
+| evaluation | LIBERO-Long 10 tasks × 50 init states, episode seed 7 + 1000·task + init, env.seed(0); arms run in priority order uniform, worst-s7, phase-s7, fp, worst-s8, phase-s8, worst-s9, phase-s9 |
 | per-phase attribution | same gripper tagger on executed eval actions; per episode: last phase reached, close/open flip counts, steps per phase |
 
 Environment: conda `vla` (Python 3.11.18, torch 2.2.0+cu121, transformers fork
@@ -106,7 +106,7 @@ never ran.
   `OUT=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive`.
 - Status: submitted.
 
-### recalibration / job 59515826 (after seed-7 score job 59515823)
+### recalibration / job 59515826 — cancelled while pending (human: skip it); never ran
 
 - Purpose (human: "run 2 and see whether it works", on top of our method):
   quantize the backbone with the worst-phase seed-7 allocation, then fine-tune
@@ -123,7 +123,10 @@ never ran.
 - Evaluated as arm `worst-s7-head`, paired against `worst-s7`.
 - Status: submitted.
 
-### eval / jobs 59515827–59515834 (8 worker jobs)
+### eval / jobs 59563471–59563478 (8 worker jobs)
+
+They replace 59515827–34, cancelled while pending at 14:50 to drop the
+`worst-s7-head` arm. 59515827–29 had already run uniform and fp.
 
 These replace 59512609, 59513188, 59513223 and 59513224, all cancelled while
 pending to change the arm list.
@@ -131,7 +134,7 @@ pending to change the arm list.
 - Purpose: evaluation. Two `eval.py` workers per L40S, 16 in total, share one queue of
   (arm, task) units. A unit waits until its allocation file exists.
 - Resources: 8 CPU, 64G, 06:00:00 (lowered from 30:00:00, then 16:00:00, while pending; tests measured 9–20 s per episode).
-- Command per worker: `--arms uniform worst-s7 phase-s7 worst-s7-head fp worst-s8 phase-s8
+- Command per worker: `--arms uniform worst-s7 phase-s7 fp worst-s8 phase-s8
   worst-s9 phase-s9 --tasks 0..9 --episodes 50 --seed 7 --uniform-bits 3
   --phase-window 10 --flip-min-hold 5`.
 - Output: `$OUT/eval/<arm>.jsonl` (per episode); worker logs `$OUT/logs/eval-<job>-w*.out`.

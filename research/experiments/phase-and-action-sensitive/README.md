@@ -155,6 +155,10 @@ Proposed first-pass choices (awaiting confirmation):
   the dominant worst phase flips (grasp for s7, place for s8/s9). The
   calibration sample matters more than max vs mean. Eval jobs are still
   queued (ReqNodeNotAvail).
+- 14:50: human: skip the recalibration job. Recalibration 59515826 and eval
+  jobs 59515827–34 were cancelled; none of them had run allocation arms.
+  Eval was resubmitted without `worst-s7-head` as 59563471–78 (any BF16 GPU
+  with at least 44 GB). Recalibration code stays in the directory, unrun.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
