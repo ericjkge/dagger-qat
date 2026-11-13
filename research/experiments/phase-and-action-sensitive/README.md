@@ -129,9 +129,9 @@ Then write the gradient/score job.
 ## Blocked on
 
 1. **Still open (needed before allocation/evaluation, not before the current
-   job):** per-unit vs global worst phase and phase normalization; greedy vs
-   exact allocation; evaluation episodes/seeds; per-phase failure
-   attribution. First-pass defaults are listed in `results.md`.
+   job):** evaluation episodes/seeds; per-phase failure attribution. Worst
+   phase (per layer, unnormalized) and greedy allocation were fixed by the human
+   on 2026-11-13. First-pass defaults are listed in `results.md`.
 2. **No weights on O2.** The OFT checkpoint still needs downloading. Training
    demos are no longer needed for frames, because A comes from rollouts.
 

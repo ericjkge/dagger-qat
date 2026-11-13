@@ -29,7 +29,9 @@ most reasonable for a first-pass setup".
 | score | s^(p)(W_j, b) = mean over frames in p and k = 8 projections of ⟨∇_{W_j} uᵀA, Q_b(W_j) − W_j⟩² (first-order, keeps cancellation within the layer) |
 | baselines (human) | uniform b̄-bit RTN; phase-agnostic allocator (mean over all frames instead of max_p); FP BF16 |
 | budget b̄ (human) | 3 bits per weight (changed from 4 the same day, before any run), parameter-weighted average over quantizable layers; group scales not counted |
-| not yet run | allocation (exact knapsack vs greedy), phase normalization, evaluation |
+| worst phase (human) | s(W_j,b) = max_p s^(p)(W_j,b) per layer, no phase normalization; log the argmax phase per layer |
+| allocation (human) | greedy: all layers start at 8; repeatedly demote the layer/target bit with the lowest (Δs)/(Δbits·#params), any lower bit allowed, until parameter-weighted mean ≤ b̄; same code for the phase-agnostic arm |
+| not yet fixed | evaluation seeds, per-phase failure attribution |
 
 Environment: conda `vla` (Python 3.11.18, torch 2.2.0+cu121, transformers fork
 4.40.1 @ `bc339d9`) built by `setup_env.sbatch` (job 59511042);
