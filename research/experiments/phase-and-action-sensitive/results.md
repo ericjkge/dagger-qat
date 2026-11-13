@@ -43,37 +43,46 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
 
 ## Runs
 
-### score / job 59513187 (replaces 59512608, cancelled while pending)
+### score / jobs 59513219, 59513220, 59513221 (seeds 7, 8, 9)
 
-- Purpose: frames for seeds 8 and 9, scores for seeds 7–9 (k = 8),
-  worst-phase and phase-agnostic greedy allocations at b̄ = 3, then
-  action-head recalibration (below).
-- Script: `score.sbatch` → `demo_frames.py`, `score.py`, `allocate.py`.
-- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=4 --mem=64G --time=10:00:00`.
-- Output: `$OUT/demo-frames/59512608-s{8,9}/`, `$OUT/scores/s{7,8,9}.npz`,
-  `$OUT/alloc/{worst,phase}-s{7,8,9}.json`, `$OUT/heads/uniform.pt` (+ `.json`), where
+- Purpose: per calibration seed (env `SEED`), frames (seed 7 reuses job
+  59511837), scores (k = 8), and worst-phase and phase-agnostic greedy
+  allocations at b̄ = 3. Replaces 59512608 and 59513187, both cancelled while
+  pending.
+- Script: `score.sbatch` → `demo_frames.py --frames-per-phase 64 --seed $SEED`,
+  `score.py --k 8 --seed $SEED`, `allocate.py --budget 3`.
+- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=4 --mem=64G --time=06:00:00`.
+- Output: `$OUT/scores/s$SEED.npz`, `$OUT/alloc/{worst,phase}-s$SEED.json`, where
   `OUT=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive`.
 - Status: submitted.
 
-- Recalibration (human: "run 2 and see whether it works"): quantize all
-  quantizable layers to uniform symmetric 3-bit, then fine-tune only the L1
-  action head (float32, AdamW lr 3e-5, batch 32, 3000 steps, L1 loss) to
-  reproduce the BF16 policy's normalized 8×7 chunks from quantized features.
-  Frames: `demo_frames.py --frames-per-phase 1024 --seed 10` (phase-balanced,
+### recalibration / job 59513222
+
+- Purpose (human: "run 2 and see whether it works"): quantize all quantizable
+  layers to uniform symmetric 3-bit, then fine-tune only the L1 action head
+  (float32, AdamW lr 3e-5, batch 32, 3000 steps, L1 loss) to reproduce the BF16
+  policy's normalized 8×7 chunks from quantized features.
+- Frames: `demo_frames.py --frames-per-phase 1024 --seed 10` (phase-balanced,
   separate draw from the scoring seeds). Split 90/10 train/val, seed 10. The
-  head with the lowest val L1 (checked every 250 steps) is saved in BF16.
-  Evaluated as arm `uniform-head`, paired against `uniform`.
+  head with the lowest val L1 (checked every 250 steps) is saved in BF16 to
+  `$OUT/heads/uniform.pt`, with metrics in `uniform.json`.
+- Script: `recalibrate.sbatch` → `demo_frames.py`, `recalibrate.py`.
+- Header: same as the score jobs.
+- Evaluated as arm `uniform-head`, paired against `uniform`.
+- Status: submitted.
 
-### eval / job 59513188 (worker job A; replaces 59512609, cancelled while pending)
+### eval / jobs 59513188, 59513223, 59513224 (worker jobs A, B, C)
 
-- Purpose: evaluation. Four `eval.py` workers on one A100 share a queue of
+Job A replaces 59512609, cancelled while pending.
+
+- Purpose: evaluation. Four `eval.py` workers per A100, 12 in total, share one queue of
   (arm, task) units. A unit waits until its allocation file exists.
 - Header: `--partition=gpu_quad --gres=gpu:a100:1 --cpus-per-task=16 --mem=120G --time=30:00:00`.
 - Command per worker: `--arms uniform worst-s7 phase-s7 uniform-head fp worst-s8 phase-s8
   worst-s9 phase-s9 --tasks 0..9 --episodes 50 --seed 7 --uniform-bits 3
   --phase-window 10 --flip-min-hold 5`.
-- Output: `$OUT/eval/<arm>.jsonl` (per episode); worker logs `$OUT/logs/eval-59513188-w*.out`.
-- Status: submitted. Worker job B (same script) follows when the score job ends.
+- Output: `$OUT/eval/<arm>.jsonl` (per episode); worker logs `$OUT/logs/eval-<job>-w*.out`.
+- Status: submitted.
 
 ### demo-frames / job 59511837
 

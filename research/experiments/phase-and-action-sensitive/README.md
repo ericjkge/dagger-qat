@@ -98,6 +98,12 @@ Proposed first-pass choices (awaiting confirmation):
 - 59512608 `score.sbatch` and 59512609 `eval.sbatch`: cancelled while pending
   to add head recalibration. Resubmitted as 59513187 (score + recalibration)
   and 59513188 (eval worker job A); headers in `results.md`.
+- Human (2026-11-13): everything must finish by Friday night or early Saturday;
+  remove the job cap. `research/bin/submit` on this branch no longer limits
+  concurrent jobs. 59513187 was cancelled while pending and split into
+  59513219/20/21 (score + allocation, seeds 7/8/9) and 59513222
+  (recalibration). Eval worker jobs B 59513223 and C 59513224 were added, so
+  12 workers share one queue.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 Arm `uniform-head`: the uniform 3-bit backbone with only the L1 head fine-tuned
@@ -136,8 +142,7 @@ None.
 
 ## Next step
 
-Check the first worker and score logs for errors. When 59513187 ends, submit
-worker job B (`eval.sbatch`).
+Check the first worker and score logs for errors. Check the first worker and score logs for errors.
 
 ## Blocked on
 
