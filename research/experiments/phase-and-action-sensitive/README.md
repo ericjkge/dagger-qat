@@ -133,6 +133,11 @@ Proposed first-pass choices (awaiting confirmation):
 - 09:37: test job 59537943 passed every check, after a test-design fix to
   59515820 (see `results.md`). All production jobs were released. Episodes
   take 9–20 s, so the eval time limit was lowered to 6 h.
+- 10:07: eval jobs 59515827/28/29 started on gpu_requeue before any score job,
+  so allocation-dependent arms cannot run yet. Pending eval jobs 59515830–34
+  are held so the score jobs get the next GPUs. The running eval jobs are
+  requeued and held once uniform and fp finish (idle workers would otherwise
+  hold GPUs). All are released when allocations exist.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
