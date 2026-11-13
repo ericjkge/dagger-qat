@@ -142,6 +142,21 @@ pending to change the arm list.
 Both are deterministic arms, run once (eval jobs 59515827–29, gpu_requeue,
 about 18 s per episode).
 
+### Seed-7 allocation diagnostics (score job 59515823, 2 h 19 min)
+
+- Phase-mean damage at 3 bits, summed over layers: approach 0.10, grasp 2.32,
+  transport 0.10, place 0.39. Grasp dominates, so the phase-agnostic mean is
+  itself driven by grasp.
+- Rank correlation of per-layer 2-bit damage between phases (Spearman):
+  approach–transport 0.97, transport–place 0.90, approach–place 0.88,
+  grasp–place 0.69, grasp–transport 0.65, approach–grasp 0.64.
+- worst-s7: mean 2.998 bits; layers at 2/3/4/8 bits: 79/167/119/55;
+  per-layer worst phase: grasp 299, place 98, approach 14, transport 9.
+- phase-s7: mean 3.000 bits; layers at 2/3/4/8 bits: 67/186/119/48.
+- The two allocations differ on 45 of 420 layers, 9.6% of parameters.
+- Mean bits by module, worst / phase: DINOv2 6.06 / 5.72, SigLIP 3.23 / 3.21,
+  Llama 2.85 / 2.86.
+
 ### demo-frames / job 59511837
 
 - Purpose: diagnostic. Phase tagging on the demos and the frame set for the

@@ -146,6 +146,10 @@ Proposed first-pass choices (awaiting confirmation):
 - 11:35: all three score jobs are running (seed 7 at 91/256, seeds 8 and 9
   at 41 and 43/256). Allocations expected around 13:00 (seed 7) and 13:45
   (seeds 8 and 9).
+- 13:03: seed-7 allocations written. All eval jobs released. Seed-7
+  allocations differ on 9.6% of parameters (diagnostics in `results.md`). Grasp
+  damage dominates the other phases about 6–20×, so max and mean largely
+  coincide. `analyze.py` summarizes the eval episodes.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
