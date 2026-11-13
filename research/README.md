@@ -1,4 +1,4 @@
-# Noise-Robust Flow Maps
+# Phase-aware PTQ for VLAs
 
 <!-- TODO(human): state the durable project goal in a paragraph: what a
 noise-robust flow map is, what "robust" is measured against (the corruption
