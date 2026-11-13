@@ -53,13 +53,40 @@ last record per (arm, task, init state). Earlier submissions on `gpu_quad`
 only (59513219–21, 59513471–74, 59513531) were cancelled while pending and
 never ran.
 
-### tests / job 59515820
+### tests / jobs 59515820 (failed one check) and 59537943 (all passed)
 
 - Purpose: correctness checks (`tests.py`), then every stage end to end at tiny
-  scale in `$OUT/tests/59515820/`. It appends test lines (job 59515820) to the
-  runs file; these are smoke tests, not results.
-- Resources: 8 CPU, 64G, 01:00:00 (lowered from 02:00:00 while pending).
-- Status: submitted. The production jobs below are held until it passes.
+  scale in `$OUT/tests/<job>/`. Appends smoke-test lines (these job IDs) to the
+  runs file; these are not results.
+- Resources: 8 CPU, 64G, 01:00:00. Both ran on `gpu_requeue` L40S.
+- 59515820 failed "hook dot equals autograd" at 3 bits (20% off; 0.2% at 2
+  bits). The reference came from a separate backward pass, so it confounded
+  BF16 backward nondeterminism with the hook. The test was split into an
+  exact-arithmetic check against the same pass's gradient, plus a
+  gradient-noise check.
+- 59537943, all passed (8 min):
+  - Quantizer: 2^b−1 levels, row max kept, MSE falls with bits; widths that
+    are not a multiple of 128 work.
+  - Tagger, greedy allocator: pass.
+  - 420 target layers (DINOv2 24 blocks, SigLIP 27; last of each excluded),
+    7.161B params.
+  - Differentiable forward equals the eval forward on demo frames (max diff 0).
+  - Orientation and state: on upright demo frames, BF16 reproduces demo
+    actions with L1 0.0058 and gripper agreement 1.00; rotated 180°, 0.111
+    and 0.71.
+  - Hook arithmetic exact for DINOv2, SigLIP and Llama layers at all bits.
+    Backward-to-backward gradient noise is 1.1–2.1% relative norm, so single
+    dots with heavy cancellation can differ by tens of percent between passes.
+    Averaging over k and frames absorbs this.
+  - Diagnostic: first-order score vs the true ‖ΔA‖² when one layer is
+    quantized to 2 bits, 12 layers, frame 0: Spearman 0.91. The estimate is
+    typically 1–2× low in absolute terms.
+  - `apply_bits` changes exactly the 420 target weights; a 3-bit group has 7 levels.
+  - End to end: allocations at 2.999 and 3.000 mean bits; 1 episode each of
+    fp, uniform, worst-s0 and worst-s0-head ran (all succeeded on task 0,
+    state 0; 9–20 s per episode); recalibration val L1 0.0890 → 0.0779 on the
+    tiny set.
+- Production jobs released at 09:37 after 59537943 passed.
 
 ### score / jobs 59515823, 59515824, 59515825 (seeds 7, 8, 9)
 
@@ -98,7 +125,7 @@ pending to change the arm list.
 
 - Purpose: evaluation. Two `eval.py` workers per L40S, 16 in total, share one queue of
   (arm, task) units. A unit waits until its allocation file exists.
-- Resources: 8 CPU, 64G, 16:00:00 (lowered from 30:00:00 while pending).
+- Resources: 8 CPU, 64G, 06:00:00 (lowered from 30:00:00, then 16:00:00, while pending; tests measured 9–20 s per episode).
 - Command per worker: `--arms uniform worst-s7 phase-s7 worst-s7-head fp worst-s8 phase-s8
   worst-s9 phase-s9 --tasks 0..9 --episodes 50 --seed 7 --uniform-bits 3
   --phase-window 10 --flip-min-hold 5`.

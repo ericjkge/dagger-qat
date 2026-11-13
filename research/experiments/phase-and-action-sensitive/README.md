@@ -130,6 +130,9 @@ Proposed first-pass choices (awaiting confirmation):
   `OFTPolicy` requires BF16. Test job start estimate: Sat 02:30. Time limits
   of the pending jobs were lowered with `scontrol update` to help backfill:
   tests 1 h, score and recalibration 3 h, eval 16 h. The sbatch files match.
+- 09:37: test job 59537943 passed every check, after a test-design fix to
+  59515820 (see `results.md`). All production jobs were released. Episodes
+  take 9–20 s, so the eval time limit was lowered to 6 h.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
@@ -167,12 +170,12 @@ None.
 
 ## Next step
 
-When 59515820 finishes: if every check passes, `scontrol release` the held jobs.
-Otherwise fix the failure and retest.
+Watch the score jobs: check seed-7 allocation overlap (fraction of params
+whose bits differ between worst-s7 and phase-s7), then the eval progress.
 
 ## Blocked on
 
-0. **GPU availability vs the Saturday-morning deadline.** No BF16 GPU is free,
+0. (Resolved 09:37: tests ran on gpu_requeue.) **GPU availability vs the Saturday-morning deadline.** No BF16 GPU is free,
    At 06:03 the scheduler's estimate for the test job slipped to Sat 19:20
    (it was 05:57 after the time-limit cut). Options for the
    human: wait; free GPUs held by their own other jobs; or accept a reduced

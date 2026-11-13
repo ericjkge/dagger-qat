@@ -5,7 +5,7 @@
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --time=16:00:00
+#SBATCH --time=06:00:00
 #SBATCH --requeue
 #SBATCH --output=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/eval-%j.out
 # Two evaluation workers share one L40S and one unit queue (see eval.py). The
