@@ -34,6 +34,14 @@ direction.
 Redirection (human, 2026-11-13): ignore the AWQ baseline too; it is an artifact
 of the old project. The earlier kill criterion against AWQ W4/g128 is
 withdrawn. No run had used it.
+Specification (human, 2026-11-13):
+- A is the rolled-out action. I read this as the 8×7 action chunk the
+  full-precision policy outputs at frames of its own closed-loop LIBERO
+  rollouts. OFT executes all 8 steps per call. So phase tags and sampled frames
+  come from FP rollouts, not training demos.
+- Quantizable layers: the vision backbone (the fused DINOv2 + SigLIP ViT
+  linears) and the Llama linear layers. The projector, embeddings, LM head,
+  proprio projector and action head stay unquantized.
 Redirection (human, 2026-11-13): the project direction has changed; the
 Cannon-era repo is now only a skeleton to repurpose for O2. On the human's
 instruction, `research/bin/submit` on this branch no longer has a per-job time
@@ -50,7 +58,7 @@ Jobs:
   FAILED after 4 min: CMake 4 refuses to build `egl_probe`, which declares
   CMake < 3.5.
 - 59510142, the same script with `CMAKE_POLICY_VERSION_MINIMUM=3.5` and the same
-  header (reuses the partly built env).
+  header (reuses the partly built env). Running; `egl_probe` now builds.
 
 `runs/phase-and-action-sensitive.jsonl` is empty.
 
@@ -68,8 +76,8 @@ gradient or quantization work.
 ## Blocked on
 
 1. **Unspecified parts of the brief.** Baseline and evaluation sections are
-   empty. Also open: unit granularity of W_j, what A is (8×7 chunk? gripper
-   weight?), the quantizer Q_b, phase-window definitions, per-unit vs global
+   empty. Also open: unit granularity of W_j, weighting within A (steps,
+   gripper dimension, normalized units), the quantizer Q_b, phase-window definitions, per-unit vs global
    worst phase and phase normalization, greedy vs exact allocation, the meaning
    of b̄ and its values, and per-phase failure attribution.
 2. **No weights or demos on O2.** The OFT checkpoint and LIBERO HDF5 demos still
