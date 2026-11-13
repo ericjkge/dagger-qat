@@ -171,7 +171,9 @@ QVLA-like control at layer granularity.
 
 ## Results
 
-None.
+Full table in `results.md`. LIBERO-Long, 500 paired episodes each:
+BF16 95.0% (475/500); uniform symmetric 3-bit RTN 73.2% (366/500). The
+allocator arms are pending.
 
 ## Next step
 

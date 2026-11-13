@@ -132,6 +132,16 @@ pending to change the arm list.
 - Output: `$OUT/eval/<arm>.jsonl` (per episode); worker logs `$OUT/logs/eval-<job>-w*.out`.
 - Status: submitted.
 
+### Results so far (from `$OUT/eval/<arm>.jsonl`, last record per episode)
+
+| arm | episodes | successes | success | per task 0–9 |
+|---|---|---|---|---|
+| fp (BF16) | 500 | 475 | 95.0% | 44 50 49 50 50 46 46 50 42 48 |
+| uniform 3-bit | 500 | 366 | 73.2% | 44 37 42 47 13 42 26 42 39 34 |
+
+Both are deterministic arms, run once (eval jobs 59515827–29, gpu_requeue,
+about 18 s per episode).
+
 ### demo-frames / job 59511837
 
 - Purpose: diagnostic. Phase tagging on the demos and the frame set for the
