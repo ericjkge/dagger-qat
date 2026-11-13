@@ -1,6 +1,6 @@
 ---
 slug: phase-and-action-sensitive
-status: blocked
+status: running
 hypothesis: At a matched average of 4 bits per weight, worst-phase action-sensitive mixed-precision allocation raises OpenVLA-OFT LIBERO-Long success over uniform AWQ W4/g128, with the gain concentrated in grasp/place episodes.
 kill_criterion: At b̄=4, mean success over ≥3 seeds fails to beat AWQ W4/g128 by more than 2 SE, or at b̄=3 it fails to beat uniform 3-bit AWQ by more than 2 SE.
 best_metric:
@@ -39,8 +39,21 @@ Redirection (human, 2026-11-13): ignore `research/baseline.md` for this
 direction. Baseline arms are taken from the top-level `README.md` protocol: FP
 BF16 and AWQ W4/g128, plus uniform 3-bit AWQ g128 for the b̄=3 arm. The kill
 criterion is now fixed against these.
-No jobs submitted; `runs/phase-and-action-sensitive.jsonl` is empty. The
-direction cannot start; see Blocked on.
+Redirection (human, 2026-11-13): the project direction has changed; the
+Cannon-era repo is now only a skeleton to repurpose for O2. On the human's
+instruction, `research/bin/submit` on this branch no longer has a per-job time
+limit (it still requires `--time`), and its RAM cap went from 8G to 128G.
+Submodules `third_party/openvla-oft` and `third_party/LIBERO` are checked out in
+this worktree.
+
+Jobs:
+- 59508441, `setup_env.sbatch`: creates the conda env `vla` (Python 3.11,
+  `requirements-runtime.txt`, editable OFT/LIBERO/dqat from this worktree) and
+  checks imports. Header: `--partition=short --cpus-per-task=4 --mem=16G
+  --time=03:00:00`. Log:
+  `/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/setup-59508441.out`.
+
+`runs/phase-and-action-sensitive.jsonl` is empty.
 
 ## Results
 
@@ -55,27 +68,12 @@ gradient or quantization work.
 
 ## Blocked on
 
-1. **No runnable environment.** The conda env `vla` named in
-   `research/CLAUDE.md` does not exist (`~/.conda/envs` has only `big_things`,
-   `nrfm`). `third_party/openvla-oft` and `third_party/LIBERO` are empty in this
-   worktree and in the main checkout. No `.venv-runtime`, OFT checkpoint or LIBERO
-   demos were found, and `/n/scratch/users/e/edk005/vla/` does not exist. The
-   `scripts/train.py`/`sample.py`/`eval.py`/`make_data.py` and `configs/` named in
-   `research/CLAUDE.md` do not exist; the repo's entry point is
-   `scripts/run_baseline.sh` via `cannon_eval.sbatch`. The 2026-11-09 baseline
-   run was on Cannon; nothing from it is on O2. Please point me to an O2
-   environment with weights and demos, or authorize me to set one up here
-   (via a submitted CPU job running `scripts/setup.sh` into my scratch dir).
-2. **Memory limit vs. a 7B model.** `research/bin/submit` caps jobs at 8G RAM.
-   The existing eval sbatch requests 64G. Loading OpenVLA-7B (≈15 GB BF16) and
-   running LIBERO under 8G of host RAM is unlikely to work. Gradient estimation
-   (step 2 of the brief) also needs the BF16 model and backprops on one GPU.
-   Raising the RAM cap, or confirming that direct-to-GPU loading is expected, is
-   needed.
-3. **Compute for evaluation.** One full LIBERO-Long evaluation (500 episodes) is
-   ~12 h on one A100, which is at the per-job limit. Three seeds × several arms is
-   many such jobs at 2 concurrent. Please confirm the episode budget per arm, or
-   whether a reduced subset (e.g. 10 tasks × 20 states) is acceptable.
+1. **New direction.** The human says the direction has changed completely. The
+   hypothesis and kill criterion above follow the current brief and will be
+   replaced once the brief on `origin/eddy` is updated.
+2. **No weights or demos on O2.** The OFT checkpoint and LIBERO HDF5 demos still
+   need downloading (`scripts/download_assets.py`) once the new direction
+   confirms they are needed.
 
 ## Dead ends
 

@@ -7,9 +7,8 @@
 # prompts, so these limits are the only gate.
 set -euo pipefail
 
-MAX_MINUTES=720   # per job
 MAX_GPUS=1        # per job
-MAX_MEM_GB=8      # per job; O2 deprioritizes users whose jobs mostly use under half their requested RAM
+MAX_MEM_GB=128    # per job; O2 deprioritizes users whose jobs mostly use under half their requested RAM
 MAX_JOBS=2        # queued or running, per direction
 
 SLUG="${1:-}"; shift || true
@@ -50,13 +49,6 @@ grep -qE "^#SBATCH[[:space:]]+(-[tGaN]([[:space:]=]|[0-9])|--gpus|--array)" "$SC
   && refuse "use --time, --gres and --nodes in the header; short forms, --gpus* and --array are not allowed."
 
 [[ -n "$TIME" ]] || refuse "no --time in the script. Unbounded jobs are not allowed."
-[[ "$TIME" =~ ^(([0-9]+)-)?([0-9]+)(:([0-9]+))?(:([0-9]+))?$ ]] || refuse "cannot read --time=$TIME."
-d=${BASH_REMATCH[2]:-0}; a=${BASH_REMATCH[3]}; b=${BASH_REMATCH[5]:-}; c=${BASH_REMATCH[7]:-}
-if   [[ -n "${BASH_REMATCH[1]}" ]]; then MIN=$(( 10#$d*1440 + 10#$a*60 + 10#${b:-0} ))  # D-HH[:MM[:SS]]
-elif [[ -n "$c" ]];                then MIN=$(( 10#$a*60 + 10#$b ))                    # HH:MM:SS
-else                                    MIN=$(( 10#$a ))                                # MM[:SS]
-fi
-(( MIN <= MAX_MINUTES )) || refuse "--time=$TIME exceeds the ${MAX_MINUTES}-minute limit."
 
 N_GPU=0
 if [[ "$GPUS" == gpu* ]]; then
