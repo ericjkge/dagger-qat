@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=vla-tests
-#SBATCH --partition=gpu_quad
+#SBATCH --partition=gpu,gpu_quad,gpu_requeue
+#SBATCH --requeue
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
@@ -12,6 +13,7 @@ set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:?}"
 source research/experiments/phase-and-action-sensitive/env.sh
 T=$OUT/tests/$SLURM_JOB_ID
+rm -rf $T  # requeued: start clean
 python $EXP/tests.py --checkpoint $CKPT --frames $OUT/demo-frames/59511837/frames.npz --out $T
 python $EXP/score.py --checkpoint $CKPT --frames $T/frames.npz --out $T/scores/s0.npz --k 2 --seed 0
 for mode in worst-phase phase-agnostic; do

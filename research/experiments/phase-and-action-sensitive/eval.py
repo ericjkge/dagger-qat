@@ -1,7 +1,10 @@
 """LIBERO-Long evaluation of quantized arms, one (arm, task) unit at a time.
 
 Several processes may run this with the same --root: each claims a unit with an
-exclusive marker file. A unit whose allocation file does not exist yet is
+exclusive marker file holding its Slurm job ID, and marks it `.done` when the
+unit finishes. If a job is requeued, eval.sbatch frees that job's unfinished
+claims; their partial episodes may then appear twice in <arm>.jsonl, and
+analysis keeps the last record per (arm, task, init state). A unit whose allocation file does not exist yet is
 skipped until it appears. Arms: `fp` (BF16), `uniform` (every quantizable layer
 at --uniform-bits), the name of <root>/alloc/<arm>.json from allocate.py, or
 <alloc>-head: that allocation plus the recalibrated action head <root>/heads/<alloc>.pt.
@@ -58,10 +61,13 @@ def main():
             time.sleep(60)
             continue
         pending.remove(unit)
+        claim = args.root / "eval" / "claims" / f"{unit[0]}-{unit[1]}"
         try:
-            os.close(os.open(args.root / "eval" / "claims" / f"{unit[0]}-{unit[1]}", os.O_CREAT | os.O_EXCL))
+            fd = os.open(claim, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
         except FileExistsError:
             continue
+        os.write(fd, os.environ.get("SLURM_JOB_ID", "").encode())
+        os.close(fd)
         arm, task_id = unit
 
         if arm != loaded:
@@ -106,6 +112,7 @@ def main():
                 f.write(json.dumps(record) + "\n")
             print(json.dumps(record), flush=True)
         env.close()
+        claim.with_suffix(".done").touch()
         with open(ROOT / "research" / "runs" / f"{SLUG}.jsonl", "a") as f:
             f.write(json.dumps(dict(
                 slug=SLUG, kind="eval_unit", job=os.environ.get("SLURM_JOB_ID"), arm=arm, task_id=task_id,
