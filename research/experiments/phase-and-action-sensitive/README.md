@@ -109,6 +109,14 @@ Proposed first-pass choices (awaiting confirmation):
   allocation, arm `worst-s7-head`, paired against `worst-s7`. The eval jobs
   were resubmitted as 59513472/73/74 with the new arm list. Older pending jobs
   were cancelled; none ever ran.
+- Human (2026-11-13): make sure everything runs exactly as intended, with clean
+  code and rigorous tests. All production jobs are on `scontrol hold` until
+  test job 59513531 (`tests.sbatch`; header `--partition=gpu_quad
+  --gres=gpu:l40s:1 --cpus-per-task=8 --mem=64G --time=02:00:00`) passes.
+  Review fixes before testing: the last block of each ViT is unused by
+  OpenVLA, so it is excluded from the quantizable set (420 layers); score
+  hooks are reset each backward and missing gradients raise an error; the
+  quantizer returns BF16 exactly as evaluation stores it.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
@@ -146,7 +154,8 @@ None.
 
 ## Next step
 
-Check the first worker and score logs for errors. Check the first worker and score logs for errors.
+When 59513531 finishes: if every check passes, `scontrol release` the held jobs.
+Otherwise fix the failure and retest.
 
 ## Blocked on
 

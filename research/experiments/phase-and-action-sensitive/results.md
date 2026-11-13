@@ -20,7 +20,7 @@ most reasonable for a first-pass setup".
 | A | the 8×7 chunk the BF16 policy predicts at a demonstration frame |
 | A weighting | all 56 entries, OFT normalized action space (q01/q99 → [−1, 1]), equal weight; projections u ~ N(0, I₅₆) |
 | quantizable layers (human) | vision backbone linears (DINOv2 ViT-L + SigLIP SO400M) and Llama linears; projector, embeddings, LM head, proprio projector, action head stay BF16 |
-| unit W_j | one whole linear layer |
+| unit W_j | one whole linear layer; 420 layers (each ViT's last block is unused by OpenVLA and excluded) |
 | quantizer (human) | symmetric RTN, group 128 along input dim, s = max\|w\|/(2^(b−1)−1), 2^b−1 levels (2-bit = ternary); simulated (dequantized to BF16) |
 | bits (human) | {2, 3, 4, 8}; 8 = real INT8 |
 | frame source (human) | true demonstrations: OFT fine-tuning data `openvla/modified_libero_rlds` / `libero_10_no_noops` @ `6ce6aaaaabdbe590b1eef5cd29c0d33f14a08551`, train split, all episodes; 256 px, model orientation |
@@ -42,6 +42,14 @@ Jobs export `PYTHONPATH=src:third_party/openvla-oft:third_party/LIBERO`.
 Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
 
 ## Runs
+
+### tests / job 59513531
+
+- Purpose: correctness checks (`tests.py`), then every stage end to end at tiny
+  scale in `$OUT/tests/59513531/`. It appends test lines (job 59513531) to the
+  runs file; these are smoke tests, not results.
+- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=8 --mem=64G --time=02:00:00`.
+- Status: submitted; production jobs held until it passes.
 
 ### score / jobs 59513219, 59513220, 59513221 (seeds 7, 8, 9)
 
