@@ -125,6 +125,11 @@ Proposed first-pass choices (awaiting confirmation):
   2 workers per L40S over 8 jobs (16 workers). Test job 59515820; production
   jobs held: score 59515823/24/25 (seeds 7/8/9), recalibration 59515826
   (after 59515823), eval 59515827–34.
+- 04:05: every BF16-capable GPU (A100, A40, L40S, L40, A6000) on gpu,
+  gpu_quad and gpu_requeue is allocated; only Turing/Volta GPUs are free, and
+  `OFTPolicy` requires BF16. Test job start estimate: Sat 02:30. Time limits
+  of the pending jobs were lowered with `scontrol update` to help backfill:
+  tests 1 h, score and recalibration 3 h, eval 16 h. The sbatch files match.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
@@ -166,6 +171,11 @@ When 59515820 finishes: if every check passes, `scontrol release` the held jobs.
 Otherwise fix the failure and retest.
 
 ## Blocked on
+
+0. **GPU availability vs the Saturday-morning deadline.** No BF16 GPU is free,
+   and the scheduler estimates the first start at Sat 02:30. Options for the
+   human: wait; free GPUs held by their own other jobs; or accept a reduced
+   evaluation.
 
 1. **Still open (needed before allocation/evaluation, not before the current
    job):** evaluation episodes/seeds; per-phase failure attribution. Worst

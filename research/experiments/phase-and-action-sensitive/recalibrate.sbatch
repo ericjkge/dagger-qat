@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
-#SBATCH --time=06:00:00
+#SBATCH --time=03:00:00
 #SBATCH --output=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/recal-%j.out
 # Action-head recalibration on top of the worst-phase seed-7 allocation (arm worst-s7-head).
 # Submit with --dependency=afterok:<seed-7 score job>.

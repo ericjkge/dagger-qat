@@ -58,7 +58,7 @@ never ran.
 - Purpose: correctness checks (`tests.py`), then every stage end to end at tiny
   scale in `$OUT/tests/59515820/`. It appends test lines (job 59515820) to the
   runs file; these are smoke tests, not results.
-- Resources: 8 CPU, 64G, 02:00:00.
+- Resources: 8 CPU, 64G, 01:00:00 (lowered from 02:00:00 while pending).
 - Status: submitted. The production jobs below are held until it passes.
 
 ### score / jobs 59515823, 59515824, 59515825 (seeds 7, 8, 9)
@@ -69,7 +69,7 @@ never ran.
   pending.
 - Script: `score.sbatch` → `demo_frames.py --frames-per-phase 64 --seed $SEED`,
   `score.py --k 8 --seed $SEED`, `allocate.py --budget 3`.
-- Resources: 4 CPU, 64G, 06:00:00.
+- Resources: 4 CPU, 64G, 03:00:00 (lowered from 06:00:00 while pending).
 - Output: `$OUT/scores/s$SEED.npz`, `$OUT/alloc/{worst,phase}-s$SEED.json`, where
   `OUT=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive`.
 - Status: submitted.
@@ -98,7 +98,7 @@ pending to change the arm list.
 
 - Purpose: evaluation. Two `eval.py` workers per L40S, 16 in total, share one queue of
   (arm, task) units. A unit waits until its allocation file exists.
-- Resources: 8 CPU, 64G, 30:00:00.
+- Resources: 8 CPU, 64G, 16:00:00 (lowered from 30:00:00 while pending).
 - Command per worker: `--arms uniform worst-s7 phase-s7 worst-s7-head fp worst-s8 phase-s8
   worst-s9 phase-s9 --tasks 0..9 --episodes 50 --seed 7 --uniform-bits 3
   --phase-window 10 --flip-min-hold 5`.

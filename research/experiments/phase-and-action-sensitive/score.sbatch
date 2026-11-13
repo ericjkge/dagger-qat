@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
-#SBATCH --time=06:00:00
+#SBATCH --time=03:00:00
 #SBATCH --output=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/score-%j.out
 # One calibration seed (SEED in the environment): frames (seed 7 reuses job
 # 59511837), scores, then worst-phase and phase-agnostic allocations at b̄ = 3.

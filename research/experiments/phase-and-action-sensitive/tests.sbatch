@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --time=02:00:00
+#SBATCH --time=01:00:00
 #SBATCH --output=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/tests-%j.out
 # Correctness checks (tests.py), then every pipeline stage end to end on a tiny
 # scale in a scratch root: score -> allocate -> recalibrate -> eval (1 episode per arm).
