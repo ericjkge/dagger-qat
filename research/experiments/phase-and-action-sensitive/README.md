@@ -2,7 +2,7 @@
 slug: phase-and-action-sensitive
 status: running
 hypothesis: At matched average bits b̄, worst-phase action-sensitive bit allocation over {2,3,4,8} gives higher LIBERO-Long success than the same allocation using the phase-agnostic mean, with the gain concentrated in grasp/place.
-kill_criterion: At every b̄ tested, if mean LIBERO-Long success over ≥3 seeds does not exceed both uniform b̄-bit RTN and the phase-agnostic-mean allocator by more than 2 SE of the paired per-episode difference, the direction is dead.
+kill_criterion: At b̄ = 4, if mean LIBERO-Long success over ≥3 seeds does not exceed both uniform b̄-bit RTN and the phase-agnostic-mean allocator by more than 2 SE of the paired per-episode difference, the direction is dead.
 best_metric:
 started: 2026-11-13
 ---
@@ -27,7 +27,7 @@ same symmetric RTN g128 quantizer and the same quantizable layers:
   all sampled frames (same frames, same k);
 - **full precision**: unquantized BF16, the ceiling.
 
-Episodes are paired across arms. At every b̄ tested: if mean success over ≥ 3
+Episodes are paired across arms. Budget b̄ = 4 bits (human, 2026-11-13). If mean success over ≥ 3
 seeds does not exceed **both** uniform and phase-agnostic by more than 2 SE of
 the paired per-episode difference, the direction is dead. Beating uniform but
 not phase-agnostic means sensitivity allocation helps but the phase split does
@@ -130,7 +130,7 @@ Then write the gradient/score job.
 
 1. **Still open (needed before allocation/evaluation, not before the current
    job):** per-unit vs global worst phase and phase normalization; greedy vs
-   exact allocation; b̄ values; evaluation episodes/seeds; per-phase failure
+   exact allocation; evaluation episodes/seeds; per-phase failure
    attribution. First-pass defaults are listed in `results.md`.
 2. **No weights on O2.** The OFT checkpoint still needs downloading. Training
    demos are no longer needed for frames, because A comes from rollouts.

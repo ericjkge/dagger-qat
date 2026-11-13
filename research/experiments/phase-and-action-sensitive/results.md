@@ -28,7 +28,8 @@ most reasonable for a first-pass setup".
 | frames for gradients | 64 per phase, split evenly over tasks having that phase, uniform without replacement within task, seed 7; a frame needs 8 following steps in its episode |
 | score | s^(p)(W_j, b) = mean over frames in p and k = 8 projections of ⟨∇_{W_j} uᵀA, Q_b(W_j) − W_j⟩² (first-order, keeps cancellation within the layer) |
 | baselines (human) | uniform b̄-bit RTN; phase-agnostic allocator (mean over all frames instead of max_p); FP BF16 |
-| not yet run | allocation (exact knapsack vs greedy), phase normalization, b̄ values, evaluation |
+| budget b̄ (human) | 4 bits per weight, parameter-weighted average over quantizable layers; group scales not counted |
+| not yet run | allocation (exact knapsack vs greedy), phase normalization, evaluation |
 
 Environment: conda `vla` (Python 3.11.18, torch 2.2.0+cu121, transformers fork
 4.40.1 @ `bc339d9`) built by `setup_env.sbatch` (job 59511042);
