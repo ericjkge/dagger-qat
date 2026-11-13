@@ -2,7 +2,7 @@
 slug: phase-and-action-sensitive
 status: running
 hypothesis: At matched average bits b̄, worst-phase action-sensitive bit allocation over {2,3,4,8} gives higher LIBERO-Long success than the same allocation using the phase-agnostic mean, with the gain concentrated in grasp/place.
-kill_criterion: At b̄ = 4, if mean LIBERO-Long success over ≥3 seeds does not exceed both uniform b̄-bit RTN and the phase-agnostic-mean allocator by more than 2 SE of the paired per-episode difference, the direction is dead.
+kill_criterion: At b̄ = 3, if mean LIBERO-Long success over ≥3 seeds does not exceed both uniform b̄-bit RTN and the phase-agnostic-mean allocator by more than 2 SE of the paired per-episode difference, the direction is dead.
 best_metric:
 started: 2026-11-13
 ---
@@ -27,7 +27,7 @@ same symmetric RTN g128 quantizer and the same quantizable layers:
   all sampled frames (same frames, same k);
 - **full precision**: unquantized BF16, the ceiling.
 
-Episodes are paired across arms. Budget b̄ = 4 bits (human, 2026-11-13). If mean success over ≥ 3
+Episodes are paired across arms. Budget b̄ = 3 bits (human, 2026-11-13; briefly 4 earlier that day, before any run). If mean success over ≥ 3
 seeds does not exceed **both** uniform and phase-agnostic by more than 2 SE of
 the paired per-episode difference, the direction is dead. Beating uniform but
 not phase-agnostic means sensitivity allocation helps but the phase split does
