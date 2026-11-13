@@ -150,6 +150,11 @@ Proposed first-pass choices (awaiting confirmation):
   allocations differ on 9.6% of parameters (diagnostics in `results.md`). Grasp
   damage dominates the other phases about 6–20×, so max and mean largely
   coincide. `analyze.py` summarizes the eval episodes.
+- 13:35: all six allocations exist. Within a seed, worst and phase-agnostic
+  differ on 43–53 layers. The same arm across seeds differs on 113–155, and
+  the dominant worst phase flips (grasp for s7, place for s8/s9). The
+  calibration sample matters more than max vs mean. Eval jobs are still
+  queued (ReqNodeNotAvail).
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a

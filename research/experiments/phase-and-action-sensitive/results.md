@@ -157,6 +157,20 @@ about 18 s per episode).
 - Mean bits by module, worst / phase: DINOv2 6.06 / 5.72, SigLIP 3.23 / 3.21,
   Llama 2.85 / 2.86.
 
+### Allocations, seeds 7–9 (score jobs 59515823/24/25)
+
+| seed | worst: layers at 2/3/4/8 | worst: argmax phase (appr/grasp/transp/place) | phase-agnostic: 2/3/4/8 | layers differing | params differing |
+|---|---|---|---|---|---|
+| 7 | 79/167/119/55 | 14/299/9/98 | 67/186/119/48 | 45 | 9.6% |
+| 8 | 61/218/107/34 | 7/21/5/387 | 52/245/99/24 | 53 | 14.0% |
+| 9 | 58/227/113/22 | 25/55/5/335 | 52/246/102/20 | 43 | 14.6% |
+
+The dominant worst phase changes with the calibration seed: grasp for seed 7,
+place for seeds 8 and 9. Across seeds, allocations of the same arm differ on
+113–155 of 420 layers. That is far more than the worst-vs-agnostic difference
+within a seed (43–53). Calibration sampling noise (64 frames per phase, k = 8)
+is therefore larger than the effect of the phase max.
+
 ### demo-frames / job 59511837
 
 - Purpose: diagnostic. Phase tagging on the demos and the frame set for the
