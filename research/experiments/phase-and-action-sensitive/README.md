@@ -143,6 +143,9 @@ Proposed first-pass choices (awaiting confirmation):
 - 11:04: seed-7 score job 59515823 is running (gpu, compute-g-17-201) at
   about 31 s per frame (k = 8), so about 2.2 h for 256 frames, inside its 3 h
   limit. Seeds 8 and 9 estimated to start at 12:33 and 13:56.
+- 11:35: all three score jobs are running (seed 7 at 91/256, seeds 8 and 9
+  at 41 and 43/256). Allocations expected around 13:00 (seed 7) and 13:45
+  (seeds 8 and 9).
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
