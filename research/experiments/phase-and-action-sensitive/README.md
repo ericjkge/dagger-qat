@@ -47,6 +47,10 @@ Jobs:
   checks imports. Header: `--partition=short --cpus-per-task=4 --mem=16G
   --time=03:00:00`. Log:
   `/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/setup-59508441.out`.
+  FAILED after 4 min: CMake 4 refuses to build `egl_probe`, which declares
+  CMake < 3.5.
+- 59510142, the same script with `CMAKE_POLICY_VERSION_MINIMUM=3.5` and the same
+  header (reuses the partly built env).
 
 `runs/phase-and-action-sensitive.jsonl` is empty.
 

@@ -10,6 +10,7 @@
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:?}"
 OUT=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive
+export CMAKE_POLICY_VERSION_MINIMUM=3.5  # egl_probe declares cmake<3.5; CMake 4 refuses otherwise
 export PIP_CACHE_DIR=$OUT/cache/pip LIBERO_CONFIG_PATH=$OUT/libero-config
 mkdir -p "$PIP_CACHE_DIR" "$LIBERO_CONFIG_PATH" "$OUT/datasets"
 module load conda/miniforge3/26.9.4-1
