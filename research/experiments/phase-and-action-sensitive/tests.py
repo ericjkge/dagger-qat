@@ -98,22 +98,31 @@ def model_tests(policy, frames):
     print(f"INFO demo-action error upright (L1 pos/rot, gripper agreement) {upright}; rotated {rotated}", flush=True)
     check("frames are in model orientation", upright[0] < 0.7 * rotated[0] and upright[1] > 0.9)
 
-    # Hooks: the dot products equal <autograd grad, Q_b(W) - W> for sample layers of each module.
+    # Hooks. (1) Arithmetic: the hooked dot equals <g, Q_b(W) - W> for the gradient g of the same
+    # backward, captured by an earlier hook. (2) Gradient: g matches a separate autograd.grad pass up
+    # to BF16 backward nondeterminism, reported as a relative norm.
     names = sorted(layers)
     model.requires_grad_(False)
-    dots = register_dot_hooks(layers, names)
     sample = [next(n for n in names if n.startswith(p)) for p in
               ("vision_backbone.featurizer.", "vision_backbone.fused_featurizer.", "language_model.")]
+    captured = {}
+    for n in sample:
+        layers[n].weight.requires_grad_(True)
+        layers[n].weight.register_post_accumulate_grad_hook(lambda w, n=n: captured.__setitem__(n, w.grad.detach().clone()))
+    dots = register_dot_hooks(layers, names)  # registered after, so runs after the capture
     u = torch.randn(56, device="cuda", generator=torch.Generator(device="cuda").manual_seed(0))
     hooked = frame_dots(policy, frame(frames, 0), [u], dots)[0]
     weights = [layers[n].weight for n in sample]
     a = policy.action_head.predict_action(action_hidden(policy, *frame(frames, 0))).float().flatten()
     grads = torch.autograd.grad(a @ u, weights)  # does not accumulate .grad, so hooks do not fire
     for n, w, g in zip(sample, weights, grads):
+        short = f"{n.split('.')[0]}..{n.split('.')[-2]}"
+        rel = ((captured[n].float() - g.float()).norm() / g.float().norm()).item()
+        check(f"hook grad matches autograd {short}", rel < 0.05, f"(relative norm diff {rel:.2e})")
         for i, b in enumerate(BITS):
-            ref = (g.float() * (quantize(w, b).float() - w.float())).sum().item()
+            ref = (captured[n].float() * (quantize(w, b).float() - w.float())).sum().item()
             got = hooked[names.index(n), i]
-            check(f"hook dot {n.split('.')[0]}..{n.split('.')[-2]} b={b}", abs(got - ref) <= 1e-2 * abs(ref) + 1e-6, f"({got:.4e} vs {ref:.4e})")
+            check(f"hook dot arithmetic {short} b={b}", abs(got - ref) <= 1e-4 * abs(ref) + 1e-9, f"({got:.4e} vs {ref:.4e})")
 
     # Diagnostic: first-order score vs the true squared action change from quantizing one layer to 2 bits.
     us = [torch.randn(56, device="cuda", generator=torch.Generator(device="cuda").manual_seed(i)) for i in range(32)]
