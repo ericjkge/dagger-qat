@@ -58,7 +58,10 @@ Jobs:
   FAILED after 4 min: CMake 4 refuses to build `egl_probe`, which declares
   CMake < 3.5.
 - 59510142, the same script with `CMAKE_POLICY_VERSION_MINIMUM=3.5` and the same
-  header (reuses the partly built env). Running; `egl_probe` now builds.
+  header (reuses the partly built env). FAILED after 9 min: `egl_probe` built,
+  but `pip install -e .` refused because `dqat`'s pyproject pins Python 3.10.
+- 59510797, the same script without installing `dqat`, which is imported from
+  `src/` via PYTHONPATH. Same header.
 
 `runs/phase-and-action-sensitive.jsonl` is empty.
 
@@ -68,21 +71,23 @@ None.
 
 ## Next step
 
-Once the blockers are cleared: a single CPU job that tags phases on the
-LIBERO-Long training HDF5 demos by gripper-state flips and reports phase-length
-statistics per task, to confirm the four-phase split is well defined before any
-gradient or quantization work.
+Once the env check passes and the blockers are cleared: download the OFT
+checkpoint, run a few full-precision LIBERO-Long rollouts on one GPU, and tag
+phases from their gripper traces. Report phase-length statistics per task to
+confirm the four-phase split is well defined before any gradient or
+quantization work.
 
 ## Blocked on
 
 1. **Unspecified parts of the brief.** Baseline and evaluation sections are
-   empty. Also open: unit granularity of W_j, weighting within A (steps,
-   gripper dimension, normalized units), the quantizer Q_b, phase-window definitions, per-unit vs global
-   worst phase and phase normalization, greedy vs exact allocation, the meaning
-   of b̄ and its values, and per-phase failure attribution.
-2. **No weights or demos on O2.** The OFT checkpoint and LIBERO HDF5 demos still
-   need downloading (`scripts/download_assets.py`) once the new direction
-   confirms they are needed.
+   empty. Also open: unit granularity of W_j; weighting within A (steps,
+   gripper dimension, normalized units); the quantizer Q_b; phase-window
+   definitions; per-unit vs global worst phase and phase normalization; greedy
+   vs exact allocation; the meaning of b̄ and its values; per-phase failure
+   attribution; k and frames per phase; rollout count and seeds for collecting
+   frames.
+2. **No weights on O2.** The OFT checkpoint still needs downloading. Training
+   demos are no longer needed for frames, because A comes from rollouts.
 
 ## Dead ends
 
