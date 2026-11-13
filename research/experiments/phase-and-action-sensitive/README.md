@@ -104,11 +104,15 @@ Proposed first-pass choices (awaiting confirmation):
   59513219/20/21 (score + allocation, seeds 7/8/9) and 59513222
   (recalibration). Eval worker jobs B 59513223 and C 59513224 were added, so
   12 workers share one queue.
+- Human (2026-11-13): recalibration belongs on top of our method, not on the
+  uniform backbone. Recalibration is now job 59513471 on the worst-s7
+  allocation, arm `worst-s7-head`, paired against `worst-s7`. The eval jobs
+  were resubmitted as 59513472/73/74 with the new arm list. Older pending jobs
+  were cancelled; none ever ran.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
-Arm `uniform-head`: the uniform 3-bit backbone with only the L1 head fine-tuned
-on demo frames to match BF16 action chunks. Paired against `uniform`. This is
-a candidate method beyond the brief, not a phase test.
+(Superseded below: it now runs on the worst-s7 allocation.) This is a
+candidate add-on beyond the brief, not a phase test.
 
 Human (2026-11-13): results needed by Saturday 2026-11-14 early morning.
 Agent's reading: the policy and simulator are deterministic, so "seed" means

@@ -32,7 +32,7 @@ most reasonable for a first-pass setup".
 | worst phase (human) | s(W_j,b) = max_p s^(p)(W_j,b) per layer, no phase normalization; log the argmax phase per layer |
 | allocation (human) | greedy: all layers start at 8; repeatedly demote the layer/target bit with the lowest (Δs)/(Δbits·#params), any lower bit allowed, until parameter-weighted mean ≤ b̄; same code for the phase-agnostic arm |
 | seeds | "seed" = calibration seed (frame sample + projections u): 7, 8, 9 for both allocator arms. The policy, simulator and init states are deterministic, so uniform and FP are run once |
-| evaluation | LIBERO-Long 10 tasks × 50 init states, episode seed 7 + 1000·task + init, env.seed(0); arms run in priority order uniform, worst-s7, phase-s7, uniform-head, fp, worst-s8, phase-s8, worst-s9, phase-s9 |
+| evaluation | LIBERO-Long 10 tasks × 50 init states, episode seed 7 + 1000·task + init, env.seed(0); arms run in priority order uniform, worst-s7, phase-s7, worst-s7-head, fp, worst-s8, phase-s8, worst-s9, phase-s9 |
 | per-phase attribution | same gripper tagger on executed eval actions; per episode: last phase reached, close/open flip counts, steps per phase |
 
 Environment: conda `vla` (Python 3.11.18, torch 2.2.0+cu121, transformers fork
@@ -56,29 +56,32 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
   `OUT=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive`.
 - Status: submitted.
 
-### recalibration / job 59513222
+### recalibration / job 59513471 (after seed-7 score job 59513219)
 
-- Purpose (human: "run 2 and see whether it works"): quantize all quantizable
-  layers to uniform symmetric 3-bit, then fine-tune only the L1 action head
-  (float32, AdamW lr 3e-5, batch 32, 3000 steps, L1 loss) to reproduce the BF16
-  policy's normalized 8×7 chunks from quantized features.
+- Purpose (human: "run 2 and see whether it works", on top of our method):
+  quantize the backbone with the worst-phase seed-7 allocation, then fine-tune
+  only the L1 action head (float32, AdamW lr 3e-5, batch 32, 3000 steps, L1
+  loss) to reproduce the BF16 policy's normalized 8×7 chunks from quantized
+  features. Replaces 59513222 (uniform backbone, cancelled while pending:
+  the human wanted it on our method).
 - Frames: `demo_frames.py --frames-per-phase 1024 --seed 10` (phase-balanced,
   separate draw from the scoring seeds). Split 90/10 train/val, seed 10. The
   head with the lowest val L1 (checked every 250 steps) is saved in BF16 to
-  `$OUT/heads/uniform.pt`, with metrics in `uniform.json`.
-- Script: `recalibrate.sbatch` → `demo_frames.py`, `recalibrate.py`.
+  `$OUT/heads/worst-s7.pt`, with metrics in `worst-s7.json`.
+- Script: `recalibrate.sbatch` (`--dependency=afterok:59513219` at submission).
 - Header: same as the score jobs.
-- Evaluated as arm `uniform-head`, paired against `uniform`.
+- Evaluated as arm `worst-s7-head`, paired against `worst-s7`.
 - Status: submitted.
 
-### eval / jobs 59513188, 59513223, 59513224 (worker jobs A, B, C)
+### eval / jobs 59513472, 59513473, 59513474 (worker jobs A, B, C)
 
-Job A replaces 59512609, cancelled while pending.
+These replace 59512609, 59513188, 59513223 and 59513224, all cancelled while
+pending to change the arm list.
 
 - Purpose: evaluation. Four `eval.py` workers per A100, 12 in total, share one queue of
   (arm, task) units. A unit waits until its allocation file exists.
 - Header: `--partition=gpu_quad --gres=gpu:a100:1 --cpus-per-task=16 --mem=120G --time=30:00:00`.
-- Command per worker: `--arms uniform worst-s7 phase-s7 uniform-head fp worst-s8 phase-s8
+- Command per worker: `--arms uniform worst-s7 phase-s7 worst-s7-head fp worst-s8 phase-s8
   worst-s9 phase-s9 --tasks 0..9 --episodes 50 --seed 7 --uniform-bits 3
   --phase-window 10 --flip-min-hold 5`.
 - Output: `$OUT/eval/<arm>.jsonl` (per episode); worker logs `$OUT/logs/eval-<job>-w*.out`.
