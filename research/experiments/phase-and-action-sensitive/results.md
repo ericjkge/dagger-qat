@@ -65,8 +65,8 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
   features. Replaces 59513222 (uniform backbone, cancelled while pending:
   the human wanted it on our method).
 - Frames: `demo_frames.py --frames-per-phase 1024 --seed 10` (phase-balanced,
-  separate draw from the scoring seeds). Split 90/10 train/val, seed 10. The
-  head with the lowest val L1 (checked every 250 steps) is saved in BF16 to
+  separate draw from the scoring seeds). Split 90/10 train/val by demo episode
+  (not by frame), seed 10. The head with the lowest val L1 (checked every 250 steps) is saved in BF16 to
   `$OUT/heads/worst-s7.pt`, with metrics in `worst-s7.json`.
 - Script: `recalibrate.sbatch` (`--dependency=afterok:59513219` at submission).
 - Header: same as the score jobs.

@@ -50,9 +50,12 @@ def main():
     apply_bits(policy.model, json.loads(args.alloc.read_text())["bits"])
     h_q = hiddens()
 
+    # Split by demo episode: frames of one demo are near-duplicates.
     rng = np.random.default_rng(args.seed)
-    order = rng.permutation(n)
-    val, train = order[: int(n * args.val_frac)], order[int(n * args.val_frac):]
+    episodes = np.unique(frames["episode"])
+    held = rng.choice(episodes, size=max(1, int(len(episodes) * args.val_frac)), replace=False)
+    is_val = np.isin(frames["episode"], held)
+    val, train = np.flatnonzero(is_val), np.flatnonzero(~is_val)
     trained = copy.deepcopy(head).float().train()
 
     @torch.no_grad()
