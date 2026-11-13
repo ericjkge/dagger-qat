@@ -4,10 +4,11 @@
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
-#SBATCH --time=08:00:00
+#SBATCH --time=10:00:00
 #SBATCH --output=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/score-%j.out
 # Frames for calibration seeds 8 and 9 (seed 7 is job 59511837), scores for all
-# three seeds, then worst-phase and phase-agnostic allocations at b̄ = 3.
+# three seeds, worst-phase and phase-agnostic allocations at b̄ = 3, then
+# action-head recalibration for the uniform 3-bit backbone.
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:?}"
 source research/experiments/phase-and-action-sensitive/env.sh
@@ -26,3 +27,7 @@ for s in 7 8 9; do
       --out $OUT/alloc/${mode%%-*}-s$s.json
   done
 done
+python $EXP/demo_frames.py --rlds-dir $RLDS --out $OUT/demo-frames/$SLURM_JOB_ID-recal \
+  --phase-window 10 --flip-min-hold 5 --frames-per-phase 1024 --chunk 8 --seed 10
+python $EXP/recalibrate.py --checkpoint $CKPT --frames $OUT/demo-frames/$SLURM_JOB_ID-recal/frames.npz \
+  --bits 3 --out $OUT/heads/uniform.pt --val-frac 0.1 --steps 3000 --batch 32 --lr 3e-5 --eval-every 250 --seed 10

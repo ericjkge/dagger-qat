@@ -3,7 +3,8 @@
 Several processes may run this with the same --root: each claims a unit with an
 exclusive marker file. A unit whose allocation file does not exist yet is
 skipped until it appears. Arms: `fp` (BF16), `uniform` (every quantizable layer
-at --uniform-bits), or the name of <root>/alloc/<arm>.json from allocate.py.
+at --uniform-bits), `uniform-head` (uniform plus the recalibrated action head
+<root>/heads/uniform.pt), or the name of <root>/alloc/<arm>.json from allocate.py.
 
 Per episode: success, steps, and gripper-flip phases of the executed actions
 (the same tagger as the demos), appended to <root>/eval/<arm>.jsonl. One line
@@ -42,10 +43,17 @@ def main():
     from libero.libero import benchmark
 
     suite = benchmark.get_benchmark_dict()["libero_10"]()
+    def ready(arm):
+        if arm in ("fp", "uniform"):
+            return True
+        if arm == "uniform-head":
+            return (args.root / "heads" / "uniform.pt").exists()
+        return (args.root / "alloc" / f"{arm}.json").exists()
+
     pending = [(arm, t) for arm in args.arms for t in args.tasks]
     policy, loaded = None, None
     while pending:
-        unit = next((u for u in pending if u[0] in ("fp", "uniform") or (args.root / "alloc" / f"{u[0]}.json").exists()), None)
+        unit = next((u for u in pending if ready(u[0])), None)
         if unit is None:
             time.sleep(60)
             continue
@@ -60,8 +68,10 @@ def main():
             policy = None
             torch.cuda.empty_cache()
             policy = OFTPolicy(args.checkpoint, args.seed)
-            if arm == "uniform":
+            if arm in ("uniform", "uniform-head"):
                 apply_bits(policy.model, {n: args.uniform_bits for n in target_layers(policy.model)})
+            if arm == "uniform-head":
+                policy.action_head.load_state_dict(torch.load(args.root / "heads" / "uniform.pt"))
             elif arm != "fp":
                 apply_bits(policy.model, json.loads((args.root / "alloc" / f"{arm}.json").read_text())["bits"])
             loaded = arm

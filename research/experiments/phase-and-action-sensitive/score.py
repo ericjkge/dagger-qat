@@ -10,6 +10,7 @@ import numpy as np
 import torch
 
 from quant import BITS, quantize, target_layers
+from vla import action_hidden
 
 
 def main():
@@ -22,10 +23,9 @@ def main():
     args = p.parse_args()
 
     from dqat.policy import OFTPolicy
-    from experiments.robot.openvla_utils import normalize_proprio, prepare_images_for_vla
 
     policy = OFTPolicy(args.checkpoint, args.seed)
-    model, cfg = policy.model, policy.cfg
+    model = policy.model
     layers = target_layers(model)
     names = sorted(layers)
     model.requires_grad_(False)
@@ -44,24 +44,12 @@ def main():
         layers[n].weight.requires_grad_(True)
         layers[n].weight.register_post_accumulate_grad_hook(hook(j))
 
-    def action(full, wrist, state, instruction):
-        prompt = f"In: What action should the robot take to {instruction.lower()}?\nOut:"
-        images = prepare_images_for_vla([full, wrist], cfg)
-        inputs = policy.processor(prompt, images[0]).to("cuda", dtype=torch.bfloat16)
-        wrist_pixels = policy.processor(prompt, images[1]).to("cuda", dtype=torch.bfloat16)["pixel_values"]
-        inputs["pixel_values"] = torch.cat([inputs["pixel_values"], wrist_pixels], dim=1)
-        proprio = normalize_proprio(state, model.norm_stats[cfg.unnorm_key]["proprio"])
-        _, hidden = model.predict_action(
-            **inputs, unnorm_key=cfg.unnorm_key, do_sample=False, proprio=proprio,
-            proprio_projector=policy.proprio_projector, action_head=policy.action_head, use_film=False,
-        )
-        return policy.action_head.predict_action(hidden).float().flatten()  # 56, normalized
-
-    frames = np.load(args.frames)
+    frames = dict(np.load(args.frames))  # load once; NpzFile re-reads per access
     rng = torch.Generator(device="cuda").manual_seed(args.seed)
     scores = np.zeros((len(frames["phase"]), len(names), len(BITS)), dtype=np.float32)
     for f in range(len(scores)):
-        a = action(frames["full_image"][f], frames["wrist_image"][f], frames["state"][f], str(frames["instruction"][f]))
+        hidden = action_hidden(policy, frames["full_image"][f], frames["wrist_image"][f], frames["state"][f], str(frames["instruction"][f]))
+        a = policy.action_head.predict_action(hidden).float().flatten()  # 56, normalized
         for i in range(args.k):
             u = torch.randn(a.shape, generator=rng, device="cuda")
             (a @ u).backward(retain_graph=i < args.k - 1)

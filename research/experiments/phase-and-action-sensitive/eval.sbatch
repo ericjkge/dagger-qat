@@ -14,7 +14,7 @@ export OMP_NUM_THREADS=4
 nvidia-smi
 for w in 1 2 3 4; do
   python $EXP/eval.py --checkpoint $CKPT --root $OUT \
-    --arms uniform worst-s7 phase-s7 fp worst-s8 phase-s8 worst-s9 phase-s9 \
+    --arms uniform worst-s7 phase-s7 uniform-head fp worst-s8 phase-s8 worst-s9 phase-s9 \
     --tasks 0 1 2 3 4 5 6 7 8 9 --episodes 50 --seed 7 --uniform-bits 3 \
     --phase-window 10 --flip-min-hold 5 > $OUT/logs/eval-$SLURM_JOB_ID-w$w.out 2>&1 &
   sleep 120  # stagger model loads
