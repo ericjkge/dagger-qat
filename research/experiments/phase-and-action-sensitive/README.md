@@ -95,6 +95,14 @@ Proposed first-pass choices (awaiting confirmation):
   RLDS demos, tags phases on the demos and samples 64 frames per phase. Header:
   `--partition=short --cpus-per-task=4 --mem=32G --time=04:00:00`.
 
+- 59512608 `score.sbatch` and 59512609 `eval.sbatch` (worker job A); headers in
+  `results.md`.
+
+Human (2026-11-13): results needed by Saturday 2026-11-14 early morning.
+Agent's reading: the policy and simulator are deterministic, so "seed" means
+the calibration seed (frame sample + projections), 7/8/9. The kill criterion's
+"≥ 3 seeds" means 3 calibration seeds.
+
 Redirection (human, 2026-11-13): the project is moving away from on-policy, so
 frames come from the true demonstrations, not FP rollouts. This replaces the
 earlier rollout frame source. A is now the policy's predicted 8×7 chunk at
@@ -122,9 +130,8 @@ None.
 
 ## Next step
 
-When 59511837 finishes, check per-task phase statistics: flip counts per demo,
-phase lengths, and whether every phase gets its 64 frames.
-Then write the gradient/score job.
+Check the first worker and score logs for errors. When 59512608 ends, submit
+worker job B (`eval.sbatch`).
 
 ## Blocked on
 
