@@ -99,6 +99,14 @@ the score estimator, and record the exact setup of every run. That record is
 `results.md` in this directory. Suite: LIBERO-Long, the agent's recommendation;
 the human did not choose otherwise. Init states 0–4 are held out for frames.
 
+Related work: QVLA (arXiv 2602.03782, ICLR 2026) already allocates bits by
+action sensitivity in OpenVLA-OFT on LIBERO. It works per channel, uses bits
+{0,2,4,8,16}, greedy demotion, a σ²·‖J‖_F² first-order proxy, and frames from
+training demos averaged over the data. It has no phase split. What this
+direction adds is the worst-phase max over gripper-tagged phases, on-policy
+rollout frames, and per-phase evaluation. The phase-agnostic arm is the
+QVLA-like control at layer granularity.
+
 ## Results
 
 None.
