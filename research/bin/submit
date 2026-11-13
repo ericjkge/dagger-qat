@@ -9,7 +9,6 @@ set -euo pipefail
 
 MAX_GPUS=1        # per job
 MAX_MEM_GB=128    # per job; O2 deprioritizes users whose jobs mostly use under half their requested RAM
-MAX_JOBS=2        # queued or running, per direction
 
 SLUG="${1:-}"; shift || true
 SCRIPT="${1:-}"; shift || true
@@ -60,8 +59,6 @@ MEM_MB=${BASH_REMATCH[1]}; [[ "${BASH_REMATCH[2]}" == M ]] || MEM_MB=$(( MEM_MB 
 (( MEM_MB <= MAX_MEM_GB * 1024 )) || refuse "--mem=$MEM exceeds the ${MAX_MEM_GB}G limit; request about 1.5x the measured peak (sacct -o MaxRSS)."
 [[ -z "$NODES" || "$NODES" == 1 ]] || refuse "--nodes=$NODES; jobs are single-node."
 
-N_JOBS=$(squeue -h -u "$USER" -o %j | grep -c "^vla-${SLUG}--" || true)
-(( N_JOBS < MAX_JOBS )) || refuse "$N_JOBS jobs already queued or running for $SLUG (limit $MAX_JOBS)."
 
 OUT=$(sbatch --parsable \
         --job-name="$TAG" \

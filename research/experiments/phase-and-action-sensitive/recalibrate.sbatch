@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#SBATCH --job-name=vla-recal
+#SBATCH --partition=gpu_quad
+#SBATCH --gres=gpu:l40s:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=64G
+#SBATCH --time=06:00:00
+#SBATCH --output=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/recal-%j.out
+# Action-head recalibration for the uniform 3-bit backbone (arm uniform-head).
+set -euo pipefail
+cd "${SLURM_SUBMIT_DIR:?}"
+source research/experiments/phase-and-action-sensitive/env.sh
+FRAMES=$OUT/demo-frames/$SLURM_JOB_ID-recal
+python $EXP/demo_frames.py --rlds-dir $OUT/datasets/modified_libero_rlds/libero_10_no_noops/1.0.0 --out $FRAMES \
+  --phase-window 10 --flip-min-hold 5 --frames-per-phase 1024 --chunk 8 --seed 10
+python $EXP/recalibrate.py --checkpoint $CKPT --frames $FRAMES/frames.npz --bits 3 --out $OUT/heads/uniform.pt \
+  --val-frac 0.1 --steps 3000 --batch 32 --lr 3e-5 --eval-every 250 --seed 10
