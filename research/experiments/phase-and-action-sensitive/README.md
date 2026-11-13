@@ -138,6 +138,8 @@ Proposed first-pass choices (awaiting confirmation):
   are held so the score jobs get the next GPUs. The running eval jobs are
   requeued and held once uniform and fp finish (idle workers would otherwise
   hold GPUs). All are released when allocations exist.
+- 10:33: uniform and fp finished; eval jobs 27–29 requeued and held. Score
+  start estimates: seed 7 at 11:28, seed 8 at 15:19, seed 9 at 16:36.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
