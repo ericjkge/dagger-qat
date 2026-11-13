@@ -95,8 +95,14 @@ Proposed first-pass choices (awaiting confirmation):
   RLDS demos, tags phases on the demos and samples 64 frames per phase. Header:
   `--partition=short --cpus-per-task=4 --mem=32G --time=04:00:00`.
 
-- 59512608 `score.sbatch` and 59512609 `eval.sbatch` (worker job A); headers in
-  `results.md`.
+- 59512608 `score.sbatch` and 59512609 `eval.sbatch`: cancelled while pending
+  to add head recalibration. Resubmitted as 59513187 (score + recalibration)
+  and 59513188 (eval worker job A); headers in `results.md`.
+
+Human (2026-11-13): run action-head recalibration and see whether it works.
+Arm `uniform-head`: the uniform 3-bit backbone with only the L1 head fine-tuned
+on demo frames to match BF16 action chunks. Paired against `uniform`. This is
+a candidate method beyond the brief, not a phase test.
 
 Human (2026-11-13): results needed by Saturday 2026-11-14 early morning.
 Agent's reading: the policy and simulator are deterministic, so "seed" means
@@ -130,7 +136,7 @@ None.
 
 ## Next step
 
-Check the first worker and score logs for errors. When 59512608 ends, submit
+Check the first worker and score logs for errors. When 59513187 ends, submit
 worker job B (`eval.sbatch`).
 
 ## Blocked on

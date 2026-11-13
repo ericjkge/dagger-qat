@@ -32,7 +32,7 @@ most reasonable for a first-pass setup".
 | worst phase (human) | s(W_j,b) = max_p s^(p)(W_j,b) per layer, no phase normalization; log the argmax phase per layer |
 | allocation (human) | greedy: all layers start at 8; repeatedly demote the layer/target bit with the lowest (Δs)/(Δbits·#params), any lower bit allowed, until parameter-weighted mean ≤ b̄; same code for the phase-agnostic arm |
 | seeds | "seed" = calibration seed (frame sample + projections u): 7, 8, 9 for both allocator arms. The policy, simulator and init states are deterministic, so uniform and FP are run once |
-| evaluation | LIBERO-Long 10 tasks × 50 init states, episode seed 7 + 1000·task + init, env.seed(0); arms run in priority order uniform, worst-s7, phase-s7, fp, worst-s8, phase-s8, worst-s9, phase-s9 |
+| evaluation | LIBERO-Long 10 tasks × 50 init states, episode seed 7 + 1000·task + init, env.seed(0); arms run in priority order uniform, worst-s7, phase-s7, uniform-head, fp, worst-s8, phase-s8, worst-s9, phase-s9 |
 | per-phase attribution | same gripper tagger on executed eval actions; per episode: last phase reached, close/open flip counts, steps per phase |
 
 Environment: conda `vla` (Python 3.11.18, torch 2.2.0+cu121, transformers fork
@@ -43,26 +43,36 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
 
 ## Runs
 
-### score / job 59512608
+### score / job 59513187 (replaces 59512608, cancelled while pending)
 
-- Purpose: frames for seeds 8 and 9, scores for seeds 7–9 (k = 8), and
-  worst-phase and phase-agnostic greedy allocations at b̄ = 3.
+- Purpose: frames for seeds 8 and 9, scores for seeds 7–9 (k = 8),
+  worst-phase and phase-agnostic greedy allocations at b̄ = 3, then
+  action-head recalibration (below).
 - Script: `score.sbatch` → `demo_frames.py`, `score.py`, `allocate.py`.
-- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=4 --mem=64G --time=08:00:00`.
+- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=4 --mem=64G --time=10:00:00`.
 - Output: `$OUT/demo-frames/59512608-s{8,9}/`, `$OUT/scores/s{7,8,9}.npz`,
-  `$OUT/alloc/{worst,phase}-s{7,8,9}.json`, where
+  `$OUT/alloc/{worst,phase}-s{7,8,9}.json`, `$OUT/heads/uniform.pt` (+ `.json`), where
   `OUT=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive`.
 - Status: submitted.
 
-### eval / job 59512609 (worker job A)
+- Recalibration (human: "run 2 and see whether it works"): quantize all
+  quantizable layers to uniform symmetric 3-bit, then fine-tune only the L1
+  action head (float32, AdamW lr 3e-5, batch 32, 3000 steps, L1 loss) to
+  reproduce the BF16 policy's normalized 8×7 chunks from quantized features.
+  Frames: `demo_frames.py --frames-per-phase 1024 --seed 10` (phase-balanced,
+  separate draw from the scoring seeds). Split 90/10 train/val, seed 10. The
+  head with the lowest val L1 (checked every 250 steps) is saved in BF16.
+  Evaluated as arm `uniform-head`, paired against `uniform`.
+
+### eval / job 59513188 (worker job A; replaces 59512609, cancelled while pending)
 
 - Purpose: evaluation. Four `eval.py` workers on one A100 share a queue of
   (arm, task) units. A unit waits until its allocation file exists.
 - Header: `--partition=gpu_quad --gres=gpu:a100:1 --cpus-per-task=16 --mem=120G --time=30:00:00`.
-- Command per worker: `--arms uniform worst-s7 phase-s7 fp worst-s8 phase-s8
+- Command per worker: `--arms uniform worst-s7 phase-s7 uniform-head fp worst-s8 phase-s8
   worst-s9 phase-s9 --tasks 0..9 --episodes 50 --seed 7 --uniform-bits 3
   --phase-window 10 --flip-min-hold 5`.
-- Output: `$OUT/eval/<arm>.jsonl` (per episode); worker logs `$OUT/logs/eval-59512609-w*.out`.
+- Output: `$OUT/eval/<arm>.jsonl` (per episode); worker logs `$OUT/logs/eval-59513188-w*.out`.
 - Status: submitted. Worker job B (same script) follows when the score job ends.
 
 ### demo-frames / job 59511837
