@@ -83,6 +83,9 @@ Proposed first-pass choices (awaiting confirmation):
 - Quantizer (human, 2026-11-13): symmetric. Per group of 128,
   s = max|w| / (2^(b−1) − 1), q ∈ [−(2^(b−1)−1), 2^(b−1)−1]. 2-bit is
   therefore ternary {−s, 0, s}. One scale per group, no zero point.
+- 8 bits = real symmetric INT8 with the same quantizer (human, 2026-11-13). It
+  costs 8 bits per weight in b̄. Every quantizable layer is quantized in every
+  arm.
 - A = the full 8×7 action chunk in OFT's normalized action space (q01/q99 to
   [−1, 1]), all 56 entries weighted equally. Random projections u ~ N(0, I_56).
 
@@ -104,7 +107,7 @@ quantization work.
 
 1. **Unspecified parts of the brief.** Evaluation protocol (episodes, seeds,
    b̄ values) is open. Also open: unit granularity of W_j; weighting within A (steps,
-   gripper dimension, normalized units); whether 8 means INT8; phase-window
+   gripper dimension, normalized units); phase-window
    definitions; per-unit vs global worst phase and phase normalization; greedy
    vs exact allocation; the meaning of b̄ and its values; per-phase failure
    attribution; k and frames per phase; rollout count and seeds for collecting
