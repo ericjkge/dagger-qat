@@ -173,7 +173,8 @@ Otherwise fix the failure and retest.
 ## Blocked on
 
 0. **GPU availability vs the Saturday-morning deadline.** No BF16 GPU is free,
-   and the scheduler estimates the first start at Sat 02:30. Options for the
+   At 06:03 the scheduler's estimate for the test job slipped to Sat 19:20
+   (it was 05:57 after the time-limit cut). Options for the
    human: wait; free GPUs held by their own other jobs; or accept a reduced
    evaluation.
 
