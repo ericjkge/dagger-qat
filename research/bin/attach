@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# attach: open the agent session for the worktree you are in.
+exec tmux attach -t "=vla-$(basename "$(git rev-parse --show-toplevel)")"

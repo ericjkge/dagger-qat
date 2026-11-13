@@ -1,0 +1,53 @@
+filters:
+  and:
+    - file.inFolder("dashboard")
+properties:
+  status:
+    displayName: Status
+  beat_age_min:
+    displayName: Beat (min)
+  n_jobs:
+    displayName: Jobs
+  unpushed:
+    displayName: Unpushed
+  best_metric:
+    displayName: Best
+views:
+  - type: table
+    name: All agents
+    order:
+      - file.name
+      - status
+      - beat_age_min
+      - n_jobs
+      - best_metric
+      - unpushed
+    sort:
+      - property: status
+        direction: ASC
+      - property: beat_age_min
+        direction: DESC
+  - type: table
+    name: Needs attention
+    filters:
+      or:
+        - and:
+            - stale == true
+            - status != "dead"
+        - status == "blocked"
+    order:
+      - file.name
+      - status
+      - beat_age_min
+      - unpushed
+  - type: table
+    name: Live
+    filters:
+      and:
+        - status == "running"
+        - stale == false
+    order:
+      - file.name
+      - n_jobs
+      - beat_age_min
+      - best_metric
