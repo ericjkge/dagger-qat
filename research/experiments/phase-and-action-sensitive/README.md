@@ -162,6 +162,13 @@ Proposed first-pass choices (awaiting confirmation):
 - 14:55: scheduler worst-case start for the first eval job is Mon 2026-11-16
   18:20. Human: notify when evaluation starts; the human may cancel their
   learned-hierarchy jobs if time gets short.
+- 17:45: human: this project has priority. Stop the learned-hierarchy runs,
+  run ours, and resume them from their checkpoints when ours finish. The agent
+  cancelled 59447556 (tanh-100k, update 71,300, checkpoint 70,000) and
+  59455917 (rms-100k, update 66,000, checkpoint 60,000). Resume, with the same
+  command and settings: `NAME=tanh-100k FLAGS="--normalization tanh"
+  SEEDS=42` and `NAME=rms-100k SEEDS=42 --exclude=compute-g-17-169`, via
+  big_things `jobs/cascade.sbatch`. `cascade.py` resumes from `latest.pt`.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
