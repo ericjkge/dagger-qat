@@ -18,3 +18,7 @@ status: running
 5. **Allocate bits.** Start at 8 bits. Repeatedly lower whichever weight causes the least damage per bit saved, until the budget is met.
 
 **Output:** bits per weight. Evaluate success per phase.
+
+**Baseline.** We will test the method on 
+
+**Evaluation data.** 
