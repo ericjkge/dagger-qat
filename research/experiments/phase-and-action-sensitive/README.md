@@ -140,6 +140,9 @@ Proposed first-pass choices (awaiting confirmation):
   hold GPUs). All are released when allocations exist.
 - 10:33: uniform and fp finished; eval jobs 27–29 requeued and held. Score
   start estimates: seed 7 at 11:28, seed 8 at 15:19, seed 9 at 16:36.
+- 11:04: seed-7 score job 59515823 is running (gpu, compute-g-17-201) at
+  about 31 s per frame (k = 8), so about 2.2 h for 256 frames, inside its 3 h
+  limit. Seeds 8 and 9 estimated to start at 12:33 and 13:56.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
