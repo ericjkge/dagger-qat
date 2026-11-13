@@ -117,6 +117,14 @@ Proposed first-pass choices (awaiting confirmation):
   OpenVLA, so it is excluded from the quantizable set (420 layers); score
   hooks are reset each backward and missing gradients raise an error; the
   quantizer returns BF16 exactly as evaluation stores it.
+- 03:30: `gpu_quad` L40S queue estimated a Sunday start (174 L40S jobs
+  pending), which would miss the deadline. All jobs were cancelled while
+  pending and resubmitted on `--partition=gpu,gpu_quad,gpu_requeue
+  --qos=gpuquad_qos --gres=gpu:l40s:1 --requeue`, so they run wherever an L40S
+  is free first. The scripts are requeue-safe (see `results.md`). Eval runs
+  2 workers per L40S over 8 jobs (16 workers). Test job 59515820; production
+  jobs held: score 59515823/24/25 (seeds 7/8/9), recalibration 59515826
+  (after 59515823), eval 59515827–34.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
@@ -154,7 +162,7 @@ None.
 
 ## Next step
 
-When 59513531 finishes: if every check passes, `scontrol release` the held jobs.
+When 59515820 finishes: if every check passes, `scontrol release` the held jobs.
 Otherwise fix the failure and retest.
 
 ## Blocked on

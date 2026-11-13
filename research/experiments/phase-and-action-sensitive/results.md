@@ -43,15 +43,25 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
 
 ## Runs
 
-### tests / job 59513531
+### Scheduling (applies to every GPU job below)
+
+Header: `--partition=gpu,gpu_quad,gpu_requeue --qos=gpuquad_qos
+--gres=gpu:l40s:1 --requeue`; per-job time, CPU and memory are listed per job.
+Requeue safety: frame draws are redone only if `frames.npz` is missing. A
+requeued eval job frees its own unfinished unit claims, and analysis keeps the
+last record per (arm, task, init state). Earlier submissions on `gpu_quad`
+only (59513219–21, 59513471–74, 59513531) were cancelled while pending and
+never ran.
+
+### tests / job 59515820
 
 - Purpose: correctness checks (`tests.py`), then every stage end to end at tiny
-  scale in `$OUT/tests/59513531/`. It appends test lines (job 59513531) to the
+  scale in `$OUT/tests/59515820/`. It appends test lines (job 59515820) to the
   runs file; these are smoke tests, not results.
-- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=8 --mem=64G --time=02:00:00`.
-- Status: submitted; production jobs held until it passes.
+- Resources: 8 CPU, 64G, 02:00:00.
+- Status: submitted. The production jobs below are held until it passes.
 
-### score / jobs 59513219, 59513220, 59513221 (seeds 7, 8, 9)
+### score / jobs 59515823, 59515824, 59515825 (seeds 7, 8, 9)
 
 - Purpose: per calibration seed (env `SEED`), frames (seed 7 reuses job
   59511837), scores (k = 8), and worst-phase and phase-agnostic greedy
@@ -59,12 +69,12 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
   pending.
 - Script: `score.sbatch` → `demo_frames.py --frames-per-phase 64 --seed $SEED`,
   `score.py --k 8 --seed $SEED`, `allocate.py --budget 3`.
-- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=4 --mem=64G --time=06:00:00`.
+- Resources: 4 CPU, 64G, 06:00:00.
 - Output: `$OUT/scores/s$SEED.npz`, `$OUT/alloc/{worst,phase}-s$SEED.json`, where
   `OUT=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive`.
 - Status: submitted.
 
-### recalibration / job 59513471 (after seed-7 score job 59513219)
+### recalibration / job 59515826 (after seed-7 score job 59515823)
 
 - Purpose (human: "run 2 and see whether it works", on top of our method):
   quantize the backbone with the worst-phase seed-7 allocation, then fine-tune
@@ -76,19 +86,19 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
   separate draw from the scoring seeds). Split 90/10 train/val by demo episode
   (not by frame), seed 10. The head with the lowest val L1 (checked every 250 steps) is saved in BF16 to
   `$OUT/heads/worst-s7.pt`, with metrics in `worst-s7.json`.
-- Script: `recalibrate.sbatch` (`--dependency=afterok:59513219` at submission).
+- Script: `recalibrate.sbatch` (`--dependency=afterok:59515823` at submission).
 - Header: same as the score jobs.
 - Evaluated as arm `worst-s7-head`, paired against `worst-s7`.
 - Status: submitted.
 
-### eval / jobs 59513472, 59513473, 59513474 (worker jobs A, B, C)
+### eval / jobs 59515827–59515834 (8 worker jobs)
 
 These replace 59512609, 59513188, 59513223 and 59513224, all cancelled while
 pending to change the arm list.
 
-- Purpose: evaluation. Four `eval.py` workers per A100, 12 in total, share one queue of
+- Purpose: evaluation. Two `eval.py` workers per L40S, 16 in total, share one queue of
   (arm, task) units. A unit waits until its allocation file exists.
-- Header: `--partition=gpu_quad --gres=gpu:a100:1 --cpus-per-task=16 --mem=120G --time=30:00:00`.
+- Resources: 8 CPU, 64G, 30:00:00.
 - Command per worker: `--arms uniform worst-s7 phase-s7 worst-s7-head fp worst-s8 phase-s8
   worst-s9 phase-s9 --tasks 0..9 --episodes 50 --seed 7 --uniform-bits 3
   --phase-window 10 --flip-min-hold 5`.

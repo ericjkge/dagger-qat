@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=vla-score
 #SBATCH --partition=gpu,gpu_quad,gpu_requeue
+#SBATCH --qos=gpuquad_qos
 #SBATCH --requeue
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=4
