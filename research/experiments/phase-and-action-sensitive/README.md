@@ -159,6 +159,9 @@ Proposed first-pass choices (awaiting confirmation):
   jobs 59515827–34 were cancelled; none of them had run allocation arms.
   Eval was resubmitted without `worst-s7-head` as 59563471–78 (any BF16 GPU
   with at least 44 GB). Recalibration code stays in the directory, unrun.
+- 14:55: scheduler worst-case start for the first eval job is Mon 2026-11-16
+  18:20. Human: notify when evaluation starts; the human may cancel their
+  learned-hierarchy jobs if time gets short.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
