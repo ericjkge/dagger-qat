@@ -71,6 +71,9 @@ Proposed first-pass choices (awaiting confirmation):
 - Unit W_j = one whole linear layer: Llama 32 blocks × 7, DINOv2 ViT-L 24 × 4,
   SigLIP SO400M 27 × 4, about 430 units. Each layer is quantized by RTN with
   groups of 128 at its assigned bit-width.
+- Quantizer (human, 2026-11-13): symmetric. Per group of 128,
+  s = max|w| / (2^(b−1) − 1), q ∈ [−(2^(b−1)−1), 2^(b−1)−1]. 2-bit is
+  therefore ternary {−s, 0, s}. One scale per group, no zero point.
 - A = the full 8×7 action chunk in OFT's normalized action space (q01/q99 to
   [−1, 1]), all 56 entries weighted equally. Random projections u ~ N(0, I_56).
 
