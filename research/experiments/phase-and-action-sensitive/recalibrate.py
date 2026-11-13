@@ -1,4 +1,4 @@
-"""Action-head recalibration: quantize the backbone uniformly, then fine-tune only
+"""Action-head recalibration: quantize the backbone with an allocation, then fine-tune only
 the BF16 L1 action head so that, on quantized features, it reproduces the BF16
 policy's normalized action chunks on demo frames (L1 loss, as in OFT training).
 The head checkpoint with the lowest validation L1 is kept."""
@@ -13,7 +13,7 @@ import numpy as np
 import torch
 
 from demo_frames import ROOT, SLUG
-from quant import apply_bits, target_layers
+from quant import apply_bits
 from vla import action_hidden
 
 
@@ -21,7 +21,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--checkpoint", type=Path, required=True)
     p.add_argument("--frames", type=Path, required=True, help="frames.npz from demo_frames.py")
-    p.add_argument("--bits", type=int, required=True)
+    p.add_argument("--alloc", type=Path, required=True, help="allocation json from allocate.py")
     p.add_argument("--out", type=Path, required=True, help="head state_dict .pt")
     p.add_argument("--val-frac", type=float, required=True)
     p.add_argument("--steps", type=int, required=True)
@@ -47,7 +47,7 @@ def main():
     head = policy.action_head
     with torch.no_grad():
         target = torch.cat([head.predict_action(h.cuda()[None]).float().cpu() for h in hiddens()])  # (n, 8, 7)
-    apply_bits(policy.model, {name: args.bits for name in target_layers(policy.model)})
+    apply_bits(policy.model, json.loads(args.alloc.read_text())["bits"])
     h_q = hiddens()
 
     rng = np.random.default_rng(args.seed)
