@@ -3,7 +3,8 @@
 #SBATCH --partition=gpu,gpu_quad,gpu_requeue
 #SBATCH --qos=gpuquad_qos
 #SBATCH --requeue
-#SBATCH --gres=gpu:l40s:1
+#SBATCH --gres=gpu:1,vram:44G
+#SBATCH --exclude=compute-g-16-254,compute-g-16-255,compute-g-17-145,compute-g-17-146,compute-g-17-147,compute-g-17-148,compute-g-17-149,compute-g-17-150,compute-g-17-151,compute-g-17-152,compute-g-17-153,compute-g-17-154,compute-g-17-155,compute-g-17-156,compute-g-17-157,compute-g-17-158,compute-g-17-159,compute-g-17-160,compute-g-17-161,compute-gc-17-245,compute-gc-17-246,compute-gc-17-247  # RTX 8000/6000 and V100 nodes: no BF16
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
 #SBATCH --time=03:00:00

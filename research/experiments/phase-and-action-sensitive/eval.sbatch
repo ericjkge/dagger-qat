@@ -2,14 +2,15 @@
 #SBATCH --job-name=vla-eval
 #SBATCH --partition=gpu,gpu_quad,gpu_requeue
 #SBATCH --qos=gpuquad_qos
-#SBATCH --gres=gpu:l40s:1
+#SBATCH --gres=gpu:1,vram:44G
+#SBATCH --exclude=compute-g-16-254,compute-g-16-255,compute-g-17-145,compute-g-17-146,compute-g-17-147,compute-g-17-148,compute-g-17-149,compute-g-17-150,compute-g-17-151,compute-g-17-152,compute-g-17-153,compute-g-17-154,compute-g-17-155,compute-g-17-156,compute-g-17-157,compute-g-17-158,compute-g-17-159,compute-g-17-160,compute-g-17-161,compute-gc-17-245,compute-gc-17-246,compute-gc-17-247  # RTX 8000/6000 and V100 nodes: no BF16
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=06:00:00
 #SBATCH --requeue
 #SBATCH --output=/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/eval-%j.out
-# Two evaluation workers share one L40S and one unit queue (see eval.py). The
-# first partition that has a free L40S runs it; on requeue, this job's
+# Two evaluation workers share one GPU (any BF16 GPU with >= 44 GB) and one unit queue (see eval.py). The
+# first partition with such a GPU runs it; on requeue, this job's
 # unfinished claims are freed.
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:?}"

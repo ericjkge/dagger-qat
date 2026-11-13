@@ -47,6 +47,11 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
 
 Header: `--partition=gpu,gpu_quad,gpu_requeue --qos=gpuquad_qos
 --gres=gpu:l40s:1 --requeue`; per-job time, CPU and memory are listed per job.
+At 14:40, after 1.5 h with no L40S, the pending recalibration and eval jobs
+(59515826–34) were changed with `scontrol update` to `--gres=gpu:1,vram:44G
+--exclude=<RTX 8000/6000 and V100 nodes>`, i.e. any BF16 GPU with at least
+44 GB: A100 80G, A40, A6000, L40, L40S. `eval.sbatch` and
+`recalibrate.sbatch` match. The tests, scores and baselines ran on L40S.
 Requeue safety: frame draws are redone only if `frames.npz` is missing. A
 requeued eval job frees its own unfinished unit claims, and analysis keeps the
 last record per (arm, task, init state). Earlier submissions on `gpu_quad`
