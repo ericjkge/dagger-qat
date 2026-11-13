@@ -1,6 +1,6 @@
 ---
 slug: phase-and-action-sensitive
-status: running
+status: active
 ---
 # phase-and-action-sensitive
 
