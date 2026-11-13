@@ -14,6 +14,7 @@ import torch
 
 from demo_frames import ROOT, SLUG
 from quant import apply_bits
+from score import frame
 from vla import action_hidden
 
 
@@ -40,7 +41,7 @@ def main():
     @torch.no_grad()
     def hiddens():
         return torch.cat([
-            action_hidden(policy, frames["full_image"][f], frames["wrist_image"][f], frames["state"][f], str(frames["instruction"][f])).cpu()
+            action_hidden(policy, *frame(frames, f)).cpu()
             for f in range(n)
         ])
 
