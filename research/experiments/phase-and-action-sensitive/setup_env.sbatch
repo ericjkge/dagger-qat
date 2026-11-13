@@ -19,7 +19,7 @@ conda env list | grep -q '^vla ' || conda create -y -n vla -c conda-forge python
 conda activate vla
 pip install --extra-index-url https://download.pytorch.org/whl/cu121 -r requirements-runtime.txt
 pip install --no-deps -e third_party/openvla-oft -e third_party/LIBERO
-export PYTHONPATH=$PWD/src  # dqat pins Python 3.10 in pyproject; load it from source instead
+export PYTHONPATH=$PWD/src:$PWD/third_party/openvla-oft:$PWD/third_party/LIBERO  # as scripts/common.sh; dqat pins Python 3.10 and LIBERO editable install is not importable
 python - <<PY
 import json; from pathlib import Path
 root = Path('third_party/LIBERO/libero/libero').resolve()

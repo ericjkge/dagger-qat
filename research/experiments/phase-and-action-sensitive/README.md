@@ -61,7 +61,18 @@ Jobs:
   header (reuses the partly built env). FAILED after 9 min: `egl_probe` built,
   but `pip install -e .` refused because `dqat`'s pyproject pins Python 3.10.
 - 59510797, the same script without installing `dqat`, which is imported from
-  `src/` via PYTHONPATH. Same header.
+  `src/` via PYTHONPATH. Same header. FAILED at the import check after 46 s:
+  the editable LIBERO install is not importable as `libero`. The packages were
+  installed.
+- 59511042, the same script with `src`, `third_party/openvla-oft` and
+  `third_party/LIBERO` on PYTHONPATH, as in `scripts/common.sh`. Same header.
+
+Proposed first-pass choices (awaiting confirmation):
+- Unit W_j = one whole linear layer: Llama 32 blocks × 7, DINOv2 ViT-L 24 × 4,
+  SigLIP SO400M 27 × 4, about 430 units. Each layer is quantized by RTN with
+  groups of 128 at its assigned bit-width.
+- A = the full 8×7 action chunk in OFT's normalized action space (q01/q99 to
+  [−1, 1]), all 56 entries weighted equally. Random projections u ~ N(0, I_56).
 
 `runs/phase-and-action-sensitive.jsonl` is empty.
 
