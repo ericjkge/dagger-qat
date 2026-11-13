@@ -89,7 +89,15 @@ Proposed first-pass choices (awaiting confirmation):
 - A = the full 8×7 action chunk in OFT's normalized action space (q01/q99 to
   [−1, 1]), all 56 entries weighted equally. Random projections u ~ N(0, I_56).
 
-`runs/phase-and-action-sensitive.jsonl` is empty.
+- 59511606, `fp_rollouts.sbatch`: downloads the pinned checkpoint, then runs FP
+  rollouts on LIBERO-Long tasks 0–9 × init states 0–4 and tags phases. Header:
+  `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=8 --mem=64G
+  --time=06:00:00`.
+
+Human (2026-11-13): use reasonable first-pass defaults for frame collection and
+the score estimator, and record the exact setup of every run. That record is
+`results.md` in this directory. Suite: LIBERO-Long, the agent's recommendation;
+the human did not choose otherwise. Init states 0–4 are held out for frames.
 
 ## Results
 
@@ -97,21 +105,16 @@ None.
 
 ## Next step
 
-Once the env check passes and the blockers are cleared: download the OFT
-checkpoint, run a few full-precision LIBERO-Long rollouts on one GPU, and tag
-phases from their gripper traces. Report phase-length statistics per task to
-confirm the four-phase split is well defined before any gradient or
-quantization work.
+When 59511606 finishes, check per-task phase statistics: flip counts, calls per
+phase among successful rollouts, and whether there are ≥ 64 calls per phase.
+Then write the gradient/score job.
 
 ## Blocked on
 
-1. **Unspecified parts of the brief.** Evaluation protocol (episodes, seeds,
-   b̄ values) is open. Also open: unit granularity of W_j; weighting within A (steps,
-   gripper dimension, normalized units); phase-window
-   definitions; per-unit vs global worst phase and phase normalization; greedy
-   vs exact allocation; the meaning of b̄ and its values; per-phase failure
-   attribution; k and frames per phase; rollout count and seeds for collecting
-   frames.
+1. **Still open (needed before allocation/evaluation, not before the current
+   job):** per-unit vs global worst phase and phase normalization; greedy vs
+   exact allocation; b̄ values; evaluation episodes/seeds; per-phase failure
+   attribution. First-pass defaults are listed in `results.md`.
 2. **No weights on O2.** The OFT checkpoint still needs downloading. Training
    demos are no longer needed for frames, because A comes from rollouts.
 
