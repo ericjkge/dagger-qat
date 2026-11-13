@@ -89,22 +89,31 @@ Proposed first-pass choices (awaiting confirmation):
 - A = the full 8×7 action chunk in OFT's normalized action space (q01/q99 to
   [−1, 1]), all 56 entries weighted equally. Random projections u ~ N(0, I_56).
 
-- 59511606, `fp_rollouts.sbatch`: downloads the pinned checkpoint, then runs FP
-  rollouts on LIBERO-Long tasks 0–9 × init states 0–4 and tags phases. Header:
-  `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=8 --mem=64G
-  --time=06:00:00`.
+- 59511606, `fp_rollouts.sbatch` (FP rollouts as the frame source). Cancelled
+  while still pending, after the redirection below. It never ran.
+- 59511837, `demo_frames.sbatch`: downloads the pinned checkpoint and the OFT
+  RLDS demos, tags phases on the demos and samples 64 frames per phase. Header:
+  `--partition=short --cpus-per-task=4 --mem=32G --time=04:00:00`.
+
+Redirection (human, 2026-11-13): the project is moving away from on-policy, so
+frames come from the true demonstrations, not FP rollouts. This replaces the
+earlier rollout frame source. A is now the policy's predicted 8×7 chunk at
+demonstration frames. The demos are OFT's own fine-tuning data,
+`openvla/modified_libero_rlds` `libero_10_no_noops` @ `6ce6aaa` (256 px, model
+orientation, no-op steps removed). Phases are tagged from the demo gripper
+actions. No init states need holding out, so evaluation can use all 50.
 
 Human (2026-11-13): use reasonable first-pass defaults for frame collection and
 the score estimator, and record the exact setup of every run. That record is
 `results.md` in this directory. Suite: LIBERO-Long, the agent's recommendation;
-the human did not choose otherwise. Init states 0–4 are held out for frames.
+the human did not choose otherwise.
 
 Related work: QVLA (arXiv 2602.03782, ICLR 2026) already allocates bits by
 action sensitivity in OpenVLA-OFT on LIBERO. It works per channel, uses bits
 {0,2,4,8,16}, greedy demotion, a σ²·‖J‖_F² first-order proxy, and frames from
 training demos averaged over the data. It has no phase split. What this
 direction adds is the worst-phase max over gripper-tagged phases, on-policy
-rollout frames, and per-phase evaluation. The phase-agnostic arm is the
+and per-phase evaluation. Frames now come from demos, as in QVLA. The phase-agnostic arm is the
 QVLA-like control at layer granularity.
 
 ## Results
@@ -113,8 +122,8 @@ None.
 
 ## Next step
 
-When 59511606 finishes, check per-task phase statistics: flip counts, calls per
-phase among successful rollouts, and whether there are ≥ 64 calls per phase.
+When 59511837 finishes, check per-task phase statistics: flip counts per demo,
+phase lengths, and whether every phase gets its 64 frames.
 Then write the gradient/score job.
 
 ## Blocked on

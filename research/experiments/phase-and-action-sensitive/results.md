@@ -17,16 +17,15 @@ most reasonable for a first-pass setup".
 | policy inputs | L1 action head, 2 images (agentview + wrist), proprio, 90% center crop, 8-step action chunk, all 8 executed (open-loop), no FiLM |
 | suite | LIBERO-Long (`libero_10`), 10 tasks, env resolution 256, 10 settle steps (no-op, gripper open), 520-step horizon |
 | seeding | per episode `set_seed_everywhere(7 + 1000·task + init_state)`, then `env.seed(0)` |
-| A (human) | rolled-out action: the 8×7 chunk the FP policy outputs at states of its own closed-loop rollouts |
+| A | the 8×7 chunk the BF16 policy predicts at a demonstration frame |
 | A weighting | all 56 entries, OFT normalized action space (q01/q99 → [−1, 1]), equal weight; projections u ~ N(0, I₅₆) |
 | quantizable layers (human) | vision backbone linears (DINOv2 ViT-L + SigLIP SO400M) and Llama linears; projector, embeddings, LM head, proprio projector, action head stay BF16 |
 | unit W_j | one whole linear layer |
 | quantizer (human) | symmetric RTN, group 128 along input dim, s = max\|w\|/(2^(b−1)−1), 2^b−1 levels (2-bit = ternary); simulated (dequantized to BF16) |
 | bits (human) | {2, 3, 4, 8}; 8 = real INT8 |
-| frame source | FP rollouts on init states 0–4 of every task; these states are held out of evaluation (eval uses 5–49) |
-| frames used | successful rollouts only |
-| phases | executed gripper command (−1 open / +1 close); flip counted if held ≥ 5 steps; grasp = ±10 steps around a close flip, place = ±10 around an open flip, otherwise approach (open) / transport (closed) |
-| frames for gradients | policy-call steps only (one per 8 env steps); 64 per phase, sampled uniformly across tasks |
+| frame source (human) | true demonstrations: OFT fine-tuning data `openvla/modified_libero_rlds` / `libero_10_no_noops` @ `6ce6aaaaabdbe590b1eef5cd29c0d33f14a08551`, train split, all episodes; 256 px, model orientation |
+| phases | demo gripper action, raw RLDS (−1 open / +1 close); flip counted if held ≥ 5 steps; grasp = ±10 steps around a close flip, place = ±10 around an open flip, otherwise approach (open) / transport (closed) |
+| frames for gradients | 64 per phase, split evenly over tasks having that phase, uniform without replacement within task, seed 7; a frame needs 8 following steps in its episode |
 | score | s^(p)(W_j, b) = mean over frames in p and k = 8 projections of ⟨∇_{W_j} uᵀA, Q_b(W_j) − W_j⟩² (first-order, keeps cancellation within the layer) |
 | baselines (human) | uniform b̄-bit RTN; phase-agnostic allocator (mean over all frames instead of max_p); FP BF16 |
 | not yet run | allocation (exact knapsack vs greedy), phase normalization, b̄ values, evaluation |
@@ -39,16 +38,19 @@ Submodules: openvla-oft `e4287e9`, LIBERO `8f1084e`.
 
 ## Runs
 
-### fp-rollouts / job 59511606
+### demo-frames / job 59511837
 
-- Purpose: diagnostic. FP rollouts on the held-out frame states, phase tagging,
-  and saved policy-call observations for the gradient step.
-- Script: `fp_rollouts.sbatch` → `fp_rollouts.py`.
-- Header: `--partition=gpu_quad --gres=gpu:l40s:1 --cpus-per-task=8 --mem=64G --time=06:00:00`.
-- Command: `--suite libero_10 --tasks 0..9 --init-states 0 1 2 3 4 --seed 7
-  --max-steps 520 --settle-steps 10 --open-loop-steps 8 --phase-window 10
-  --flip-min-hold 5`.
-- Output: `/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/fp-rollouts/59511606/`
-  (`config.json`, `phases.json`, `episodes/*.npz`).
+- Purpose: diagnostic. Phase tagging on the demos and the frame set for the
+  gradient step. Also downloads the pinned checkpoint and the RLDS shard set.
+- Script: `demo_frames.sbatch` → `demo_frames.py`.
+- Header: `--partition=short --cpus-per-task=4 --mem=32G --time=04:00:00`.
+- Command: `--rlds-dir .../libero_10_no_noops/1.0.0 --phase-window 10
+  --flip-min-hold 5 --frames-per-phase 64 --chunk 8 --seed 7`.
+- Output: `/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/demo-frames/59511837/`
+  (`config.json`, `phases.json`, `frames.npz`).
 - Status: submitted.
 - Results: pending.
+
+### fp-rollouts / job 59511606 — cancelled while pending, never ran
+
+Superseded when the frame source changed from FP rollouts to demos.
