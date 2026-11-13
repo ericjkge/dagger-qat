@@ -1,8 +1,8 @@
 ---
 slug: phase-and-action-sensitive
 status: running
-hypothesis: At a matched average of 4 bits per weight, worst-phase action-sensitive mixed-precision allocation raises OpenVLA-OFT LIBERO-Long success over uniform AWQ W4/g128, with the gain concentrated in grasp/place episodes.
-kill_criterion: At b̄=4, mean success over ≥3 seeds fails to beat AWQ W4/g128 by more than 2 SE, or at b̄=3 it fails to beat uniform 3-bit AWQ by more than 2 SE.
+hypothesis: At matched average bits b̄, worst-phase action-sensitive bit allocation over {2,3,4,8} gives higher LIBERO-Long success than the same allocation using the phase-agnostic mean, with the gain concentrated in grasp/place.
+kill_criterion: (pending baseline in brief)
 best_metric:
 started: 2026-11-13
 ---
@@ -11,34 +11,29 @@ started: 2026-11-13
 
 ## Hypothesis
 
-At a matched average of 4 bits per quantized weight, allocating bits from
-{2,3,4,8} by worst-phase action sensitivity
-(s = max_p mean_p ‖g_j (Q_b(W_j) − W_j)‖², phases approach/grasp/transport/place
-tagged by gripper flips) gives higher LIBERO-Long success than uniform AWQ
-W4/g128, and the gain comes mainly from grasp and place phases.
+At matched average bits b̄, allocating bits from {2,3,4,8} by worst-phase
+action sensitivity (s = max_p mean_p ‖g_j (Q_b(W_j) − W_j)‖², phases
+approach/grasp/transport/place tagged by gripper flips) gives higher
+LIBERO-Long success than the same allocation driven by the phase-agnostic mean,
+and the gain comes mainly from grasp and place.
 
 ## Kill criterion
 
-Fixed 2026-11-13, before any run. Comparisons use the paired protocol in the
-top-level `README.md` (OpenVLA-OFT `libero_10`, per-episode seeding):
-
-- At b̄ = 4: mean success over ≥ 3 seeds is not above AWQ W4/g128 by more than
-  2 SE of the paired difference — killed. (The repo's single-seed reference is
-  93.4% for both FP BF16 and AWQ W4/g128, so headroom at 4 bits may be ~0;
-  hence the second arm.)
-- At b̄ = 3: same test against uniform 3-bit AWQ (g128). If neither budget
-  shows a gain, the direction is dead.
-- Diagnostic, not a kill test: per-phase failure attribution, and an ablation
-  replacing max_p with the phase-agnostic mean, to tell whether any gain comes
-  from the phase split or merely from sensitivity-weighted allocation.
+Not yet fixed. The brief's Baseline section is empty and the AWQ baseline is
+out of scope (see current state). The criterion will be fixed against the
+brief's baseline before the first evaluation run. Proposed: at each b̄ tested,
+if mean success over ≥ 3 seeds is not above the phase-agnostic-mean allocation
+and uniform b̄-bit quantization by more than 2 SE of the paired difference, the
+direction is dead.
 
 ## Current state
 
 2026-11-13: first turn. Read the brief and `baseline.md` from `origin/eddy`.
 Redirection (human, 2026-11-13): ignore `research/baseline.md` for this
-direction. Baseline arms are taken from the top-level `README.md` protocol: FP
-BF16 and AWQ W4/g128, plus uniform 3-bit AWQ g128 for the b̄=3 arm. The kill
-criterion is now fixed against these.
+direction.
+Redirection (human, 2026-11-13): ignore the AWQ baseline too; it is an artifact
+of the old project. The earlier kill criterion against AWQ W4/g128 is
+withdrawn. No run had used it.
 Redirection (human, 2026-11-13): the project direction has changed; the
 Cannon-era repo is now only a skeleton to repurpose for O2. On the human's
 instruction, `research/bin/submit` on this branch no longer has a per-job time
@@ -68,9 +63,11 @@ gradient or quantization work.
 
 ## Blocked on
 
-1. **New direction.** The human says the direction has changed completely. The
-   hypothesis and kill criterion above follow the current brief and will be
-   replaced once the brief on `origin/eddy` is updated.
+1. **Unspecified parts of the brief.** Baseline and evaluation sections are
+   empty. Also open: unit granularity of W_j, what A is (8×7 chunk? gripper
+   weight?), the quantizer Q_b, phase-window definitions, per-unit vs global
+   worst phase and phase normalization, greedy vs exact allocation, the meaning
+   of b̄ and its values, and per-phase failure attribution.
 2. **No weights or demos on O2.** The OFT checkpoint and LIBERO HDF5 demos still
    need downloading (`scripts/download_assets.py`) once the new direction
    confirms they are needed.
