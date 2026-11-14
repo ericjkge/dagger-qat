@@ -169,6 +169,8 @@ Proposed first-pass choices (awaiting confirmation):
   command and settings: `NAME=tanh-100k FLAGS="--normalization tanh"
   SEEDS=42` and `NAME=rms-100k SEEDS=42 --exclude=compute-g-17-169`, via
   big_things `jobs/cascade.sbatch`. `cascade.py` resumes from `latest.pt`.
+- 19:20: eval jobs 59563471 and 59563472 started (compute-g-17-162/163);
+  the rest are still queued.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
