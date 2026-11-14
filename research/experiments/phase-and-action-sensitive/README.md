@@ -1,9 +1,9 @@
 ---
 slug: phase-and-action-sensitive
-status: running
+status: dead
 hypothesis: At matched average bits b̄, worst-phase action-sensitive bit allocation over {2,3,4,8} gives higher LIBERO-Long success than the same allocation using the phase-agnostic mean, with the gain concentrated in grasp/place.
 kill_criterion: At b̄ = 3, if mean LIBERO-Long success over ≥3 seeds does not exceed both uniform b̄-bit RTN and the phase-agnostic-mean allocator by more than 2 SE of the paired per-episode difference, the direction is dead.
-best_metric:
+best_metric: worst-phase 3-bit LIBERO-Long success 47.7% mean over 3 seeds (uniform 3-bit 73.2%, BF16 95.0%)
 started: 2026-11-13
 ---
 
@@ -35,205 +35,73 @@ not; that also kills this direction, which is about the phase split.
 
 ## Current state
 
-2026-11-13: first turn. Read the brief and `baseline.md` from `origin/eddy`.
-Redirection (human, 2026-11-13): ignore `research/baseline.md` for this
-direction.
-Redirection (human, 2026-11-13): ignore the AWQ baseline too; it is an artifact
-of the old project. The earlier kill criterion against AWQ W4/g128 is
-withdrawn. No run had used it.
-Specification (human, 2026-11-13):
-- A is the rolled-out action. I read this as the 8×7 action chunk the
-  full-precision policy outputs at frames of its own closed-loop LIBERO
-  rollouts. OFT executes all 8 steps per call. So phase tags and sampled frames
-  come from FP rollouts, not training demos.
-- Quantizable layers: the vision backbone (the fused DINOv2 + SigLIP ViT
-  linears) and the Llama linear layers. The projector, embeddings, LM head,
-  proprio projector and action head stay unquantized.
-Redirection (human, 2026-11-13): the project direction has changed; the
-Cannon-era repo is now only a skeleton to repurpose for O2. On the human's
-instruction, `research/bin/submit` on this branch no longer has a per-job time
-limit (it still requires `--time`), and its RAM cap went from 8G to 128G.
-Submodules `third_party/openvla-oft` and `third_party/LIBERO` are checked out in
-this worktree.
+**Dead (2026-11-13 22:25): the kill criterion is met.** At b̄ = 3, worst-phase
+allocation is far below uniform 3-bit RTN on every seed. Its edge over the
+phase-agnostic allocator is not consistent across seeds. All runs, configs and
+job IDs are in `results.md`. The exact setup is in its first table.
 
-Jobs:
-- 59508441, `setup_env.sbatch`: creates the conda env `vla` (Python 3.11,
-  `requirements-runtime.txt`, editable OFT/LIBERO/dqat from this worktree) and
-  checks imports. Header: `--partition=short --cpus-per-task=4 --mem=16G
-  --time=03:00:00`. Log:
-  `/n/scratch/users/e/edk005/vla/phase-and-action-sensitive/logs/setup-59508441.out`.
-  FAILED after 4 min: CMake 4 refuses to build `egl_probe`, which declares
-  CMake < 3.5.
-- 59510142, the same script with `CMAKE_POLICY_VERSION_MINIMUM=3.5` and the same
-  header (reuses the partly built env). FAILED after 9 min: `egl_probe` built,
-  but `pip install -e .` refused because `dqat`'s pyproject pins Python 3.10.
-- 59510797, the same script without installing `dqat`, which is imported from
-  `src/` via PYTHONPATH. Same header. FAILED at the import check after 46 s:
-  the editable LIBERO install is not importable as `libero`. The packages were
-  installed.
-- 59511042, the same script with `src`, `third_party/openvla-oft` and
-  `third_party/LIBERO` on PYTHONPATH, as in `scripts/common.sh`. Same header.
-  COMPLETED in 2.5 min: `vla env OK`, torch 2.2.0+cu121, transformers 4.40.1,
-  libero_10 has 10 tasks. Jobs must export that PYTHONPATH.
-
-Proposed first-pass choices (awaiting confirmation):
-- Unit W_j = one whole linear layer: Llama 32 blocks × 7, DINOv2 ViT-L 24 × 4,
-  SigLIP SO400M 27 × 4, about 430 units. Each layer is quantized by RTN with
-  groups of 128 at its assigned bit-width.
-- Quantizer (human, 2026-11-13): symmetric. Per group of 128,
-  s = max|w| / (2^(b−1) − 1), q ∈ [−(2^(b−1)−1), 2^(b−1)−1]. 2-bit is
-  therefore ternary {−s, 0, s}. One scale per group, no zero point.
-- 8 bits = real symmetric INT8 with the same quantizer (human, 2026-11-13). It
-  costs 8 bits per weight in b̄. Every quantizable layer is quantized in every
-  arm.
-- A = the full 8×7 action chunk in OFT's normalized action space (q01/q99 to
-  [−1, 1]), all 56 entries weighted equally. Random projections u ~ N(0, I_56).
-
-- 59511606, `fp_rollouts.sbatch` (FP rollouts as the frame source). Cancelled
-  while still pending, after the redirection below. It never ran.
-- 59511837, `demo_frames.sbatch`: downloads the pinned checkpoint and the OFT
-  RLDS demos, tags phases on the demos and samples 64 frames per phase. Header:
-  `--partition=short --cpus-per-task=4 --mem=32G --time=04:00:00`.
-
-- 59512608 `score.sbatch` and 59512609 `eval.sbatch`: cancelled while pending
-  to add head recalibration. Resubmitted as 59513187 (score + recalibration)
-  and 59513188 (eval worker job A); headers in `results.md`.
-- Human (2026-11-13): everything must finish by Friday night or early Saturday;
-  remove the job cap. `research/bin/submit` on this branch no longer limits
-  concurrent jobs. 59513187 was cancelled while pending and split into
-  59513219/20/21 (score + allocation, seeds 7/8/9) and 59513222
-  (recalibration). Eval worker jobs B 59513223 and C 59513224 were added, so
-  12 workers share one queue.
-- Human (2026-11-13): recalibration belongs on top of our method, not on the
-  uniform backbone. Recalibration is now job 59513471 on the worst-s7
-  allocation, arm `worst-s7-head`, paired against `worst-s7`. The eval jobs
-  were resubmitted as 59513472/73/74 with the new arm list. Older pending jobs
-  were cancelled; none ever ran.
-- Human (2026-11-13): make sure everything runs exactly as intended, with clean
-  code and rigorous tests. All production jobs are on `scontrol hold` until
-  test job 59513531 (`tests.sbatch`; header `--partition=gpu_quad
-  --gres=gpu:l40s:1 --cpus-per-task=8 --mem=64G --time=02:00:00`) passes.
-  Review fixes before testing: the last block of each ViT is unused by
-  OpenVLA, so it is excluded from the quantizable set (420 layers); score
-  hooks are reset each backward and missing gradients raise an error; the
-  quantizer returns BF16 exactly as evaluation stores it.
-- 03:30: `gpu_quad` L40S queue estimated a Sunday start (174 L40S jobs
-  pending), which would miss the deadline. All jobs were cancelled while
-  pending and resubmitted on `--partition=gpu,gpu_quad,gpu_requeue
-  --qos=gpuquad_qos --gres=gpu:l40s:1 --requeue`, so they run wherever an L40S
-  is free first. The scripts are requeue-safe (see `results.md`). Eval runs
-  2 workers per L40S over 8 jobs (16 workers). Test job 59515820; production
-  jobs held: score 59515823/24/25 (seeds 7/8/9), recalibration 59515826
-  (after 59515823), eval 59515827–34.
-- 04:05: every BF16-capable GPU (A100, A40, L40S, L40, A6000) on gpu,
-  gpu_quad and gpu_requeue is allocated; only Turing/Volta GPUs are free, and
-  `OFTPolicy` requires BF16. Test job start estimate: Sat 02:30. Time limits
-  of the pending jobs were lowered with `scontrol update` to help backfill:
-  tests 1 h, score and recalibration 3 h, eval 16 h. The sbatch files match.
-- 09:37: test job 59537943 passed every check, after a test-design fix to
-  59515820 (see `results.md`). All production jobs were released. Episodes
-  take 9–20 s, so the eval time limit was lowered to 6 h.
-- 10:07: eval jobs 59515827/28/29 started on gpu_requeue before any score job,
-  so allocation-dependent arms cannot run yet. Pending eval jobs 59515830–34
-  are held so the score jobs get the next GPUs. The running eval jobs are
-  requeued and held once uniform and fp finish (idle workers would otherwise
-  hold GPUs). All are released when allocations exist.
-- 10:33: uniform and fp finished; eval jobs 27–29 requeued and held. Score
-  start estimates: seed 7 at 11:28, seed 8 at 15:19, seed 9 at 16:36.
-- 11:04: seed-7 score job 59515823 is running (gpu, compute-g-17-201) at
-  about 31 s per frame (k = 8), so about 2.2 h for 256 frames, inside its 3 h
-  limit. Seeds 8 and 9 estimated to start at 12:33 and 13:56.
-- 11:35: all three score jobs are running (seed 7 at 91/256, seeds 8 and 9
-  at 41 and 43/256). Allocations expected around 13:00 (seed 7) and 13:45
-  (seeds 8 and 9).
-- 13:03: seed-7 allocations written. All eval jobs released. Seed-7
-  allocations differ on 9.6% of parameters (diagnostics in `results.md`). Grasp
-  damage dominates the other phases about 6–20×, so max and mean largely
-  coincide. `analyze.py` summarizes the eval episodes.
-- 13:35: all six allocations exist. Within a seed, worst and phase-agnostic
-  differ on 43–53 layers. The same arm across seeds differs on 113–155, and
-  the dominant worst phase flips (grasp for s7, place for s8/s9). The
-  calibration sample matters more than max vs mean. Eval jobs are still
-  queued (ReqNodeNotAvail).
-- 14:50: human: skip the recalibration job. Recalibration 59515826 and eval
-  jobs 59515827–34 were cancelled; none of them had run allocation arms.
-  Eval was resubmitted without `worst-s7-head` as 59563471–78 (any BF16 GPU
-  with at least 44 GB). Recalibration code stays in the directory, unrun.
-- 14:55: scheduler worst-case start for the first eval job is Mon 2026-11-16
-  18:20. Human: notify when evaluation starts; the human may cancel their
-  learned-hierarchy jobs if time gets short.
-- 17:45: human: this project has priority. Stop the learned-hierarchy runs,
-  run ours, and resume them from their checkpoints when ours finish. The agent
-  cancelled 59447556 (tanh-100k, update 71,300, checkpoint 70,000) and
-  59455917 (rms-100k, update 66,000, checkpoint 60,000). Resume, with the same
-  command and settings: `NAME=tanh-100k FLAGS="--normalization tanh"
-  SEEDS=42` and `NAME=rms-100k SEEDS=42 --exclude=compute-g-17-169`, via
-  big_things `jobs/cascade.sbatch`. `cascade.py` resumes from `latest.pt`.
-- 19:20: eval jobs 59563471 and 59563472 started (compute-g-17-162/163);
-  59563473–75 followed. 22:02: every unit was claimed, so the never-started
-  59563476–78 were cancelled.
-
-Human (2026-11-13): run action-head recalibration and see whether it works.
-(Superseded below: it now runs on the worst-s7 allocation.) This is a
-candidate add-on beyond the brief, not a phase test.
-
-Human (2026-11-13): results needed by Saturday 2026-11-14 early morning.
-Agent's reading: the policy and simulator are deterministic, so "seed" means
-the calibration seed (frame sample + projections), 7/8/9. The kill criterion's
-"≥ 3 seeds" means 3 calibration seeds.
-
-Redirection (human, 2026-11-13): the project is moving away from on-policy, so
-frames come from the true demonstrations, not FP rollouts. This replaces the
-earlier rollout frame source. A is now the policy's predicted 8×7 chunk at
-demonstration frames. The demos are OFT's own fine-tuning data,
-`openvla/modified_libero_rlds` `libero_10_no_noops` @ `6ce6aaa` (256 px, model
-orientation, no-op steps removed). Phases are tagged from the demo gripper
-actions. No init states need holding out, so evaluation can use all 50.
-
-Human (2026-11-13): use reasonable first-pass defaults for frame collection and
-the score estimator, and record the exact setup of every run. That record is
-`results.md` in this directory. Suite: LIBERO-Long, the agent's recommendation;
-the human did not choose otherwise.
-
-Related work: QVLA (arXiv 2602.03782, ICLR 2026) already allocates bits by
-action sensitivity in OpenVLA-OFT on LIBERO. It works per channel, uses bits
-{0,2,4,8,16}, greedy demotion, a σ²·‖J‖_F² first-order proxy, and frames from
-training demos averaged over the data. It has no phase split. What this
-direction adds is the worst-phase max over gripper-tagged phases, on-policy
-and per-phase evaluation. Frames now come from demos, as in QVLA. The phase-agnostic arm is the
-QVLA-like control at layer granularity.
+How the run went:
+- Setup choices: some made by the human (A is the policy's action chunk;
+  frames are true demos; quantize the vision backbone and Llama linears;
+  symmetric RTN; INT8 as 8 bits; per-layer worst phase; greedy; b̄ = 3;
+  baselines uniform, phase-agnostic and BF16), the rest agent defaults
+  recorded in `results.md`.
+- `research/bin/submit` on this branch: no per-job time limit, RAM cap 128G,
+  no job cap (human instructions).
+- Tests (`tests.py`, job 59537943) passed before any production run.
+- Recalibration (action-head fine-tuning) was skipped by the human; its code
+  is kept, unrun.
+- GPUs were the bottleneck all day. The human paused their learned-hierarchy
+  runs at 17:45 to free GPUs. That direction's note later records the human's
+  decision not to resume them, so the agent's resubmissions (59587922/23) were
+  cancelled before they started.
+- One eval record (worst-s9, task 0, init state 29) was lost by concurrent appends
+  from workers on different nodes to a shared jsonl on scratch. It was
+  restored from that worker's log. Every arm was checked against the logs; no
+  other record was missing.
 
 ## Results
 
-Full table in `results.md`. LIBERO-Long, 500 paired episodes each:
-BF16 95.0% (475/500); uniform symmetric 3-bit RTN 73.2% (366/500).
-Seed 7, complete (500 paired episodes each): worst-s7 55.8%, phase-s7
-50.0%. worst − uniform = −17.4 ± 2.3 points; worst − phase = +5.8 ± 2.2
-points (2.6 SE). The phase max beats the phase-agnostic mean on this seed,
-but both allocators are far below uniform 3-bit. Failures end mostly in
-approach for both allocators (109 and 113 episodes), not grasp or place.
-Seeds 8 and 9 are running; the kill criterion is judged on all three.
+LIBERO-Long, OpenVLA-OFT, 500 paired episodes per arm (10 tasks × 50 init
+states, deterministic policy and simulator). Calibration seeds 7, 8, 9.
+
+| arm | success |
+|---|---|
+| BF16 | 95.0% |
+| uniform 3-bit | 73.2% |
+| worst-phase s7 / s8 / s9 | 55.8% / 46.0% / 41.4% (mean 47.7%) |
+| phase-agnostic s7 / s8 / s9 | 50.0% / 30.0% / 51.4% (mean 43.8%) |
+
+| paired difference | s7 | s8 | s9 | pooled (1500 ep.) | seed-level (n = 3) |
+|---|---|---|---|---|---|
+| worst − uniform | −17.4 ± 2.3 | −27.2 ± 2.4 | −31.8 ± 2.5 | −25.5 ± 1.4 | −25.5 ± 4.2 |
+| worst − phase-agnostic | +5.8 ± 2.2 | +16.0 ± 2.3 | −10.0 ± 2.3 | +3.9 ± 1.3 | +3.9 ± 7.6 |
+
+Points, ± SE. Kill test: worst − uniform is far below zero, so the direction
+is dead. The phase max beats the mean in the pooled episode-level test
+(3 SE), but not at the seed level, and its sign flips on seed 9. That is not
+a result.
+
+Failures by last phase reached are mostly approach for every quantized arm
+(uniform 79/134, worst 109–133 per seed), not grasp or place.
 
 ## Next step
 
-Watch the score jobs: check seed-7 allocation overlap (fraction of params
-whose bits differ between worst-s7 and phase-s7), then the eval progress.
+None for this direction. Possible follow-ups for the human to decide: score
+damage by actually measuring ‖ΔA‖ per layer at each bit-width (first-order
+reads 2-bit damage 1–2× low); drop ternary 2-bit from the bit set; or use
+GPTQ-style error compensation before allocating.
 
 ## Blocked on
 
-0. (Resolved 09:37: tests ran on gpu_requeue.) **GPU availability vs the Saturday-morning deadline.** No BF16 GPU is free,
-   At 06:03 the scheduler's estimate for the test job slipped to Sat 19:20
-   (it was 05:57 after the time-limit cut). Options for the
-   human: wait; free GPUs held by their own other jobs; or accept a reduced
-   evaluation.
-
-1. **Still open (needed before allocation/evaluation, not before the current
-   job):** evaluation episodes/seeds; per-phase failure attribution. Worst
-   phase (per layer, unnormalized) and greedy allocation were fixed by the human
-   on 2026-11-13. First-pass defaults are listed in `results.md`.
-2. **No weights on O2.** The OFT checkpoint still needs downloading. Training
-   demos are no longer needed for frames, because A comes from rollouts.
+Recording the retirement in the `research/README.md` table is for the human;
+this agent may not edit that file.
 
 ## Dead ends
 
-None yet.
+- Worst-phase greedy layer allocation at b̄ = 3 over {2,3,4,8}: 47.7% mean,
+  25.5 points below uniform 3-bit. Pushing about 60–80 layers to ternary
+  2-bit costs more than the 8-bit layers it pays for.
+- Phase max vs mean: +5.8, +16.0, −10.0 points on 3 calibration seeds.
+  Calibration noise (64 frames per phase, k = 8) changes 113–155 of 420
+  layers' bits between seeds, more than max vs mean does (43–53).

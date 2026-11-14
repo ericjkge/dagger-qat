@@ -147,18 +147,30 @@ pending to change the arm list.
 | fp (BF16) | 500 | 475 | 95.0% | 44 50 49 50 50 46 46 50 42 48 |
 | uniform 3-bit | 500 | 366 | 73.2% | 44 37 42 47 13 42 26 42 39 34 |
 
-| worst-s7 | 500 | 279 | 55.8% | (see `analyze.py`) |
+| worst-s7 | 500 | 279 | 55.8% | |
 | phase-s7 | 500 | 250 | 50.0% | |
+| worst-s8 | 500 | 230 | 46.0% | |
+| phase-s8 | 500 | 150 | 30.0% | |
+| worst-s9 | 500 | 207 | 41.4% | |
+| phase-s9 | 500 | 257 | 51.4% | |
 
 fp and uniform are deterministic arms, run once (eval jobs 59515827–29,
-gpu_requeue, about 18 s per episode). The seed-7 pair ran on A40s (jobs
-59563471–75, about 25 s per episode).
+gpu_requeue, L40S, about 18 s per episode). Allocator arms ran on A40s
+(eval jobs 59563471–75, about 25 s per episode). One worst-s9 record (task 0,
+init state 29) was lost by concurrent appends across nodes and restored from
+that worker's log; all arms were checked against the logs.
 
-Paired differences, seed 7 (`analyze.py`): worst − uniform −0.174 ± 0.023;
-worst − phase +0.058 ± 0.022 (500 episodes each).
+Paired differences (`analyze.py`, points ± SE):
+worst − uniform: s7 −17.4 ± 2.3, s8 −27.2 ± 2.4, s9 −31.8 ± 2.5; pooled
+−25.5 ± 1.4 (1500 ep.); seed-level −25.5 ± 4.2.
+worst − phase: s7 +5.8 ± 2.2, s8 +16.0 ± 2.3, s9 −10.0 ± 2.3; pooled
++3.9 ± 1.3; seed-level +3.9 ± 7.6.
+Kill criterion met (worst is not above uniform).
 
 Failures by last phase reached (approach/grasp/transport/place): fp 12/2/6/5;
-uniform 79/10/12/33; worst-s7 109/19/46/47; phase-s7 113/17/62/58.
+uniform 79/10/12/33; worst-s7 109/19/46/47; phase-s7 113/17/62/58;
+worst-s8 108/21/66/75; phase-s8 136/25/105/84; worst-s9 133/5/66/89;
+phase-s9 95/15/54/79.
 
 ### Seed-7 allocation diagnostics (score job 59515823, 2 h 19 min)
 
