@@ -206,12 +206,12 @@ QVLA-like control at layer granularity.
 
 Full table in `results.md`. LIBERO-Long, 500 paired episodes each:
 BF16 95.0% (475/500); uniform symmetric 3-bit RTN 73.2% (366/500).
-Interim, 20:03: worst-s7 is 56.4% over 493 episodes, 17.2 ± 2.3 points below
-uniform (paired), and below uniform on 9 of 10 tasks. phase-s7 is 63.3% over
-its first 166 episodes, which cover easier and harder tasks unevenly, so it is
-not yet comparable. Failures in worst-s7 end mostly in approach (106 of 215),
-not grasp or place. Seeds 8 and 9 are still running; the kill criterion is
-judged on all three.
+Seed 7, complete (500 paired episodes each): worst-s7 55.8%, phase-s7
+50.0%. worst − uniform = −17.4 ± 2.3 points; worst − phase = +5.8 ± 2.2
+points (2.6 SE). The phase max beats the phase-agnostic mean on this seed,
+but both allocators are far below uniform 3-bit. Failures end mostly in
+approach for both allocators (109 and 113 episodes), not grasp or place.
+Seeds 8 and 9 are running; the kill criterion is judged on all three.
 
 ## Next step
 

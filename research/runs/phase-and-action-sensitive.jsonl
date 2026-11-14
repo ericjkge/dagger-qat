@@ -34,3 +34,15 @@
 {"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563475", "arm": "worst-s7", "task_id": 9, "episodes": 50, "successes": 37, "seed": 7, "uniform_bits": 3}
 {"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563474", "arm": "worst-s7", "task_id": 7, "episodes": 50, "successes": 32, "seed": 7, "uniform_bits": 3}
 {"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563475", "arm": "worst-s7", "task_id": 6, "episodes": 50, "successes": 10, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563473", "arm": "worst-s7", "task_id": 8, "episodes": 50, "successes": 34, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563473", "arm": "worst-s7", "task_id": 4, "episodes": 50, "successes": 2, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563471", "arm": "phase-s7", "task_id": 2, "episodes": 50, "successes": 33, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563472", "arm": "phase-s7", "task_id": 0, "episodes": 50, "successes": 28, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563472", "arm": "phase-s7", "task_id": 1, "episodes": 50, "successes": 39, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563471", "arm": "phase-s7", "task_id": 3, "episodes": 50, "successes": 32, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563475", "arm": "phase-s7", "task_id": 5, "episodes": 50, "successes": 37, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563474", "arm": "phase-s7", "task_id": 4, "episodes": 50, "successes": 8, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563475", "arm": "phase-s7", "task_id": 7, "episodes": 50, "successes": 14, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563473", "arm": "phase-s7", "task_id": 9, "episodes": 50, "successes": 34, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563474", "arm": "phase-s7", "task_id": 6, "episodes": 50, "successes": 2, "seed": 7, "uniform_bits": 3}
+{"slug": "phase-and-action-sensitive", "kind": "eval_unit", "job": "59563473", "arm": "phase-s7", "task_id": 8, "episodes": 50, "successes": 23, "seed": 7, "uniform_bits": 3}

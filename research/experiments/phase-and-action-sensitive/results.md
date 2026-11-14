@@ -147,8 +147,18 @@ pending to change the arm list.
 | fp (BF16) | 500 | 475 | 95.0% | 44 50 49 50 50 46 46 50 42 48 |
 | uniform 3-bit | 500 | 366 | 73.2% | 44 37 42 47 13 42 26 42 39 34 |
 
-Both are deterministic arms, run once (eval jobs 59515827–29, gpu_requeue,
-about 18 s per episode).
+| worst-s7 | 500 | 279 | 55.8% | (see `analyze.py`) |
+| phase-s7 | 500 | 250 | 50.0% | |
+
+fp and uniform are deterministic arms, run once (eval jobs 59515827–29,
+gpu_requeue, about 18 s per episode). The seed-7 pair ran on A40s (jobs
+59563471–75, about 25 s per episode).
+
+Paired differences, seed 7 (`analyze.py`): worst − uniform −0.174 ± 0.023;
+worst − phase +0.058 ± 0.022 (500 episodes each).
+
+Failures by last phase reached (approach/grasp/transport/place): fp 12/2/6/5;
+uniform 79/10/12/33; worst-s7 109/19/46/47; phase-s7 113/17/62/58.
 
 ### Seed-7 allocation diagnostics (score job 59515823, 2 h 19 min)
 
