@@ -1,0 +1,13 @@
+{
+ "sweep": "/workspace/results/2026-11-14-pi05-contact/sweep/goal_cheese",
+ "task": "put_the_cream_cheese_in_the_bowl",
+ "phase_counts": {
+  "free": 177,
+  "pre_contact": 103,
+  "transition": 70,
+  "holding": 100,
+  "contact": 1
+ },
+ "n": 101,
+ "fd_delta": 0.02
+}

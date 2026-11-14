@@ -1,0 +1,13 @@
+{
+ "sweep": "/workspace/results/2026-11-14-pi05-contact/sweep/object_soup",
+ "task": "pick_up_the_alphabet_soup_and_place_it_in_the_basket",
+ "phase_counts": {
+  "free": 182,
+  "pre_contact": 91,
+  "transition": 66,
+  "holding": 252,
+  "contact": 4
+ },
+ "n": 104,
+ "fd_delta": 0.02
+}

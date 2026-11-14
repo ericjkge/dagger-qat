@@ -1,0 +1,13 @@
+{
+ "sweep": "/workspace/results/2026-11-14-pi05-contact/sweep/spatial_bowl",
+ "task": "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+ "phase_counts": {
+  "free": 159,
+  "transition": 68,
+  "pre_contact": 66,
+  "holding": 50,
+  "contact": 8
+ },
+ "n": 108,
+ "fd_delta": 0.02
+}

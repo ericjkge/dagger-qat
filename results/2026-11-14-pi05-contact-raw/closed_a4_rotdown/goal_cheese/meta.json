@@ -1,0 +1,60 @@
+{
+ "task": "put_the_cream_cheese_in_the_bowl",
+ "suite": "libero_goal",
+ "task_id": 6,
+ "prompt": "put the cream cheese in the bowl",
+ "configs": [
+  "a4_all",
+  "a8_all",
+  "a4_down",
+  "a4_nodown"
+ ],
+ "closed_loop": "a4_rotdown",
+ "config_defs": {
+  "a4_all": {
+   "bits": 4
+  },
+  "a8_all": {
+   "bits": 8
+  },
+  "a4_down": {
+   "bits": 4,
+   "kinds": [
+    "down"
+   ]
+  },
+  "a4_nodown": {
+   "bits": 4,
+   "kinds": [
+    "gateup",
+    "o",
+    "qkv"
+   ]
+  },
+  "a4_rotdown": {
+   "bits": 4,
+   "rotate": [
+    "down"
+   ]
+  },
+  "a4_rot": {
+   "bits": 4,
+   "rotate": [
+    "down",
+    "gateup",
+    "o",
+    "qkv"
+   ]
+  }
+ },
+ "objects": [
+  "cream_cheese_1",
+  "akita_black_bowl_1"
+ ],
+ "has_geom_distance": true,
+ "n_fingers": 4,
+ "n_obj": 1,
+ "n_place": 40,
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "load_seconds": 71.30126905441284
+}

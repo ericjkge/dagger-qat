@@ -1,0 +1,45 @@
+{
+ "task": "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+ "suite": "libero_spatial",
+ "task_id": 0,
+ "prompt": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+ "configs": [
+  "a4_all",
+  "a8_all",
+  "a4_down",
+  "a4_nodown"
+ ],
+ "closed_loop": "a4_nodown",
+ "config_defs": {
+  "a4_all": {
+   "bits": 4
+  },
+  "a8_all": {
+   "bits": 8
+  },
+  "a4_down": {
+   "bits": 4,
+   "kinds": [
+    "down"
+   ]
+  },
+  "a4_nodown": {
+   "bits": 4,
+   "kinds": [
+    "gateup",
+    "o",
+    "qkv"
+   ]
+  }
+ },
+ "objects": [
+  "akita_black_bowl_1",
+  "plate_1"
+ ],
+ "has_geom_distance": true,
+ "n_fingers": 4,
+ "n_obj": 40,
+ "n_place": 10,
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "load_seconds": 74.91953921318054
+}

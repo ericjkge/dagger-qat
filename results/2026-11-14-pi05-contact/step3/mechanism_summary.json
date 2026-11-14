@@ -1,0 +1,4226 @@
+{
+ "n_states": 313,
+ "phases": {
+  "contact": 13,
+  "free": 75,
+  "holding": 75,
+  "pre_contact": 75,
+  "transition": 75
+ },
+ "replay_err_max": 0.0,
+ "grad_path_err_max": 2.3087692246903657e-07,
+ "by_arm": {
+  "a4_all": {
+   "end/all": {
+    "sim": {
+     "n": 296,
+     "pearson": 0.029974672249217012,
+     "spearman": 0.6944252418828689,
+     "r2_identity": -21.34768248538688,
+     "slope_obs_on_pred": 0.006374860273749818,
+     "sign_agree": 0.8157894736842105,
+     "n_nonzero": 266,
+     "median_abs_obs": 0.0020341871722033347,
+     "median_abs_err": 0.0001750401743530419,
+     "within": 0.6621621621621622
+    },
+    "chain": {
+     "n": 296,
+     "pearson": 0.10614638261291247,
+     "spearman": 0.6594964764456289,
+     "r2_identity": -11.528730709660927,
+     "slope_obs_on_pred": 0.030242432370591505,
+     "sign_agree": 0.7631578947368421,
+     "n_nonzero": 266,
+     "median_abs_obs": 0.0020341871722033347,
+     "median_abs_err": 0.001538748714527118,
+     "within": 0.3885135135135135
+    },
+    "chain_no_grip_flip": {
+     "n": 293,
+     "pearson": 0.10611909001852085,
+     "spearman": 0.6609267017854877,
+     "r2_identity": -11.53351024330576,
+     "slope_obs_on_pred": 0.030234012719167206,
+     "sign_agree": 0.7642585551330798,
+     "n_nonzero": 263,
+     "median_abs_obs": 0.002019454984336644,
+     "median_abs_err": 0.0015335591179921834,
+     "within": 0.3924914675767918
+    },
+    "model_cos_median": 0.86703878546097,
+    "model_norm_ratio_median": 0.6002925965680841,
+    "grip_sign_flip_rate": 0.010135135135135136,
+    "da_median": 0.8879251099032757,
+    "sign": {
+     "n_clear": 210,
+     "n_ambiguous": 86,
+     "observed_crossings": 2,
+     "predicted_crossings": 3,
+     "agree": 0.9761904761904762,
+     "ambiguous_observed_crossings": 12
+    }
+   },
+   "end/near": {
+    "sim": {
+     "n": 219,
+     "pearson": 0.6560606972797063,
+     "spearman": 0.6532749894318326,
+     "r2_identity": 0.07712393628365577,
+     "slope_obs_on_pred": 0.5425338369260836,
+     "sign_agree": 0.783068783068783,
+     "n_nonzero": 189,
+     "median_abs_obs": 0.0011081223450537894,
+     "median_abs_err": 0.00017602965286205407,
+     "within": 0.6712328767123288
+    },
+    "chain": {
+     "n": 219,
+     "pearson": 0.520709196094841,
+     "spearman": 0.6217807076673485,
+     "r2_identity": 0.055109868522328576,
+     "slope_obs_on_pred": 0.5627392599574425,
+     "sign_agree": 0.7354497354497355,
+     "n_nonzero": 189,
+     "median_abs_obs": 0.0011081223450537894,
+     "median_abs_err": 0.0009446201149087101,
+     "within": 0.4657534246575342
+    },
+    "chain_no_grip_flip": {
+     "n": 216,
+     "pearson": 0.5235569053028897,
+     "spearman": 0.6233224972909893,
+     "r2_identity": 0.05517003501064388,
+     "slope_obs_on_pred": 0.5638352257762586,
+     "sign_agree": 0.7365591397849462,
+     "n_nonzero": 186,
+     "median_abs_obs": 0.0010441865970777335,
+     "median_abs_err": 0.0009068319012327302,
+     "within": 0.4722222222222222
+    },
+    "model_cos_median": 0.8490350718948713,
+    "model_norm_ratio_median": 0.6201613982861514,
+    "grip_sign_flip_rate": 0.0136986301369863,
+    "da_median": 0.8230378685544435,
+    "sign": {
+     "n_clear": 133,
+     "n_ambiguous": 86,
+     "observed_crossings": 2,
+     "predicted_crossings": 2,
+     "agree": 0.9699248120300752,
+     "ambiguous_observed_crossings": 12
+    }
+   },
+   "end/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": 0.17642851625429098,
+     "spearman": 0.1758241758241758,
+     "r2_identity": -0.19582655944670213,
+     "slope_obs_on_pred": 0.08917145793521698,
+     "sign_agree": 0.5,
+     "n_nonzero": 6,
+     "median_abs_obs": 9.860028187138811e-06,
+     "median_abs_err": 0.0001420898540135477,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 13,
+     "pearson": 0.28039292028277224,
+     "spearman": 0.2967032967032967,
+     "r2_identity": -0.09911072029071666,
+     "slope_obs_on_pred": 0.5348273480509573,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 6,
+     "median_abs_obs": 9.860028187138811e-06,
+     "median_abs_err": 0.00012295113310288464,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 13,
+     "pearson": 0.28039292028277224,
+     "spearman": 0.2967032967032967,
+     "r2_identity": -0.09911072029071666,
+     "slope_obs_on_pred": 0.5348273480509573,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 6,
+     "median_abs_obs": 9.860028187138811e-06,
+     "median_abs_err": 0.00012295113310288464,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.8393307494765397,
+    "model_norm_ratio_median": 0.6553639783097933,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.9018845986962447,
+    "sign": {
+     "n_clear": 9,
+     "n_ambiguous": 4,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.8888888888888888,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/free": {
+    "sim": {
+     "n": 68,
+     "pearson": 0.07901397606425611,
+     "spearman": 0.7595907928388747,
+     "r2_identity": -31.684866862499426,
+     "slope_obs_on_pred": 0.013346163128263729,
+     "sign_agree": 0.9117647058823529,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.006792213301742241,
+     "median_abs_err": 0.00047201268332258114,
+     "within": 0.6764705882352942
+    },
+    "chain": {
+     "n": 68,
+     "pearson": 0.04407464257460399,
+     "spearman": 0.6206054128335304,
+     "r2_identity": -16.398456830359425,
+     "slope_obs_on_pred": 0.010187255922205814,
+     "sign_agree": 0.8529411764705882,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.006792213301742241,
+     "median_abs_err": 0.0033116467299912303,
+     "within": 0.20588235294117646
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": 0.04407464257460399,
+     "spearman": 0.6206054128335304,
+     "r2_identity": -16.398456830359425,
+     "slope_obs_on_pred": 0.010187255922205814,
+     "sign_agree": 0.8529411764705882,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.006792213301742241,
+     "median_abs_err": 0.0033116467299912303,
+     "within": 0.20588235294117646
+    },
+    "model_cos_median": 0.8961169057101284,
+    "model_norm_ratio_median": 0.5585471551564812,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 1.1135499672559135,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": -0.2286324859880152,
+     "spearman": 0.6740821678321678,
+     "r2_identity": -5.1595322360981095,
+     "slope_obs_on_pred": -0.10399590981201244,
+     "sign_agree": 0.8461538461538461,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.005233638894713261,
+     "median_abs_err": 0.00011017085839268564,
+     "within": 0.676923076923077
+    },
+    "chain": {
+     "n": 65,
+     "pearson": 0.31827864462836974,
+     "spearman": 0.7506118881118882,
+     "r2_identity": -4.035983895913621,
+     "slope_obs_on_pred": 0.13114006460112654,
+     "sign_agree": 0.8307692307692308,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.005233638894713261,
+     "median_abs_err": 0.002284144139989938,
+     "within": 0.16923076923076924
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": 0.31827864462836974,
+     "spearman": 0.7506118881118882,
+     "r2_identity": -4.035983895913621,
+     "slope_obs_on_pred": 0.13114006460112654,
+     "sign_agree": 0.8307692307692308,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.005233638894713261,
+     "median_abs_err": 0.002284144139989938,
+     "within": 0.16923076923076924
+    },
+    "model_cos_median": 0.9116830568520191,
+    "model_norm_ratio_median": 0.6201613982861514,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.9901079578919127,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 1,
+     "agree": 0.9846153846153847,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.608213605922357,
+     "spearman": 0.5873968705547653,
+     "r2_identity": 0.2703198180081001,
+     "slope_obs_on_pred": 0.7459158927208687,
+     "sign_agree": 0.7638888888888888,
+     "n_nonzero": 72,
+     "median_abs_obs": 0.0013531578356590357,
+     "median_abs_err": 0.00023885574886356535,
+     "within": 0.6133333333333333
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.5477426364007353,
+     "spearman": 0.5476813655761024,
+     "r2_identity": 0.22017087052118745,
+     "slope_obs_on_pred": 0.8505346728482279,
+     "sign_agree": 0.6944444444444444,
+     "n_nonzero": 72,
+     "median_abs_obs": 0.0013531578356590357,
+     "median_abs_err": 0.0015335591179921834,
+     "within": 0.36
+    },
+    "chain_no_grip_flip": {
+     "n": 73,
+     "pearson": 0.5497792397932308,
+     "spearman": 0.5515241268665927,
+     "r2_identity": 0.2328130855949817,
+     "slope_obs_on_pred": 0.864896101681662,
+     "sign_agree": 0.7,
+     "n_nonzero": 70,
+     "median_abs_obs": 0.0013531578356590357,
+     "median_abs_err": 0.0013537103225849817,
+     "within": 0.3698630136986301
+    },
+    "model_cos_median": 0.8261061481521026,
+    "model_norm_ratio_median": 0.6467301596226913,
+    "grip_sign_flip_rate": 0.02666666666666667,
+    "da_median": 0.7812315751729203,
+    "sign": {
+     "n_clear": 54,
+     "n_ambiguous": 21,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "end/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.6519246908404129,
+     "spearman": 0.5554765291607396,
+     "r2_identity": -2.1498934164391104,
+     "slope_obs_on_pred": 0.28593283437341793,
+     "sign_agree": 0.7636363636363637,
+     "n_nonzero": 55,
+     "median_abs_obs": 7.773841589059187e-05,
+     "median_abs_err": 0.00017602965286205407,
+     "within": 0.6666666666666666
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.5338214100904214,
+     "spearman": 0.4186913229018492,
+     "r2_identity": -2.40890414682036,
+     "slope_obs_on_pred": 0.238730069849729,
+     "sign_agree": 0.6727272727272727,
+     "n_nonzero": 55,
+     "median_abs_obs": 7.773841589059187e-05,
+     "median_abs_err": 0.00015983556864476896,
+     "within": 0.7066666666666667
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": 0.5310321267322027,
+     "spearman": 0.39877082562014066,
+     "r2_identity": -2.42896371297521,
+     "slope_obs_on_pred": 0.2373184472621962,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 54,
+     "median_abs_obs": 7.708659529719293e-05,
+     "median_abs_err": 0.00015424342252146048,
+     "within": 0.7162162162162162
+    },
+    "model_cos_median": 0.7631925041730504,
+    "model_norm_ratio_median": 0.5912414660994222,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.6864009984321567,
+    "sign": {
+     "n_clear": 16,
+     "n_ambiguous": 59,
+     "observed_crossings": 1,
+     "predicted_crossings": 2,
+     "agree": 0.8125,
+     "ambiguous_observed_crossings": 10
+    }
+   },
+   "min/all": {
+    "sim": {
+     "n": 296,
+     "pearson": 0.0111855556089106,
+     "spearman": 0.6885973801228037,
+     "r2_identity": -45.23358698399283,
+     "slope_obs_on_pred": 0.004835501332049179,
+     "sign_agree": 0.8045112781954887,
+     "n_nonzero": 266,
+     "median_abs_obs": 0.0009009130417529793,
+     "median_abs_err": 0.00020389100028596384,
+     "within": 0.625
+    },
+    "chain": {
+     "n": 296,
+     "pearson": 0.005616812783665792,
+     "spearman": 0.6727619761518067,
+     "r2_identity": -23.012333778520308,
+     "slope_obs_on_pred": 0.005268606307725003,
+     "sign_agree": 0.7744360902255639,
+     "n_nonzero": 266,
+     "median_abs_obs": 0.0009009130417529793,
+     "median_abs_err": 0.0008353971316746537,
+     "within": 0.42905405405405406
+    },
+    "chain_no_grip_flip": {
+     "n": 293,
+     "pearson": 0.0054309307614750805,
+     "spearman": 0.6740070472997278,
+     "r2_identity": -23.05643127376898,
+     "slope_obs_on_pred": 0.005256470181795982,
+     "sign_agree": 0.7756653992395437,
+     "n_nonzero": 263,
+     "median_abs_obs": 0.0008926004825548645,
+     "median_abs_err": 0.0008344776350898269,
+     "within": 0.4334470989761092
+    },
+    "model_cos_median": 0.86703878546097,
+    "model_norm_ratio_median": 0.6002925965680841,
+    "grip_sign_flip_rate": 0.010135135135135136,
+    "da_median": 0.8879251099032757,
+    "sign": {
+     "n_clear": 204,
+     "n_ambiguous": 92,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.9950980392156863,
+     "ambiguous_observed_crossings": 11
+    }
+   },
+   "min/near": {
+    "sim": {
+     "n": 234,
+     "pearson": 0.6759636319918116,
+     "spearman": 0.583675533670968,
+     "r2_identity": 0.014605834903721915,
+     "slope_obs_on_pred": 0.5427111323241272,
+     "sign_agree": 0.7647058823529411,
+     "n_nonzero": 204,
+     "median_abs_obs": 0.0005972958483673262,
+     "median_abs_err": 0.00025403850691570033,
+     "within": 0.6196581196581197
+    },
+    "chain": {
+     "n": 234,
+     "pearson": 0.6571374292269815,
+     "spearman": 0.6141731582878511,
+     "r2_identity": 0.40145216843511766,
+     "slope_obs_on_pred": 0.9823188029172566,
+     "sign_agree": 0.75,
+     "n_nonzero": 204,
+     "median_abs_obs": 0.0005972958483673262,
+     "median_abs_err": 0.0005906791955234407,
+     "within": 0.48717948717948717
+    },
+    "chain_no_grip_flip": {
+     "n": 231,
+     "pearson": 0.6610306842267604,
+     "spearman": 0.6146459237913511,
+     "r2_identity": 0.40309439559452864,
+     "slope_obs_on_pred": 0.9858660131547815,
+     "sign_agree": 0.7512437810945274,
+     "n_nonzero": 201,
+     "median_abs_obs": 0.0005443907623150692,
+     "median_abs_err": 0.0005703192363911478,
+     "within": 0.4935064935064935
+    },
+    "model_cos_median": 0.8592549970620795,
+    "model_norm_ratio_median": 0.6335404283274875,
+    "grip_sign_flip_rate": 0.01282051282051282,
+    "da_median": 0.8610055278989752,
+    "sign": {
+     "n_clear": 142,
+     "n_ambiguous": 92,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.9929577464788732,
+     "ambiguous_observed_crossings": 11
+    }
+   },
+   "min/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": -0.161184806176095,
+     "spearman": -0.07142857142857142,
+     "r2_identity": -0.3283355003442634,
+     "slope_obs_on_pred": -1.4545257251757702,
+     "sign_agree": 0.4,
+     "n_nonzero": 5,
+     "median_abs_obs": 9.860028187138811e-06,
+     "median_abs_err": 6.651074586229663e-05,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 13,
+     "pearson": -0.07016312339445767,
+     "spearman": 0.15934065934065936,
+     "r2_identity": -0.2952152566595343,
+     "slope_obs_on_pred": -0.2880318185911906,
+     "sign_agree": 0.6,
+     "n_nonzero": 5,
+     "median_abs_obs": 9.860028187138811e-06,
+     "median_abs_err": 8.238172477661348e-05,
+     "within": 0.8461538461538461
+    },
+    "chain_no_grip_flip": {
+     "n": 13,
+     "pearson": -0.07016312339445767,
+     "spearman": 0.15934065934065936,
+     "r2_identity": -0.2952152566595343,
+     "slope_obs_on_pred": -0.2880318185911906,
+     "sign_agree": 0.6,
+     "n_nonzero": 5,
+     "median_abs_obs": 9.860028187138811e-06,
+     "median_abs_err": 8.238172477661348e-05,
+     "within": 0.8461538461538461
+    },
+    "model_cos_median": 0.8393307494765397,
+    "model_norm_ratio_median": 0.6553639783097933,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.9018845986962447,
+    "sign": {
+     "n_clear": 10,
+     "n_ambiguous": 3,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "min/free": {
+    "sim": {
+     "n": 68,
+     "pearson": -0.03968548368843643,
+     "spearman": 0.7524907432148717,
+     "r2_identity": -116.69147169851291,
+     "slope_obs_on_pred": 0.003370100564932444,
+     "sign_agree": 0.9411764705882353,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.00400620929885305,
+     "median_abs_err": 0.0005743440540912997,
+     "within": 0.6617647058823529
+    },
+    "chain": {
+     "n": 68,
+     "pearson": -0.04206353359384183,
+     "spearman": 0.683666068633813,
+     "r2_identity": -59.45037827216361,
+     "slope_obs_on_pred": 0.0037949196313486204,
+     "sign_agree": 0.8823529411764706,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.00400620929885305,
+     "median_abs_err": 0.0025688102391545967,
+     "within": 0.22058823529411764
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": -0.04206353359384183,
+     "spearman": 0.683666068633813,
+     "r2_identity": -59.45037827216361,
+     "slope_obs_on_pred": 0.0037949196313486204,
+     "sign_agree": 0.8823529411764706,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.00400620929885305,
+     "median_abs_err": 0.0025688102391545967,
+     "within": 0.22058823529411764
+    },
+    "model_cos_median": 0.8961169057101284,
+    "model_norm_ratio_median": 0.5585471551564812,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 1.1135499672559135,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": 0.161820234842175,
+     "spearman": 0.6931818181818181,
+     "r2_identity": -0.035033214634555776,
+     "slope_obs_on_pred": 0.66919985821168,
+     "sign_agree": 0.7846153846153846,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.002588199250224292,
+     "median_abs_err": 0.0001737119936586866,
+     "within": 0.6153846153846154
+    },
+    "chain": {
+     "n": 65,
+     "pearson": 0.13243875018936455,
+     "spearman": 0.7019230769230769,
+     "r2_identity": -0.030964537186935148,
+     "slope_obs_on_pred": 1.0991390504060063,
+     "sign_agree": 0.7846153846153846,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.002588199250224292,
+     "median_abs_err": 0.001858748472658175,
+     "within": 0.26153846153846155
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": 0.13243875018936455,
+     "spearman": 0.7019230769230769,
+     "r2_identity": -0.030964537186935148,
+     "slope_obs_on_pred": 1.0991390504060063,
+     "sign_agree": 0.7846153846153846,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.002588199250224292,
+     "median_abs_err": 0.001858748472658175,
+     "within": 0.26153846153846155
+    },
+    "model_cos_median": 0.9116830568520191,
+    "model_norm_ratio_median": 0.6201613982861514,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.9901079578919127,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.522047935523597,
+     "spearman": 0.49100995732574676,
+     "r2_identity": -0.17961500935242602,
+     "slope_obs_on_pred": 0.44219931002913965,
+     "sign_agree": 0.7887323943661971,
+     "n_nonzero": 71,
+     "median_abs_obs": 0.0007359266819956661,
+     "median_abs_err": 0.0003809137588597051,
+     "within": 0.52
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.532770703953276,
+     "spearman": 0.5006827880512091,
+     "r2_identity": 0.25372814195303184,
+     "slope_obs_on_pred": 0.7582092856469888,
+     "sign_agree": 0.7887323943661971,
+     "n_nonzero": 71,
+     "median_abs_obs": 0.0007359266819956661,
+     "median_abs_err": 0.0005559491233434804,
+     "within": 0.48
+    },
+    "chain_no_grip_flip": {
+     "n": 73,
+     "pearson": 0.5574179572910303,
+     "spearman": 0.5091632728619031,
+     "r2_identity": 0.28061041476994897,
+     "slope_obs_on_pred": 0.7747151562960858,
+     "sign_agree": 0.7971014492753623,
+     "n_nonzero": 69,
+     "median_abs_obs": 0.0007341271225454991,
+     "median_abs_err": 0.0005277764759409377,
+     "within": 0.4931506849315068
+    },
+    "model_cos_median": 0.8261061481521026,
+    "model_norm_ratio_median": 0.6467301596226913,
+    "grip_sign_flip_rate": 0.02666666666666667,
+    "da_median": 0.7812315751729203,
+    "sign": {
+     "n_clear": 52,
+     "n_ambiguous": 23,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 3
+    }
+   },
+   "min/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.6662213408065384,
+     "spearman": 0.3306970128022759,
+     "r2_identity": -0.011584547834814662,
+     "slope_obs_on_pred": 0.5039150885492993,
+     "sign_agree": 0.7192982456140351,
+     "n_nonzero": 57,
+     "median_abs_obs": 6.53127416726617e-05,
+     "median_abs_err": 0.00017602965286205407,
+     "within": 0.68
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.5712112985040764,
+     "spearman": 0.3049786628733997,
+     "r2_identity": 0.25393770596376164,
+     "slope_obs_on_pred": 0.7243634202628281,
+     "sign_agree": 0.631578947368421,
+     "n_nonzero": 57,
+     "median_abs_obs": 6.53127416726617e-05,
+     "median_abs_err": 0.00021046569537989783,
+     "within": 0.64
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": 0.5684268343895827,
+     "spearman": 0.2787856349500184,
+     "r2_identity": 0.25155294747734835,
+     "slope_obs_on_pred": 0.7254108313630068,
+     "sign_agree": 0.625,
+     "n_nonzero": 56,
+     "median_abs_obs": 6.079872828376696e-05,
+     "median_abs_err": 0.00020389776778517938,
+     "within": 0.6486486486486487
+    },
+    "model_cos_median": 0.7631925041730504,
+    "model_norm_ratio_median": 0.5912414660994222,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.6864009984321567,
+    "sign": {
+     "n_clear": 11,
+     "n_ambiguous": 64,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.9090909090909091,
+     "ambiguous_observed_crossings": 7
+    }
+   }
+  },
+  "a4_down": {
+   "end/all": {
+    "sim": {
+     "n": 296,
+     "pearson": 0.05949549034607179,
+     "spearman": 0.6127384703655889,
+     "r2_identity": -15.635781765370389,
+     "slope_obs_on_pred": 0.014701513530793627,
+     "sign_agree": 0.7806691449814126,
+     "n_nonzero": 269,
+     "median_abs_obs": 0.0019574213342518853,
+     "median_abs_err": 0.00023303588180354737,
+     "within": 0.652027027027027
+    },
+    "chain": {
+     "n": 296,
+     "pearson": 0.11463009818779848,
+     "spearman": 0.6430003192715057,
+     "r2_identity": -9.029137979599275,
+     "slope_obs_on_pred": 0.03663591772244606,
+     "sign_agree": 0.7881040892193308,
+     "n_nonzero": 269,
+     "median_abs_obs": 0.0019574213342518853,
+     "median_abs_err": 0.0014481564593525121,
+     "within": 0.43243243243243246
+    },
+    "chain_no_grip_flip": {
+     "n": 294,
+     "pearson": 0.1145762862807585,
+     "spearman": 0.640829076467748,
+     "r2_identity": -9.025238835494852,
+     "slope_obs_on_pred": 0.03662285468912186,
+     "sign_agree": 0.7865168539325843,
+     "n_nonzero": 267,
+     "median_abs_obs": 0.0019795235071367267,
+     "median_abs_err": 0.0014481564593525121,
+     "within": 0.43197278911564624
+    },
+    "model_cos_median": 0.9603232569207878,
+    "model_norm_ratio_median": 0.670049390653622,
+    "grip_sign_flip_rate": 0.006756756756756757,
+    "da_median": 0.93162288803185,
+    "sign": {
+     "n_clear": 210,
+     "n_ambiguous": 86,
+     "observed_crossings": 3,
+     "predicted_crossings": 6,
+     "agree": 0.9571428571428572,
+     "ambiguous_observed_crossings": 6
+    }
+   },
+   "end/near": {
+    "sim": {
+     "n": 219,
+     "pearson": 0.551082413845389,
+     "spearman": 0.5827961657545673,
+     "r2_identity": -0.21883842231552886,
+     "slope_obs_on_pred": 0.4529906860720383,
+     "sign_agree": 0.75,
+     "n_nonzero": 192,
+     "median_abs_obs": 0.0008685772318011379,
+     "median_abs_err": 0.00021836950021109,
+     "within": 0.6621004566210046
+    },
+    "chain": {
+     "n": 219,
+     "pearson": 0.5186323689618955,
+     "spearman": 0.6190135615295852,
+     "r2_identity": 0.15305594593608718,
+     "slope_obs_on_pred": 0.6523201895034649,
+     "sign_agree": 0.7604166666666666,
+     "n_nonzero": 192,
+     "median_abs_obs": 0.0008685772318011379,
+     "median_abs_err": 0.0007227212470129641,
+     "within": 0.502283105022831
+    },
+    "chain_no_grip_flip": {
+     "n": 217,
+     "pearson": 0.5508019279816329,
+     "spearman": 0.6143629889560639,
+     "r2_identity": 0.24509755593819138,
+     "slope_obs_on_pred": 0.7577555665134259,
+     "sign_agree": 0.7578947368421053,
+     "n_nonzero": 190,
+     "median_abs_obs": 0.00086732088294211,
+     "median_abs_err": 0.0007227212470129641,
+     "within": 0.5023041474654378
+    },
+    "model_cos_median": 0.9564067013578831,
+    "model_norm_ratio_median": 0.7172318696371698,
+    "grip_sign_flip_rate": 0.0091324200913242,
+    "da_median": 0.8441562250736903,
+    "sign": {
+     "n_clear": 133,
+     "n_ambiguous": 86,
+     "observed_crossings": 3,
+     "predicted_crossings": 5,
+     "agree": 0.9398496240601504,
+     "ambiguous_observed_crossings": 6
+    }
+   },
+   "end/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": 0.3193102407036422,
+     "spearman": 0.2967032967032967,
+     "r2_identity": -0.13214641662867543,
+     "slope_obs_on_pred": 0.4745432544265758,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 6,
+     "median_abs_obs": 1.2556242626165625e-05,
+     "median_abs_err": 6.313081627035769e-05,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 13,
+     "pearson": 0.30045515978843385,
+     "spearman": 0.21978021978021978,
+     "r2_identity": -0.09499213371832371,
+     "slope_obs_on_pred": 0.6249661887164618,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 6,
+     "median_abs_obs": 1.2556242626165625e-05,
+     "median_abs_err": 6.69760131124232e-05,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 13,
+     "pearson": 0.30045515978843385,
+     "spearman": 0.21978021978021978,
+     "r2_identity": -0.09499213371832371,
+     "slope_obs_on_pred": 0.6249661887164618,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 6,
+     "median_abs_obs": 1.2556242626165625e-05,
+     "median_abs_err": 6.69760131124232e-05,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.9570559942951401,
+    "model_norm_ratio_median": 0.7107699261353878,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.8913697751507089,
+    "sign": {
+     "n_clear": 9,
+     "n_ambiguous": 4,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.8888888888888888,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/free": {
+    "sim": {
+     "n": 68,
+     "pearson": 0.06653093870354133,
+     "spearman": 0.6423254571134098,
+     "r2_identity": -22.182708180913647,
+     "slope_obs_on_pred": 0.013750155805532413,
+     "sign_agree": 0.8970588235294118,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.0078053289064452195,
+     "median_abs_err": 0.000674792540302623,
+     "within": 0.6764705882352942
+    },
+    "chain": {
+     "n": 68,
+     "pearson": 0.06301112997289682,
+     "spearman": 0.600755811734168,
+     "r2_identity": -11.337310555632662,
+     "slope_obs_on_pred": 0.01816150129415936,
+     "sign_agree": 0.8823529411764706,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.0078053289064452195,
+     "median_abs_err": 0.0033237256369501728,
+     "within": 0.20588235294117646
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": 0.06301112997289682,
+     "spearman": 0.600755811734168,
+     "r2_identity": -11.337310555632662,
+     "slope_obs_on_pred": 0.01816150129415936,
+     "sign_agree": 0.8823529411764706,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.0078053289064452195,
+     "median_abs_err": 0.0033237256369501728,
+     "within": 0.20588235294117646
+    },
+    "model_cos_median": 0.9619595955854364,
+    "model_norm_ratio_median": 0.5946426193186222,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 1.1407835291709325,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": 0.00966260416814634,
+     "spearman": 0.5655157342657343,
+     "r2_identity": -0.3173508548557529,
+     "slope_obs_on_pred": 0.039555173870146544,
+     "sign_agree": 0.8307692307692308,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.006226977816741731,
+     "median_abs_err": 0.00017854290567861399,
+     "within": 0.6307692307692307
+    },
+    "chain": {
+     "n": 65,
+     "pearson": 0.3228830523460792,
+     "spearman": 0.6670454545454545,
+     "r2_identity": -4.020027096964691,
+     "slope_obs_on_pred": 0.1334002890134293,
+     "sign_agree": 0.8,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.006226977816741731,
+     "median_abs_err": 0.002422337999580318,
+     "within": 0.27692307692307694
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": 0.3228830523460792,
+     "spearman": 0.6670454545454545,
+     "r2_identity": -4.020027096964691,
+     "slope_obs_on_pred": 0.1334002890134293,
+     "sign_agree": 0.8,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.006226977816741731,
+     "median_abs_err": 0.002422337999580318,
+     "within": 0.27692307692307694
+    },
+    "model_cos_median": 0.9718684733644921,
+    "model_norm_ratio_median": 0.6507039735814216,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 1.0500397291839256,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 1,
+     "agree": 0.9846153846153847,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.6453388804894349,
+     "spearman": 0.5483641536273115,
+     "r2_identity": 0.3455384996541312,
+     "slope_obs_on_pred": 0.8342661986555123,
+     "sign_agree": 0.6891891891891891,
+     "n_nonzero": 74,
+     "median_abs_obs": 0.0009967143644345478,
+     "median_abs_err": 0.0003007422707323105,
+     "within": 0.6266666666666667
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.6060923162537961,
+     "spearman": 0.5965860597439544,
+     "r2_identity": 0.3039640708157434,
+     "slope_obs_on_pred": 1.0167472252841372,
+     "sign_agree": 0.7432432432432432,
+     "n_nonzero": 74,
+     "median_abs_obs": 0.0009967143644345478,
+     "median_abs_err": 0.0007048897753855192,
+     "within": 0.5066666666666667
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": 0.6045143787263553,
+     "spearman": 0.5905812661977045,
+     "r2_identity": 0.30064407280801153,
+     "slope_obs_on_pred": 1.016559528870711,
+     "sign_agree": 0.7397260273972602,
+     "n_nonzero": 73,
+     "median_abs_obs": 0.0009707018769274933,
+     "median_abs_err": 0.0007068460349790113,
+     "within": 0.5
+    },
+    "model_cos_median": 0.9543574566933274,
+    "model_norm_ratio_median": 0.7533841096801598,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.7916572575442513,
+    "sign": {
+     "n_clear": 54,
+     "n_ambiguous": 21,
+     "observed_crossings": 0,
+     "predicted_crossings": 1,
+     "agree": 0.9814814814814815,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.19738118818079795,
+     "spearman": 0.36688477951635845,
+     "r2_identity": -4.5757461433019735,
+     "slope_obs_on_pred": 0.08416457113261087,
+     "sign_agree": 0.7142857142857143,
+     "n_nonzero": 56,
+     "median_abs_obs": 8.91200235602663e-05,
+     "median_abs_err": 0.00019763755501648814,
+     "within": 0.6533333333333333
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.20960228396679306,
+     "spearman": 0.4137126600284494,
+     "r2_identity": -2.005882431873496,
+     "slope_obs_on_pred": 0.12263407637056162,
+     "sign_agree": 0.7321428571428571,
+     "n_nonzero": 56,
+     "median_abs_obs": 8.91200235602663e-05,
+     "median_abs_err": 0.00017898363798740945,
+     "within": 0.64
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": 0.21356615753976355,
+     "spearman": 0.3952462051092187,
+     "r2_identity": -1.252208965655555,
+     "slope_obs_on_pred": 0.1529298804924296,
+     "sign_agree": 0.7272727272727273,
+     "n_nonzero": 55,
+     "median_abs_obs": 8.58938838243384e-05,
+     "median_abs_err": 0.00016800712091348318,
+     "within": 0.6486486486486487
+    },
+    "model_cos_median": 0.9481651200242994,
+    "model_norm_ratio_median": 0.7728232278846342,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.6720406768909825,
+    "sign": {
+     "n_clear": 16,
+     "n_ambiguous": 59,
+     "observed_crossings": 2,
+     "predicted_crossings": 4,
+     "agree": 0.625,
+     "ambiguous_observed_crossings": 6
+    }
+   },
+   "min/all": {
+    "sim": {
+     "n": 296,
+     "pearson": -0.025225724250564692,
+     "spearman": 0.6395919802699462,
+     "r2_identity": -43.05960014124018,
+     "slope_obs_on_pred": -0.00035155563022769656,
+     "sign_agree": 0.7647058823529411,
+     "n_nonzero": 272,
+     "median_abs_obs": 0.0008024192422001752,
+     "median_abs_err": 0.00021719575111334648,
+     "within": 0.6486486486486487
+    },
+    "chain": {
+     "n": 296,
+     "pearson": -0.03121967483632257,
+     "spearman": 0.6569705298518856,
+     "r2_identity": -22.188619635658632,
+     "slope_obs_on_pred": -0.002060384301420606,
+     "sign_agree": 0.7683823529411765,
+     "n_nonzero": 272,
+     "median_abs_obs": 0.0008024192422001752,
+     "median_abs_err": 0.0007109266244719038,
+     "within": 0.47635135135135137
+    },
+    "chain_no_grip_flip": {
+     "n": 294,
+     "pearson": -0.031164745194866873,
+     "spearman": 0.6538387345451283,
+     "r2_identity": -22.201523674032217,
+     "slope_obs_on_pred": -0.002076671017942357,
+     "sign_agree": 0.7666666666666667,
+     "n_nonzero": 270,
+     "median_abs_obs": 0.000778111674953768,
+     "median_abs_err": 0.0007028455217940182,
+     "within": 0.47959183673469385
+    },
+    "model_cos_median": 0.9603232569207878,
+    "model_norm_ratio_median": 0.670049390653622,
+    "grip_sign_flip_rate": 0.006756756756756757,
+    "da_median": 0.93162288803185,
+    "sign": {
+     "n_clear": 204,
+     "n_ambiguous": 92,
+     "observed_crossings": 1,
+     "predicted_crossings": 3,
+     "agree": 0.9803921568627451,
+     "ambiguous_observed_crossings": 6
+    }
+   },
+   "min/near": {
+    "sim": {
+     "n": 234,
+     "pearson": 0.6733070747521132,
+     "spearman": 0.5645038856069814,
+     "r2_identity": 0.043155778234713726,
+     "slope_obs_on_pred": 0.5552552801163816,
+     "sign_agree": 0.7380952380952381,
+     "n_nonzero": 210,
+     "median_abs_obs": 0.00043627465552581793,
+     "median_abs_err": 0.0002145545791788742,
+     "within": 0.6495726495726496
+    },
+    "chain": {
+     "n": 234,
+     "pearson": 0.6401248398673213,
+     "spearman": 0.5996506582937047,
+     "r2_identity": 0.36857803453806126,
+     "slope_obs_on_pred": 0.9323901720785723,
+     "sign_agree": 0.7428571428571429,
+     "n_nonzero": 210,
+     "median_abs_obs": 0.00043627465552581793,
+     "median_abs_err": 0.0005664230896513607,
+     "within": 0.5170940170940171
+    },
+    "chain_no_grip_flip": {
+     "n": 232,
+     "pearson": 0.642697786310364,
+     "spearman": 0.593200125314969,
+     "r2_identity": 0.3737380020869604,
+     "slope_obs_on_pred": 0.9271547720700509,
+     "sign_agree": 0.7403846153846154,
+     "n_nonzero": 208,
+     "median_abs_obs": 0.00043268791176598645,
+     "median_abs_err": 0.0005549631948484285,
+     "within": 0.521551724137931
+    },
+    "model_cos_median": 0.9575627716539886,
+    "model_norm_ratio_median": 0.7095754431418155,
+    "grip_sign_flip_rate": 0.008547008547008548,
+    "da_median": 0.8855587741970739,
+    "sign": {
+     "n_clear": 142,
+     "n_ambiguous": 92,
+     "observed_crossings": 1,
+     "predicted_crossings": 3,
+     "agree": 0.971830985915493,
+     "ambiguous_observed_crossings": 6
+    }
+   },
+   "min/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": -0.15453460455930415,
+     "spearman": 0.07692307692307691,
+     "r2_identity": -0.44741083033017626,
+     "slope_obs_on_pred": -0.9528141826622487,
+     "sign_agree": 0.5,
+     "n_nonzero": 6,
+     "median_abs_obs": 1.2556242626165625e-05,
+     "median_abs_err": 6.313081627035769e-05,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 13,
+     "pearson": -0.13943001022672627,
+     "spearman": 0.0879120879120879,
+     "r2_identity": -0.36610279845435323,
+     "slope_obs_on_pred": -0.6909892794317218,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 6,
+     "median_abs_obs": 1.2556242626165625e-05,
+     "median_abs_err": 3.926128941191605e-05,
+     "within": 0.8461538461538461
+    },
+    "chain_no_grip_flip": {
+     "n": 13,
+     "pearson": -0.13943001022672627,
+     "spearman": 0.0879120879120879,
+     "r2_identity": -0.36610279845435323,
+     "slope_obs_on_pred": -0.6909892794317218,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 6,
+     "median_abs_obs": 1.2556242626165625e-05,
+     "median_abs_err": 3.926128941191605e-05,
+     "within": 0.8461538461538461
+    },
+    "model_cos_median": 0.9570559942951401,
+    "model_norm_ratio_median": 0.7107699261353878,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.8913697751507089,
+    "sign": {
+     "n_clear": 10,
+     "n_ambiguous": 3,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "min/free": {
+    "sim": {
+     "n": 68,
+     "pearson": -0.09501201744584756,
+     "spearman": 0.6877123334732984,
+     "r2_identity": -97.24084479448268,
+     "slope_obs_on_pred": -0.0019264007253195613,
+     "sign_agree": 0.8970588235294118,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.004843864171603096,
+     "median_abs_err": 0.000823507703089464,
+     "within": 0.6470588235294118
+    },
+    "chain": {
+     "n": 68,
+     "pearson": -0.09925169834124765,
+     "spearman": 0.6645799137305799,
+     "r2_identity": -50.19184338533647,
+     "slope_obs_on_pred": -0.003932970305986486,
+     "sign_agree": 0.8970588235294118,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.004843864171603096,
+     "median_abs_err": 0.0026996533024415503,
+     "within": 0.2647058823529412
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": -0.09925169834124765,
+     "spearman": 0.6645799137305799,
+     "r2_identity": -50.19184338533647,
+     "slope_obs_on_pred": -0.003932970305986486,
+     "sign_agree": 0.8970588235294118,
+     "n_nonzero": 68,
+     "median_abs_obs": 0.004843864171603096,
+     "median_abs_err": 0.0026996533024415503,
+     "within": 0.2647058823529412
+    },
+    "model_cos_median": 0.9619595955854364,
+    "model_norm_ratio_median": 0.5946426193186222,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 1.1407835291709325,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": 0.19483859322008343,
+     "spearman": 0.6511363636363636,
+     "r2_identity": -0.02273226889520541,
+     "slope_obs_on_pred": 0.7826561231669321,
+     "sign_agree": 0.7846153846153846,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.0026993335022779466,
+     "median_abs_err": 0.00023320381078612007,
+     "within": 0.6
+    },
+    "chain": {
+     "n": 65,
+     "pearson": 0.17457275668846706,
+     "spearman": 0.6420017482517483,
+     "r2_identity": -0.025013590750936565,
+     "slope_obs_on_pred": 1.183871399117478,
+     "sign_agree": 0.7384615384615385,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.0026993335022779466,
+     "median_abs_err": 0.001964253507191816,
+     "within": 0.3230769230769231
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": 0.17457275668846706,
+     "spearman": 0.6420017482517483,
+     "r2_identity": -0.025013590750936565,
+     "slope_obs_on_pred": 1.183871399117478,
+     "sign_agree": 0.7384615384615385,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.0026993335022779466,
+     "median_abs_err": 0.001964253507191816,
+     "within": 0.3230769230769231
+    },
+    "model_cos_median": 0.9718684733644921,
+    "model_norm_ratio_median": 0.6507039735814216,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 1.0500397291839256,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.5535711916498025,
+     "spearman": 0.5337126600284494,
+     "r2_identity": -0.41858496593392935,
+     "slope_obs_on_pred": 0.4018234838645955,
+     "sign_agree": 0.7887323943661971,
+     "n_nonzero": 71,
+     "median_abs_obs": 0.00046015582627587093,
+     "median_abs_err": 0.00018773352898351957,
+     "within": 0.6666666666666666
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.6306938098600772,
+     "spearman": 0.5660028449502134,
+     "r2_identity": 0.3493422118205044,
+     "slope_obs_on_pred": 0.7502094290145206,
+     "sign_agree": 0.7887323943661971,
+     "n_nonzero": 71,
+     "median_abs_obs": 0.00046015582627587093,
+     "median_abs_err": 0.00043384676633065144,
+     "within": 0.5866666666666667
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": 0.6279737928907837,
+     "spearman": 0.5535579415031469,
+     "r2_identity": 0.3419956868018459,
+     "slope_obs_on_pred": 0.7394452883083033,
+     "sign_agree": 0.7857142857142857,
+     "n_nonzero": 70,
+     "median_abs_obs": 0.0004525777843011197,
+     "median_abs_err": 0.00042455423302544795,
+     "within": 0.5945945945945946
+    },
+    "model_cos_median": 0.9543574566933274,
+    "model_norm_ratio_median": 0.7533841096801598,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.7916572575442513,
+    "sign": {
+     "n_clear": 52,
+     "n_ambiguous": 23,
+     "observed_crossings": 0,
+     "predicted_crossings": 1,
+     "agree": 0.9807692307692307,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.5712209043118068,
+     "spearman": 0.16110953058321478,
+     "r2_identity": -0.061732921308893074,
+     "slope_obs_on_pred": 0.48723085314139586,
+     "sign_agree": 0.5967741935483871,
+     "n_nonzero": 62,
+     "median_abs_obs": 6.646610929891112e-05,
+     "median_abs_err": 0.00021308715634214544,
+     "within": 0.6533333333333333
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.5546108194639898,
+     "spearman": 0.27493598862019913,
+     "r2_identity": 0.26158468815267855,
+     "slope_obs_on_pred": 0.8019192553014034,
+     "sign_agree": 0.6451612903225806,
+     "n_nonzero": 62,
+     "median_abs_obs": 6.646610929891112e-05,
+     "median_abs_err": 0.00018040388103838178,
+     "within": 0.6266666666666667
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": 0.5583948478721039,
+     "spearman": 0.25017400962606434,
+     "r2_identity": 0.26119719033366073,
+     "slope_obs_on_pred": 0.7580638501716318,
+     "sign_agree": 0.639344262295082,
+     "n_nonzero": 61,
+     "median_abs_obs": 6.440213346563511e-05,
+     "median_abs_err": 0.00017974792058086887,
+     "within": 0.6351351351351351
+    },
+    "model_cos_median": 0.9481651200242994,
+    "model_norm_ratio_median": 0.7728232278846342,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.6720406768909825,
+    "sign": {
+     "n_clear": 11,
+     "n_ambiguous": 64,
+     "observed_crossings": 1,
+     "predicted_crossings": 2,
+     "agree": 0.7272727272727273,
+     "ambiguous_observed_crossings": 5
+    }
+   }
+  },
+  "a4_nodown": {
+   "end/all": {
+    "sim": {
+     "n": 296,
+     "pearson": -0.40281996003488874,
+     "spearman": 0.7342781919053105,
+     "r2_identity": -4.979124751206202,
+     "slope_obs_on_pred": -0.21992136211342142,
+     "sign_agree": 0.88,
+     "n_nonzero": 250,
+     "median_abs_obs": 0.00030195158680865284,
+     "median_abs_err": 1.1074253692199122e-05,
+     "within": 0.875
+    },
+    "chain": {
+     "n": 296,
+     "pearson": 0.3778583243489136,
+     "spearman": 0.3138337104438799,
+     "r2_identity": -0.13141873930207226,
+     "slope_obs_on_pred": 0.4268725015981563,
+     "sign_agree": 0.648,
+     "n_nonzero": 250,
+     "median_abs_obs": 0.00030195158680865284,
+     "median_abs_err": 0.0003662297833836375,
+     "within": 0.597972972972973
+    },
+    "chain_no_grip_flip": {
+     "n": 291,
+     "pearson": 0.37786188760150613,
+     "spearman": 0.32385889388309663,
+     "r2_identity": -0.13046478775965142,
+     "slope_obs_on_pred": 0.42750606468344415,
+     "sign_agree": 0.6571428571428571,
+     "n_nonzero": 245,
+     "median_abs_obs": 0.0003106383700357527,
+     "median_abs_err": 0.0003632877314637029,
+     "within": 0.6013745704467354
+    },
+    "model_cos_median": 0.739403096754909,
+    "model_norm_ratio_median": 1.27179086621042,
+    "grip_sign_flip_rate": 0.016891891891891893,
+    "da_median": 0.19416166128884674,
+    "sign": {
+     "n_clear": 210,
+     "n_ambiguous": 86,
+     "observed_crossings": 1,
+     "predicted_crossings": 2,
+     "agree": 0.9857142857142858,
+     "ambiguous_observed_crossings": 4
+    }
+   },
+   "end/near": {
+    "sim": {
+     "n": 219,
+     "pearson": 0.14287237021717147,
+     "spearman": 0.6810949764072801,
+     "r2_identity": -0.9885288767147171,
+     "slope_obs_on_pred": 0.12341787030612249,
+     "sign_agree": 0.8505747126436781,
+     "n_nonzero": 174,
+     "median_abs_obs": 0.0002251358214472518,
+     "median_abs_err": 1.7313373547823324e-05,
+     "within": 0.863013698630137
+    },
+    "chain": {
+     "n": 219,
+     "pearson": 0.007309742742079898,
+     "spearman": 0.21416591451780598,
+     "r2_identity": -5.2267027906155334,
+     "slope_obs_on_pred": 0.0032187428305363325,
+     "sign_agree": 0.6206896551724138,
+     "n_nonzero": 174,
+     "median_abs_obs": 0.0002251358214472518,
+     "median_abs_err": 0.0003064732140945735,
+     "within": 0.6301369863013698
+    },
+    "chain_no_grip_flip": {
+     "n": 214,
+     "pearson": 0.006866149053700229,
+     "spearman": 0.22997756152214308,
+     "r2_identity": -5.197048889431554,
+     "slope_obs_on_pred": 0.0030588093652283055,
+     "sign_agree": 0.6331360946745562,
+     "n_nonzero": 169,
+     "median_abs_obs": 0.00021959474140141946,
+     "median_abs_err": 0.00027963973542640796,
+     "within": 0.6355140186915887
+    },
+    "model_cos_median": 0.7450889137129114,
+    "model_norm_ratio_median": 1.2718023118415955,
+    "grip_sign_flip_rate": 0.0228310502283105,
+    "da_median": 0.19792842549021833,
+    "sign": {
+     "n_clear": 133,
+     "n_ambiguous": 86,
+     "observed_crossings": 1,
+     "predicted_crossings": 2,
+     "agree": 0.9774436090225563,
+     "ambiguous_observed_crossings": 4
+    }
+   },
+   "end/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": 0.16913531233709936,
+     "spearman": 0.7417582417582418,
+     "r2_identity": -0.15709963159430673,
+     "slope_obs_on_pred": 2.0244167910111215,
+     "sign_agree": 0.8333333333333334,
+     "n_nonzero": 6,
+     "median_abs_obs": 3.7829772764228983e-06,
+     "median_abs_err": 3.0106347292214693e-05,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 13,
+     "pearson": 0.3132011899386444,
+     "spearman": 0.21978021978021978,
+     "r2_identity": -0.15624692808989082,
+     "slope_obs_on_pred": 2.7971527137068914,
+     "sign_agree": 0.5,
+     "n_nonzero": 6,
+     "median_abs_obs": 3.7829772764228983e-06,
+     "median_abs_err": 4.8213665866061644e-05,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 11,
+     "pearson": 0.32804702350605935,
+     "spearman": 0.5454545454545455,
+     "r2_identity": -0.19455784459549363,
+     "slope_obs_on_pred": 3.5898760364095907,
+     "sign_agree": 0.75,
+     "n_nonzero": 4,
+     "median_abs_obs": 1.8220245225071367e-06,
+     "median_abs_err": 1.3519851165897893e-05,
+     "within": 0.7272727272727273
+    },
+    "model_cos_median": 0.6676555719550807,
+    "model_norm_ratio_median": 1.1656959304120784,
+    "grip_sign_flip_rate": 0.15384615384615385,
+    "da_median": 0.1970057771551672,
+    "sign": {
+     "n_clear": 9,
+     "n_ambiguous": 4,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.8888888888888888,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/free": {
+    "sim": {
+     "n": 68,
+     "pearson": 0.4929452011968477,
+     "spearman": 0.966446539680116,
+     "r2_identity": 0.1170364116953232,
+     "slope_obs_on_pred": 3.1804833642236607,
+     "sign_agree": 0.9848484848484849,
+     "n_nonzero": 66,
+     "median_abs_obs": 0.0004822994889967895,
+     "median_abs_err": 6.071189437223439e-06,
+     "within": 0.9264705882352942
+    },
+    "chain": {
+     "n": 68,
+     "pearson": 0.710049507652474,
+     "spearman": 0.6946978661678818,
+     "r2_identity": 0.43682607773556614,
+     "slope_obs_on_pred": 0.7380716671078188,
+     "sign_agree": 0.7727272727272727,
+     "n_nonzero": 66,
+     "median_abs_obs": 0.0004822994889967895,
+     "median_abs_err": 0.0004621442091226507,
+     "within": 0.5882352941176471
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": 0.710049507652474,
+     "spearman": 0.6946978661678818,
+     "r2_identity": 0.43682607773556614,
+     "slope_obs_on_pred": 0.7380716671078188,
+     "sign_agree": 0.7727272727272727,
+     "n_nonzero": 66,
+     "median_abs_obs": 0.0004822994889967895,
+     "median_abs_err": 0.0004621442091226507,
+     "within": 0.5882352941176471
+    },
+    "model_cos_median": 0.725893133632037,
+    "model_norm_ratio_median": 1.2399818565924403,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.16712372657828425,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": -0.7444327852065528,
+     "spearman": 0.7311625874125874,
+     "r2_identity": -15.009550807891806,
+     "slope_obs_on_pred": -0.23888120356614775,
+     "sign_agree": 0.9230769230769231,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.000354451884663997,
+     "median_abs_err": 1.40866336164415e-06,
+     "within": 0.9230769230769231
+    },
+    "chain": {
+     "n": 65,
+     "pearson": -0.6985369848060041,
+     "spearman": 0.2055506993006993,
+     "r2_identity": -0.7149734535158891,
+     "slope_obs_on_pred": -1.8074850375496803,
+     "sign_agree": 0.5538461538461539,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.000354451884663997,
+     "median_abs_err": 0.0006489313748912792,
+     "within": 0.4153846153846154
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": -0.6985369848060041,
+     "spearman": 0.2055506993006993,
+     "r2_identity": -0.7149734535158891,
+     "slope_obs_on_pred": -1.8074850375496803,
+     "sign_agree": 0.5538461538461539,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.000354451884663997,
+     "median_abs_err": 0.0006489313748912792,
+     "within": 0.4153846153846154
+    },
+    "model_cos_median": 0.6327551189354146,
+    "model_norm_ratio_median": 1.2013835115444147,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.1782604462166903,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.15954982682391758,
+     "spearman": 0.7481365576102419,
+     "r2_identity": -0.25488813252589804,
+     "slope_obs_on_pred": 0.2250314043407376,
+     "sign_agree": 0.9014084507042254,
+     "n_nonzero": 71,
+     "median_abs_obs": 0.00041461462937467455,
+     "median_abs_err": 1.3950923735433184e-05,
+     "within": 0.88
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.0595760588504621,
+     "spearman": 0.29012802275960164,
+     "r2_identity": -0.3480280539385341,
+     "slope_obs_on_pred": 0.051301730947147045,
+     "sign_agree": 0.6338028169014085,
+     "n_nonzero": 71,
+     "median_abs_obs": 0.00041461462937467455,
+     "median_abs_err": 0.0003673889750059778,
+     "within": 0.5866666666666667
+    },
+    "chain_no_grip_flip": {
+     "n": 73,
+     "pearson": 0.058056143557934814,
+     "spearman": 0.30041342712575597,
+     "r2_identity": -0.28403893510322065,
+     "slope_obs_on_pred": 0.05068330052839659,
+     "sign_agree": 0.6376811594202898,
+     "n_nonzero": 69,
+     "median_abs_obs": 0.00041534008654210697,
+     "median_abs_err": 0.0003441140543769248,
+     "within": 0.6027397260273972
+    },
+    "model_cos_median": 0.7654027816439977,
+    "model_norm_ratio_median": 1.3147512030862214,
+    "grip_sign_flip_rate": 0.02666666666666667,
+    "da_median": 0.20762108552033914,
+    "sign": {
+     "n_clear": 54,
+     "n_ambiguous": 21,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "end/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.12129141028175063,
+     "spearman": 0.20586059743954482,
+     "r2_identity": -7.330729328730504,
+     "slope_obs_on_pred": 0.040989081082162974,
+     "sign_agree": 0.6190476190476191,
+     "n_nonzero": 42,
+     "median_abs_obs": 4.1829350218830236e-05,
+     "median_abs_err": 5.5414094148179726e-05,
+     "within": 0.8
+    },
+    "chain": {
+     "n": 75,
+     "pearson": -0.010206685431695525,
+     "spearman": 0.1547083926031294,
+     "r2_identity": -39.36144900096944,
+     "slope_obs_on_pred": -0.0009621549053313805,
+     "sign_agree": 0.6428571428571429,
+     "n_nonzero": 42,
+     "median_abs_obs": 4.1829350218830236e-05,
+     "median_abs_err": 5.736346869168445e-05,
+     "within": 0.7466666666666667
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": -0.009009653171671262,
+     "spearman": 0.19129211403184002,
+     "r2_identity": -39.39410596173239,
+     "slope_obs_on_pred": -0.0008024485751251456,
+     "sign_agree": 0.6585365853658537,
+     "n_nonzero": 41,
+     "median_abs_obs": 4.07695685282002e-05,
+     "median_abs_err": 5.735858904675853e-05,
+     "within": 0.7567567567567568
+    },
+    "model_cos_median": 0.8019738824504113,
+    "model_norm_ratio_median": 1.2953852638764658,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.20895124726425557,
+    "sign": {
+     "n_clear": 16,
+     "n_ambiguous": 59,
+     "observed_crossings": 0,
+     "predicted_crossings": 2,
+     "agree": 0.875,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "min/all": {
+    "sim": {
+     "n": 296,
+     "pearson": 0.5441094546599856,
+     "spearman": 0.7136948967457442,
+     "r2_identity": -0.1416226318503233,
+     "slope_obs_on_pred": 0.45144591729432815,
+     "sign_agree": 0.8755364806866953,
+     "n_nonzero": 233,
+     "median_abs_obs": 0.0001609923317934499,
+     "median_abs_err": 5.796635931121288e-06,
+     "within": 0.8682432432432432
+    },
+    "chain": {
+     "n": 296,
+     "pearson": 0.08316360766967017,
+     "spearman": 0.399506748659291,
+     "r2_identity": -16.69533389722281,
+     "slope_obs_on_pred": 0.02066044912475847,
+     "sign_agree": 0.6738197424892703,
+     "n_nonzero": 233,
+     "median_abs_obs": 0.0001609923317934499,
+     "median_abs_err": 0.00019518988493317065,
+     "within": 0.7094594594594594
+    },
+    "chain_no_grip_flip": {
+     "n": 291,
+     "pearson": 0.0823717230345131,
+     "spearman": 0.4130509522812384,
+     "r2_identity": -16.856246445388102,
+     "slope_obs_on_pred": 0.020591528189121733,
+     "sign_agree": 0.6798245614035088,
+     "n_nonzero": 228,
+     "median_abs_obs": 0.00016048768093945842,
+     "median_abs_err": 0.00019430557447887891,
+     "within": 0.7147766323024055
+    },
+    "model_cos_median": 0.739403096754909,
+    "model_norm_ratio_median": 1.27179086621042,
+    "grip_sign_flip_rate": 0.016891891891891893,
+    "da_median": 0.19416166128884674,
+    "sign": {
+     "n_clear": 204,
+     "n_ambiguous": 92,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 5
+    }
+   },
+   "min/near": {
+    "sim": {
+     "n": 234,
+     "pearson": 0.457749990635584,
+     "spearman": 0.6613136840330706,
+     "r2_identity": -0.25923101052355135,
+     "slope_obs_on_pred": 0.40034786216622387,
+     "sign_agree": 0.8497109826589595,
+     "n_nonzero": 173,
+     "median_abs_obs": 0.00010117605881588941,
+     "median_abs_err": 1.1837880072634989e-05,
+     "within": 0.8589743589743589
+    },
+    "chain": {
+     "n": 234,
+     "pearson": 0.199310191674967,
+     "spearman": 0.31534738661028505,
+     "r2_identity": -0.9902737034616942,
+     "slope_obs_on_pred": 0.16329946286425898,
+     "sign_agree": 0.6416184971098265,
+     "n_nonzero": 173,
+     "median_abs_obs": 0.00010117605881588941,
+     "median_abs_err": 0.00017426337754925474,
+     "within": 0.7222222222222222
+    },
+    "chain_no_grip_flip": {
+     "n": 229,
+     "pearson": 0.2025273016040883,
+     "spearman": 0.33189071977456464,
+     "r2_identity": -0.9475771556631267,
+     "slope_obs_on_pred": 0.16857579426192928,
+     "sign_agree": 0.6488095238095238,
+     "n_nonzero": 168,
+     "median_abs_obs": 0.000100614875449212,
+     "median_abs_err": 0.00017258394701561547,
+     "within": 0.7292576419213974
+    },
+    "model_cos_median": 0.7416688677497962,
+    "model_norm_ratio_median": 1.2642258768312498,
+    "grip_sign_flip_rate": 0.021367521367521368,
+    "da_median": 0.197092975936422,
+    "sign": {
+     "n_clear": 142,
+     "n_ambiguous": 92,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 5
+    }
+   },
+   "min/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": 0.29317826288941345,
+     "spearman": 0.9120879120879121,
+     "r2_identity": -0.10763114648164906,
+     "slope_obs_on_pred": 4.197724073418862,
+     "sign_agree": 1.0,
+     "n_nonzero": 6,
+     "median_abs_obs": 3.7829772764228983e-06,
+     "median_abs_err": 3.7568994296904986e-06,
+     "within": 0.8461538461538461
+    },
+    "chain": {
+     "n": 13,
+     "pearson": 0.5522100736034714,
+     "spearman": 0.7802197802197801,
+     "r2_identity": -0.05604837451026068,
+     "slope_obs_on_pred": 6.803342858885643,
+     "sign_agree": 0.8333333333333334,
+     "n_nonzero": 6,
+     "median_abs_obs": 3.7829772764228983e-06,
+     "median_abs_err": 1.3519851165897893e-05,
+     "within": 0.8461538461538461
+    },
+    "chain_no_grip_flip": {
+     "n": 11,
+     "pearson": 0.5692287438099205,
+     "spearman": 0.8363636363636365,
+     "r2_identity": -0.08712093972029122,
+     "slope_obs_on_pred": 7.196011544669426,
+     "sign_agree": 1.0,
+     "n_nonzero": 4,
+     "median_abs_obs": 1.8220245225071367e-06,
+     "median_abs_err": 1.3519851165897893e-05,
+     "within": 0.8181818181818182
+    },
+    "model_cos_median": 0.6676555719550807,
+    "model_norm_ratio_median": 1.1656959304120784,
+    "grip_sign_flip_rate": 0.15384615384615385,
+    "da_median": 0.1970057771551672,
+    "sign": {
+     "n_clear": 10,
+     "n_ambiguous": 3,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "min/free": {
+    "sim": {
+     "n": 68,
+     "pearson": 0.8368923076898583,
+     "spearman": 0.9652631980761154,
+     "r2_identity": 0.37640695594392803,
+     "slope_obs_on_pred": 0.5982368487780896,
+     "sign_agree": 0.9846153846153847,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.00037152801538757607,
+     "median_abs_err": 2.1002955146059196e-06,
+     "within": 0.9264705882352942
+    },
+    "chain": {
+     "n": 68,
+     "pearson": 0.08715002976534043,
+     "spearman": 0.5642630835591861,
+     "r2_identity": -49.45666506107553,
+     "slope_obs_on_pred": 0.008996048408245378,
+     "sign_agree": 0.7384615384615385,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.00037152801538757607,
+     "median_abs_err": 0.00037448626468149763,
+     "within": 0.6617647058823529
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": 0.08715002976534043,
+     "spearman": 0.5642630835591861,
+     "r2_identity": -49.45666506107553,
+     "slope_obs_on_pred": 0.008996048408245378,
+     "sign_agree": 0.7384615384615385,
+     "n_nonzero": 65,
+     "median_abs_obs": 0.00037152801538757607,
+     "median_abs_err": 0.00037448626468149763,
+     "within": 0.6617647058823529
+    },
+    "model_cos_median": 0.725893133632037,
+    "model_norm_ratio_median": 1.2399818565924403,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.16712372657828425,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": 0.629499681692214,
+     "spearman": 0.7790646853146853,
+     "r2_identity": 0.28434242585438885,
+     "slope_obs_on_pred": 0.6564082591130066,
+     "sign_agree": 0.9333333333333333,
+     "n_nonzero": 60,
+     "median_abs_obs": 0.00023086080143511212,
+     "median_abs_err": 1.1554149676830166e-06,
+     "within": 0.9230769230769231
+    },
+    "chain": {
+     "n": 65,
+     "pearson": 0.23878581700466053,
+     "spearman": 0.33631993006993005,
+     "r2_identity": -1.949426348124704,
+     "slope_obs_on_pred": 0.13340977589326847,
+     "sign_agree": 0.6,
+     "n_nonzero": 60,
+     "median_abs_obs": 0.00023086080143511212,
+     "median_abs_err": 0.00042129538160385705,
+     "within": 0.5384615384615384
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": 0.23878581700466053,
+     "spearman": 0.33631993006993005,
+     "r2_identity": -1.949426348124704,
+     "slope_obs_on_pred": 0.13340977589326847,
+     "sign_agree": 0.6,
+     "n_nonzero": 60,
+     "median_abs_obs": 0.00023086080143511212,
+     "median_abs_err": 0.00042129538160385705,
+     "within": 0.5384615384615384
+    },
+    "model_cos_median": 0.6327551189354146,
+    "model_norm_ratio_median": 1.2013835115444147,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.1782604462166903,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.3020827678846019,
+     "spearman": 0.6343669985775249,
+     "r2_identity": -0.1887536946381041,
+     "slope_obs_on_pred": 0.3728938421605103,
+     "sign_agree": 0.873015873015873,
+     "n_nonzero": 63,
+     "median_abs_obs": 0.00018669258882693038,
+     "median_abs_err": 1.0126259489709655e-05,
+     "within": 0.8266666666666667
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.22513591600247498,
+     "spearman": 0.45376955903271693,
+     "r2_identity": -0.4212607173262475,
+     "slope_obs_on_pred": 0.2503445953887513,
+     "sign_agree": 0.6825396825396826,
+     "n_nonzero": 63,
+     "median_abs_obs": 0.00018669258882693038,
+     "median_abs_err": 0.00017985715511533633,
+     "within": 0.7733333333333333
+    },
+    "chain_no_grip_flip": {
+     "n": 73,
+     "pearson": 0.2391884857472162,
+     "spearman": 0.48805997778600524,
+     "r2_identity": -0.3208958858630291,
+     "slope_obs_on_pred": 0.29080477679762395,
+     "sign_agree": 0.6885245901639344,
+     "n_nonzero": 61,
+     "median_abs_obs": 0.00017955850163476738,
+     "median_abs_err": 0.000175942808082894,
+     "within": 0.7945205479452054
+    },
+    "model_cos_median": 0.7654027816439977,
+    "model_norm_ratio_median": 1.3147512030862214,
+    "grip_sign_flip_rate": 0.02666666666666667,
+    "da_median": 0.20762108552033914,
+    "sign": {
+     "n_clear": 52,
+     "n_ambiguous": 23,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "min/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.4743781227624078,
+     "spearman": 0.20051209103840678,
+     "r2_identity": -3.9232766539388324,
+     "slope_obs_on_pred": 0.18926669479755312,
+     "sign_agree": 0.5897435897435898,
+     "n_nonzero": 39,
+     "median_abs_obs": 3.29803162862248e-05,
+     "median_abs_err": 7.188427568790483e-05,
+     "within": 0.8133333333333334
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.4541699163141845,
+     "spearman": 0.21066856330014225,
+     "r2_identity": -4.2101407381467375,
+     "slope_obs_on_pred": 0.17787839884901885,
+     "sign_agree": 0.6410256410256411,
+     "n_nonzero": 39,
+     "median_abs_obs": 3.29803162862248e-05,
+     "median_abs_err": 7.567607908262367e-05,
+     "within": 0.8133333333333334
+    },
+    "chain_no_grip_flip": {
+     "n": 74,
+     "pearson": 0.4661397500719809,
+     "spearman": 0.251121806738245,
+     "r2_identity": -4.145108181395898,
+     "slope_obs_on_pred": 0.1825612249370158,
+     "sign_agree": 0.6578947368421053,
+     "n_nonzero": 38,
+     "median_abs_obs": 2.858181193328529e-05,
+     "median_abs_err": 7.225761114386832e-05,
+     "within": 0.8243243243243243
+    },
+    "model_cos_median": 0.8019738824504113,
+    "model_norm_ratio_median": 1.2953852638764658,
+    "grip_sign_flip_rate": 0.013333333333333334,
+    "da_median": 0.20895124726425557,
+    "sign": {
+     "n_clear": 11,
+     "n_ambiguous": 64,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 2
+    }
+   }
+  },
+  "a8_all": {
+   "end/all": {
+    "sim": {
+     "n": 296,
+     "pearson": -0.017315198681945435,
+     "spearman": 0.7528912579760038,
+     "r2_identity": -0.13679014798286393,
+     "slope_obs_on_pred": -0.06298908721758496,
+     "sign_agree": 0.9014084507042254,
+     "n_nonzero": 142,
+     "median_abs_obs": 1.903285594261788e-05,
+     "median_abs_err": 3.536244548880991e-07,
+     "within": 0.9763513513513513
+    },
+    "chain": {
+     "n": 296,
+     "pearson": -0.10663510321952657,
+     "spearman": 0.508445888106905,
+     "r2_identity": -0.1676171121165977,
+     "slope_obs_on_pred": -0.36935862722943763,
+     "sign_agree": 0.7816901408450704,
+     "n_nonzero": 142,
+     "median_abs_obs": 1.903285594261788e-05,
+     "median_abs_err": 1.4372826484188939e-05,
+     "within": 0.9695945945945946
+    },
+    "chain_no_grip_flip": {
+     "n": 296,
+     "pearson": -0.10663510321952657,
+     "spearman": 0.508445888106905,
+     "r2_identity": -0.1676171121165977,
+     "slope_obs_on_pred": -0.36935862722943763,
+     "sign_agree": 0.7816901408450704,
+     "n_nonzero": 142,
+     "median_abs_obs": 1.903285594261788e-05,
+     "median_abs_err": 1.4372826484188939e-05,
+     "within": 0.9695945945945946
+    },
+    "model_cos_median": 0.638382539342479,
+    "model_norm_ratio_median": 0.90249048361992,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011557258318876851,
+    "sign": {
+     "n_clear": 210,
+     "n_ambiguous": 86,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.9952380952380953,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "end/near": {
+    "sim": {
+     "n": 219,
+     "pearson": 0.04251558519686312,
+     "spearman": 0.7086670398848356,
+     "r2_identity": -0.03527408523364861,
+     "slope_obs_on_pred": 0.19861073034609814,
+     "sign_agree": 0.875,
+     "n_nonzero": 96,
+     "median_abs_obs": 1.7396930441775094e-05,
+     "median_abs_err": 7.005582634267017e-07,
+     "within": 0.9817351598173516
+    },
+    "chain": {
+     "n": 219,
+     "pearson": 0.011433661763242243,
+     "spearman": 0.4818570269745336,
+     "r2_identity": -0.02999657486898366,
+     "slope_obs_on_pred": 0.04251954287770034,
+     "sign_agree": 0.7708333333333334,
+     "n_nonzero": 96,
+     "median_abs_obs": 1.7396930441775094e-05,
+     "median_abs_err": 1.3592420329019515e-05,
+     "within": 0.9726027397260274
+    },
+    "chain_no_grip_flip": {
+     "n": 219,
+     "pearson": 0.011433661763242243,
+     "spearman": 0.4818570269745336,
+     "r2_identity": -0.02999657486898366,
+     "slope_obs_on_pred": 0.04251954287770034,
+     "sign_agree": 0.7708333333333334,
+     "n_nonzero": 96,
+     "median_abs_obs": 1.7396930441775094e-05,
+     "median_abs_err": 1.3592420329019515e-05,
+     "within": 0.9726027397260274
+    },
+    "model_cos_median": 0.6371687885123024,
+    "model_norm_ratio_median": 0.9034770195502418,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011551958967888317,
+    "sign": {
+     "n_clear": 133,
+     "n_ambiguous": 86,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.9924812030075187,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "end/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": 0.14220449472601368,
+     "spearman": 0.5054945054945055,
+     "r2_identity": -0.1838344329887931,
+     "slope_obs_on_pred": 21.582178570568438,
+     "sign_agree": 0.75,
+     "n_nonzero": 4,
+     "median_abs_obs": 3.169248841011188e-06,
+     "median_abs_err": 2.1283029751086725e-06,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 13,
+     "pearson": 0.09899151181109495,
+     "spearman": 0.021978021978021976,
+     "r2_identity": -0.18613096941998775,
+     "slope_obs_on_pred": -54.81044889137874,
+     "sign_agree": 0.5,
+     "n_nonzero": 4,
+     "median_abs_obs": 3.169248841011188e-06,
+     "median_abs_err": 3.837076143506554e-06,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 13,
+     "pearson": 0.09899151181109495,
+     "spearman": 0.021978021978021976,
+     "r2_identity": -0.18613096941998775,
+     "slope_obs_on_pred": -54.81044889137874,
+     "sign_agree": 0.5,
+     "n_nonzero": 4,
+     "median_abs_obs": 3.169248841011188e-06,
+     "median_abs_err": 3.837076143506554e-06,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.6755672055249007,
+    "model_norm_ratio_median": 0.8819024251078241,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011264958376333945,
+    "sign": {
+     "n_clear": 9,
+     "n_ambiguous": 4,
+     "observed_crossings": 1,
+     "predicted_crossings": 0,
+     "agree": 0.8888888888888888,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/free": {
+    "sim": {
+     "n": 68,
+     "pearson": -0.9562881235920925,
+     "spearman": 0.7352368591823492,
+     "r2_identity": -1.7788660332367408,
+     "slope_obs_on_pred": -1.417109478131191,
+     "sign_agree": 0.9545454545454546,
+     "n_nonzero": 44,
+     "median_abs_obs": 2.8553597022279442e-05,
+     "median_abs_err": 1.844416625788615e-07,
+     "within": 0.9705882352941176
+    },
+    "chain": {
+     "n": 68,
+     "pearson": -0.9071128488140583,
+     "spearman": 0.38164675344505095,
+     "r2_identity": -1.5823688321985294,
+     "slope_obs_on_pred": -1.4323549567565084,
+     "sign_agree": 0.8409090909090909,
+     "n_nonzero": 44,
+     "median_abs_obs": 2.8553597022279442e-05,
+     "median_abs_err": 2.060958088863934e-05,
+     "within": 0.9705882352941176
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": -0.9071128488140583,
+     "spearman": 0.38164675344505095,
+     "r2_identity": -1.5823688321985294,
+     "slope_obs_on_pred": -1.4323549567565084,
+     "sign_agree": 0.8409090909090909,
+     "n_nonzero": 44,
+     "median_abs_obs": 2.8553597022279442e-05,
+     "median_abs_err": 2.060958088863934e-05,
+     "within": 0.9705882352941176
+    },
+    "model_cos_median": 0.6563497464730113,
+    "model_norm_ratio_median": 0.9015651915764353,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011687748223552022,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": 0.999062836391465,
+     "spearman": 0.9891171328671329,
+     "r2_identity": 0.28376391960101166,
+     "slope_obs_on_pred": 6.228377836316489,
+     "sign_agree": 1.0,
+     "n_nonzero": 33,
+     "median_abs_obs": 2.1561588701143192e-05,
+     "median_abs_err": 6.9224414209799e-08,
+     "within": 0.9846153846153847
+    },
+    "chain": {
+     "n": 65,
+     "pearson": 0.9980938929897796,
+     "spearman": 0.8540646853146853,
+     "r2_identity": 0.19134673994753681,
+     "slope_obs_on_pred": 9.248465191685879,
+     "sign_agree": 0.9393939393939394,
+     "n_nonzero": 33,
+     "median_abs_obs": 2.1561588701143192e-05,
+     "median_abs_err": 1.0947852608794454e-05,
+     "within": 0.9846153846153847
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": 0.9980938929897796,
+     "spearman": 0.8540646853146853,
+     "r2_identity": 0.19134673994753681,
+     "slope_obs_on_pred": 9.248465191685879,
+     "sign_agree": 0.9393939393939394,
+     "n_nonzero": 33,
+     "median_abs_obs": 2.1561588701143192e-05,
+     "median_abs_err": 1.0947852608794454e-05,
+     "within": 0.9846153846153847
+    },
+    "model_cos_median": 0.6205123671607298,
+    "model_norm_ratio_median": 0.901856027489374,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011669243172288915,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.676877822571482,
+     "spearman": 0.8451493598862021,
+     "r2_identity": 0.4387937890990995,
+     "slope_obs_on_pred": 1.2334192709577063,
+     "sign_agree": 0.9743589743589743,
+     "n_nonzero": 39,
+     "median_abs_obs": 2.2829561837363344e-05,
+     "median_abs_err": 2.55390793745024e-07,
+     "within": 1.0
+    },
+    "chain": {
+     "n": 75,
+     "pearson": -0.10176924155340938,
+     "spearman": 0.41260312944523464,
+     "r2_identity": -0.7827267171424137,
+     "slope_obs_on_pred": -0.13341986839662678,
+     "sign_agree": 0.7435897435897436,
+     "n_nonzero": 39,
+     "median_abs_obs": 2.2829561837363344e-05,
+     "median_abs_err": 2.251405352212394e-05,
+     "within": 0.9733333333333334
+    },
+    "chain_no_grip_flip": {
+     "n": 75,
+     "pearson": -0.10176924155340938,
+     "spearman": 0.41260312944523464,
+     "r2_identity": -0.7827267171424137,
+     "slope_obs_on_pred": -0.13341986839662678,
+     "sign_agree": 0.7435897435897436,
+     "n_nonzero": 39,
+     "median_abs_obs": 2.2829561837363344e-05,
+     "median_abs_err": 2.251405352212394e-05,
+     "within": 0.9733333333333334
+    },
+    "model_cos_median": 0.6298991077952122,
+    "model_norm_ratio_median": 0.9135651404296472,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011665948850598051,
+    "sign": {
+     "n_clear": 54,
+     "n_ambiguous": 21,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "end/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.044695448937108036,
+     "spearman": 0.19473684210526312,
+     "r2_identity": -6.300154009441478,
+     "slope_obs_on_pred": 0.017509931752638944,
+     "sign_agree": 0.5454545454545454,
+     "n_nonzero": 22,
+     "median_abs_obs": 7.071388254843823e-06,
+     "median_abs_err": 7.424262213954518e-06,
+     "within": 0.9866666666666667
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.08761299556360373,
+     "spearman": 0.16714082503556188,
+     "r2_identity": -2.0502416806809958,
+     "slope_obs_on_pred": 0.06130911604855481,
+     "sign_agree": 0.5454545454545454,
+     "n_nonzero": 22,
+     "median_abs_obs": 7.071388254843823e-06,
+     "median_abs_err": 5.128222393864526e-06,
+     "within": 0.9866666666666667
+    },
+    "chain_no_grip_flip": {
+     "n": 75,
+     "pearson": 0.08761299556360373,
+     "spearman": 0.16714082503556188,
+     "r2_identity": -2.0502416806809958,
+     "slope_obs_on_pred": 0.06130911604855481,
+     "sign_agree": 0.5454545454545454,
+     "n_nonzero": 22,
+     "median_abs_obs": 7.071388254843823e-06,
+     "median_abs_err": 5.128222393864526e-06,
+     "within": 0.9866666666666667
+    },
+    "model_cos_median": 0.6248359332066025,
+    "model_norm_ratio_median": 0.9104943759555063,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011403333216338893,
+    "sign": {
+     "n_clear": 16,
+     "n_ambiguous": 59,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "min/all": {
+    "sim": {
+     "n": 296,
+     "pearson": -0.9701502479368614,
+     "spearman": 0.6707116978303419,
+     "r2_identity": -1.629140086276586,
+     "slope_obs_on_pred": -1.5428505239468655,
+     "sign_agree": 0.8461538461538461,
+     "n_nonzero": 104,
+     "median_abs_obs": 1.0072669029252863e-05,
+     "median_abs_err": 2.0491000321752157e-07,
+     "within": 0.9864864864864865
+    },
+    "chain": {
+     "n": 296,
+     "pearson": -0.9711904217774513,
+     "spearman": 0.44947412744022913,
+     "r2_identity": -1.4137410283854441,
+     "slope_obs_on_pred": -1.734392822003355,
+     "sign_agree": 0.75,
+     "n_nonzero": 104,
+     "median_abs_obs": 1.0072669029252863e-05,
+     "median_abs_err": 8.683629225049485e-06,
+     "within": 0.9864864864864865
+    },
+    "chain_no_grip_flip": {
+     "n": 296,
+     "pearson": -0.9711904217774513,
+     "spearman": 0.44947412744022913,
+     "r2_identity": -1.4137410283854441,
+     "slope_obs_on_pred": -1.734392822003355,
+     "sign_agree": 0.75,
+     "n_nonzero": 104,
+     "median_abs_obs": 1.0072669029252863e-05,
+     "median_abs_err": 8.683629225049485e-06,
+     "within": 0.9864864864864865
+    },
+    "model_cos_median": 0.638382539342479,
+    "model_norm_ratio_median": 0.90249048361992,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011557258318876851,
+    "sign": {
+     "n_clear": 204,
+     "n_ambiguous": 92,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "min/near": {
+    "sim": {
+     "n": 234,
+     "pearson": 0.06237296726747825,
+     "spearman": 0.6334497025210203,
+     "r2_identity": -0.015913215605112052,
+     "slope_obs_on_pred": 0.32732583258891595,
+     "sign_agree": 0.8133333333333334,
+     "n_nonzero": 75,
+     "median_abs_obs": 8.430201290019618e-06,
+     "median_abs_err": 5.894160575489949e-07,
+     "within": 0.9871794871794872
+    },
+    "chain": {
+     "n": 234,
+     "pearson": 0.04630500916552293,
+     "spearman": 0.43734912395308717,
+     "r2_identity": -0.011369943452730569,
+     "slope_obs_on_pred": 0.3010319195823979,
+     "sign_agree": 0.7066666666666667,
+     "n_nonzero": 75,
+     "median_abs_obs": 8.430201290019618e-06,
+     "median_abs_err": 7.403274588946834e-06,
+     "within": 0.9871794871794872
+    },
+    "chain_no_grip_flip": {
+     "n": 234,
+     "pearson": 0.04630500916552293,
+     "spearman": 0.43734912395308717,
+     "r2_identity": -0.011369943452730569,
+     "slope_obs_on_pred": 0.3010319195823979,
+     "sign_agree": 0.7066666666666667,
+     "n_nonzero": 75,
+     "median_abs_obs": 8.430201290019618e-06,
+     "median_abs_err": 7.403274588946834e-06,
+     "within": 0.9871794871794872
+    },
+    "model_cos_median": 0.6401007863915209,
+    "model_norm_ratio_median": 0.9032650890633316,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011581708290649771,
+    "sign": {
+     "n_clear": 142,
+     "n_ambiguous": 92,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 2
+    }
+   },
+   "min/contact": {
+    "sim": {
+     "n": 13,
+     "pearson": -0.011458900920288775,
+     "spearman": 0.532967032967033,
+     "r2_identity": -0.1979200819344069,
+     "slope_obs_on_pred": 7.588610106123806,
+     "sign_agree": 0.6666666666666666,
+     "n_nonzero": 3,
+     "median_abs_obs": 5.200361946431503e-07,
+     "median_abs_err": 3.902958100443671e-07,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 13,
+     "pearson": -0.372039183728566,
+     "spearman": 0.054945054945054944,
+     "r2_identity": -0.2037044173955036,
+     "slope_obs_on_pred": -144.64026327880788,
+     "sign_agree": 0.3333333333333333,
+     "n_nonzero": 3,
+     "median_abs_obs": 5.200361946431503e-07,
+     "median_abs_err": 2.1782047440634517e-06,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 13,
+     "pearson": -0.372039183728566,
+     "spearman": 0.054945054945054944,
+     "r2_identity": -0.2037044173955036,
+     "slope_obs_on_pred": -144.64026327880788,
+     "sign_agree": 0.3333333333333333,
+     "n_nonzero": 3,
+     "median_abs_obs": 5.200361946431503e-07,
+     "median_abs_err": 2.1782047440634517e-06,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.6755672055249007,
+    "model_norm_ratio_median": 0.8819024251078241,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011264958376333945,
+    "sign": {
+     "n_clear": 10,
+     "n_ambiguous": 3,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "min/free": {
+    "sim": {
+     "n": 68,
+     "pearson": -0.9994080955744864,
+     "spearman": 0.7447417643241593,
+     "r2_identity": -1.739315615854646,
+     "slope_obs_on_pred": -1.5488406856819317,
+     "sign_agree": 0.9473684210526315,
+     "n_nonzero": 38,
+     "median_abs_obs": 2.1892191078370926e-05,
+     "median_abs_err": 3.4202656442980366e-08,
+     "within": 0.9852941176470589
+    },
+    "chain": {
+     "n": 68,
+     "pearson": -0.9992666564864368,
+     "spearman": 0.4294766576325533,
+     "r2_identity": -1.5104898284537698,
+     "slope_obs_on_pred": -1.737573452684661,
+     "sign_agree": 0.8947368421052632,
+     "n_nonzero": 38,
+     "median_abs_obs": 2.1892191078370926e-05,
+     "median_abs_err": 1.4685078872852171e-05,
+     "within": 0.9852941176470589
+    },
+    "chain_no_grip_flip": {
+     "n": 68,
+     "pearson": -0.9992666564864368,
+     "spearman": 0.4294766576325533,
+     "r2_identity": -1.5104898284537698,
+     "slope_obs_on_pred": -1.737573452684661,
+     "sign_agree": 0.8947368421052632,
+     "n_nonzero": 38,
+     "median_abs_obs": 2.1892191078370926e-05,
+     "median_abs_err": 1.4685078872852171e-05,
+     "within": 0.9852941176470589
+    },
+    "model_cos_median": 0.6563497464730113,
+    "model_norm_ratio_median": 0.9015651915764353,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011687748223552022,
+    "sign": {
+     "n_clear": 66,
+     "n_ambiguous": 2,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/holding": {
+    "sim": {
+     "n": 65,
+     "pearson": 0.6555936604786828,
+     "spearman": 0.8977709790209789,
+     "r2_identity": -0.27056473596395314,
+     "slope_obs_on_pred": 0.4575314070854651,
+     "sign_agree": 1.0,
+     "n_nonzero": 20,
+     "median_abs_obs": 1.064856057068908e-05,
+     "median_abs_err": 3.4683512325623365e-08,
+     "within": 1.0
+    },
+    "chain": {
+     "n": 65,
+     "pearson": 0.5651048089476797,
+     "spearman": 0.7493444055944056,
+     "r2_identity": -0.07384149752200408,
+     "slope_obs_on_pred": 0.5004895990401678,
+     "sign_agree": 0.95,
+     "n_nonzero": 20,
+     "median_abs_obs": 1.064856057068908e-05,
+     "median_abs_err": 6.684661286584843e-06,
+     "within": 1.0
+    },
+    "chain_no_grip_flip": {
+     "n": 65,
+     "pearson": 0.5651048089476797,
+     "spearman": 0.7493444055944056,
+     "r2_identity": -0.07384149752200408,
+     "slope_obs_on_pred": 0.5004895990401678,
+     "sign_agree": 0.95,
+     "n_nonzero": 20,
+     "median_abs_obs": 1.064856057068908e-05,
+     "median_abs_err": 6.684661286584843e-06,
+     "within": 1.0
+    },
+    "model_cos_median": 0.6205123671607298,
+    "model_norm_ratio_median": 0.901856027489374,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011669243172288915,
+    "sign": {
+     "n_clear": 65,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/pre_contact": {
+    "sim": {
+     "n": 75,
+     "pearson": 0.3614258179600713,
+     "spearman": 0.7029871977240398,
+     "r2_identity": 0.1284939944319099,
+     "slope_obs_on_pred": 0.9184485615966608,
+     "sign_agree": 0.8461538461538461,
+     "n_nonzero": 26,
+     "median_abs_obs": 9.861038803567895e-06,
+     "median_abs_err": 1.795512717182745e-07,
+     "within": 1.0
+    },
+    "chain": {
+     "n": 75,
+     "pearson": 0.22452439582281664,
+     "spearman": 0.2855476529160739,
+     "r2_identity": 0.04758849944684862,
+     "slope_obs_on_pred": 0.8086870643992592,
+     "sign_agree": 0.6538461538461539,
+     "n_nonzero": 26,
+     "median_abs_obs": 9.861038803567895e-06,
+     "median_abs_err": 1.1105055586693707e-05,
+     "within": 1.0
+    },
+    "chain_no_grip_flip": {
+     "n": 75,
+     "pearson": 0.22452439582281664,
+     "spearman": 0.2855476529160739,
+     "r2_identity": 0.04758849944684862,
+     "slope_obs_on_pred": 0.8086870643992592,
+     "sign_agree": 0.6538461538461539,
+     "n_nonzero": 26,
+     "median_abs_obs": 9.861038803567895e-06,
+     "median_abs_err": 1.1105055586693707e-05,
+     "within": 1.0
+    },
+    "model_cos_median": 0.6298991077952122,
+    "model_norm_ratio_median": 0.9135651404296472,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011665948850598051,
+    "sign": {
+     "n_clear": 52,
+     "n_ambiguous": 23,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "min/transition": {
+    "sim": {
+     "n": 75,
+     "pearson": -0.08351046872486005,
+     "spearman": 0.16506401137980084,
+     "r2_identity": -2.279391820696602,
+     "slope_obs_on_pred": -0.06061028236581425,
+     "sign_agree": 0.47058823529411764,
+     "n_nonzero": 17,
+     "median_abs_obs": 4.149062899500228e-06,
+     "median_abs_err": 4.4955178268371596e-06,
+     "within": 1.0
+    },
+    "chain": {
+     "n": 75,
+     "pearson": -0.13566823196151834,
+     "spearman": 0.1085348506401138,
+     "r2_identity": -0.8202846036607012,
+     "slope_obs_on_pred": -0.16910440082807598,
+     "sign_agree": 0.4117647058823529,
+     "n_nonzero": 17,
+     "median_abs_obs": 4.149062899500228e-06,
+     "median_abs_err": 4.153892501576776e-06,
+     "within": 1.0
+    },
+    "chain_no_grip_flip": {
+     "n": 75,
+     "pearson": -0.13566823196151834,
+     "spearman": 0.1085348506401138,
+     "r2_identity": -0.8202846036607012,
+     "slope_obs_on_pred": -0.16910440082807598,
+     "sign_agree": 0.4117647058823529,
+     "n_nonzero": 17,
+     "median_abs_obs": 4.149062899500228e-06,
+     "median_abs_err": 4.153892501576776e-06,
+     "within": 1.0
+    },
+    "model_cos_median": 0.6248359332066025,
+    "model_norm_ratio_median": 0.9104943759555063,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.011403333216338893,
+    "sign": {
+     "n_clear": 11,
+     "n_ambiguous": 64,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   }
+  },
+  "single@0": {
+   "end/all": {
+    "sim": {
+     "n": 3552,
+     "pearson": 0.467758084565102,
+     "spearman": 0.6830910159012694,
+     "r2_identity": 0.09648572674518985,
+     "slope_obs_on_pred": 3.758786275029936,
+     "sign_agree": 0.6861924686192469,
+     "n_nonzero": 478,
+     "median_abs_obs": 5.245446101379003e-06,
+     "median_abs_err": 1.2224850465292598e-07,
+     "within": 0.9749436936936937
+    },
+    "chain": {
+     "n": 3552,
+     "pearson": 0.5838603428904929,
+     "spearman": 0.1277154803266577,
+     "r2_identity": 0.028174957368291897,
+     "slope_obs_on_pred": 21.169645725364955,
+     "sign_agree": 0.5669456066945606,
+     "n_nonzero": 478,
+     "median_abs_obs": 5.245446101379003e-06,
+     "median_abs_err": 5.257195520617775e-06,
+     "within": 0.9831081081081081
+    },
+    "chain_no_grip_flip": {
+     "n": 3551,
+     "pearson": 0.5839810246944996,
+     "spearman": 0.12700109674923357,
+     "r2_identity": 0.02816725695807143,
+     "slope_obs_on_pred": 21.181791779342635,
+     "sign_agree": 0.5660377358490566,
+     "n_nonzero": 477,
+     "median_abs_obs": 5.240488903046625e-06,
+     "median_abs_err": 5.2546309243134085e-06,
+     "within": 0.9831033511686849
+    },
+    "model_cos_median": 0.09743279496397556,
+    "model_norm_ratio_median": 0.04890481094189912,
+    "grip_sign_flip_rate": 0.00028153153153153153,
+    "da_median": 0.003302876903684555,
+    "sign": {
+     "n_clear": 2520,
+     "n_ambiguous": 1032,
+     "observed_crossings": 12,
+     "predicted_crossings": 0,
+     "agree": 0.9952380952380953,
+     "ambiguous_observed_crossings": 34
+    }
+   },
+   "end/near": {
+    "sim": {
+     "n": 2628,
+     "pearson": -0.002866165521433627,
+     "spearman": 0.597512112078158,
+     "r2_identity": -0.011380706130611928,
+     "slope_obs_on_pred": -0.054359286324973194,
+     "sign_agree": 0.6256684491978609,
+     "n_nonzero": 374,
+     "median_abs_obs": 4.5704810509097915e-06,
+     "median_abs_err": 2.2440106333825198e-07,
+     "within": 0.9786910197869102
+    },
+    "chain": {
+     "n": 2628,
+     "pearson": 0.00453680678777044,
+     "spearman": 0.1043530648208639,
+     "r2_identity": -0.006874252299337913,
+     "slope_obs_on_pred": 0.19090562611933007,
+     "sign_agree": 0.5508021390374331,
+     "n_nonzero": 374,
+     "median_abs_obs": 4.5704810509097915e-06,
+     "median_abs_err": 4.523443682149723e-06,
+     "within": 0.9802130898021308
+    },
+    "chain_no_grip_flip": {
+     "n": 2627,
+     "pearson": 0.003619133073966587,
+     "spearman": 0.10336016381580422,
+     "r2_identity": -0.00694132736045483,
+     "slope_obs_on_pred": 0.1650221659692816,
+     "sign_agree": 0.5495978552278821,
+     "n_nonzero": 373,
+     "median_abs_obs": 4.567460954819913e-06,
+     "median_abs_err": 4.51476951608142e-06,
+     "within": 0.9802055576703465
+    },
+    "model_cos_median": 0.10095251503240396,
+    "model_norm_ratio_median": 0.05275850414146391,
+    "grip_sign_flip_rate": 0.000380517503805175,
+    "da_median": 0.003302297316019222,
+    "sign": {
+     "n_clear": 1596,
+     "n_ambiguous": 1032,
+     "observed_crossings": 12,
+     "predicted_crossings": 0,
+     "agree": 0.9924812030075187,
+     "ambiguous_observed_crossings": 34
+    }
+   },
+   "end/contact": {
+    "sim": {
+     "n": 156,
+     "pearson": -0.06561554288057968,
+     "spearman": 0.13706753488960186,
+     "r2_identity": -0.188066373445944,
+     "slope_obs_on_pred": -97.10499696400213,
+     "sign_agree": 0.3611111111111111,
+     "n_nonzero": 36,
+     "median_abs_obs": 1.5531189761800943e-06,
+     "median_abs_err": 7.699475346332476e-07,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 156,
+     "pearson": -0.2850366812875037,
+     "spearman": -0.14339586856537748,
+     "r2_identity": -0.18800516163795877,
+     "slope_obs_on_pred": -1021.1338406450352,
+     "sign_agree": 0.3611111111111111,
+     "n_nonzero": 36,
+     "median_abs_obs": 1.5531189761800943e-06,
+     "median_abs_err": 1.8273637605020247e-06,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 156,
+     "pearson": -0.2850366812875037,
+     "spearman": -0.14339586856537748,
+     "r2_identity": -0.18800516163795877,
+     "slope_obs_on_pred": -1021.1338406450352,
+     "sign_agree": 0.3611111111111111,
+     "n_nonzero": 36,
+     "median_abs_obs": 1.5531189761800943e-06,
+     "median_abs_err": 1.8273637605020247e-06,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.12900473558378586,
+    "model_norm_ratio_median": 0.07416622065888509,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.0032392397622654076,
+    "sign": {
+     "n_clear": 108,
+     "n_ambiguous": 48,
+     "observed_crossings": 12,
+     "predicted_crossings": 0,
+     "agree": 0.8888888888888888,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/free": {
+    "sim": {
+     "n": 816,
+     "pearson": 0.03435876160018559,
+     "spearman": 0.8364181920900462,
+     "r2_identity": -326.91477865859235,
+     "slope_obs_on_pred": 0.0011665770767332467,
+     "sign_agree": 0.8823529411764706,
+     "n_nonzero": 102,
+     "median_abs_obs": 7.85047568564734e-06,
+     "median_abs_err": 3.221152508936417e-08,
+     "within": 0.9742647058823529
+    },
+    "chain": {
+     "n": 816,
+     "pearson": -0.05351295196521675,
+     "spearman": 0.15131072080257715,
+     "r2_identity": -5.727666639051152,
+     "slope_obs_on_pred": -0.0255379931377033,
+     "sign_agree": 0.5784313725490197,
+     "n_nonzero": 102,
+     "median_abs_obs": 7.85047568564734e-06,
+     "median_abs_err": 7.735360421559578e-06,
+     "within": 0.9987745098039216
+    },
+    "chain_no_grip_flip": {
+     "n": 816,
+     "pearson": -0.05351295196521675,
+     "spearman": 0.15131072080257715,
+     "r2_identity": -5.727666639051152,
+     "slope_obs_on_pred": -0.0255379931377033,
+     "sign_agree": 0.5784313725490197,
+     "n_nonzero": 102,
+     "median_abs_obs": 7.85047568564734e-06,
+     "median_abs_err": 7.735360421559578e-06,
+     "within": 0.9987745098039216
+    },
+    "model_cos_median": 0.08926792407306022,
+    "model_norm_ratio_median": 0.04402785815210716,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.0033798886658852312,
+    "sign": {
+     "n_clear": 792,
+     "n_ambiguous": 24,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/holding": {
+    "sim": {
+     "n": 780,
+     "pearson": 0.6254311688447365,
+     "spearman": 0.9195907746270255,
+     "r2_identity": 0.10735393415364591,
+     "slope_obs_on_pred": 6.303979836793465,
+     "sign_agree": 0.875,
+     "n_nonzero": 56,
+     "median_abs_obs": 5.921725089411134e-06,
+     "median_abs_err": 1.927326016011671e-08,
+     "within": 0.9782051282051282
+    },
+    "chain": {
+     "n": 780,
+     "pearson": 0.6763275532213153,
+     "spearman": 0.1389470750912831,
+     "r2_identity": 0.026976250707258953,
+     "slope_obs_on_pred": 26.553140991840323,
+     "sign_agree": 0.5178571428571429,
+     "n_nonzero": 56,
+     "median_abs_obs": 5.921725089411134e-06,
+     "median_abs_err": 6.014615336076025e-06,
+     "within": 0.9846153846153847
+    },
+    "chain_no_grip_flip": {
+     "n": 780,
+     "pearson": 0.6763275532213153,
+     "spearman": 0.1389470750912831,
+     "r2_identity": 0.026976250707258953,
+     "slope_obs_on_pred": 26.553140991840323,
+     "sign_agree": 0.5178571428571429,
+     "n_nonzero": 56,
+     "median_abs_obs": 5.921725089411134e-06,
+     "median_abs_err": 6.014615336076025e-06,
+     "within": 0.9846153846153847
+    },
+    "model_cos_median": 0.07858056642459754,
+    "model_norm_ratio_median": 0.04230865953021381,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.003460759415710237,
+    "sign": {
+     "n_clear": 780,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/pre_contact": {
+    "sim": {
+     "n": 900,
+     "pearson": 0.6581874375556728,
+     "spearman": 0.8035176833551647,
+     "r2_identity": 0.43159682478384476,
+     "slope_obs_on_pred": 0.9453610057060405,
+     "sign_agree": 0.8416666666666667,
+     "n_nonzero": 120,
+     "median_abs_obs": 5.365718763035649e-06,
+     "median_abs_err": 1.275706292680327e-07,
+     "within": 0.9988888888888889
+    },
+    "chain": {
+     "n": 900,
+     "pearson": 0.23894828965119777,
+     "spearman": 0.17305231241026223,
+     "r2_identity": -0.012354610317816483,
+     "slope_obs_on_pred": 0.47571645176147037,
+     "sign_agree": 0.6,
+     "n_nonzero": 120,
+     "median_abs_obs": 5.365718763035649e-06,
+     "median_abs_err": 5.266849020837096e-06,
+     "within": 0.9988888888888889
+    },
+    "chain_no_grip_flip": {
+     "n": 899,
+     "pearson": 0.22055730632203494,
+     "spearman": 0.17030603169569752,
+     "r2_identity": -0.03437877360502606,
+     "slope_obs_on_pred": 0.4335447279461486,
+     "sign_agree": 0.5966386554621849,
+     "n_nonzero": 119,
+     "median_abs_obs": 5.360149902016841e-06,
+     "median_abs_err": 5.259760116922142e-06,
+     "within": 0.9988876529477196
+    },
+    "model_cos_median": 0.09728211452398272,
+    "model_norm_ratio_median": 0.05287835178680411,
+    "grip_sign_flip_rate": 0.0011111111111111111,
+    "da_median": 0.0033000917546346315,
+    "sign": {
+     "n_clear": 648,
+     "n_ambiguous": 252,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 1
+    }
+   },
+   "end/transition": {
+    "sim": {
+     "n": 900,
+     "pearson": -0.09319526950260786,
+     "spearman": 0.04189504760705466,
+     "r2_identity": -0.09062234462940988,
+     "slope_obs_on_pred": -0.42567551715380103,
+     "sign_agree": 0.4573170731707317,
+     "n_nonzero": 164,
+     "median_abs_obs": 1.319987070867376e-06,
+     "median_abs_err": 1.976360725115381e-06,
+     "within": 0.9844444444444445
+    },
+    "chain": {
+     "n": 900,
+     "pearson": -0.013993574457889613,
+     "spearman": 0.09617414342486844,
+     "r2_identity": -0.00939402865738903,
+     "slope_obs_on_pred": -0.2493143629473445,
+     "sign_agree": 0.5975609756097561,
+     "n_nonzero": 164,
+     "median_abs_obs": 1.319987070867376e-06,
+     "median_abs_err": 1.3364467773028623e-06,
+     "within": 0.9888888888888889
+    },
+    "chain_no_grip_flip": {
+     "n": 900,
+     "pearson": -0.013993574457889613,
+     "spearman": 0.09617414342486844,
+     "r2_identity": -0.00939402865738903,
+     "slope_obs_on_pred": -0.2493143629473445,
+     "sign_agree": 0.5975609756097561,
+     "n_nonzero": 164,
+     "median_abs_obs": 1.319987070867376e-06,
+     "median_abs_err": 1.3364467773028623e-06,
+     "within": 0.9888888888888889
+    },
+    "model_cos_median": 0.11280631508165123,
+    "model_norm_ratio_median": 0.054466890557844566,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.0031441843626209996,
+    "sign": {
+     "n_clear": 192,
+     "n_ambiguous": 708,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 33
+    }
+   },
+   "min/all": {
+    "sim": {
+     "n": 3552,
+     "pearson": 0.013508109730442969,
+     "spearman": 0.6452367028529239,
+     "r2_identity": -0.16357556024435693,
+     "slope_obs_on_pred": 0.02173804027678136,
+     "sign_agree": 0.6440217391304348,
+     "n_nonzero": 368,
+     "median_abs_obs": 3.2860499766945717e-06,
+     "median_abs_err": 8.978114165888709e-08,
+     "within": 0.9819819819819819
+    },
+    "chain": {
+     "n": 3552,
+     "pearson": 0.01283457581381245,
+     "spearman": 0.11008365661581122,
+     "r2_identity": -0.008431038013787528,
+     "slope_obs_on_pred": 0.19523650115211752,
+     "sign_agree": 0.5543478260869565,
+     "n_nonzero": 368,
+     "median_abs_obs": 3.2860499766945717e-06,
+     "median_abs_err": 3.4196401496437413e-06,
+     "within": 0.9859234234234234
+    },
+    "chain_no_grip_flip": {
+     "n": 3551,
+     "pearson": 0.010317260236194108,
+     "spearman": 0.10933437634031792,
+     "r2_identity": -0.008843588024915805,
+     "slope_obs_on_pred": 0.1506365014773456,
+     "sign_agree": 0.553133514986376,
+     "n_nonzero": 367,
+     "median_abs_obs": 3.28496705877257e-06,
+     "median_abs_err": 3.4117416453589692e-06,
+     "within": 0.9862010701210927
+    },
+    "model_cos_median": 0.09743279496397556,
+    "model_norm_ratio_median": 0.04890481094189912,
+    "grip_sign_flip_rate": 0.00028153153153153153,
+    "da_median": 0.003302876903684555,
+    "sign": {
+     "n_clear": 2448,
+     "n_ambiguous": 1104,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 17
+    }
+   },
+   "min/near": {
+    "sim": {
+     "n": 2808,
+     "pearson": 0.05343535192327815,
+     "spearman": 0.5730636821377396,
+     "r2_identity": -0.0060357780185125165,
+     "slope_obs_on_pred": 0.98320658454783,
+     "sign_agree": 0.5919003115264797,
+     "n_nonzero": 321,
+     "median_abs_obs": 2.932143528606296e-06,
+     "median_abs_err": 1.9596678577840664e-07,
+     "within": 0.9814814814814815
+    },
+    "chain": {
+     "n": 2808,
+     "pearson": 0.045007475160777036,
+     "spearman": 0.0950594038309069,
+     "r2_identity": -0.0072118053737075805,
+     "slope_obs_on_pred": 3.605390424663306,
+     "sign_agree": 0.5451713395638629,
+     "n_nonzero": 321,
+     "median_abs_obs": 2.932143528606296e-06,
+     "median_abs_err": 2.9531551783601243e-06,
+     "within": 0.9825498575498576
+    },
+    "chain_no_grip_flip": {
+     "n": 2807,
+     "pearson": 0.034380192751794734,
+     "spearman": 0.0940935548500741,
+     "r2_identity": -0.00765513169835641,
+     "slope_obs_on_pred": 2.8496080862744297,
+     "sign_agree": 0.54375,
+     "n_nonzero": 320,
+     "median_abs_obs": 2.9300725845199382e-06,
+     "median_abs_err": 2.952670337702303e-06,
+     "within": 0.982899893124332
+    },
+    "model_cos_median": 0.10025208176926871,
+    "model_norm_ratio_median": 0.05274060843376911,
+    "grip_sign_flip_rate": 0.00035612535612535614,
+    "da_median": 0.003324938817327548,
+    "sign": {
+     "n_clear": 1704,
+     "n_ambiguous": 1104,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 17
+    }
+   },
+   "min/contact": {
+    "sim": {
+     "n": 156,
+     "pearson": 0.029496046634607666,
+     "spearman": 0.2655813879976608,
+     "r2_identity": -0.20258201915135632,
+     "slope_obs_on_pred": 27.800124035657504,
+     "sign_agree": 0.4722222222222222,
+     "n_nonzero": 36,
+     "median_abs_obs": 6.316353751566368e-07,
+     "median_abs_err": 3.073741815318869e-07,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 156,
+     "pearson": -0.21261014587577687,
+     "spearman": -0.07935705141375986,
+     "r2_identity": -0.20313957634933377,
+     "slope_obs_on_pred": -332.53973169034236,
+     "sign_agree": 0.4444444444444444,
+     "n_nonzero": 36,
+     "median_abs_obs": 6.316353751566368e-07,
+     "median_abs_err": 6.682978408928244e-07,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 156,
+     "pearson": -0.21261014587577687,
+     "spearman": -0.07935705141375986,
+     "r2_identity": -0.20313957634933377,
+     "slope_obs_on_pred": -332.53973169034236,
+     "sign_agree": 0.4444444444444444,
+     "n_nonzero": 36,
+     "median_abs_obs": 6.316353751566368e-07,
+     "median_abs_err": 6.682978408928244e-07,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.12900473558378586,
+    "model_norm_ratio_median": 0.07416622065888509,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.0032392397622654076,
+    "sign": {
+     "n_clear": 120,
+     "n_ambiguous": 36,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 12
+    }
+   },
+   "min/free": {
+    "sim": {
+     "n": 816,
+     "pearson": 0.17981534575478011,
+     "spearman": 0.8599166617710005,
+     "r2_identity": -326.76423287431203,
+     "slope_obs_on_pred": 0.009685861929644601,
+     "sign_agree": 0.9615384615384616,
+     "n_nonzero": 78,
+     "median_abs_obs": 6.007994928509952e-06,
+     "median_abs_err": 1.3185880559697942e-08,
+     "within": 0.9852941176470589
+    },
+    "chain": {
+     "n": 816,
+     "pearson": 0.048119998488663836,
+     "spearman": 0.14001940009019806,
+     "r2_identity": -5.753932828235943,
+     "slope_obs_on_pred": 0.019301583906790834,
+     "sign_agree": 0.5512820512820513,
+     "n_nonzero": 78,
+     "median_abs_obs": 6.007994928509952e-06,
+     "median_abs_err": 5.986508746542544e-06,
+     "within": 0.9987745098039216
+    },
+    "chain_no_grip_flip": {
+     "n": 816,
+     "pearson": 0.048119998488663836,
+     "spearman": 0.14001940009019806,
+     "r2_identity": -5.753932828235943,
+     "slope_obs_on_pred": 0.019301583906790834,
+     "sign_agree": 0.5512820512820513,
+     "n_nonzero": 78,
+     "median_abs_obs": 6.007994928509952e-06,
+     "median_abs_err": 5.986508746542544e-06,
+     "within": 0.9987745098039216
+    },
+    "model_cos_median": 0.08926792407306022,
+    "model_norm_ratio_median": 0.04402785815210716,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.0033798886658852312,
+    "sign": {
+     "n_clear": 792,
+     "n_ambiguous": 24,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/holding": {
+    "sim": {
+     "n": 780,
+     "pearson": 0.27357591657118163,
+     "spearman": 0.8662432434585249,
+     "r2_identity": 0.058328330299743714,
+     "slope_obs_on_pred": 1.3438210463064697,
+     "sign_agree": 0.8064516129032258,
+     "n_nonzero": 31,
+     "median_abs_obs": 4.282735302800836e-06,
+     "median_abs_err": 8.639619432926637e-09,
+     "within": 0.9935897435897436
+    },
+    "chain": {
+     "n": 780,
+     "pearson": 0.2740187670799525,
+     "spearman": 0.09111022409762218,
+     "r2_identity": 0.006432704162428804,
+     "slope_obs_on_pred": 6.629904333442116,
+     "sign_agree": 0.4838709677419355,
+     "n_nonzero": 31,
+     "median_abs_obs": 4.282735302800836e-06,
+     "median_abs_err": 4.3084418611530405e-06,
+     "within": 0.9935897435897436
+    },
+    "chain_no_grip_flip": {
+     "n": 780,
+     "pearson": 0.2740187670799525,
+     "spearman": 0.09111022409762218,
+     "r2_identity": 0.006432704162428804,
+     "slope_obs_on_pred": 6.629904333442116,
+     "sign_agree": 0.4838709677419355,
+     "n_nonzero": 31,
+     "median_abs_obs": 4.282735302800836e-06,
+     "median_abs_err": 4.3084418611530405e-06,
+     "within": 0.9935897435897436
+    },
+    "model_cos_median": 0.07858056642459754,
+    "model_norm_ratio_median": 0.04230865953021381,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.003460759415710237,
+    "sign": {
+     "n_clear": 780,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/pre_contact": {
+    "sim": {
+     "n": 900,
+     "pearson": 0.3853243137549157,
+     "spearman": 0.6103625971554698,
+     "r2_identity": 0.10043430099095663,
+     "slope_obs_on_pred": 2.2255565308554015,
+     "sign_agree": 0.6565656565656566,
+     "n_nonzero": 99,
+     "median_abs_obs": 2.9738149400866318e-06,
+     "median_abs_err": 9.200463484611751e-08,
+     "within": 0.9922222222222222
+    },
+    "chain": {
+     "n": 900,
+     "pearson": 0.3107021487017648,
+     "spearman": 0.10616878950879363,
+     "r2_identity": 0.04365200656145429,
+     "slope_obs_on_pred": 3.8426427838719808,
+     "sign_agree": 0.5858585858585859,
+     "n_nonzero": 99,
+     "median_abs_obs": 2.9738149400866318e-06,
+     "median_abs_err": 3.001800119732956e-06,
+     "within": 0.9955555555555555
+    },
+    "chain_no_grip_flip": {
+     "n": 899,
+     "pearson": 0.21723912254732913,
+     "spearman": 0.10318504516690573,
+     "r2_identity": 0.029172434521263946,
+     "slope_obs_on_pred": 2.6055473447546147,
+     "sign_agree": 0.5816326530612245,
+     "n_nonzero": 98,
+     "median_abs_obs": 2.9573078234278183e-06,
+     "median_abs_err": 2.9834344786630816e-06,
+     "within": 0.996662958843159
+    },
+    "model_cos_median": 0.09728211452398272,
+    "model_norm_ratio_median": 0.05287835178680411,
+    "grip_sign_flip_rate": 0.0011111111111111111,
+    "da_median": 0.0033000917546346315,
+    "sign": {
+     "n_clear": 624,
+     "n_ambiguous": 276,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 5
+    }
+   },
+   "min/transition": {
+    "sim": {
+     "n": 900,
+     "pearson": -0.060647910802692176,
+     "spearman": 0.15821212947999527,
+     "r2_identity": -0.08948060444632344,
+     "slope_obs_on_pred": -0.2822707744800634,
+     "sign_agree": 0.4435483870967742,
+     "n_nonzero": 124,
+     "median_abs_obs": 1.3434190111424779e-06,
+     "median_abs_err": 1.6863951555743455e-06,
+     "within": 0.9955555555555555
+    },
+    "chain": {
+     "n": 900,
+     "pearson": 0.08572641916741675,
+     "spearman": 0.12558099454443772,
+     "r2_identity": -0.0028184166015305934,
+     "slope_obs_on_pred": 2.5988427045022338,
+     "sign_agree": 0.5806451612903226,
+     "n_nonzero": 124,
+     "median_abs_obs": 1.3434190111424779e-06,
+     "median_abs_err": 1.343421746459772e-06,
+     "within": 0.9955555555555555
+    },
+    "chain_no_grip_flip": {
+     "n": 900,
+     "pearson": 0.08572641916741675,
+     "spearman": 0.12558099454443772,
+     "r2_identity": -0.0028184166015305934,
+     "slope_obs_on_pred": 2.5988427045022338,
+     "sign_agree": 0.5806451612903226,
+     "n_nonzero": 124,
+     "median_abs_obs": 1.3434190111424779e-06,
+     "median_abs_err": 1.343421746459772e-06,
+     "within": 0.9955555555555555
+    },
+    "model_cos_median": 0.11280631508165123,
+    "model_norm_ratio_median": 0.054466890557844566,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.0031441843626209996,
+    "sign": {
+     "n_clear": 132,
+     "n_ambiguous": 768,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   }
+  },
+  "single@9": {
+   "end/all": {
+    "sim": {
+     "n": 3552,
+     "pearson": 0.03284253726432582,
+     "spearman": 0.7317299701893175,
+     "r2_identity": -0.29512968012105567,
+     "slope_obs_on_pred": 0.05515441181265832,
+     "sign_agree": 0.8623578695391981,
+     "n_nonzero": 1671,
+     "median_abs_obs": 1.724097870460517e-05,
+     "median_abs_err": 4.516097727101947e-07,
+     "within": 0.9600225225225225
+    },
+    "chain": {
+     "n": 3552,
+     "pearson": 0.040846936943654696,
+     "spearman": 0.6820134335419051,
+     "r2_identity": -0.25041443487681647,
+     "slope_obs_on_pred": 0.07360653408599846,
+     "sign_agree": 0.8479952124476361,
+     "n_nonzero": 1671,
+     "median_abs_obs": 1.724097870460517e-05,
+     "median_abs_err": 7.407294467920375e-06,
+     "within": 0.9611486486486487
+    },
+    "chain_no_grip_flip": {
+     "n": 3552,
+     "pearson": 0.040846936943654696,
+     "spearman": 0.6820134335419051,
+     "r2_identity": -0.25041443487681647,
+     "slope_obs_on_pred": 0.07360653408599846,
+     "sign_agree": 0.8479952124476361,
+     "n_nonzero": 1671,
+     "median_abs_obs": 1.724097870460517e-05,
+     "median_abs_err": 7.407294467920375e-06,
+     "within": 0.9611486486486487
+    },
+    "model_cos_median": 0.9788185917909309,
+    "model_norm_ratio_median": 0.9512997321557415,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.018013271442298022,
+    "sign": {
+     "n_clear": 2520,
+     "n_ambiguous": 1032,
+     "observed_crossings": 12,
+     "predicted_crossings": 0,
+     "agree": 0.9952380952380953,
+     "ambiguous_observed_crossings": 26
+    }
+   },
+   "end/near": {
+    "sim": {
+     "n": 2628,
+     "pearson": 0.09222281855876863,
+     "spearman": 0.6491160846766598,
+     "r2_identity": -0.06444087039887147,
+     "slope_obs_on_pred": 0.25247219547535743,
+     "sign_agree": 0.8151332760103182,
+     "n_nonzero": 1163,
+     "median_abs_obs": 1.4519669342659587e-05,
+     "median_abs_err": 9.079866110976365e-07,
+     "within": 0.963089802130898
+    },
+    "chain": {
+     "n": 2628,
+     "pearson": 0.09604494141339101,
+     "spearman": 0.6042339998603515,
+     "r2_identity": -0.05743222064729836,
+     "slope_obs_on_pred": 0.2694217015348696,
+     "sign_agree": 0.8030954428202923,
+     "n_nonzero": 1163,
+     "median_abs_obs": 1.4519669342659587e-05,
+     "median_abs_err": 7.36595511727471e-06,
+     "within": 0.9634703196347032
+    },
+    "chain_no_grip_flip": {
+     "n": 2628,
+     "pearson": 0.09604494141339101,
+     "spearman": 0.6042339998603515,
+     "r2_identity": -0.05743222064729836,
+     "slope_obs_on_pred": 0.2694217015348696,
+     "sign_agree": 0.8030954428202923,
+     "n_nonzero": 1163,
+     "median_abs_obs": 1.4519669342659587e-05,
+     "median_abs_err": 7.36595511727471e-06,
+     "within": 0.9634703196347032
+    },
+    "model_cos_median": 0.9786146174749586,
+    "model_norm_ratio_median": 0.9501211687707689,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.01811357162540526,
+    "sign": {
+     "n_clear": 1596,
+     "n_ambiguous": 1032,
+     "observed_crossings": 12,
+     "predicted_crossings": 0,
+     "agree": 0.9924812030075187,
+     "ambiguous_observed_crossings": 26
+    }
+   },
+   "end/contact": {
+    "sim": {
+     "n": 156,
+     "pearson": -0.02397981753760277,
+     "spearman": 0.3213225648401321,
+     "r2_identity": -0.1886486554822695,
+     "slope_obs_on_pred": -3.950914760219936,
+     "sign_agree": 0.6086956521739131,
+     "n_nonzero": 46,
+     "median_abs_obs": 2.0789323501618946e-06,
+     "median_abs_err": 1.0573260554710763e-06,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 156,
+     "pearson": -0.02915731942821157,
+     "spearman": 0.21997755685859238,
+     "r2_identity": -0.188702289710458,
+     "slope_obs_on_pred": -4.067466389034711,
+     "sign_agree": 0.5434782608695652,
+     "n_nonzero": 46,
+     "median_abs_obs": 2.0789323501618946e-06,
+     "median_abs_err": 2.4945192895323547e-06,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 156,
+     "pearson": -0.02915731942821157,
+     "spearman": 0.21997755685859238,
+     "r2_identity": -0.188702289710458,
+     "slope_obs_on_pred": -4.067466389034711,
+     "sign_agree": 0.5434782608695652,
+     "n_nonzero": 46,
+     "median_abs_obs": 2.0789323501618946e-06,
+     "median_abs_err": 2.4945192895323547e-06,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.9789942033356681,
+    "model_norm_ratio_median": 0.950537654060704,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.018149519700179643,
+    "sign": {
+     "n_clear": 108,
+     "n_ambiguous": 48,
+     "observed_crossings": 12,
+     "predicted_crossings": 0,
+     "agree": 0.8888888888888888,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/free": {
+    "sim": {
+     "n": 816,
+     "pearson": 0.02396928815260439,
+     "spearman": 0.8987829447057676,
+     "r2_identity": -0.5848908152390913,
+     "slope_obs_on_pred": 0.0236712920172526,
+     "sign_agree": 0.9659574468085106,
+     "n_nonzero": 470,
+     "median_abs_obs": 3.016398223992106e-05,
+     "median_abs_err": 1.8674988622043457e-07,
+     "within": 0.9620098039215687
+    },
+    "chain": {
+     "n": 816,
+     "pearson": 0.029384919554800194,
+     "spearman": 0.8584696058627852,
+     "r2_identity": -0.5140356545967903,
+     "slope_obs_on_pred": 0.03294791042654564,
+     "sign_agree": 0.9468085106382979,
+     "n_nonzero": 470,
+     "median_abs_obs": 3.016398223992106e-05,
+     "median_abs_err": 9.527204351183668e-06,
+     "within": 0.9656862745098039
+    },
+    "chain_no_grip_flip": {
+     "n": 816,
+     "pearson": 0.029384919554800194,
+     "spearman": 0.8584696058627852,
+     "r2_identity": -0.5140356545967903,
+     "slope_obs_on_pred": 0.03294791042654564,
+     "sign_agree": 0.9468085106382979,
+     "n_nonzero": 470,
+     "median_abs_obs": 3.016398223992106e-05,
+     "median_abs_err": 9.527204351183668e-06,
+     "within": 0.9656862745098039
+    },
+    "model_cos_median": 0.9801629531773811,
+    "model_norm_ratio_median": 0.9528806315212431,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.017328095872966357,
+    "sign": {
+     "n_clear": 792,
+     "n_ambiguous": 24,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/holding": {
+    "sim": {
+     "n": 780,
+     "pearson": 0.08827746733299208,
+     "spearman": 0.8931252156076548,
+     "r2_identity": -0.017460920502017974,
+     "slope_obs_on_pred": 0.35979400185496546,
+     "sign_agree": 0.9555555555555556,
+     "n_nonzero": 405,
+     "median_abs_obs": 2.264818188211365e-05,
+     "median_abs_err": 6.562730666218877e-08,
+     "within": 0.9743589743589743
+    },
+    "chain": {
+     "n": 780,
+     "pearson": 0.1144245826708128,
+     "spearman": 0.8613673368790454,
+     "r2_identity": 0.002244239207774834,
+     "slope_obs_on_pred": 0.5262588113338424,
+     "sign_agree": 0.9506172839506173,
+     "n_nonzero": 405,
+     "median_abs_obs": 2.264818188211365e-05,
+     "median_abs_err": 5.778788911104861e-06,
+     "within": 0.9743589743589743
+    },
+    "chain_no_grip_flip": {
+     "n": 780,
+     "pearson": 0.1144245826708128,
+     "spearman": 0.8613673368790454,
+     "r2_identity": 0.002244239207774834,
+     "slope_obs_on_pred": 0.5262588113338424,
+     "sign_agree": 0.9506172839506173,
+     "n_nonzero": 405,
+     "median_abs_obs": 2.264818188211365e-05,
+     "median_abs_err": 5.778788911104861e-06,
+     "within": 0.9743589743589743
+    },
+    "model_cos_median": 0.9798250816292351,
+    "model_norm_ratio_median": 0.9515537403579595,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.019307528725732832,
+    "sign": {
+     "n_clear": 780,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "end/pre_contact": {
+    "sim": {
+     "n": 900,
+     "pearson": 0.18276992247692497,
+     "spearman": 0.7868630290490072,
+     "r2_identity": -0.03635779154950747,
+     "slope_obs_on_pred": 0.40887575649713226,
+     "sign_agree": 0.8929384965831435,
+     "n_nonzero": 439,
+     "median_abs_obs": 1.8593290737124388e-05,
+     "median_abs_err": 4.310378549371158e-07,
+     "within": 0.9844444444444445
+    },
+    "chain": {
+     "n": 900,
+     "pearson": 0.17386385326943735,
+     "spearman": 0.7364504071404204,
+     "r2_identity": -0.03679752611482323,
+     "slope_obs_on_pred": 0.4016449376649945,
+     "sign_agree": 0.8792710706150342,
+     "n_nonzero": 439,
+     "median_abs_obs": 1.8593290737124388e-05,
+     "median_abs_err": 7.68217249426885e-06,
+     "within": 0.9844444444444445
+    },
+    "chain_no_grip_flip": {
+     "n": 900,
+     "pearson": 0.17386385326943735,
+     "spearman": 0.7364504071404204,
+     "r2_identity": -0.03679752611482323,
+     "slope_obs_on_pred": 0.4016449376649945,
+     "sign_agree": 0.8792710706150342,
+     "n_nonzero": 439,
+     "median_abs_obs": 1.8593290737124388e-05,
+     "median_abs_err": 7.68217249426885e-06,
+     "within": 0.9844444444444445
+    },
+    "model_cos_median": 0.9784489076697187,
+    "model_norm_ratio_median": 0.9547148317054621,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.018133443895832175,
+    "sign": {
+     "n_clear": 648,
+     "n_ambiguous": 252,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 7
+    }
+   },
+   "end/transition": {
+    "sim": {
+     "n": 900,
+     "pearson": 0.0842339185329687,
+     "spearman": 0.19285064137939265,
+     "r2_identity": -1.3208392220155596,
+     "slope_obs_on_pred": 0.06843094454826185,
+     "sign_agree": 0.5787781350482315,
+     "n_nonzero": 311,
+     "median_abs_obs": 6.7403656834116995e-06,
+     "median_abs_err": 6.308606929610544e-06,
+     "within": 0.9544444444444444
+    },
+    "chain": {
+     "n": 900,
+     "pearson": 0.10371810569213528,
+     "spearman": 0.18124950771544163,
+     "r2_identity": -1.2045446927348755,
+     "slope_obs_on_pred": 0.08606809751928415,
+     "sign_agree": 0.5659163987138264,
+     "n_nonzero": 311,
+     "median_abs_obs": 6.7403656834116995e-06,
+     "median_abs_err": 7.518860250815227e-06,
+     "within": 0.9555555555555556
+    },
+    "chain_no_grip_flip": {
+     "n": 900,
+     "pearson": 0.10371810569213528,
+     "spearman": 0.18124950771544163,
+     "r2_identity": -1.2045446927348755,
+     "slope_obs_on_pred": 0.08606809751928415,
+     "sign_agree": 0.5659163987138264,
+     "n_nonzero": 311,
+     "median_abs_obs": 6.7403656834116995e-06,
+     "median_abs_err": 7.518860250815227e-06,
+     "within": 0.9555555555555556
+    },
+    "model_cos_median": 0.9773492916343349,
+    "model_norm_ratio_median": 0.9459880376133925,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.017282722679855818,
+    "sign": {
+     "n_clear": 192,
+     "n_ambiguous": 708,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 19
+    }
+   },
+   "min/all": {
+    "sim": {
+     "n": 3552,
+     "pearson": 0.018454045327078582,
+     "spearman": 0.6886653345280218,
+     "r2_identity": -0.5012081194244895,
+     "slope_obs_on_pred": 0.025760280788737388,
+     "sign_agree": 0.8343994314143568,
+     "n_nonzero": 1407,
+     "median_abs_obs": 1.191148892621134e-05,
+     "median_abs_err": 3.095860138321397e-07,
+     "within": 0.9715653153153153
+    },
+    "chain": {
+     "n": 3552,
+     "pearson": 0.026370676108647986,
+     "spearman": 0.638745194982335,
+     "r2_identity": -0.43638710776819,
+     "slope_obs_on_pred": 0.038699117496315785,
+     "sign_agree": 0.8237384506041222,
+     "n_nonzero": 1407,
+     "median_abs_obs": 1.191148892621134e-05,
+     "median_abs_err": 5.138656097735784e-06,
+     "within": 0.9718468468468469
+    },
+    "chain_no_grip_flip": {
+     "n": 3552,
+     "pearson": 0.026370676108647986,
+     "spearman": 0.638745194982335,
+     "r2_identity": -0.43638710776819,
+     "slope_obs_on_pred": 0.038699117496315785,
+     "sign_agree": 0.8237384506041222,
+     "n_nonzero": 1407,
+     "median_abs_obs": 1.191148892621134e-05,
+     "median_abs_err": 5.138656097735784e-06,
+     "within": 0.9718468468468469
+    },
+    "model_cos_median": 0.9788185917909309,
+    "model_norm_ratio_median": 0.9512997321557415,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.018013271442298022,
+    "sign": {
+     "n_clear": 2448,
+     "n_ambiguous": 1104,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 25
+    }
+   },
+   "min/near": {
+    "sim": {
+     "n": 2808,
+     "pearson": 0.32266784773718665,
+     "spearman": 0.6161027576010943,
+     "r2_identity": 0.056926643312962266,
+     "slope_obs_on_pred": 0.6015977804101628,
+     "sign_agree": 0.7920978363123237,
+     "n_nonzero": 1063,
+     "median_abs_obs": 1.0518686905985376e-05,
+     "median_abs_err": 6.922818825589367e-07,
+     "within": 0.9725783475783476
+    },
+    "chain": {
+     "n": 2808,
+     "pearson": 0.3206915008311569,
+     "spearman": 0.5719349430599074,
+     "r2_identity": 0.06068366206011,
+     "slope_obs_on_pred": 0.6136844957647867,
+     "sign_agree": 0.7836312323612418,
+     "n_nonzero": 1063,
+     "median_abs_obs": 1.0518686905985376e-05,
+     "median_abs_err": 5.1711598000783146e-06,
+     "within": 0.9722222222222222
+    },
+    "chain_no_grip_flip": {
+     "n": 2808,
+     "pearson": 0.3206915008311569,
+     "spearman": 0.5719349430599074,
+     "r2_identity": 0.06068366206011,
+     "slope_obs_on_pred": 0.6136844957647867,
+     "sign_agree": 0.7836312323612418,
+     "n_nonzero": 1063,
+     "median_abs_obs": 1.0518686905985376e-05,
+     "median_abs_err": 5.1711598000783146e-06,
+     "within": 0.9722222222222222
+    },
+    "model_cos_median": 0.9787213860680825,
+    "model_norm_ratio_median": 0.9501327324299811,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.018299286627918205,
+    "sign": {
+     "n_clear": 1704,
+     "n_ambiguous": 1104,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 25
+    }
+   },
+   "min/contact": {
+    "sim": {
+     "n": 156,
+     "pearson": -0.10225217404110148,
+     "spearman": 0.3832687961309288,
+     "r2_identity": -0.20586329548462778,
+     "slope_obs_on_pred": -10.257609758041836,
+     "sign_agree": 0.5128205128205128,
+     "n_nonzero": 39,
+     "median_abs_obs": 1.4349240517010694e-06,
+     "median_abs_err": 6.458377252179814e-07,
+     "within": 0.7692307692307693
+    },
+    "chain": {
+     "n": 156,
+     "pearson": -0.10405553486936547,
+     "spearman": 0.24139969338243425,
+     "r2_identity": -0.20638557547712,
+     "slope_obs_on_pred": -10.161396206683989,
+     "sign_agree": 0.4358974358974359,
+     "n_nonzero": 39,
+     "median_abs_obs": 1.4349240517010694e-06,
+     "median_abs_err": 1.0040559972960283e-06,
+     "within": 0.7692307692307693
+    },
+    "chain_no_grip_flip": {
+     "n": 156,
+     "pearson": -0.10405553486936547,
+     "spearman": 0.24139969338243425,
+     "r2_identity": -0.20638557547712,
+     "slope_obs_on_pred": -10.161396206683989,
+     "sign_agree": 0.4358974358974359,
+     "n_nonzero": 39,
+     "median_abs_obs": 1.4349240517010694e-06,
+     "median_abs_err": 1.0040559972960283e-06,
+     "within": 0.7692307692307693
+    },
+    "model_cos_median": 0.9789942033356681,
+    "model_norm_ratio_median": 0.950537654060704,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.018149519700179643,
+    "sign": {
+     "n_clear": 120,
+     "n_ambiguous": 36,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 12
+    }
+   },
+   "min/free": {
+    "sim": {
+     "n": 816,
+     "pearson": 0.024835892211440933,
+     "spearman": 0.909994624337484,
+     "r2_identity": -1.9811550726717582,
+     "slope_obs_on_pred": 0.015397648834339299,
+     "sign_agree": 0.9658536585365853,
+     "n_nonzero": 410,
+     "median_abs_obs": 2.0138024882293548e-05,
+     "median_abs_err": 6.009237057138696e-08,
+     "within": 0.9730392156862745
+    },
+    "chain": {
+     "n": 816,
+     "pearson": 0.039967705796622,
+     "spearman": 0.8527878353660289,
+     "r2_identity": -1.7282331354986162,
+     "slope_obs_on_pred": 0.027636575666532052,
+     "sign_agree": 0.9463414634146341,
+     "n_nonzero": 410,
+     "median_abs_obs": 2.0138024882293548e-05,
+     "median_abs_err": 6.916674244462304e-06,
+     "within": 0.9754901960784313
+    },
+    "chain_no_grip_flip": {
+     "n": 816,
+     "pearson": 0.039967705796622,
+     "spearman": 0.8527878353660289,
+     "r2_identity": -1.7282331354986162,
+     "slope_obs_on_pred": 0.027636575666532052,
+     "sign_agree": 0.9463414634146341,
+     "n_nonzero": 410,
+     "median_abs_obs": 2.0138024882293548e-05,
+     "median_abs_err": 6.916674244462304e-06,
+     "within": 0.9754901960784313
+    },
+    "model_cos_median": 0.9801629531773811,
+    "model_norm_ratio_median": 0.9528806315212431,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.017328095872966357,
+    "sign": {
+     "n_clear": 792,
+     "n_ambiguous": 24,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/holding": {
+    "sim": {
+     "n": 780,
+     "pearson": 0.13878789788925253,
+     "spearman": 0.8646086434965355,
+     "r2_identity": 0.008805652625967442,
+     "slope_obs_on_pred": 2.9121048741654287,
+     "sign_agree": 0.9404761904761905,
+     "n_nonzero": 336,
+     "median_abs_obs": 1.3906043138382784e-05,
+     "median_abs_err": 4.102531413853307e-08,
+     "within": 0.982051282051282
+    },
+    "chain": {
+     "n": 780,
+     "pearson": 0.1378032383384339,
+     "spearman": 0.8345588670147694,
+     "r2_identity": 0.008412326631230371,
+     "slope_obs_on_pred": 2.9636585159605353,
+     "sign_agree": 0.9404761904761905,
+     "n_nonzero": 336,
+     "median_abs_obs": 1.3906043138382784e-05,
+     "median_abs_err": 4.399641819517282e-06,
+     "within": 0.982051282051282
+    },
+    "chain_no_grip_flip": {
+     "n": 780,
+     "pearson": 0.1378032383384339,
+     "spearman": 0.8345588670147694,
+     "r2_identity": 0.008412326631230371,
+     "slope_obs_on_pred": 2.9636585159605353,
+     "sign_agree": 0.9404761904761905,
+     "n_nonzero": 336,
+     "median_abs_obs": 1.3906043138382784e-05,
+     "median_abs_err": 4.399641819517282e-06,
+     "within": 0.982051282051282
+    },
+    "model_cos_median": 0.9798250816292351,
+    "model_norm_ratio_median": 0.9515537403579595,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.019307528725732832,
+    "sign": {
+     "n_clear": 780,
+     "n_ambiguous": 0,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 0
+    }
+   },
+   "min/pre_contact": {
+    "sim": {
+     "n": 900,
+     "pearson": 0.42612331022105066,
+     "spearman": 0.6271438524409702,
+     "r2_identity": 0.07662588593852815,
+     "slope_obs_on_pred": 0.5701207919412222,
+     "sign_agree": 0.8035714285714286,
+     "n_nonzero": 336,
+     "median_abs_obs": 1.1344360883540003e-05,
+     "median_abs_err": 3.23541408568857e-07,
+     "within": 0.9844444444444445
+    },
+    "chain": {
+     "n": 900,
+     "pearson": 0.41840824292539935,
+     "spearman": 0.5927363531724524,
+     "r2_identity": 0.07518366372130014,
+     "slope_obs_on_pred": 0.5719655393302696,
+     "sign_agree": 0.7886904761904762,
+     "n_nonzero": 336,
+     "median_abs_obs": 1.1344360883540003e-05,
+     "median_abs_err": 4.457530823823155e-06,
+     "within": 0.9833333333333333
+    },
+    "chain_no_grip_flip": {
+     "n": 900,
+     "pearson": 0.41840824292539935,
+     "spearman": 0.5927363531724524,
+     "r2_identity": 0.07518366372130014,
+     "slope_obs_on_pred": 0.5719655393302696,
+     "sign_agree": 0.7886904761904762,
+     "n_nonzero": 336,
+     "median_abs_obs": 1.1344360883540003e-05,
+     "median_abs_err": 4.457530823823155e-06,
+     "within": 0.9833333333333333
+    },
+    "model_cos_median": 0.9784489076697187,
+    "model_norm_ratio_median": 0.9547148317054621,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.018133443895832175,
+    "sign": {
+     "n_clear": 624,
+     "n_ambiguous": 276,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 9
+    }
+   },
+   "min/transition": {
+    "sim": {
+     "n": 900,
+     "pearson": 0.12340400640389852,
+     "spearman": 0.25532029874934004,
+     "r2_identity": -0.056937011370902235,
+     "slope_obs_on_pred": 0.31477699158933864,
+     "sign_agree": 0.6013986013986014,
+     "n_nonzero": 286,
+     "median_abs_obs": 6.399988869799282e-06,
+     "median_abs_err": 5.877775746326442e-06,
+     "within": 0.9833333333333333
+    },
+    "chain": {
+     "n": 900,
+     "pearson": 0.09982149771667564,
+     "spearman": 0.2298512631908599,
+     "r2_identity": -0.07008752985705513,
+     "slope_obs_on_pred": 0.26079139583346933,
+     "sign_agree": 0.6048951048951049,
+     "n_nonzero": 286,
+     "median_abs_obs": 6.399988869799282e-06,
+     "median_abs_err": 6.255578089904578e-06,
+     "within": 0.9833333333333333
+    },
+    "chain_no_grip_flip": {
+     "n": 900,
+     "pearson": 0.09982149771667564,
+     "spearman": 0.2298512631908599,
+     "r2_identity": -0.07008752985705513,
+     "slope_obs_on_pred": 0.26079139583346933,
+     "sign_agree": 0.6048951048951049,
+     "n_nonzero": 286,
+     "median_abs_obs": 6.399988869799282e-06,
+     "median_abs_err": 6.255578089904578e-06,
+     "within": 0.9833333333333333
+    },
+    "model_cos_median": 0.9773492916343349,
+    "model_norm_ratio_median": 0.9459880376133925,
+    "grip_sign_flip_rate": 0.0,
+    "da_median": 0.017282722679855818,
+    "sign": {
+     "n_clear": 132,
+     "n_ambiguous": 768,
+     "observed_crossings": 0,
+     "predicted_crossings": 0,
+     "agree": 1.0,
+     "ambiguous_observed_crossings": 4
+    }
+   }
+  }
+ }
+}

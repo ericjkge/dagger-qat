@@ -1,0 +1,50 @@
+{
+ "a4_all": {
+  "n": 90,
+  "speed_ratio_median": 0.7662,
+  "speed_ratio_mean": 0.7886,
+  "cos_median": 0.9888,
+  "action_mse_norm_mean": 0.02524280834387635,
+  "rel_act_mse_mean": 0.053223290934130904
+ },
+ "a4_down": {
+  "n": 90,
+  "speed_ratio_median": 0.7109,
+  "speed_ratio_mean": 0.7214,
+  "cos_median": 0.9926,
+  "action_mse_norm_mean": 0.0255291418352342,
+  "rel_act_mse_mean": 0.05407492956211364
+ },
+ "a4_nodown": {
+  "n": 90,
+  "speed_ratio_median": 1.0126,
+  "speed_ratio_mean": 1.0223,
+  "cos_median": 0.9986,
+  "action_mse_norm_mean": 0.0038254127398025767,
+  "rel_act_mse_mean": 0.04708277571414235
+ },
+ "a4_rotdown": {
+  "n": 90,
+  "speed_ratio_median": 1.0097,
+  "speed_ratio_mean": 1.0206,
+  "cos_median": 0.9986,
+  "action_mse_norm_mean": 0.0037595410522798973,
+  "rel_act_mse_mean": 0.030690692854285995
+ },
+ "a4_rot": {
+  "n": 90,
+  "speed_ratio_median": 0.9982,
+  "speed_ratio_mean": 0.9985,
+  "cos_median": 0.9999,
+  "action_mse_norm_mean": 6.565770271961247e-05,
+  "rel_act_mse_mean": 0.018352510936625658
+ },
+ "a8_all": {
+  "n": 90,
+  "speed_ratio_median": 0.9986,
+  "speed_ratio_mean": 0.9988,
+  "cos_median": 1.0,
+  "action_mse_norm_mean": 4.023697037227851e-06,
+  "rel_act_mse_mean": 0.0004903523162347257
+ }
+}

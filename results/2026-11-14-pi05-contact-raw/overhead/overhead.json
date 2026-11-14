@@ -1,0 +1,22 @@
+{
+ "bf16": {
+  "ms_median": 310.3,
+  "peak_mem_gb": 7.64
+ },
+ "a8_all": {
+  "ms_median": 545.7,
+  "peak_mem_gb": 7.64
+ },
+ "a4_all": {
+  "ms_median": 546.3,
+  "peak_mem_gb": 7.64
+ },
+ "a4_rotdown": {
+  "ms_median": 831.9,
+  "peak_mem_gb": 7.64
+ },
+ "a4_rot": {
+  "ms_median": 1579.2,
+  "peak_mem_gb": 7.64
+ }
+}

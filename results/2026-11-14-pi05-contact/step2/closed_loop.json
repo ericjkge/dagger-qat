@@ -1,0 +1,428 @@
+{
+ "goal_cheese": {
+  "bf16": {
+   "n": 20,
+   "successes": 19,
+   "both_success": 19,
+   "mean_steps": [
+    110.9,
+    20
+   ],
+   "first_contact": [
+    47.95,
+    20
+   ],
+   "first_grasp": [
+    49.5,
+    20
+   ],
+   "first_place": [
+    93.15,
+    20
+   ],
+   "grasp_losses": 22,
+   "grasp_onsets": 23,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 0.0,
+    "median": 0.0,
+    "n": 20
+   }
+  },
+  "closed_a4_all": {
+   "n": 20,
+   "successes": 19,
+   "both_success": 18,
+   "mean_steps": [
+    128.55,
+    20
+   ],
+   "first_contact": [
+    62.75,
+    20
+   ],
+   "first_grasp": [
+    65.3,
+    20
+   ],
+   "first_place": [
+    117.25,
+    20
+   ],
+   "grasp_losses": 18,
+   "grasp_onsets": 21,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 15.8,
+    "median": 16.5,
+    "n": 20
+   }
+  },
+  "closed_a4_nodown": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 19,
+   "mean_steps": [
+    91.05,
+    20
+   ],
+   "first_contact": [
+    46.25,
+    20
+   ],
+   "first_grasp": [
+    50.55,
+    20
+   ],
+   "first_place": [
+    91.05,
+    20
+   ],
+   "grasp_losses": 19,
+   "grasp_onsets": 21,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 1.05,
+    "median": 0.0,
+    "n": 20
+   }
+  },
+  "closed_a4_rot": {
+   "n": 20,
+   "successes": 18,
+   "both_success": 18,
+   "mean_steps": [
+    112.75,
+    20
+   ],
+   "first_contact": [
+    47.85,
+    20
+   ],
+   "first_grasp": [
+    49.3,
+    20
+   ],
+   "first_place": [
+    91.55,
+    20
+   ],
+   "grasp_losses": 21,
+   "grasp_onsets": 21,
+   "first_grasp_delay_vs_bf16": {
+    "mean": -0.2,
+    "median": 0.0,
+    "n": 20
+   }
+  },
+  "closed_a4_rotdown": {
+   "n": 20,
+   "successes": 19,
+   "both_success": 19,
+   "mean_steps": [
+    102.35,
+    20
+   ],
+   "first_contact": [
+    47.15,
+    20
+   ],
+   "first_grasp": [
+    50.75,
+    20
+   ],
+   "first_place": [
+    92.15,
+    20
+   ],
+   "grasp_losses": 19,
+   "grasp_onsets": 21,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 1.25,
+    "median": 0.0,
+    "n": 20
+   }
+  }
+ },
+ "object_soup": {
+  "bf16": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 20,
+   "mean_steps": [
+    147.1,
+    20
+   ],
+   "first_contact": [
+    52.35,
+    20
+   ],
+   "first_grasp": [
+    61.25,
+    20
+   ],
+   "first_place": [
+    129.33333333333334,
+    3
+   ],
+   "grasp_losses": 18,
+   "grasp_onsets": 22,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 0.0,
+    "median": 0.0,
+    "n": 20
+   }
+  },
+  "closed_a4_all": {
+   "n": 20,
+   "successes": 16,
+   "both_success": 16,
+   "mean_steps": [
+    204.2,
+    20
+   ],
+   "first_contact": [
+    60.5,
+    20
+   ],
+   "first_grasp": [
+    65.0,
+    20
+   ],
+   "first_place": [
+    null,
+    0
+   ],
+   "grasp_losses": 19,
+   "grasp_onsets": 23,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 3.75,
+    "median": 6.5,
+    "n": 20
+   }
+  },
+  "closed_a4_nodown": {
+   "n": 20,
+   "successes": 18,
+   "both_success": 18,
+   "mean_steps": [
+    162.1,
+    20
+   ],
+   "first_contact": [
+    51.95,
+    20
+   ],
+   "first_grasp": [
+    57.65,
+    20
+   ],
+   "first_place": [
+    130.66666666666666,
+    6
+   ],
+   "grasp_losses": 19,
+   "grasp_onsets": 23,
+   "first_grasp_delay_vs_bf16": {
+    "mean": -3.6,
+    "median": -1.0,
+    "n": 20
+   }
+  },
+  "closed_a4_rot": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 20,
+   "mean_steps": [
+    149.4,
+    20
+   ],
+   "first_contact": [
+    52.55,
+    20
+   ],
+   "first_grasp": [
+    60.85,
+    20
+   ],
+   "first_place": [
+    129.25,
+    4
+   ],
+   "grasp_losses": 17,
+   "grasp_onsets": 24,
+   "first_grasp_delay_vs_bf16": {
+    "mean": -0.4,
+    "median": 0.0,
+    "n": 20
+   }
+  },
+  "closed_a4_rotdown": {
+   "n": 20,
+   "successes": 19,
+   "both_success": 19,
+   "mean_steps": [
+    153.8,
+    20
+   ],
+   "first_contact": [
+    52.2,
+    20
+   ],
+   "first_grasp": [
+    57.5,
+    20
+   ],
+   "first_place": [
+    134.0,
+    2
+   ],
+   "grasp_losses": 19,
+   "grasp_onsets": 20,
+   "first_grasp_delay_vs_bf16": {
+    "mean": -3.75,
+    "median": -1.0,
+    "n": 20
+   }
+  }
+ },
+ "spatial_bowl": {
+  "bf16": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 20,
+   "mean_steps": [
+    85.7,
+    20
+   ],
+   "first_contact": [
+    46.05,
+    20
+   ],
+   "first_grasp": [
+    58.05263157894737,
+    19
+   ],
+   "first_place": [
+    77.4,
+    20
+   ],
+   "grasp_losses": 8,
+   "grasp_onsets": 23,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 0.0,
+    "median": 0.0,
+    "n": 19
+   }
+  },
+  "closed_a4_all": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 20,
+   "mean_steps": [
+    119.35,
+    20
+   ],
+   "first_contact": [
+    69.55,
+    20
+   ],
+   "first_grasp": [
+    85.85,
+    20
+   ],
+   "first_place": [
+    107.55,
+    20
+   ],
+   "grasp_losses": 14,
+   "grasp_onsets": 27,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 28.894736842105264,
+    "median": 21.0,
+    "n": 19
+   }
+  },
+  "closed_a4_nodown": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 20,
+   "mean_steps": [
+    89.95,
+    20
+   ],
+   "first_contact": [
+    49.8,
+    20
+   ],
+   "first_grasp": [
+    61.73684210526316,
+    19
+   ],
+   "first_place": [
+    78.6,
+    20
+   ],
+   "grasp_losses": 10,
+   "grasp_onsets": 24,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 3.6842105263157894,
+    "median": 1.0,
+    "n": 19
+   }
+  },
+  "closed_a4_rot": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 20,
+   "mean_steps": [
+    85.05,
+    20
+   ],
+   "first_contact": [
+    48.7,
+    20
+   ],
+   "first_grasp": [
+    58.78947368421053,
+    19
+   ],
+   "first_place": [
+    75.45,
+    20
+   ],
+   "grasp_losses": 9,
+   "grasp_onsets": 23,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 0.7368421052631579,
+    "median": 0.0,
+    "n": 19
+   }
+  },
+  "closed_a4_rotdown": {
+   "n": 20,
+   "successes": 20,
+   "both_success": 20,
+   "mean_steps": [
+    87.1,
+    20
+   ],
+   "first_contact": [
+    49.65,
+    20
+   ],
+   "first_grasp": [
+    58.8421052631579,
+    19
+   ],
+   "first_place": [
+    80.0,
+    20
+   ],
+   "grasp_losses": 11,
+   "grasp_onsets": 24,
+   "first_grasp_delay_vs_bf16": {
+    "mean": 0.7894736842105263,
+    "median": 1.0,
+    "n": 19
+   }
+  }
+ }
+}
