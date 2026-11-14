@@ -170,7 +170,8 @@ Proposed first-pass choices (awaiting confirmation):
   SEEDS=42` and `NAME=rms-100k SEEDS=42 --exclude=compute-g-17-169`, via
   big_things `jobs/cascade.sbatch`. `cascade.py` resumes from `latest.pt`.
 - 19:20: eval jobs 59563471 and 59563472 started (compute-g-17-162/163);
-  the rest are still queued.
+  59563473–75 followed. 22:02: every unit was claimed, so the never-started
+  59563476–78 were cancelled.
 
 Human (2026-11-13): run action-head recalibration and see whether it works.
 (Superseded below: it now runs on the worst-s7 allocation.) This is a
