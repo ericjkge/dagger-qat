@@ -1,0 +1,56 @@
+[libero_goal_t2_r0] round 0: 3243 tok, 17.3s, verify=[919, 9] outcome=stopped 
+[libero_goal_t2_r0] round 1: 503 tok, 3.2s, verify=[122, 8] outcome=stopped 
+[libero_goal_t2_r0] round 2: 2634 tok, 16.0s, verify=[798, 11] outcome=reached 
+[libero_goal_t2_r0] round 3: 4142 tok, 25.1s, verify=[1269, 11] outcome=stopped 
+[libero_goal_t2_r0] round 4: 959 tok, 6.8s, verify=[259, 8] outcome=stopped 
+[libero_goal_t2_r0] round 5: 2206 tok, 14.9s, verify=[675, 11] outcome=stopped 
+[libero_goal_t2_r0] round 6: 4129 tok, 26.9s, verify=[1295, 11] outcome=done 
+{'episode': 'libero_goal_t2_r0', 'rounds': 7, 'end_reason': 'env', 'success': True, 'steps': 130, 'tokens': 17816}
+[libero_10_t0_r0] round 0: 3635 tok, 18.7s, verify=[985, 11] outcome=reached 
+[libero_10_t0_r0] round 1: 5509 tok, 28.9s, verify=[1506, 12] outcome=reached 
+[libero_10_t0_r0] round 2: 1630 tok, 10.0s, verify=[441, 11] outcome=reached 
+[libero_10_t0_r0] round 3: 212 tok, 3.0s, verify=[52, 9] outcome=stopped 
+[libero_10_t0_r0] round 4: 268 tok, 3.5s, verify=[64, 9] outcome=reached 
+[libero_10_t0_r0] round 5: 126 tok, 2.7s, verify=[16, 9] outcome=reached 
+[libero_10_t0_r0] round 6: 1028 tok, 7.6s, verify=[276, 9] outcome=reached 
+[libero_10_t0_r0] round 7: 390 tok, 4.6s, verify=[98, 9] outcome=stopped 
+[libero_10_t0_r0] round 8: 181 tok, 3.4s, verify=[28, 9] outcome=reached 
+[libero_10_t0_r0] round 9: 1926 tok, 14.2s, verify=[588, 14] outcome=reached 
+[libero_10_t0_r0] round 10: 5434 tok, 32.2s, verify=[1529, 12] outcome=reached 
+[libero_10_t0_r0] round 11: 333 tok, 5.4s, verify=[73, 9] outcome=reached 
+[libero_10_t0_r0] round 12: 3777 tok, 26.7s, verify=[1194, 13] outcome=stopped 
+[libero_10_t0_r0] round 13: 136 tok, 5.4s, verify=[23, 9] outcome=reached 
+[libero_10_t0_r0] round 14: 109 tok, 5.3s, verify=[15, 8] outcome=reached 
+[libero_10_t0_r0] round 15: 551 tok, 7.9s, verify=[146, 9] outcome=reached 
+[libero_10_t0_r0] round 16: 295 tok, 6.6s, verify=[62, 9] outcome=reached 
+[libero_10_t0_r0] round 17: 180 tok, 6.2s, verify=[39, 9] outcome=done 
+{'episode': 'libero_10_t0_r0', 'rounds': 18, 'end_reason': 'env', 'success': True, 'steps': 289, 'tokens': 25720}
+[libero_10_t2_r0] round 0: 7124 tok, 38.7s, verify=[2069, 12] outcome=reached 
+[libero_10_t2_r0] round 1: 295 tok, 2.2s, verify=[52, 10] outcome=reached 
+[libero_10_t2_r0] round 2: 237 tok, 2.3s, verify=[42, 10] outcome=stopped 
+[libero_10_t2_r0] round 3: 217 tok, 2.5s, verify=[50, 11] outcome=reached 
+[libero_10_t2_r0] round 4: 708 tok, 5.8s, verify=[216, 9] outcome=stopped 
+[libero_10_t2_r0] round 5: 6360 tok, 40.9s, verify=[2084, 12] outcome=stopped 
+[libero_10_t2_r0] round 6: 3070 tok, 19.1s, verify=[872, 14] outcome=reached 
+[libero_10_t2_r0] round 7: 436 tok, 5.2s, verify=[96, 10] outcome=reached 
+[libero_10_t2_r0] round 8: 736 tok, 7.2s, verify=[200, 9] outcome=reached 
+[libero_10_t2_r0] round 9: 588 tok, 6.3s, verify=[147, 10] outcome=stopped 
+[libero_10_t2_r0] round 10: 1258 tok, 11.2s, verify=[387, 10] outcome=stopped 
+[libero_10_t2_r0] round 11: 1137 tok, 10.7s, verify=[342, 10] outcome=stopped 
+[libero_10_t2_r0] round 12: 1712 tok, 14.3s, verify=[515, 13] outcome=reached 
+[libero_10_t2_r0] round 13: 3195 tok, 24.7s, verify=[1052, 14] outcome=reached 
+[libero_10_t2_r0] round 14: 2902 tok, 23.0s, verify=[931, 17] outcome=stopped 
+[libero_10_t2_r0] round 15: 1959 tok, 17.3s, verify=[600, 14] outcome=reached 
+[libero_10_t2_r0] round 16: 651 tok, 9.7s, verify=[187, 10] outcome=stopped 
+[libero_10_t2_r0] round 17: 3042 tok, 24.8s, verify=[961, 13] outcome=stopped 
+[libero_10_t2_r0] round 18: 184 tok, 7.5s, verify=[31, 11] outcome=reached 
+[libero_10_t2_r0] round 19: 8253 tok, 58.4s, verify=[2666, 12] outcome=reached 
+[libero_10_t2_r0] round 20: 8820 tok, 66.4s, verify=[3015, 12] outcome=reached 
+[libero_10_t2_r0] round 21: 3878 tok, 33.6s, verify=[1234, 13] outcome=stopped 
+[libero_10_t2_r0] round 22: 2651 tok, 25.4s, verify=[782, 14] outcome=stopped 
+[libero_10_t2_r0] round 23: 3928 tok, 35.0s, verify=[1239, 14] outcome=reached 
+[libero_10_t2_r0] round 24: 1888 tok, 21.8s, verify=[530, 13] outcome=reached 
+[libero_10_t2_r0] round 25: 1630 tok, 21.5s, verify=[487, 13] outcome=reached 
+[libero_10_t2_r0] round 26: 3434 tok, 30.4s, verify=[910, 16] outcome=done 
+{'episode': 'libero_10_t2_r0', 'rounds': 27, 'end_reason': 'env', 'success': True, 'steps': 375, 'tokens': 70293}
+RUN_DONE

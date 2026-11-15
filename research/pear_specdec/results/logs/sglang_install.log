@@ -1,0 +1,75 @@
++ cd /workspace
++ uv venv -q --python 3.12 sgl
++ . sgl/bin/activate
+++ '[' -n x ']'
+++ '[' sgl/bin/activate = /workspace/setup.sh ']'
+++ '[' false = true ']'
+++ deactivate nondestructive
+++ unset -f pydoc
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ hash -r
+++ '[' -z '' ']'
+++ unset VIRTUAL_ENV
+++ unset VIRTUAL_ENV_PROMPT
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/workspace/sgl
+++ '[' linux-gnu = cygwin ']'
+++ '[' linux-gnu = msys ']'
+++ export VIRTUAL_ENV
+++ '[' false = true ']'
+++ _OLD_VIRTUAL_PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+++ PATH=/workspace/sgl/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+++ export PATH
+++ '[' x '!=' x ']'
++++ basename /workspace/sgl
+++ VIRTUAL_ENV_PROMPT=sgl
+++ export VIRTUAL_ENV_PROMPT
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ PS1='(sgl) '
+++ export PS1
+++ alias pydoc
+++ true
+++ hash -r
++ uv pip install 'sglang[all] @ git+https://github.com/sgl-project/sglang.git#subdirectory=python'
+Using Python 3.12.3 environment at: sgl
+   Updating https://github.com/sgl-project/sglang.git (HEAD)
+    Updated https://github.com/sgl-project/sglang.git (7476772241838a1419f5dfe43e2ec167cd75f73e)
+error: Failed to build `sglang @ git+https://github.com/sgl-project/sglang.git#subdirectory=python`
+  cause: The build backend returned an error
+  cause: Call to `setuptools.build_meta.get_requires_for_build_wheel` failed (exit status: 1)
+
+         [stderr]
+         Traceback (most recent call last):
+           File "<string>", line 67, in _cargo_metadata
+           File "/usr/lib/python3.12/subprocess.py", line 548, in run
+             with Popen(*popenargs, **kwargs) as process:
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+             self._execute_child(args, executable, preexec_fn, close_fds,
+           File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+             raise child_exception_type(errno_num, err_msg, err_filename)
+         FileNotFoundError: [Errno 2] No such file or directory: 'cargo'
+
+         The above exception was the direct cause of the following exception:
+
+         Traceback (most recent call last):
+           File "<string>", line 14, in <module>
+           File "/workspace/uvcache/builds-v0/.tmpwegiUu/lib/python3.12/site-packages/setuptools/build_meta.py", line 333, in get_requires_for_build_wheel
+             return self._get_build_requires(config_settings, requirements=[])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           File "/workspace/uvcache/builds-v0/.tmpwegiUu/lib/python3.12/site-packages/setuptools/build_meta.py", line 301, in _get_build_requires
+             self.run_setup()
+           File "/workspace/uvcache/builds-v0/.tmpwegiUu/lib/python3.12/site-packages/setuptools/build_meta.py", line 317, in run_setup
+             exec(code, locals())  # noqa: S102 # exec is intentional here
+             ^^^^^^^^^^^^^^^^^^^^
+           File "<string>", line 270, in <module>
+           File "<string>", line 216, in _declared_rust_extensions
+           File "<string>", line 137, in _discovered_rust_extensions
+           File "<string>", line 96, in _cargo_workspace_metadata
+           File "<string>", line 82, in _cargo_metadata
+         RuntimeError: cargo is required to discover the Rust extension modules in /workspace/uvcache/git-v1/checkouts/b454a06192129efd/7476772241/rust (and to build them); install a Rust toolchain, or set SGLANG_BUILD_RUST_EXTS=none to build without Rust extensions
+
+hint: Build failures usually indicate a problem with the package or the build environment

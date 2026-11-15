@@ -1,0 +1,121 @@
+[libero_spatial_t2_r0] round 0: 1682 tok, 8.1s, verify=[408, 10] outcome=reached 
+[libero_spatial_t2_r0] round 1: 253 tok, 1.6s, verify=[37, 8] outcome=reached 
+[libero_spatial_t2_r0] round 2: 362 tok, 2.4s, verify=[76, 8] outcome=reached 
+[libero_spatial_t2_r0] round 3: 284 tok, 2.4s, verify=[65, 9] outcome=reached 
+[libero_spatial_t2_r0] round 4: 252 tok, 2.6s, verify=[60, 8] outcome=reached 
+[libero_spatial_t2_r0] round 5: 486 tok, 4.0s, verify=[137, 8] outcome=reached 
+[libero_spatial_t2_r0] round 6: 2633 tok, 16.3s, verify=[786, 11] outcome=stopped 
+[libero_spatial_t2_r0] round 7: 489 tok, 4.0s, verify=[104, 8] outcome=stopped 
+[libero_spatial_t2_r0] round 8: 268 tok, 3.3s, verify=[47, 9] outcome=done 
+{'episode': 'libero_spatial_t2_r0', 'rounds': 9, 'end_reason': 'env', 'success': True, 'steps': 107, 'tokens': 6709}
+[libero_spatial_t4_r0] round 0: 4472 tok, 24.2s, verify=[1252, 12] outcome=reached 
+[libero_spatial_t4_r0] round 1: 8647 tok, 49.4s, verify=[2574, 14] outcome=stopped 
+[libero_spatial_t4_r0] round 2: 1560 tok, 10.5s, verify=[445, 12] outcome=stopped 
+[libero_spatial_t4_r0] round 3: 905 tok, 6.8s, verify=[234, 10] outcome=stopped 
+[libero_spatial_t4_r0] round 4: 325 tok, 3.9s, verify=[67, 10] outcome=stopped 
+[libero_spatial_t4_r0] round 5: 1515 tok, 11.8s, verify=[472, 14] outcome=stopped 
+[libero_spatial_t4_r0] round 6: 2714 tok, 18.2s, verify=[764, 15] outcome=stopped 
+[libero_spatial_t4_r0] round 7: 980 tok, 8.4s, verify=[260, 10] outcome=stopped 
+[libero_spatial_t4_r0] round 8: 789 tok, 7.8s, verify=[222, 10] outcome=stopped 
+[libero_spatial_t4_r0] round 9: 733 tok, 7.8s, verify=[206, 10] outcome=budget 
+{'episode': 'libero_spatial_t4_r0', 'rounds': 10, 'end_reason': 'env', 'success': False, 'steps': 220, 'tokens': 22640}
+[libero_spatial_t6_r0] round 0: 3548 tok, 17.8s, verify=[939, 10] outcome=reached 
+[libero_spatial_t6_r0] round 1: 1916 tok, 10.0s, verify=[487, 10] outcome=reached 
+[libero_spatial_t6_r0] round 2: 640 tok, 4.1s, verify=[152, 7] outcome=stopped 
+[libero_spatial_t6_r0] round 3: 636 tok, 4.6s, verify=[164, 7] outcome=stopped 
+[libero_spatial_t6_r0] round 4: 463 tok, 4.1s, verify=[129, 8] outcome=reached 
+[libero_spatial_t6_r0] round 5: 523 tok, 4.8s, verify=[151, 8] outcome=stopped 
+[libero_spatial_t6_r0] round 6: 1341 tok, 8.9s, verify=[363, 8] outcome=stopped 
+[libero_spatial_t6_r0] round 7: 2709 tok, 17.2s, verify=[794, 10] outcome=stopped 
+[libero_spatial_t6_r0] round 8: 287 tok, 3.9s, verify=[58, 8] outcome=stopped 
+[libero_spatial_t6_r0] round 9: 520 tok, 5.1s, verify=[124, 8] outcome=done 
+{'episode': 'libero_spatial_t6_r0', 'rounds': 10, 'end_reason': 'env', 'success': True, 'steps': 148, 'tokens': 12583}
+[libero_spatial_t8_r0] round 0: 7757 tok, 39.1s, verify=[2088, 12] outcome=reached 
+[libero_spatial_t8_r0] round 1: 1695 tok, 9.2s, verify=[418, 13] outcome=stopped 
+[libero_spatial_t8_r0] round 2: 331 tok, 2.6s, verify=[47, 9] outcome=stopped 
+[libero_spatial_t8_r0] round 3: 290 tok, 3.1s, verify=[53, 10] outcome=stopped 
+[libero_spatial_t8_r0] round 4: 209 tok, 2.8s, verify=[37, 9] outcome=reached 
+[libero_spatial_t8_r0] round 5: 3921 tok, 23.7s, verify=[1144, 12] outcome=reached 
+[libero_spatial_t8_r0] round 6: 5388 tok, 36.6s, verify=[1690, 14] outcome=stopped 
+[libero_spatial_t8_r0] round 7: 1172 tok, 9.5s, verify=[318, 9] outcome=done 
+{'episode': 'libero_spatial_t8_r0', 'rounds': 8, 'end_reason': 'env', 'success': True, 'steps': 113, 'tokens': 20763}
+[libero_object_t0_r0] round 0: 2283 tok, 13.2s, verify=[694, 9] outcome=reached 
+[libero_object_t0_r0] round 1: 3892 tok, 20.9s, verify=[1075, 10] outcome=reached 
+[libero_object_t0_r0] round 2: 300 tok, 2.4s, verify=[58, 9] outcome=stopped 
+[libero_object_t0_r0] round 3: 239 tok, 2.6s, verify=[57, 8] outcome=reached 
+[libero_object_t0_r0] round 4: 390 tok, 3.8s, verify=[110, 7] outcome=reached 
+[libero_object_t0_r0] round 5: 1138 tok, 8.2s, verify=[342, 8] outcome=reached 
+[libero_object_t0_r0] round 6: 1580 tok, 10.9s, verify=[461, 11] outcome=stopped 
+[libero_object_t0_r0] round 7: 1044 tok, 7.0s, verify=[252, 8] outcome=stopped 
+[libero_object_t0_r0] round 8: 595 tok, 5.5s, verify=[152, 9] outcome=done 
+{'episode': 'libero_object_t0_r0', 'rounds': 9, 'end_reason': 'env', 'success': True, 'steps': 167, 'tokens': 11461}
+[libero_object_t2_r0] round 0: 1886 tok, 9.9s, verify=[514, 10] outcome=reached 
+[libero_object_t2_r0] round 1: 505 tok, 2.8s, verify=[108, 7] outcome=reached 
+[libero_object_t2_r0] round 2: 353 tok, 2.5s, verify=[78, 8] outcome=stopped 
+[libero_object_t2_r0] round 3: 820 tok, 5.8s, verify=[242, 8] outcome=stopped 
+[libero_object_t2_r0] round 4: 457 tok, 3.6s, verify=[109, 7] outcome=reached 
+[libero_object_t2_r0] round 5: 974 tok, 6.6s, verify=[269, 7] outcome=reached 
+[libero_object_t2_r0] round 6: 372 tok, 3.3s, verify=[76, 8] outcome=reached 
+[libero_object_t2_r0] round 7: 372 tok, 3.4s, verify=[66, 7] outcome=reached 
+[libero_object_t2_r0] round 8: 447 tok, 4.3s, verify=[115, 8] outcome=done 
+{'episode': 'libero_object_t2_r0', 'rounds': 9, 'end_reason': 'env', 'success': True, 'steps': 118, 'tokens': 6186}
+[libero_object_t4_r0] round 0: 2486 tok, 13.8s, verify=[721, 10] outcome=reached 
+[libero_object_t4_r0] round 1: 999 tok, 5.4s, verify=[247, 7] outcome=reached 
+[libero_object_t4_r0] round 2: 342 tok, 2.4s, verify=[70, 8] outcome=reached 
+[libero_object_t4_r0] round 3: 309 tok, 2.5s, verify=[65, 9] outcome=stopped 
+[libero_object_t4_r0] round 4: 138 tok, 2.0s, verify=[23, 9] outcome=stopped 
+[libero_object_t4_r0] round 5: 252 tok, 2.8s, verify=[57, 7] outcome=reached 
+[libero_object_t4_r0] round 6: 549 tok, 4.4s, verify=[140, 8] outcome=reached 
+[libero_object_t4_r0] round 7: 956 tok, 6.4s, verify=[241, 8] outcome=reached 
+[libero_object_t4_r0] round 8: 383 tok, 3.9s, verify=[96, 9] outcome=done 
+{'episode': 'libero_object_t4_r0', 'rounds': 9, 'end_reason': 'env', 'success': True, 'steps': 143, 'tokens': 6414}
+[libero_object_t6_r0] round 0: 4615 tok, 24.9s, verify=[1326, 9] outcome=reached 
+[libero_object_t6_r0] round 1: 584 tok, 3.7s, verify=[146, 7] outcome=reached 
+[libero_object_t6_r0] round 2: 290 tok, 2.4s, verify=[58, 9] outcome=reached 
+[libero_object_t6_r0] round 3: 219 tok, 2.4s, verify=[47, 8] outcome=reached 
+[libero_object_t6_r0] round 4: 306 tok, 3.3s, verify=[84, 8] outcome=reached 
+[libero_object_t6_r0] round 5: 118 tok, 2.3s, verify=[16, 8] outcome=reached 
+[libero_object_t6_r0] round 6: 1595 tok, 10.5s, verify=[458, 12] outcome=reached 
+[libero_object_t6_r0] round 7: 217 tok, 3.1s, verify=[44, 8] outcome=reached 
+[libero_object_t6_r0] round 8: 503 tok, 4.4s, verify=[114, 7] outcome=reached 
+[libero_object_t6_r0] round 9: 348 tok, 4.0s, verify=[80, 8] outcome=reached 
+[libero_object_t6_r0] round 10: 342 tok, 4.2s, verify=[85, 8] outcome=done 
+{'episode': 'libero_object_t6_r0', 'rounds': 11, 'end_reason': 'env', 'success': True, 'steps': 130, 'tokens': 9137}
+[libero_object_t8_r0] round 0: 3258 tok, 17.6s, verify=[928, 10] outcome=reached 
+[libero_object_t8_r0] round 1: 289 tok, 2.1s, verify=[56, 8] outcome=reached 
+[libero_object_t8_r0] round 2: 303 tok, 2.2s, verify=[52, 8] outcome=reached 
+[libero_object_t8_r0] round 3: 210 tok, 2.6s, verify=[56, 9] outcome=reached 
+[libero_object_t8_r0] round 4: 123 tok, 1.7s, verify=[22, 7] outcome=reached 
+[libero_object_t8_r0] round 5: 1545 tok, 10.8s, verify=[448, 11] outcome=reached 
+[libero_object_t8_r0] round 6: 355 tok, 3.2s, verify=[72, 7] outcome=reached 
+[libero_object_t8_r0] round 7: 328 tok, 3.5s, verify=[72, 7] outcome=reached 
+[libero_object_t8_r0] round 8: 1237 tok, 8.8s, verify=[359, 8] outcome=reached 
+[libero_object_t8_r0] round 9: 161 tok, 3.0s, verify=[30, 8] outcome=done 
+{'episode': 'libero_object_t8_r0', 'rounds': 10, 'end_reason': 'env', 'success': True, 'steps': 128, 'tokens': 7809}
+[libero_goal_t0_r0] round 0: 9406 tok, 56.0s, verify=[3010, 9] outcome=reached 
+[libero_goal_t0_r0] round 1: 4804 tok, 27.6s, verify=[1403, 10] outcome=reached 
+[libero_goal_t0_r0] round 2: 4638 tok, 27.8s, verify=[1371, 11] outcome=stopped 
+[libero_goal_t0_r0] round 3: 7304 tok, 45.1s, verify=[2255, 10] outcome=stopped 
+[libero_goal_t0_r0] round 4: 6948 tok, 49.3s, verify=[2233, 11] outcome=reached 
+[libero_goal_t0_r0] round 5: 4931 tok, 34.5s, verify=[1571, 11] outcome=reached 
+[libero_goal_t0_r0] round 6: 3556 tok, 26.3s, verify=[1097, 13] outcome=reached 
+[libero_goal_t0_r0] round 7: 3101 tok, 25.5s, verify=[1013, 12] outcome=stopped 
+[libero_goal_t0_r0] round 8: 9697 tok, 68.4s, verify=[3205, 10] outcome=reached 
+[libero_goal_t0_r0] round 9: 10635 tok, 76.7s, verify=[3560, 12] outcome=stopped 
+[libero_goal_t0_r0] round 10: 7783 tok, 58.3s, verify=[2487, 12] outcome=stopped 
+[libero_goal_t0_r0] round 11: 4811 tok, 41.3s, verify=[1564, 10] outcome=reached 
+[libero_goal_t0_r0] round 12: 2007 tok, 24.0s, verify=[627, 13] outcome=stopped 
+[libero_goal_t0_r0] round 13: 3082 tok, 31.2s, verify=[988, 12] outcome=stopped 
+[libero_goal_t0_r0] round 14: 841 tok, 17.8s, verify=[271, 8] outcome=stopped 
+[libero_goal_t0_r0] round 15: 1376 tok, 20.6s, verify=[398, 9] outcome=stopped 
+[libero_goal_t0_r0] round 16: 8068 tok, 67.2s, verify=[2704, 13] outcome=stopped 
+[libero_goal_t0_r0] round 17: 1481 tok, 23.6s, verify=[444, 11] outcome=stopped 
+[libero_goal_t0_r0] round 18: 10184 tok, 83.7s, verify=[3422, 11] outcome=stopped 
+[libero_goal_t0_r0] round 19: 3846 tok, 42.6s, verify=[1271, 11] outcome=stopped 
+[libero_goal_t0_r0] round 20: 6508 tok, 58.5s, verify=[2021, 14] outcome=stopped 
+[libero_goal_t0_r0] round 21: 9582 tok, 80.8s, verify=[3033, 11] outcome=stopped 
+[libero_goal_t0_r0] round 22: 5605 tok, 57.4s, verify=[1777, 12] outcome=stopped 
+[libero_goal_t0_r0] round 23: 6391 tok, 62.6s, verify=[1970, 14] outcome=stopped 
+[libero_goal_t0_r0] round 24: 2212 tok, 36.0s, verify=[589, 11] outcome=stopped 
+[libero_goal_t0_r0] round 25: 45111 tok, 143.9s, verify=[5789] outcome=None no ```json block
+{'episode': 'libero_goal_t0_r0', 'rounds': 26, 'end_reason': 'parse', 'success': False, 'steps': 232, 'tokens': 183908}

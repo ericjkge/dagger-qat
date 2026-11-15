@@ -1,0 +1,162 @@
+[
+ {
+  "config": "dflash2_k7",
+  "context": "libero_spatial_t0_r0:0",
+  "diverge_at": 135,
+  "ar_token": 11,
+  "spec_token": 13,
+  "top": [
+   [
+    -0.6984,
+    13
+   ],
+   [
+    -0.6984,
+    11
+   ],
+   [
+    -5.9484,
+    318
+   ],
+   [
+    -5.9484,
+    321
+   ],
+   [
+    -13.0734,
+    1892
+   ]
+  ],
+  "margin_top1_top2": 0.0,
+  "both_in_top2": true
+ },
+ {
+  "config": "dflash2_k7",
+  "context": "libero_object_t0_r0:5",
+  "diverge_at": 296,
+  "ar_token": 11,
+  "spec_token": 1381,
+  "top": [
+   [
+    -1.0344,
+    11
+   ],
+   [
+    -1.0344,
+    1381
+   ],
+   [
+    -1.9094,
+    303
+   ],
+   [
+    -3.1594,
+    13
+   ],
+   [
+    -3.7844,
+    26
+   ]
+  ],
+  "margin_top1_top2": 0.0,
+  "both_in_top2": true
+ },
+ {
+  "config": "dflash2_k7",
+  "context": "libero_10_t2_r0:12",
+  "diverge_at": 107,
+  "ar_token": 13907,
+  "spec_token": 18645,
+  "top": [
+   [
+    -0.7088,
+    13907
+   ],
+   [
+    -0.7088,
+    18645
+   ],
+   [
+    -5.3338,
+    22276
+   ],
+   [
+    -5.8338,
+    1330
+   ],
+   [
+    -6.2088,
+    2047
+   ]
+  ],
+  "margin_top1_top2": 0.0,
+  "both_in_top2": true
+ },
+ {
+  "config": "dflash2_k3",
+  "context": "libero_spatial_t0_r0:0",
+  "diverge_at": 299,
+  "ar_token": 321,
+  "spec_token": 478,
+  "top": [
+   [
+    -0.5759,
+    478
+   ],
+   [
+    -0.8259,
+    321
+   ],
+   [
+    -19.3259,
+    41590
+   ],
+   [
+    -19.8259,
+    7347
+   ],
+   [
+    -20.9509,
+    5346
+   ]
+  ],
+  "margin_top1_top2": 0.25,
+  "both_in_top2": true
+ },
+ {
+  "config": "dflash2_k3",
+  "context": "libero_object_t0_r0:5",
+  "identical": true
+ },
+ {
+  "config": "dflash2_k3",
+  "context": "libero_10_t2_r0:12",
+  "diverge_at": 107,
+  "ar_token": 13907,
+  "spec_token": 18645,
+  "top": [
+   [
+    -0.7086,
+    13907
+   ],
+   [
+    -0.7086,
+    18645
+   ],
+   [
+    -5.3336,
+    22276
+   ],
+   [
+    -5.8336,
+    1330
+   ],
+   [
+    -6.2086,
+    2047
+   ]
+  ],
+  "margin_top1_top2": 0.0,
+  "both_in_top2": true
+ }
+]

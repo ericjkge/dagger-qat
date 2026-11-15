@@ -1,0 +1,20 @@
++ uv tool install -q 'huggingface_hub[cli,hf_transfer]'
++ export PATH=/root/.local/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/root/.local/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ hf download incoai/Qwen3.8-27B-DFlash2 --local-dir /workspace/models/dflash2
+/root/.local/share/uv/tools/huggingface-hub/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[90mHint: The `hf-cli` skill is not installed. Run `hf skills add -g` to teach your AI agents how to use the `hf` CLI.[0m
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 5 files:  20%|██        | 1/5 [00:00<00:00,  6.82it/s]Fetching 5 files:  40%|████      | 2/5 [00:00<00:00,  8.11it/s]Fetching 5 files:  80%|████████  | 4/5 [00:00<00:00,  3.63it/s]Fetching 5 files: 100%|██████████| 5/5 [00:04<00:00,  1.37s/it]Fetching 5 files: 100%|██████████| 5/5 [00:04<00:00,  1.04it/s]
+[32m✓ Downloaded[0m
+  path: /workspace/models/dflash2
++ hf download mit-han-lab/Qwen3.8-27B-PEAR --local-dir /workspace/models/pear
+/root/.local/share/uv/tools/huggingface-hub/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 11 files:   9%|▉         | 1/11 [00:00<00:01,  5.14it/s]Fetching 11 files:  55%|█████▍    | 6/11 [00:00<00:00, 21.04it/s]Fetching 11 files:  82%|████████▏ | 9/11 [00:01<00:00,  6.31it/s]Fetching 11 files:  91%|█████████ | 10/11 [00:20<00:00,  6.31it/s]Fetching 11 files: 100%|██████████| 11/11 [00:32<00:00,  4.61s/it]Fetching 11 files: 100%|██████████| 11/11 [00:32<00:00,  2.93s/it]
+[32m✓ Downloaded[0m
+  path: /workspace/models/pear
++ echo DOWNLOAD_DONE
+DOWNLOAD_DONE
