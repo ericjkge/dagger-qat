@@ -1,0 +1,6 @@
+{"episode": "libero_spatial_t2_r0", "rule": "consensus", "rounds": 8, "end_reason": "env", "success": true, "steps": 106, "tokens": 4106, "wall_s": 531.0}
+{"episode": "libero_spatial_t0_r0", "rule": "consensus", "rounds": 9, "end_reason": "env", "success": true, "steps": 114, "tokens": 7140, "wall_s": 881.3}
+{"episode": "libero_spatial_t1_r0", "rule": "consensus", "rounds": 12, "end_reason": "env", "success": true, "steps": 143, "tokens": 6823, "wall_s": 1001.8}
+{"episode": "libero_spatial_t3_r0", "rule": "consensus", "rounds": 10, "end_reason": "env", "success": true, "steps": 136, "tokens": 7250, "wall_s": 1334.8}
+{"episode": "libero_spatial_t6_r0", "rule": "consensus", "rounds": 11, "end_reason": "env", "success": true, "steps": 157, "tokens": 8703, "wall_s": 1356.1}
+{"episode": "libero_spatial_t8_r0", "rule": "consensus", "rounds": 9, "end_reason": "env", "success": true, "steps": 131, "tokens": 9983, "wall_s": 1414.4}
