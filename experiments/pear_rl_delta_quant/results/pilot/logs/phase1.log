@@ -1,0 +1,71 @@
+model-00002-of-00002.safetensors 101
+ARM_DONE B {'nvfp4': 193, 'fp8': 208, 'copied': 783}
+model-00002-of-00002.safetensors 101
+ARM_DONE C {'nvfp4': 193, 'fp8': 208, 'copied': 783}
+=== score A Sun Nov 15 23:40:51 UTC 2026
+libero_10_t0_r0 37287 24591 1111 0.2376
+libero_10_t2_r0 87452 68384 1882 0.237
+libero_goal_t0_r0 200445 182484 1397 0.1918
+libero_goal_t2_r0 22568 17417 392 0.2832
+libero_object_t0_r0 17456 10941 511 0.2579
+libero_object_t2_r0 12177 5674 503 0.2306
+libero_object_t4_r0 12410 5901 504 0.2173
+libero_object_t6_r0 16370 8507 619 0.2255
+libero_object_t8_r0 14423 7238 561 0.2438
+libero_spatial_t0_r0 14460 8615 455 0.2436
+libero_spatial_t2_r0 12701 6172 528 0.2331
+libero_spatial_t4_r0 29268 21932 698 0.2712
+libero_spatial_t6_r0 19197 12016 557 0.2345
+libero_spatial_t8_r0 26141 20196 559 0.2502
+SCORE_DONE A
+=== score B Sun Nov 15 23:44:18 UTC 2026
+libero_10_t0_r0 37287 24591 1111 0.2466
+libero_10_t2_r0 87452 68384 1882 0.2504
+libero_goal_t0_r0 200445 182484 1397 0.2001
+libero_goal_t2_r0 22568 17417 392 0.2909
+libero_object_t0_r0 17456 10941 511 0.2683
+libero_object_t2_r0 12177 5674 503 0.2377
+libero_object_t4_r0 12410 5901 504 0.2251
+libero_object_t6_r0 16370 8507 619 0.2362
+libero_object_t8_r0 14423 7238 561 0.2523
+libero_spatial_t0_r0 14460 8615 455 0.2527
+libero_spatial_t2_r0 12701 6172 528 0.2462
+libero_spatial_t4_r0 29268 21932 698 0.2775
+libero_spatial_t6_r0 19197 12016 557 0.242
+libero_spatial_t8_r0 26141 20196 559 0.2576
+SCORE_DONE B
+=== score C Sun Nov 15 23:47:10 UTC 2026
+libero_10_t0_r0 37287 24591 1111 0.2817
+libero_10_t2_r0 87452 68384 1882 0.2907
+libero_goal_t0_r0 200445 182484 1397 0.223
+libero_goal_t2_r0 22568 17417 392 0.3314
+libero_object_t0_r0 17456 10941 511 0.3063
+libero_object_t2_r0 12177 5674 503 0.2822
+libero_object_t4_r0 12410 5901 504 0.2692
+libero_object_t6_r0 16370 8507 619 0.2804
+libero_object_t8_r0 14423 7238 561 0.2956
+libero_spatial_t0_r0 14460 8615 455 0.2982
+libero_spatial_t2_r0 12701 6172 528 0.2905
+libero_spatial_t4_r0 29268 21932 698 0.3148
+libero_spatial_t6_r0 19197 12016 557 0.2878
+libero_spatial_t8_r0 26141 20196 559 0.2932
+SCORE_DONE C
+model-00002-of-00002.safetensors 101
+ARM_DONE D {'nvfp4': 193, 'fp8': 208, 'copied': 783}
+=== score D Sun Nov 15 23:51:29 UTC 2026
+libero_10_t0_r0 37287 24591 1111 0.4101
+libero_10_t2_r0 87452 68384 1882 0.4274
+libero_goal_t0_r0 200445 182484 1397 0.3099
+libero_goal_t2_r0 22568 17417 392 0.4827
+libero_object_t0_r0 17456 10941 511 0.4539
+libero_object_t2_r0 12177 5674 503 0.4508
+libero_object_t4_r0 12410 5901 504 0.4195
+libero_object_t6_r0 16370 8507 619 0.4097
+libero_object_t8_r0 14423 7238 561 0.445
+libero_spatial_t0_r0 14460 8615 455 0.4543
+libero_spatial_t2_r0 12701 6172 528 0.4458
+libero_spatial_t4_r0 29268 21932 698 0.4437
+libero_spatial_t6_r0 19197 12016 557 0.4272
+libero_spatial_t8_r0 26141 20196 559 0.422
+SCORE_DONE D
+PHASE1_DONE

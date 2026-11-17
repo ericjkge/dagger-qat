@@ -1,0 +1,13 @@
+{"episode": "libero_spatial_t2_r0", "rule": "full", "rounds": 10, "end_reason": "env", "success": true, "steps": 123, "tokens": 4343, "wall_s": 1712.5}
+{"episode": "libero_spatial_t7_r0", "rule": "full", "rounds": 9, "end_reason": "env", "success": true, "steps": 147, "tokens": 5607, "wall_s": 1792.6}
+{"episode": "libero_spatial_t0_r0", "rule": "full", "rounds": 9, "end_reason": "env", "success": true, "steps": 112, "tokens": 6057, "wall_s": 1803.2}
+{"episode": "libero_spatial_t1_r0", "rule": "full", "rounds": 10, "end_reason": "env", "success": true, "steps": 134, "tokens": 10942, "wall_s": 2176.5}
+{"episode": "libero_spatial_t6_r0", "rule": "full", "rounds": 10, "end_reason": "env", "success": true, "steps": 152, "tokens": 11196, "wall_s": 2204.0}
+{"episode": "libero_spatial_t5_r0", "rule": "full", "rounds": 11, "end_reason": "env", "success": true, "steps": 132, "tokens": 11193, "wall_s": 2236.0}
+{"episode": "libero_spatial_t8_r0", "rule": "full", "rounds": 11, "end_reason": "env", "success": true, "steps": 136, "tokens": 8749, "wall_s": 844.6}
+{"episode": "libero_object_t0_r0", "rule": "full", "rounds": 10, "end_reason": "env", "success": true, "steps": 132, "tokens": 10447, "wall_s": 862.7}
+{"episode": "libero_spatial_t3_r0", "rule": "full", "rounds": 10, "end_reason": "env", "success": true, "steps": 148, "tokens": 19430, "wall_s": 2987.9}
+{"episode": "libero_spatial_t9_r0", "rule": "full", "rounds": 12, "end_reason": "env", "success": true, "steps": 163, "tokens": 15185, "wall_s": 1483.0}
+{"episode": "libero_object_t6_r0", "rule": "full", "rounds": 10, "end_reason": "env", "success": true, "steps": 136, "tokens": 4991, "wall_s": 521.5}
+{"episode": "libero_object_t4_r0", "rule": "full", "rounds": 11, "end_reason": "env", "success": true, "steps": 144, "tokens": 9736, "wall_s": 985.7}
+{"episode": "libero_object_t3_r0", "rule": "full", "rounds": 9, "end_reason": "env", "success": true, "steps": 116, "tokens": 18927, "wall_s": 1634.5}

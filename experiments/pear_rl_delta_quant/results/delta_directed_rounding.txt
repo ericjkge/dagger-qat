@@ -1,0 +1,7 @@
+model.language_model.layers.10.mlp.up_proj
+  tau=0.00  flipped 0.0000 of weights  |E|/|E_rtn|=1.000  delta cos=0.095  proj=0.690  noise/|D|=7.22
+  tau=0.02  flipped 0.0054 of weights  |E|/|E_rtn|=1.000  delta cos=0.139  proj=1.712  noise/|D|=12.25
+  tau=0.05  flipped 0.0139 of weights  |E|/|E_rtn|=1.002  delta cos=0.189  proj=3.345  noise/|D|=17.49
+  tau=0.10  flipped 0.0289 of weights  |E|/|E_rtn|=1.010  delta cos=0.258  proj=6.327  noise/|D|=24.25
+  tau=0.20  flipped 0.0618 of weights  |E|/|E_rtn|=1.046  delta cos=0.372  proj=13.208  noise/|D|=35.19
+  tau=0.50  flipped 0.1735 of weights  |E|/|E_rtn|=1.319  delta cos=0.633  proj=38.821  noise/|D|=60.67

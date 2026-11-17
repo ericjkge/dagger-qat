@@ -1,0 +1,18 @@
+ARM_DONE E {'nvfp4': 193, 'fp8': 208, 'copied': 783}
+=== score E Sun Nov 15 23:55:42 UTC 2026
+libero_10_t0_r0 37287 24591 1111 0.2553
+libero_10_t2_r0 87452 68384 1882 0.2623
+libero_goal_t0_r0 200445 182484 1397 0.2072
+libero_goal_t2_r0 22568 17417 392 0.3039
+libero_object_t0_r0 17456 10941 511 0.2755
+libero_object_t2_r0 12177 5674 503 0.2515
+libero_object_t4_r0 12410 5901 504 0.2331
+libero_object_t6_r0 16370 8507 619 0.2436
+libero_object_t8_r0 14423 7238 561 0.2628
+libero_spatial_t0_r0 14460 8615 455 0.263
+libero_spatial_t2_r0 12701 6172 528 0.2528
+libero_spatial_t4_r0 29268 21932 698 0.2894
+libero_spatial_t6_r0 19197 12016 557 0.2537
+libero_spatial_t8_r0 26141 20196 559 0.2663
+SCORE_DONE E
+PHASE1B_DONE

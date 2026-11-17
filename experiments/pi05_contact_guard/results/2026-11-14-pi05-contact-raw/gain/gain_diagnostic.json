@@ -1,0 +1,66 @@
+{
+ "down/early": {
+  "gain": 0.9413,
+  "zeroed": 0.8899,
+  "energy": 1.0131,
+  "kurtosis": 130.5092,
+  "out_gain": 0.8689,
+  "n": 1080
+ },
+ "down/late": {
+  "gain": 0.928,
+  "zeroed": 0.9184,
+  "energy": 0.9975,
+  "kurtosis": 264.0759,
+  "out_gain": 0.8326,
+  "n": 1080
+ },
+ "gateup/early": {
+  "gain": 0.9925,
+  "zeroed": 0.508,
+  "energy": 1.0469,
+  "kurtosis": 27.5174,
+  "out_gain": 0.9836,
+  "n": 1080
+ },
+ "gateup/late": {
+  "gain": 0.9901,
+  "zeroed": 0.5247,
+  "energy": 1.0497,
+  "kurtosis": 38.1118,
+  "out_gain": 0.9771,
+  "n": 1080
+ },
+ "o/early": {
+  "gain": 0.9952,
+  "zeroed": 0.4785,
+  "energy": 1.033,
+  "kurtosis": 8.5965,
+  "out_gain": 0.9916,
+  "n": 1080
+ },
+ "o/late": {
+  "gain": 0.996,
+  "zeroed": 0.4628,
+  "energy": 1.0318,
+  "kurtosis": 8.3681,
+  "out_gain": 0.9922,
+  "n": 1080
+ },
+ "qkv/early": {
+  "gain": 0.9913,
+  "zeroed": 0.5383,
+  "energy": 1.049,
+  "kurtosis": 18.7694,
+  "out_gain": 0.9538,
+  "n": 1080
+ },
+ "qkv/late": {
+  "gain": 0.99,
+  "zeroed": 0.5547,
+  "energy": 1.0541,
+  "kurtosis": 22.8711,
+  "out_gain": 0.9563,
+  "n": 1080
+ }
+}

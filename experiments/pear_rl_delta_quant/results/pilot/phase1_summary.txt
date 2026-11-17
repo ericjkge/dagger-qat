@@ -1,0 +1,19 @@
+== Phase 1: teacher-forced, 14 episodes, arms ['A', 'B', 'C', 'D', 'E']
+  thinking       arm A: dNLL/token +0.00000 [95% CI +0.00000, +0.00000]  top1 0.9094  n=400068
+  thinking       arm B: dNLL/token +0.00932 [95% CI +0.00808, +0.01152]  top1 0.9052  n=400068
+  thinking       arm C: dNLL/token +0.04229 [95% CI +0.03513, +0.05358]  top1 0.8954  n=400068
+  thinking       arm D: dNLL/token +0.16067 [95% CI +0.13519, +0.20204]  top1 0.8585  n=400068
+  thinking       arm E: dNLL/token +0.01855 [95% CI +0.01614, +0.02298]  top1 0.9025  n=400068
+  thinking       gap recovered by exact Delta (B-C)/(B-A): -3.54
+  answer/action  arm A: dNLL/token +0.00000 [95% CI +0.00000, +0.00000]  top1 0.9985  n=10277
+  answer/action  arm B: dNLL/token +0.00269 [95% CI +0.00134, +0.00423]  top1 0.9975  n=10277
+  answer/action  arm C: dNLL/token +0.01175 [95% CI +0.00721, +0.01715]  top1 0.9947  n=10277
+  answer/action  arm D: dNLL/token +0.01802 [95% CI +0.01409, +0.02177]  top1 0.9928  n=10277
+  answer/action  arm E: dNLL/token +0.00420 [95% CI +0.00270, +0.00526]  top1 0.9963  n=10277
+  answer/action  gap recovered by exact Delta (B-C)/(B-A): -3.37
+  all            arm A: dNLL/token +0.00000 [95% CI +0.00000, +0.00000]  top1 0.9116  n=410345
+  all            arm B: dNLL/token +0.00915 [95% CI +0.00792, +0.01132]  top1 0.9075  n=410345
+  all            arm C: dNLL/token +0.04153 [95% CI +0.03489, +0.05191]  top1 0.8979  n=410345
+  all            arm D: dNLL/token +0.15709 [95% CI +0.13185, +0.19427]  top1 0.8619  n=410345
+  all            arm E: dNLL/token +0.01819 [95% CI +0.01600, +0.02233]  top1 0.9048  n=410345
+  all            gap recovered by exact Delta (B-C)/(B-A): -3.54

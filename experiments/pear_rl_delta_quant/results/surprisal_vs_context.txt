@@ -1,0 +1,6 @@
+0k+ n=74862 mean surprisal=0.269 nats frac>2nats=0.029
+8k+ n=60690 mean surprisal=0.275 nats frac>2nats=0.031
+16k+ n=62776 mean surprisal=0.268 nats frac>2nats=0.029
+32k+ n=56902 mean surprisal=0.247 nats frac>2nats=0.026
+64k+ n=75783 mean surprisal=0.231 nats frac>2nats=0.024
+128k+ n=23946 mean surprisal=0.220 nats frac>2nats=0.024

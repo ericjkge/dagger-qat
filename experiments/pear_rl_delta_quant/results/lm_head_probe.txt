@@ -1,0 +1,2 @@
+shapes [248320, 5120] [248320, 5120]
+lm_head rows 1000-21000: ckpt match 0.992  frac changed by RL 0.179  rel|D| 0.0007  rel|E| 0.0839  SNR 0.009  crossing 0.0011  cos 0.085  proj 0.734

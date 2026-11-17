@@ -1,0 +1,17 @@
+67 rounds, 14 episodes
+== ACTION tokens: dNLL vs full history (S0); recovered = 1 - dNLL/dNLL(strip)
+  strip     dNLL +0.0156  top1 0.9922  recovered +0.00 [95% CI +0.00, +0.00]
+  card      dNLL +0.0151  top1 0.9922  recovered +0.03 [95% CI -0.08, +0.14]
+  geo       dNLL +0.0113  top1 0.9935  recovered +0.27 [95% CI -0.01, +0.53]
+  summ      dNLL +0.0112  top1 0.9930  recovered +0.28 [95% CI +0.14, +0.44]
+  geo+card  dNLL +0.0110  top1 0.9935  recovered +0.29 [95% CI +0.03, +0.55]
+== thinking tokens: dNLL vs full history (S0); recovered = 1 - dNLL/dNLL(strip)
+  strip     dNLL +0.2949  top1 0.8501  recovered +0.00 [95% CI +0.00, +0.00]
+  card      dNLL +0.3436  top1 0.8429  recovered -0.17 [95% CI -0.26, -0.04]
+  geo       dNLL +0.1153  top1 0.8954  recovered +0.61 [95% CI +0.57, +0.73]
+  summ      dNLL +0.2633  top1 0.8542  recovered +0.11 [95% CI -0.04, +0.31]
+  geo+card  dNLL +0.1393  top1 0.8904  recovered +0.53 [95% CI +0.49, +0.56]
+== mean context tokens: full 29699, strip 8849, card 8965, geo 17185, summ 11922, geo+card 17301
+== example card: [Simulator calibration for the current pose, exact] Agentview image: moving the arm +1 along x moves the gripper 3.1 px down, 0.9 px left; +1 along y: 8.5 px left; +1 along z: 8.2 px up, 0.6 px left. Wrist image: objects at table height are 32 cm below the camera; moving the arm +1 along x moves them 10.4 px down; +1 along y: 10.4 px left.
+
+

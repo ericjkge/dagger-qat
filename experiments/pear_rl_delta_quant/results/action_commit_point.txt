@@ -1,0 +1,7 @@
+rounds with nonzero action: 170 all values stated before end: 128 never matched: 42
+fraction of thinking BEFORE final values all first stated: median 0.93 mean 0.80
+token-weighted share of thinking AFTER first statement of final action: 0.31
+  rounds 0-1000 tok: n=59, median frac before=0.92, tok-weighted after=0.18
+  rounds 1000-3000 tok: n=29, median frac before=0.96, tok-weighted after=0.12
+  rounds 3000-40000 tok: n=40, median frac before=0.74, tok-weighted after=0.37
+dithering markers per 1k thinking tokens: 9.2

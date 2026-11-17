@@ -1,0 +1,45 @@
+{
+ "task": "pick_up_the_alphabet_soup_and_place_it_in_the_basket",
+ "suite": "libero_object",
+ "task_id": 0,
+ "prompt": "pick up the alphabet soup and place it in the basket",
+ "configs": [
+  "a4_all",
+  "a8_all",
+  "a4_down",
+  "a4_nodown"
+ ],
+ "closed_loop": null,
+ "config_defs": {
+  "a4_all": {
+   "bits": 4
+  },
+  "a8_all": {
+   "bits": 8
+  },
+  "a4_down": {
+   "bits": 4,
+   "kinds": [
+    "down"
+   ]
+  },
+  "a4_nodown": {
+   "bits": 4,
+   "kinds": [
+    "gateup",
+    "o",
+    "qkv"
+   ]
+  }
+ },
+ "objects": [
+  "alphabet_soup_1",
+  "basket_1"
+ ],
+ "has_geom_distance": true,
+ "n_fingers": 4,
+ "n_obj": 21,
+ "n_place": 5,
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "load_seconds": 77.55721712112427
+}

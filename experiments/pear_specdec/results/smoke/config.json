@@ -1,0 +1,12 @@
+{
+ "url": "http://127.0.0.1:30000",
+ "model_dir": "/workspace/models/pear",
+ "out": "/workspace/results/smoke",
+ "episodes": "libero_spatial:0:0",
+ "effort": "xhigh",
+ "split": 1,
+ "max_rounds": 2,
+ "response_budget": 256000,
+ "think_end_id": 248069,
+ "time": 1794699043.689691
+}

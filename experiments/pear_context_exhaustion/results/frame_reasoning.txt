@@ -1,0 +1,32 @@
+rounds 171; thinking tokens 399898; in frame/scale-derivation paragraphs 139410 (34.9%)
+round 0: frame share 60.0% of 57765 tok; later rounds: 30.6% of 342133 tok
+share of later rounds that re-derive frame/scale (>=1 frame paragraph): 82.2%
+largest later rounds (ep, round, tokens, frame tokens, hedges):
+   ('libero_goal_t0_r0', 25, 45110, 167, 1)
+   ('libero_goal_t0_r0', 9, 10577, 2235, 111)
+   ('libero_goal_t0_r0', 18, 10126, 2832, 103)
+   ('libero_goal_t0_r0', 8, 9640, 2072, 130)
+   ('libero_goal_t0_r0', 21, 9523, 3070, 104)
+   ('libero_10_t2_r0', 20, 8748, 1025, 107)
+   ('libero_spatial_t4_r0', 1, 8575, 3303, 133)
+   ('libero_10_t2_r0', 19, 8182, 1409, 127)
+   ('libero_goal_t0_r0', 16, 8011, 1655, 69)
+   ('libero_goal_t0_r0', 10, 7726, 2555, 141)
+   ('libero_goal_t0_r0', 3, 7246, 3033, 98)
+   ('libero_goal_t0_r0', 4, 6889, 2267, 103)
+hedges per 1k thinking tokens: frame-heavy rounds (>30% frame) 14.21 vs others 9.82
+== spot check: 8 classified frame, 6 not
+   FRAME libero_goal_t0_r0 1 | Now, the three handles in the wrist image are separated along the image's vertical (down in image = -x). Wait, up in image = +x. The handles are at the top of the image. Their separation: the topmost handle is at (150,60), the middle at (170,110), the bottom a
+   FRAME libero_object_t2_r0 5 | Let me use the wrist camera more carefully. The basket is at the right edge, partially visible. Distance from center: 230px out of 480. If FOV is 90°, then angle = atan(230/240) ≈ 43.8°. Depth below: the gripper is 31.5cm above the table, but the basket's rim 
+   FRAME libero_object_t0_r0 1 | But wait: is that gray can really the alphabet soup? Let me double-check with the agentview: in the agentview the soup can is at the right edge. The basket is on the left. The distance between the basket and the soup can in the agentview is large. In the wrist
+   FRAME libero_10_t2_r0 16 | Current situation: The gripper is rotated 90° (yaw=1.63) and is right above/on top of the moka pot. In the wrist camera, the moka pot's top face is below, and the gripper's fingers are at the bottom. The stove (red) is visible at the top of the image. Wait — t
+   FRAME libero_goal_t0_r0 10 | Now: the bottom end in the image = which x? Up in the image = +x. The bottom end = smallest x. In agentview: smallest x = top in the image = top handle. So the gripper is around the top handle's bar. Hmm.
+   FRAME libero_spatial_t8_r0 0 | Wait, but in the wrist image, up = +x and the plate is up. The bowl is below the plate in the wrist image (smaller x). The plate is ~21 cm away in x. The bowl is probably ~15 cm away in x from below the camera? Current x=45.1 is the height? No wait, x is horiz
+   FRAME libero_object_t4_r0 0 | Let me do this: x: +5 (move slightly down in image direction? Actually, the ketchup is slightly above center... hmm). Let me look more carefully: in the agentview image, the ketchup bottle is approximately at (390, 220). The image center is (240, 240). The cam
+   FRAME libero_goal_t0_r0 22 | Let's redo this: the handle is in the -y direction from the gripper?~? Re-verify: the pull test: y -12.5 → -2.7 (+y). After that, in the wrist image the handle is far to the left. Left in the image = -y?~? Right in the image = +y (spec). Left = -y. The handle 
+   other libero_spatial_t8_r0 4 | Current gripper width is 8.0, and the arm is at z=1.0 (near the table). In the wrist camera, the black bowl is visible in the lower left, and the gripper fingers are near it. The gripper appears to be next to/on top of the bowl. In the agentview, the gripper i
+   other libero_10_t2_r0 5 | Alternatively: release (open gripper), lift, reset orientation to point down (roll≈3.14? or 0?), re-grip the knob, then rotate with yaw.
+   other libero_10_t0_r0 2 | y: u=240 ≈ center. Slight offset: u might be 240. Change 0. Actually looking at it: the can's center is approximately (240, 210). Good.
+   other libero_object_t4_r0 0 | Actually, I also need to consider that the arm's z=26.3 is the height above the table? Probably. To grasp, lower z to near 0-2 cm.
+   other libero_goal_t0_r0 8 | Now: the gripper is resting on top of something at z=22.6. If that's the top handle bar (top drawer), hmm. But looking down the center is above the middle...? Ugh.
+   other libero_spatial_t4_r0 5 | Looking at the wrist image: the patterned bowl surface is at the lower-left, with the gripper fingers (dark colored) at the bottom center. The bowl appears to be below/beside, not grasped. Hmm, but the gripper width of 0.9 means it's fully closed (or hit somet

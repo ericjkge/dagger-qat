@@ -1,0 +1,67 @@
+== dNLL by token type (thinking, strip - full), nats/token and share of total
+  digit        n=  14018  mean +0.217  share of total dNLL 0.06
+  punct/space  n=  29302  mean +0.401  share of total dNLL 0.25
+  word         n=  72217  mean +0.443  share of total dNLL 0.68
+== 3548 thinking tokens with dNLL > 3 nats; random sample of 30:
+   4.7 libero_10_t2_r0 19 |  looking along -z_cam...? Let me use: previously [[ up]] =+x
+   4.2 libero_goal_t0_r0 22 |  move ~3cm in the direction of the handle. Which [[ world]]  direction?~
+   3.7 libero_spatial_t8_r0 1 | 00 px above center in the image; up in the [[ wrist]]  image = +
+   6.5 libero_spatial_t4_r0 9 | , ~75 px in the image. Angle ~  [[9]] °? tan
+   3.8 libero_spatial_t4_r0 1 |  pointing down, objects below are visible. The bowl visible is [[ below]]  the gripper
+   4.0 libero_10_t2_r0 4 |  approach axis when pointing down), the knob will rotate in the [[ wrist]]  image (the
+   3.7 libero_goal_t0_r0 1 |  -65 px (left) => y: left = [[ -]] y? Wait
+   3.8 libero_10_t2_r0 19 |  the camera pointing up?? No...  Hmm, let me [[ re]] -verify:
+   4.7 libero_goal_t0_r0 19 |  correct position, there's something ~4.3cm between [[/]] around the fingers
+   4.7 libero_spatial_t4_r0 1 |  is in the +x direction (up in the image), [[ slightly]]  to the left
+   3.2 libero_goal_t0_r0 16 |  the right in the image relative to the gripper...? [[ =]]  the gripper
+   9.2 libero_goal_t0_r0 16 | . The bar (~10cm) is between the plates [[ only]]  if the finger
+   5.9 libero_object_t0_r0 8 |  is (240,240). Offset: [[ y]] : 2
+   5.9 libero_goal_t0_r0 10 |  cabinet (the cabinet is at -y...? The dark [[ is]]  on the left
+   3.8 libero_spatial_t4_r0 7 | 6 above the table? The plate is on the table. [[ But]]  wait — the
+   3.5 libero_10_t2_r0 25 | 's aim: the spiral center should come to the image center [[...]] ? But note
+   3.1 libero_10_t2_r0 13 |  wait: FOV at depth d with 90° [[ =]]  d. 
+   4.3 libero_goal_t0_r0 16 | ? unreliable) ~ 2-4cm?  Hmm [[ OK]]  wait, but
+   5.6 libero_10_t0_r0 10 | Let me calculate the target using the agentview... it's [[ harder]]  due to perspective
+   3.6 libero_spatial_t6_r0 9 | Current situation: [[ Robot]]  is holding a
+   6.1 libero_goal_t0_r0 10 |  = the fingers are below the camera = near the center? [[ They]]  appear at the
+   3.6 libero_goal_t0_r0 16 |  in the wrist image, at (235,2 [[0]] 0-3
+   5.3 libero_goal_t2_r0 6 | ) and slightly below (5px). Left = -y [[:]]  small. Down
+   3.4 libero_spatial_t4_r0 1 |  the wrist image: there's a dark brown surface (drawer [[/c]] abinet) covering
+   7.6 libero_spatial_t4_r0 1 | ? It's on the right = +y. Hmm, [[ earlier]]  the plate was
+   10.7 libero_10_t0_r0 1 |  +y is right.  x offset = -dv * [[ z]] /f = -
+   7.9 libero_object_t4_r0 8 |  center, which is +x. So x += (2 [[0]] /24
+   9.4 libero_goal_t0_r0 16 |  For the handle to be between the fingers when the gripper [[ points]]  "down"
+   3.1 libero_goal_t0_r0 4 |  In the latest agentview: the handles are at (3 [[4]] 5,2
+   3.9 libero_object_t8_r0 7 |  around pixel (430, 230). [[ Center]]  is (2
+== 31 action tokens that flip top-1 or lose > 1 nat:
+   (3.73, 'libero_object_t6_r0', 7, ' 15, "z": ', '2')
+   (3.41, 'libero_goal_t0_r0', 7, 'json {"arm": {"x":', ' -')
+   (2.47, 'libero_10_t2_r0', 22, 'ripper": {"width": -5.', '5')
+   (2.24, 'libero_10_t0_r0', 17, '0, "y": 0.', '5')
+   (2.12, 'libero_10_t2_r0', 10, '0.0, "z": -', '7')
+   (1.94, 'libero_goal_t2_r0', 4, '": -8, "z": ', '0')
+   (1.92, 'libero_object_t4_r0', 4, '": 0, "z": -', '2')
+   (1.91, 'libero_10_t0_r0', 4, '{"arm": {"x": 0', '.')
+   (1.9, 'libero_spatial_t8_r0', 4, ' "gripper": {"width": -', '7')
+   (1.89, 'libero_spatial_t4_r0', 4, ' "gripper": {"width": -', '6')
+   (1.89, 'libero_object_t2_r0', 7, 'json {"arm": {"x":', ' -')
+   (1.85, 'libero_object_t4_r0', 4, 'y": 0, "z":', ' -')
+   (1.77, 'libero_spatial_t2_r0', 8, 'arm": {"x": 0.', '8')
+   (1.53, 'libero_spatial_t2_r0', 7, '6.3, "z": ', '0')
+   (1.27, 'libero_object_t8_r0', 7, ' {"arm": {"x": ', '1')
+   (1.26, 'libero_spatial_t4_r0', 7, '2.0, "z": ', '2')
+   (1.22, 'libero_object_t6_r0', 7, ' 0, "y": 1', '5')
+   (1.21, 'libero_spatial_t2_r0', 1, 'arm": {"x": 2.', '8')
+   (1.09, 'libero_spatial_t0_r0', 7, 'json {"arm": {"x":', ' -')
+   (1.06, 'libero_object_t8_r0', 9, ' 0, "z": -1', '9')
+   (1.0, 'libero_10_t2_r0', 13, '0.3, "z": ', '2')
+   (0.82, 'libero_spatial_t6_r0', 9, ' 0, "z": -1', '7')
+   (0.79, 'libero_10_t2_r0', 16, '.0, "z": -1', '1')
+   (0.76, 'libero_10_t2_r0', 16, ', "z": -11.', '0')
+   (0.69, 'libero_10_t2_r0', 7, '6.0, "z": ', '8')
+   (0.58, 'libero_spatial_t4_r0', 9, ', "z": -35.', '0')
+   (0.5, 'libero_spatial_t4_r0', 7, ' {"arm": {"x": ', '2')
+   (-0.39, 'libero_object_t4_r0', 7, ' {"arm": {"x": ', '5')
+   (-0.51, 'libero_goal_t2_r0', 4, '": 7, "y": -', '8')
+   (-0.95, 'libero_object_t8_r0', 1, '": 1, "y": -', '8')
+   (-1.14, 'libero_object_t0_r0', 1, ' -10, "z": ', '0')

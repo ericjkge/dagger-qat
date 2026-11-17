@@ -1,0 +1,32 @@
+model.language_model.layers.10.mlp.up_proj [17408, 5120]
+  delta           top1=0.031 top4=0.072 top16=0.137 top64=0.249 top256=0.408  k50=  493 k90= 3168  eff_rank= 2031.0  stable_rank=   32.3  (n=5120)
+  delta_shuffled  top1=0.000 top4=0.002 top16=0.007 top64=0.029 top256=0.108  k50= 1498 k90= 3804  eff_rank= 4418.9  stable_rank= 2154.8  (n=5120)
+  W_pear          top1=0.002 top4=0.005 top16=0.014 top64=0.046 top256=0.148  k50= 1255 k90= 3573  eff_rank= 4044.8  stable_rank=  651.1  (n=5120)
+  nvfp4_err       top1=0.000 top4=0.002 top16=0.008 top64=0.030 top256=0.113  k50= 1448 k90= 3732  eff_rank= 4339.4  stable_rank= 2051.1  (n=5120)
+model.language_model.layers.10.mlp.down_proj [5120, 17408]
+  delta           top1=0.016 top4=0.036 top16=0.088 top64=0.187 top256=0.342  k50=  682 k90= 3287  eff_rank= 2614.7  stable_rank=   60.9  (n=5120)
+  delta_shuffled  top1=0.000 top4=0.002 top16=0.007 top64=0.029 top256=0.108  k50= 1499 k90= 3804  eff_rank= 4419.2  stable_rank= 2157.7  (n=5120)
+  W_pear          top1=0.002 top4=0.006 top16=0.020 top64=0.064 top256=0.185  k50= 1129 k90= 3510  eff_rank= 3814.7  stable_rank=  475.7  (n=5120)
+  nvfp4_err       top1=0.001 top4=0.002 top16=0.008 top64=0.030 top256=0.111  k50= 1471 k90= 3775  eff_rank= 4380.5  stable_rank= 1456.6  (n=5120)
+model.language_model.layers.40.mlp.gate_proj [17408, 5120]
+  delta           top1=0.047 top4=0.099 top16=0.168 top64=0.260 top256=0.385  k50=  602 k90= 3248  eff_rank= 1967.8  stable_rank=   21.1  (n=5120)
+  delta_shuffled  top1=0.000 top4=0.002 top16=0.007 top64=0.029 top256=0.108  k50= 1499 k90= 3804  eff_rank= 4419.1  stable_rank= 2151.7  (n=5120)
+  W_pear          top1=0.008 top4=0.013 top16=0.025 top64=0.061 top256=0.168  k50= 1189 k90= 3513  eff_rank= 3858.5  stable_rank=  118.2  (n=5120)
+  nvfp4_err       top1=0.002 top4=0.004 top16=0.011 top64=0.034 top256=0.117  k50= 1438 k90= 3736  eff_rank= 4323.2  stable_rank=  635.1  (n=5120)
+model.language_model.layers.63.mlp.down_proj [5120, 17408]
+  delta           top1=0.136 top4=0.191 top16=0.268 top64=0.373 top256=0.500  k50=  256 k90= 2964  eff_rank= 1007.9  stable_rank=    7.3  (n=5120)
+  delta_shuffled  top1=0.000 top4=0.002 top16=0.007 top64=0.029 top256=0.108  k50= 1499 k90= 3805  eff_rank= 4419.4  stable_rank= 2160.9  (n=5120)
+  W_pear          top1=0.003 top4=0.008 top16=0.022 top64=0.059 top256=0.165  k50= 1189 k90= 3476  eff_rank= 3877.9  stable_rank=  383.9  (n=5120)
+  nvfp4_err       top1=0.002 top4=0.004 top16=0.013 top64=0.043 top256=0.142  k50= 1262 k90= 3568  eff_rank= 4060.1  stable_rank=  602.4  (n=5120)
+model.language_model.layers.10.linear_attn.in_proj_qkv [10240, 5120]
+  delta           top1=0.030 top4=0.065 top16=0.124 top64=0.220 top256=0.359  k50=  637 k90= 2955  eff_rank= 2221.1  stable_rank=   33.4  (n=5120)
+  delta_shuffled  top1=0.001 top4=0.002 top16=0.009 top64=0.035 top256=0.130  k50= 1258 k90= 3399  eff_rank= 3986.4  stable_rank= 1759.0  (n=5120)
+  W_pear          top1=0.004 top4=0.013 top16=0.038 top64=0.102 top256=0.248  k50=  814 k90= 2927  eff_rank= 3051.9  stable_rank=  239.6  (n=5120)
+model.language_model.layers.11.self_attn.q_proj [12288, 5120]
+  delta           top1=0.024 top4=0.059 top16=0.118 top64=0.219 top256=0.357  k50=  668 k90= 3105  eff_rank= 2323.0  stable_rank=   42.1  (n=5120)
+  delta_shuffled  top1=0.001 top4=0.002 top16=0.008 top64=0.032 top256=0.121  k50= 1343 k90= 3557  eff_rank= 4155.8  stable_rank= 1892.5  (n=5120)
+  W_pear          top1=0.018 top4=0.031 top16=0.066 top64=0.144 top256=0.305  k50=  679 k90= 2903  eff_rank= 2664.0  stable_rank=   56.2  (n=5120)
+model.language_model.layers.11.self_attn.o_proj [5120, 6144]
+  delta           top1=0.076 top4=0.128 top16=0.206 top64=0.298 top256=0.427  k50=  428 k90= 2376  eff_rank= 1375.9  stable_rank=   13.1  (n=5120)
+  delta_shuffled  top1=0.001 top4=0.003 top16=0.011 top64=0.043 top256=0.159  k50= 1016 k90= 2842  eff_rank= 3374.1  stable_rank= 1404.3  (n=5120)
+  W_pear          top1=0.022 top4=0.042 top16=0.088 top64=0.189 top256=0.388  k50=  438 k90= 2131  eff_rank= 1887.8  stable_rank=   45.9  (n=5120)

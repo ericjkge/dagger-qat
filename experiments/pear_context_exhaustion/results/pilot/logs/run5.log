@@ -1,0 +1,87 @@
+libero_10_t0_r0 units/m 100.42 fovy 45.0 75.0 table z 0.475
+libero_10_t2_r0 units/m 100.52 fovy 45.0 75.0 table z 0.905
+libero_goal_t0_r0 units/m 100.16 fovy 45.0 75.0 table z 0.905
+libero_goal_t2_r0 units/m 101.48 fovy 45.0 75.0 table z 0.905
+libero_object_t0_r0 units/m 104.36 fovy 45.0 75.0 table z 0.038
+libero_object_t2_r0 units/m 100.13 fovy 45.0 75.0 table z 0.038
+libero_object_t4_r0 units/m 99.6 fovy 45.0 75.0 table z 0.055
+libero_object_t6_r0 units/m 100.39 fovy 45.0 75.0 table z 0.038
+libero_object_t8_r0 units/m 99.71 fovy 45.0 75.0 table z 0.055
+libero_spatial_t0_r0 units/m 99.87 fovy 45.0 75.0 table z 0.905
+libero_spatial_t2_r0 units/m 99.78 fovy 45.0 75.0 table z 0.905
+libero_spatial_t4_r0 units/m 99.82 fovy 45.0 75.0 table z 0.905
+libero_spatial_t6_r0 units/m 100.12 fovy 45.0 75.0 table z 0.905
+libero_spatial_t8_r0 units/m 99.92 fovy 45.0 75.0 table z 0.905
+agentview convention satisfied in 167/171 cards; wrist check at yaw~0 (n=159): arm+x->objects down 1.00, arm+y->objects left 1.00
+example raw {'ep': 'libero_object_t0_r0', 'round': 7, 'dA': {'x': [1.9945935785193285, 2.0198269557977255], 'y': [2.4362153681067866e-06, 6.467896422614899], 'z': [-6.424336410492032, 1.2540945507004153]}, 'dW': {'x': [7.525775714103332, 0.00725945510771453], 'y': [-0.007400796089740425, 7.522959065914222]}, 'wrist_depth_cm': 42.6, 'yaw': 0.0, 'approx': True, 'units_per_m': 104.36}
+SUMMARIES_DONE 170
+summ rc=0 (marker written manually)
+libero_10_t0_r0 1 {'card': 7342, 'geo': 9097, 'summ': 8549, 'geo+card': 9216}
+libero_10_t0_r0 4 {'card': 4117, 'geo': 9963, 'summ': 6223, 'geo+card': 10068}
+libero_10_t0_r0 7 {'card': 6290, 'geo': 12651, 'summ': 8666, 'geo+card': 12768}
+libero_10_t0_r0 10 {'card': 13375, 'geo': 20078, 'summ': 15989, 'geo+card': 20195}
+libero_10_t0_r0 13 {'card': 10117, 'geo': 20954, 'summ': 14315, 'geo+card': 21073}
+libero_10_t0_r0 16 {'card': 12315, 'geo': 23276, 'summ': 16591, 'geo+card': 23393}
+libero_10_t0_r0 17 {'card': 12879, 'geo': 24025, 'summ': 17308, 'geo+card': 24142}
+libero_10_t2_r0 1 {'card': 2138, 'geo': 5255, 'summ': 2537, 'geo+card': 5372}
+libero_10_t2_r0 4 {'card': 4613, 'geo': 7986, 'summ': 5265, 'geo+card': 8105}
+libero_10_t2_r0 7 {'card': 6420, 'geo': 12239, 'summ': 8634, 'geo+card': 12372}
+libero_10_t2_r0 10 {'card': 9292, 'geo': 16126, 'summ': 12288, 'geo+card': 16245}
+libero_10_t2_r0 13 {'card': 13289, 'geo': 21432, 'summ': 17024, 'geo+card': 21549}
+libero_10_t2_r0 16 {'card': 12810, 'geo': 22553, 'summ': 17858, 'geo+card': 22672}
+libero_10_t2_r0 19 {'card': 22473, 'geo': 32621, 'summ': 27926, 'geo+card': 32738}
+libero_10_t2_r0 22 {'card': 18936, 'geo': 32285, 'summ': 26433, 'geo+card': 32404}
+libero_10_t2_r0 25 {'card': 19978, 'geo': 36683, 'summ': 28975, 'geo+card': 36800}
+libero_10_t2_r0 26 {'card': 22470, 'geo': 40356, 'summ': 32066, 'geo+card': 40473}
+libero_goal_t0_r0 1 {'card': 6621, 'geo': 11443, 'summ': 7264, 'geo+card': 11553}
+libero_goal_t0_r0 4 {'card': 10790, 'geo': 23032, 'summ': 13416, 'geo+card': 23151}
+libero_goal_t0_r0 7 {'card': 8968, 'geo': 26942, 'summ': 13835, 'geo+card': 27061}
+libero_goal_t0_r0 10 {'card': 15672, 'geo': 39633, 'summ': 22154, 'geo+card': 39752}
+libero_goal_t0_r0 13 {'card': 12992, 'geo': 42849, 'summ': 20508, 'geo+card': 42968}
+libero_goal_t0_r0 16 {'card': 20004, 'geo': 50660, 'summ': 28178, 'geo+card': 50779}
+libero_goal_t0_r0 19 {'card': 17802, 'geo': 53110, 'summ': 27531, 'geo+card': 53229}
+libero_goal_t0_r0 22 {'card': 21587, 'geo': 63424, 'summ': 33803, 'geo+card': 63543}
+libero_goal_t0_r0 25 {'card': 63130, 'geo': 106780, 'summ': 76840, 'geo+card': 106913}
+libero_goal_t2_r0 1 {'card': 2316, 'geo': 3662, 'summ': 2714, 'geo+card': 3767}
+libero_goal_t2_r0 4 {'card': 4806, 'geo': 8260, 'summ': 6008, 'geo+card': 8377}
+libero_goal_t2_r0 6 {'card': 9322, 'geo': 13890, 'summ': 11005, 'geo+card': 14007}
+libero_object_t0_r0 1 {'card': 5713, 'geo': 7006, 'summ': 6368, 'geo+card': 7116}
+libero_object_t0_r0 4 {'card': 4245, 'geo': 8568, 'summ': 6101, 'geo+card': 8687}
+libero_object_t0_r0 7 {'card': 6919, 'geo': 13374, 'summ': 9647, 'geo+card': 13491}
+libero_object_t0_r0 8 {'card': 7146, 'geo': 14172, 'summ': 10445, 'geo+card': 14289}
+libero_object_t2_r0 1 {'card': 2320, 'geo': 3241, 'summ': 2746, 'geo+card': 3346}
+libero_object_t2_r0 4 {'card': 4299, 'geo': 5777, 'summ': 5201, 'geo+card': 5889}
+libero_object_t2_r0 7 {'card': 6238, 'geo': 8501, 'summ': 7554, 'geo+card': 8618}
+libero_object_t2_r0 8 {'card': 6986, 'geo': 9339, 'summ': 8392, 'geo+card': 9456}
+libero_object_t4_r0 1 {'card': 2822, 'geo': 4340, 'summ': 3727, 'geo+card': 4452}
+libero_object_t4_r0 4 {'card': 3991, 'geo': 6545, 'summ': 5635, 'geo+card': 6664}
+libero_object_t4_r0 7 {'card': 6813, 'geo': 9862, 'summ': 8843, 'geo+card': 9965}
+libero_object_t4_r0 8 {'card': 6928, 'geo': 10845, 'summ': 9340, 'geo+card': 10962}
+libero_object_t6_r0 1 {'card': 2406, 'geo': 5332, 'summ': 3281, 'geo+card': 5444}
+libero_object_t6_r0 4 {'card': 4158, 'geo': 7861, 'summ': 5669, 'geo+card': 7979}
+libero_object_t6_r0 7 {'card': 6077, 'geo': 10986, 'summ': 7957, 'geo+card': 11091}
+libero_object_t6_r0 10 {'card': 8237, 'geo': 13911, 'summ': 10508, 'geo+card': 14030}
+libero_object_t8_r0 1 {'card': 2112, 'geo': 4485, 'summ': 2595, 'geo+card': 4597}
+libero_object_t8_r0 4 {'card': 3974, 'geo': 6747, 'summ': 4699, 'geo+card': 6865}
+libero_object_t8_r0 7 {'card': 6194, 'geo': 10290, 'summ': 7408, 'geo+card': 10402}
+libero_object_t8_r0 9 {'card': 7381, 'geo': 12468, 'summ': 8930, 'geo+card': 12587}
+libero_spatial_t0_r0 1 {'card': 2172, 'geo': 4011, 'summ': 4011, 'geo+card': 4128}
+libero_spatial_t0_r0 4 {'card': 6004, 'geo': 8333, 'summ': 8162, 'geo+card': 8452}
+libero_spatial_t0_r0 7 {'card': 6338, 'geo': 10237, 'summ': 9848, 'geo+card': 10356}
+libero_spatial_t2_r0 1 {'card': 2073, 'geo': 3021, 'summ': 2592, 'geo+card': 3124}
+libero_spatial_t2_r0 4 {'card': 4102, 'geo': 5503, 'summ': 4983, 'geo+card': 5608}
+libero_spatial_t2_r0 7 {'card': 6373, 'geo': 8417, 'summ': 7846, 'geo+card': 8536}
+libero_spatial_t2_r0 8 {'card': 6829, 'geo': 9032, 'summ': 8426, 'geo+card': 9151}
+libero_spatial_t4_r0 1 {'card': 10498, 'geo': 12880, 'summ': 10829, 'geo+card': 12997}
+libero_spatial_t4_r0 4 {'card': 4240, 'geo': 11100, 'summ': 5974, 'geo+card': 11219}
+libero_spatial_t4_r0 7 {'card': 6958, 'geo': 14612, 'summ': 9063, 'geo+card': 14729}
+libero_spatial_t4_r0 9 {'card': 8088, 'geo': 16633, 'summ': 10626, 'geo+card': 16750}
+libero_spatial_t6_r0 1 {'card': 3741, 'geo': 6183, 'summ': 4641, 'geo+card': 6293}
+libero_spatial_t6_r0 4 {'card': 4301, 'geo': 9329, 'summ': 6523, 'geo+card': 9434}
+libero_spatial_t6_r0 7 {'card': 8578, 'geo': 14053, 'summ': 11073, 'geo+card': 14172}
+libero_spatial_t6_r0 9 {'card': 7736, 'geo': 16014, 'summ': 10822, 'geo+card': 16133}
+libero_spatial_t8_r0 1 {'card': 3542, 'geo': 9308, 'summ': 3984, 'geo+card': 9425}
+libero_spatial_t8_r0 4 {'card': 4119, 'geo': 11234, 'summ': 5359, 'geo+card': 11353}
+libero_spatial_t8_r0 7 {'card': 7144, 'geo': 16552, 'summ': 9084, 'geo+card': 16671}
+CTX_DONE
+RUN5_DONE

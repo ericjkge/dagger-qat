@@ -1,0 +1,33 @@
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /workspace/cache/libero-datasets does not exist!
+[robosuite WARNING] No private macro file found! (macros.py:53)
+WARNING:robosuite_logs:No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+WARNING:robosuite_logs:It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /workspace/openpi/.venv/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+WARNING:robosuite_logs:To setup, run: python /workspace/openpi/.venv/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[Warning]: datasets path /workspace/cache/libero-datasets does not exist!
+{"task": "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate", "suite": "libero_spatial", "task_id": 0, "prompt": "pick up the black bowl between the plate and the ramekin and place it on the plate", "configs": ["a4_all", "a8_all", "a4_down", "a4_nodown"], "closed_loop": "a4_all", "config_defs": {"a4_all": {"bits": 4}, "a8_all": {"bits": 8}, "a4_down": {"bits": 4, "kinds": ["down"]}, "a4_nodown": {"bits": 4, "kinds": ["gateup", "o", "qkv"]}}, "objects": ["akita_black_bowl_1", "plate_1"], "has_geom_distance": true, "n_fingers": 4, "n_obj": 40, "n_place": 10, "gpu": "NVIDIA A100-SXM4-80GB", "load_seconds": 73.25504469871521}
+{"ep": 0, "success": true, "steps": 137, "calls": 28, "seconds": 55.51989507675171, "arm": "a4_all"}
+{"ep": 1, "success": true, "steps": 135, "calls": 27, "seconds": 50.88603472709656, "arm": "a4_all"}
+{"ep": 2, "success": true, "steps": 94, "calls": 19, "seconds": 36.13198637962341, "arm": "a4_all"}
+{"ep": 3, "success": true, "steps": 100, "calls": 20, "seconds": 39.64430856704712, "arm": "a4_all"}
+{"ep": 4, "success": true, "steps": 100, "calls": 20, "seconds": 38.54844641685486, "arm": "a4_all"}
+{"ep": 5, "success": true, "steps": 135, "calls": 27, "seconds": 52.130589962005615, "arm": "a4_all"}
+{"ep": 6, "success": true, "steps": 133, "calls": 27, "seconds": 51.55896782875061, "arm": "a4_all"}
+{"ep": 7, "success": true, "steps": 105, "calls": 21, "seconds": 42.921714305877686, "arm": "a4_all"}
+{"ep": 8, "success": true, "steps": 143, "calls": 29, "seconds": 59.70104908943176, "arm": "a4_all"}
+{"ep": 9, "success": true, "steps": 90, "calls": 18, "seconds": 35.06779479980469, "arm": "a4_all"}
+{"ep": 10, "success": true, "steps": 130, "calls": 26, "seconds": 48.08192586898804, "arm": "a4_all"}
+{"ep": 11, "success": true, "steps": 96, "calls": 20, "seconds": 39.97234630584717, "arm": "a4_all"}
+{"ep": 12, "success": true, "steps": 138, "calls": 28, "seconds": 52.42483162879944, "arm": "a4_all"}
+{"ep": 13, "success": true, "steps": 145, "calls": 29, "seconds": 56.822903871536255, "arm": "a4_all"}
+{"ep": 14, "success": true, "steps": 136, "calls": 28, "seconds": 52.42781400680542, "arm": "a4_all"}
+{"ep": 15, "success": true, "steps": 100, "calls": 20, "seconds": 38.747724533081055, "arm": "a4_all"}
+{"ep": 16, "success": true, "steps": 132, "calls": 27, "seconds": 50.915162801742554, "arm": "a4_all"}
+{"ep": 17, "success": true, "steps": 96, "calls": 20, "seconds": 41.96490693092346, "arm": "a4_all"}
+{"ep": 18, "success": true, "steps": 146, "calls": 30, "seconds": 58.42309093475342, "arm": "a4_all"}
+{"ep": 19, "success": true, "steps": 96, "calls": 20, "seconds": 43.26613926887512, "arm": "a4_all"}

@@ -1,0 +1,41 @@
+[libero_spatial_t0_r0] round 0: 3235 tok, 15.8s, verify=[817, 10] outcome=reached 
+[libero_spatial_t0_r0] round 1: 336 tok, 1.9s, verify=[58, 7] outcome=reached 
+[libero_spatial_t0_r0] round 2: 381 tok, 2.7s, verify=[86, 9] outcome=reached 
+[libero_spatial_t0_r0] round 3: 489 tok, 3.5s, verify=[122, 8] outcome=reached 
+[libero_spatial_t0_r0] round 4: 2146 tok, 13.2s, verify=[619, 10] outcome=reached 
+[libero_spatial_t0_r0] round 5: 1613 tok, 10.5s, verify=[461, 12] outcome=stopped 
+[libero_spatial_t0_r0] round 6: 424 tok, 3.7s, verify=[89, 8] outcome=stopped 
+[libero_spatial_t0_r0] round 7: 454 tok, 4.6s, verify=[112, 9] outcome=done 
+{'episode': 'libero_spatial_t0_r0', 'rounds': 8, 'end_reason': 'env', 'success': True, 'steps': 110, 'tokens': 9078}
+[libero_spatial_t2_r0] round 0: 1556 tok, 7.0s, verify=[349, 10] outcome=reached 
+[libero_spatial_t2_r0] round 1: 322 tok, 1.9s, verify=[57, 8] outcome=reached 
+[libero_spatial_t2_r0] round 2: 236 tok, 1.9s, verify=[43, 8] outcome=reached 
+[libero_spatial_t2_r0] round 3: 344 tok, 2.5s, verify=[70, 9] outcome=reached 
+[libero_spatial_t2_r0] round 4: 351 tok, 3.2s, verify=[101, 8] outcome=reached 
+[libero_spatial_t2_r0] round 5: 1106 tok, 7.5s, verify=[325, 8] outcome=reached 
+[libero_spatial_t2_r0] round 6: 802 tok, 5.4s, verify=[202, 8] outcome=reached 
+[libero_spatial_t2_r0] round 7: 268 tok, 2.7s, verify=[40, 9] outcome=stopped 
+[libero_spatial_t2_r0] round 8: 220 tok, 2.6s, verify=[28, 8] outcome=reached 
+Traceback (most recent call last):
+  File "/workspace/run_episodes.py", line 219, in <module>
+    main()
+  File "/workspace/run_episodes.py", line 215, in main
+    print(run_episode(args, suite, int(task), int(trial), tmpl, think_end_id), flush=True)
+  File "/workspace/run_episodes.py", line 134, in run_episode
+    out_a, wall_a = generate(args.url, text, images,
+  File "/workspace/run_episodes.py", line 89, in generate
+    with urllib.request.urlopen(req, timeout=3600) as r:
+  File "/usr/lib/python3.10/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+  File "/usr/lib/python3.10/urllib/request.py", line 525, in open
+    response = meth(req, response)
+  File "/usr/lib/python3.10/urllib/request.py", line 634, in http_response
+    response = self.parent.error(
+  File "/usr/lib/python3.10/urllib/request.py", line 563, in error
+    return self._call_chain(*args)
+  File "/usr/lib/python3.10/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+  File "/usr/lib/python3.10/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+RUN_DONE

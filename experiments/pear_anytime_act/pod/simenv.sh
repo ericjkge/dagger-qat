@@ -1,0 +1,4 @@
+export LIBERO_CONFIG_PATH=/workspace/sim/etc/libero PYTHONPATH=/workspace/pear USER=root \
+  XDG_RUNTIME_DIR=/tmp/xdg_root __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json \
+  GALLIUM_DRIVER=llvmpipe LIBGL_ALWAYS_SOFTWARE=1 LP_NUM_THREADS=4 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+  OPENBLAS_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=""

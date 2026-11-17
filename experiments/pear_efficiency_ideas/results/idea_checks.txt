@@ -1,0 +1,15 @@
+== 1. Adaptive effort: how much of reasoning length is predictable from the context? ==
+  12 contexts x 9 samples, log length: between-context share of variance = 0.75, within-context (sampling noise) = 0.25
+  across 170 rounds, R^2 of log length explained by previous action type: 0.14
+  across 170 rounds, R^2 of log length explained by previous outcome: 0.11
+  across 170 rounds, R^2 of log length explained by both: 0.20
+  median thinking tokens by previous action type: {'descend': 407, 'first': 3346, 'gripper': 2089, 'rotate': 2999, 'translate': 666}
+== 3. Thinking while the arm moves: motion time vs reasoning time per round ==
+  physical motion per round: mean 0.71 s, median 0.65 s (env steps / 20 Hz)
+  reasoning per round at PEAR GB300 speed (747 tok/s): mean 2.80 s; at RTX 5090 (221 tok/s): 9.45 s
+  max round-time saved by perfect overlap (GB300): 20.2%
+  max round-time saved by perfect overlap (RTX 5090): 7.0%
+== 4. Context buildup: what fills the context ==
+  per-round additions: thinking 78.5%, images 19.2%, answer+action 2.3%; initial prompt ~1037.5 tok
+  long episode libero_10_t2_r0: 27 rounds, thinking 68384 tok, non-thinking adds ~16200 tok
+  long episode libero_goal_t0_r0: 26 rounds, thinking 137375 tok, non-thinking adds ~15600 tok

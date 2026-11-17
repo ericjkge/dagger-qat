@@ -1,0 +1,14 @@
+{
+ "url": "http://127.0.0.1:30000",
+ "model_dir": "/workspace/models/pear",
+ "out": "/workspace/results/dflash2_main",
+ "episodes": "libero_goal:2:0,libero_10:0:0,libero_10:2:0",
+ "effort": "xhigh",
+ "split": 1,
+ "max_rounds": 30,
+ "response_budget": 256000,
+ "context_len": 262144,
+ "turn_margin": 4096,
+ "think_end_id": 248069,
+ "time": 1794701756.0262368
+}

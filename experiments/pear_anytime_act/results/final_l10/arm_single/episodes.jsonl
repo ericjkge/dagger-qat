@@ -1,0 +1,15 @@
+{"episode": "libero_10_t1_r1", "rule": "consensus", "rounds": 19, "end_reason": "env", "success": true, "steps": 273, "tokens": 11006, "wall_s": 1177.6}
+{"episode": "libero_10_t2_r1", "rule": "consensus", "rounds": 16, "end_reason": "env", "success": true, "steps": 241, "tokens": 18602, "wall_s": 1963.7}
+{"episode": "libero_10_t0_r1", "rule": "consensus", "rounds": 22, "end_reason": "env", "success": true, "steps": 302, "tokens": 15068, "wall_s": 2110.9}
+{"episode": "libero_10_t3_r1", "rule": "consensus", "rounds": 30, "end_reason": "max_rounds", "success": false, "steps": 328, "tokens": 130069, "wall_s": 10877.3}
+{"episode": "libero_10_t4_r1", "rule": "consensus", "rounds": 30, "end_reason": "max_rounds", "success": false, "steps": 281, "tokens": 92908, "wall_s": 11236.3}
+{"episode": "libero_10_t4_r0", "rule": "consensus", "rounds": 19, "end_reason": "env", "success": true, "steps": 239, "tokens": 21238, "wall_s": 1546.2}
+{"episode": "libero_10_t1_r0", "rule": "consensus", "rounds": 20, "end_reason": "env", "success": true, "steps": 246, "tokens": 25491, "wall_s": 1947.9}
+{"episode": "libero_10_t7_r0", "rule": "consensus", "rounds": 19, "end_reason": "env", "success": true, "steps": 262, "tokens": 19606, "wall_s": 4494.0}
+{"episode": "libero_10_t0_r0", "rule": "consensus", "rounds": 30, "end_reason": "max_rounds", "success": false, "steps": 491, "tokens": 54944, "wall_s": 6528.0}
+{"episode": "libero_10_t2_r0", "rule": "consensus", "rounds": 30, "end_reason": "max_rounds", "success": false, "steps": 366, "tokens": 89632, "wall_s": 6947.3}
+{"episode": "libero_10_t6_r0", "rule": "consensus", "rounds": 21, "end_reason": "env", "success": true, "steps": 249, "tokens": 43802, "wall_s": 5387.1}
+{"episode": "libero_10_t3_r0", "rule": "consensus", "rounds": 29, "end_reason": "parse", "success": false, "steps": 282, "tokens": 160000, "wall_s": 9416.6}
+{"episode": "libero_10_t5_r0", "rule": "consensus", "rounds": 28, "end_reason": "parse", "success": false, "steps": 319, "tokens": 160000, "wall_s": 9799.6}
+{"episode": "libero_10_t8_r0", "rule": "consensus", "rounds": 30, "end_reason": "max_rounds", "success": false, "steps": 515, "tokens": 118563, "wall_s": 6366.4}
+{"episode": "libero_10_t9_r0", "rule": "consensus", "rounds": 30, "end_reason": "max_rounds", "success": false, "steps": 312, "tokens": 144809, "wall_s": 8155.9}

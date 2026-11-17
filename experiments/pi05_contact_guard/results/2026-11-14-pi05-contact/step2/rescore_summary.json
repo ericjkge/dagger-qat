@@ -1,0 +1,218 @@
+{
+ "a4_all/q/transition": {
+  "n": 204,
+  "miss": 0.0735,
+  "extra": 0.0343,
+  "shifted": 0.3873,
+  "delay": 0.2696,
+  "advance": 0.1422,
+  "mean_nonzero_dt": 0.653
+ },
+ "a4_all/q/pre_contact": {
+  "n": 260,
+  "miss": 0.0385,
+  "extra": 0.0385,
+  "shifted": 0.1692,
+  "delay": 0.0885,
+  "advance": 0.0885,
+  "mean_nonzero_dt": 0.018
+ },
+ "a4_all/q/all": {
+  "n": 464,
+  "miss": 0.0539,
+  "extra": 0.0366,
+  "shifted": 0.2651,
+  "delay": 0.1681,
+  "advance": 0.1121,
+  "mean_nonzero_dt": 0.424
+ },
+ "a4_all/rand/transition": {
+  "n": 204,
+  "miss": 0.0588,
+  "extra": 0.0392,
+  "shifted": 0.3431,
+  "delay": 0.1618,
+  "advance": 0.2108,
+  "mean_nonzero_dt": -0.146
+ },
+ "a4_all/rand/pre_contact": {
+  "n": 260,
+  "miss": 0.0269,
+  "extra": 0.05,
+  "shifted": 0.15,
+  "delay": 0.0692,
+  "advance": 0.0962,
+  "mean_nonzero_dt": -0.404
+ },
+ "a4_all/rand/all": {
+  "n": 464,
+  "miss": 0.0409,
+  "extra": 0.0453,
+  "shifted": 0.2349,
+  "delay": 0.1099,
+  "advance": 0.1466,
+  "mean_nonzero_dt": -0.24
+ },
+ "a4_down/q/transition": {
+  "n": 204,
+  "miss": 0.0637,
+  "extra": 0.0294,
+  "shifted": 0.4069,
+  "delay": 0.2794,
+  "advance": 0.1765,
+  "mean_nonzero_dt": 0.678
+ },
+ "a4_down/q/pre_contact": {
+  "n": 260,
+  "miss": 0.0231,
+  "extra": 0.0385,
+  "shifted": 0.1385,
+  "delay": 0.0846,
+  "advance": 0.0692,
+  "mean_nonzero_dt": 0.34
+ },
+ "a4_down/q/all": {
+  "n": 464,
+  "miss": 0.0409,
+  "extra": 0.0345,
+  "shifted": 0.2565,
+  "delay": 0.1703,
+  "advance": 0.1164,
+  "mean_nonzero_dt": 0.576
+ },
+ "a4_down/rand/transition": {
+  "n": 204,
+  "miss": 0.0588,
+  "extra": 0.0343,
+  "shifted": 0.3382,
+  "delay": 0.1765,
+  "advance": 0.1912,
+  "mean_nonzero_dt": -0.095
+ },
+ "a4_down/rand/pre_contact": {
+  "n": 260,
+  "miss": 0.0346,
+  "extra": 0.0462,
+  "shifted": 0.1269,
+  "delay": 0.0769,
+  "advance": 0.0538,
+  "mean_nonzero_dt": 0.135
+ },
+ "a4_down/rand/all": {
+  "n": 464,
+  "miss": 0.0453,
+  "extra": 0.0409,
+  "shifted": 0.2198,
+  "delay": 0.1207,
+  "advance": 0.1142,
+  "mean_nonzero_dt": -0.025
+ },
+ "a4_nodown/q/transition": {
+  "n": 204,
+  "miss": 0.0441,
+  "extra": 0.0343,
+  "shifted": 0.2402,
+  "delay": 0.1471,
+  "advance": 0.0931,
+  "mean_nonzero_dt": 0.167
+ },
+ "a4_nodown/q/pre_contact": {
+  "n": 260,
+  "miss": 0.0269,
+  "extra": 0.05,
+  "shifted": 0.1038,
+  "delay": 0.0423,
+  "advance": 0.0615,
+  "mean_nonzero_dt": -0.714
+ },
+ "a4_nodown/q/all": {
+  "n": 464,
+  "miss": 0.0345,
+  "extra": 0.0431,
+  "shifted": 0.1638,
+  "delay": 0.0884,
+  "advance": 0.0754,
+  "mean_nonzero_dt": -0.18
+ },
+ "a4_nodown/rand/transition": {
+  "n": 204,
+  "miss": 0.0441,
+  "extra": 0.0147,
+  "shifted": 0.2108,
+  "delay": 0.1225,
+  "advance": 0.1127,
+  "mean_nonzero_dt": -0.019
+ },
+ "a4_nodown/rand/pre_contact": {
+  "n": 260,
+  "miss": 0.0308,
+  "extra": 0.05,
+  "shifted": 0.1038,
+  "delay": 0.0538,
+  "advance": 0.0615,
+  "mean_nonzero_dt": -0.133
+ },
+ "a4_nodown/rand/all": {
+  "n": 464,
+  "miss": 0.0366,
+  "extra": 0.0345,
+  "shifted": 0.1509,
+  "delay": 0.0841,
+  "advance": 0.0841,
+  "mean_nonzero_dt": -0.06
+ },
+ "a8_all/q/transition": {
+  "n": 204,
+  "miss": 0.0147,
+  "extra": 0.0147,
+  "shifted": 0.0931,
+  "delay": 0.0343,
+  "advance": 0.0588,
+  "mean_nonzero_dt": -0.4
+ },
+ "a8_all/q/pre_contact": {
+  "n": 260,
+  "miss": 0.0154,
+  "extra": 0.0077,
+  "shifted": 0.0346,
+  "delay": 0.0154,
+  "advance": 0.0192,
+  "mean_nonzero_dt": -0.2
+ },
+ "a8_all/q/all": {
+  "n": 464,
+  "miss": 0.0151,
+  "extra": 0.0108,
+  "shifted": 0.0603,
+  "delay": 0.0237,
+  "advance": 0.0366,
+  "mean_nonzero_dt": -0.333
+ },
+ "a8_all/rand/transition": {
+  "n": 204,
+  "miss": 0.0294,
+  "extra": 0.0196,
+  "shifted": 0.1029,
+  "delay": 0.0588,
+  "advance": 0.0539,
+  "mean_nonzero_dt": 0.174
+ },
+ "a8_all/rand/pre_contact": {
+  "n": 260,
+  "miss": 0.0115,
+  "extra": 0.0077,
+  "shifted": 0.0385,
+  "delay": 0.0231,
+  "advance": 0.0154,
+  "mean_nonzero_dt": 0.3
+ },
+ "a8_all/rand/all": {
+  "n": 464,
+  "miss": 0.0194,
+  "extra": 0.0129,
+  "shifted": 0.0668,
+  "delay": 0.0388,
+  "advance": 0.0323,
+  "mean_nonzero_dt": 0.212
+ }
+}

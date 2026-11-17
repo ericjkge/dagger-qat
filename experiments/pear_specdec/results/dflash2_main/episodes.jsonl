@@ -1,0 +1,14 @@
+{"episode": "libero_spatial_t0_r0", "rounds": 8, "end_reason": "env", "success": true, "steps": 110, "tokens": 9078}
+{"episode": "libero_spatial_t2_r0", "rounds": 9, "end_reason": "env", "success": true, "steps": 107, "tokens": 6709}
+{"episode": "libero_spatial_t4_r0", "rounds": 10, "end_reason": "env", "success": false, "steps": 220, "tokens": 22640}
+{"episode": "libero_spatial_t6_r0", "rounds": 10, "end_reason": "env", "success": true, "steps": 148, "tokens": 12583}
+{"episode": "libero_spatial_t8_r0", "rounds": 8, "end_reason": "env", "success": true, "steps": 113, "tokens": 20763}
+{"episode": "libero_object_t0_r0", "rounds": 9, "end_reason": "env", "success": true, "steps": 167, "tokens": 11461}
+{"episode": "libero_object_t2_r0", "rounds": 9, "end_reason": "env", "success": true, "steps": 118, "tokens": 6186}
+{"episode": "libero_object_t4_r0", "rounds": 9, "end_reason": "env", "success": true, "steps": 143, "tokens": 6414}
+{"episode": "libero_object_t6_r0", "rounds": 11, "end_reason": "env", "success": true, "steps": 130, "tokens": 9137}
+{"episode": "libero_object_t8_r0", "rounds": 10, "end_reason": "env", "success": true, "steps": 128, "tokens": 7809}
+{"episode": "libero_goal_t0_r0", "rounds": 26, "end_reason": "parse", "success": false, "steps": 232, "tokens": 183908}
+{"episode": "libero_goal_t2_r0", "rounds": 7, "end_reason": "env", "success": true, "steps": 130, "tokens": 17816}
+{"episode": "libero_10_t0_r0", "rounds": 18, "end_reason": "env", "success": true, "steps": 289, "tokens": 25720}
+{"episode": "libero_10_t2_r0", "rounds": 27, "end_reason": "env", "success": true, "steps": 375, "tokens": 70293}

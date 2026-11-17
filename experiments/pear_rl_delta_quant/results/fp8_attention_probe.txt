@@ -1,0 +1,2 @@
+model.language_model.layers.10.linear_attn.in_proj_qkv ckpt match 0.967 rel|D| 0.0009 rel|E| 0.0268 SNR 0.035 crossing 0.0375 cos 0.261 proj 1.022 noise/|D| 3.78
+model.language_model.layers.11.self_attn.q_proj ckpt match 0.975 rel|D| 0.0009 rel|E| 0.0267 SNR 0.033 crossing 0.0365 cos 0.267 proj 1.000 noise/|D| 3.60

@@ -1,0 +1,20 @@
+until grep -q BENCH_DONE /workspace/logs/bench_all.log; do sleep 10; done
+CUDA_VISIBLE_DEVICES=0 setsid /workspace/serve.sh tiecheck < /dev/null &
+until curl -s -m 3 127.0.0.1:30000/get_model_info | grep -q model_path; do grep -q kill_process_tree /workspace/logs/server_tiecheck.log 2>/dev/null && { echo TIE_SERVER_FAILED; exit 1; }; sleep 6; done
+. /workspace/simenv.sh; cd /workspace
+sim/bin/python tie_check.py --out /workspace/results/bench/tie_check.json 2>&1 | grep -v -i "warn\|gym\|task orders"
+pkill -f "[s]glang.launch_server"
+echo TIE_DONE
+until grep -q "libero_goal_t0_r0.*end_reason" /workspace/logs/run_main2.log; do sleep 10; done
+pkill -f "[r]un_main.sh"; pkill -f "[r]un_episodes.py"; sleep 3
+. /workspace/simenv.sh; export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+cd /workspace; sim/bin/python run_episodes.py --out /workspace/results/dflash2_main --max-rounds 30 --episodes libero_goal:2:0,libero_10:0:0,libero_10:2:0 2>&1 | grep --line-buffered -v -i "warning\|gym\|task orders"
+echo RUN_DONE
+. /workspace/simenv.sh; export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+cd /workspace
+until curl -s -m 3 127.0.0.1:30000/get_model_info | grep -q model_path; do sleep 5; done
+sim/bin/python run_episodes.py --out /workspace/results/dflash2_main --episodes libero_spatial:2:0,libero_spatial:4:0,libero_spatial:6:0,libero_spatial:8:0,libero_object:0:0,libero_object:2:0,libero_object:4:0,libero_object:6:0,libero_object:8:0,libero_goal:0:0,libero_goal:2:0,libero_goal:4:0,libero_goal:6:0,libero_goal:8:0,libero_10:0:0,libero_10:2:0,libero_10:4:0,libero_10:6:0,libero_10:8:0 2>&1 | grep --line-buffered -v -i "warning\|gym\|task orders"
+echo RUN_DONE
+0.5.6.post3.dev14779+g747677224 2.14.1+cu130 0.7.4
+f32aa1f7c2ec9c3f45630cc9f8541b3201e8e087
+NVIDIA H200, 575.57.08
