@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "directions/phase-and-action-sensitive.md",
+                "file": "directions/opd.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "phase-and-action-sensitive"
+              "title": "opd"
             }
           }
         ]
@@ -191,8 +191,9 @@
   },
   "active": "13b63466138f77fc",
   "lastOpenFiles": [
-    "directions/on-policy-distillation.md",
     "directions/phase-and-action-sensitive.md",
+    "directions/opd.md",
+    "directions/on-policy-distillation.md",
     "dashboard/phase-and-action-sensitive.md",
     "dashboard",
     "directions/Untitled.md",
