@@ -11,6 +11,9 @@ defaults:
   - training
   - _self_
 
+# a model file's chat template for the policy (configs/models): the students use the teacher's
+chat_template_file: null
+
 algorithm:
   filter_groups:
     enable: false  # DAPO's filter drops groups without reward variance: with no task reward it would drop them all

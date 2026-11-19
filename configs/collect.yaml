@@ -9,5 +9,8 @@ defaults:
   - embodied
   - _self_
 
+# a model file's chat template for the policy (configs/models): the students use the teacher's
+chat_template_file: null
+
 collect:
   out_dir: ${run_dir}/episodes  # one <uid>.pt per successful episode (opd.collect)

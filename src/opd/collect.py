@@ -14,7 +14,7 @@ from pear.trainer.config import RunConfig
 from pear.trainer.runner import PearTaskRunner
 from verl.trainer.main_ppo import run_ppo
 
-from opd import CONFIGS
+from opd import CONFIGS, use_chat_template_file
 
 FIELDS = ["prompts", "responses", "response_mask", "multi_modal_data"]
 
@@ -63,6 +63,7 @@ class CollectionRunner(PearTaskRunner):
 
 @hydra.main(config_path=CONFIGS, config_name="collect", version_base=None)
 def main(config: DictConfig) -> None:
+    use_chat_template_file(config)
     RunConfig(config).prepare()
     run_ppo(config, task_runner_class=CollectionRunner)
 

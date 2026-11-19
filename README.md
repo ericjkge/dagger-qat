@@ -14,7 +14,9 @@ can keep the teacher's success at a fraction of its time per episode. Training o
 distillation) avoids the compounding errors of imitating teacher trajectories alone.
 
 - **Teacher:** [Qwen3.8-27B-PEAR-LIBERO_only](https://huggingface.co/mit-han-lab/Qwen3.8-27B-PEAR-LIBERO_only)
-- **Students:** [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) and [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B)
+- **Students:** [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) and [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B). They share the teacher's tokenizer and
+  use its chat template, so student and teacher see every episode in the same layout: the same reasoning-effort
+  instruction, and every round's reasoning kept in the context.
 - **Benchmarks:** LIBERO (2,000 episodes: 4 suites × 10 tasks × 50 initial states), LIBERO-Pro and LIBERO-Plus
 
 ## Pipeline

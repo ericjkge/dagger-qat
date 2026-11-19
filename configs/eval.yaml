@@ -9,3 +9,6 @@ hydra:
 defaults:
   - embodied
   - _self_
+
+# a model file's chat template for the policy (configs/models): the students use the teacher's
+chat_template_file: null
