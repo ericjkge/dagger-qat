@@ -21,6 +21,23 @@ Next, we want to have an SFT-only baseline to demonstrate that on-policy distill
 
 **Our method.** This is my main contribution and focus on this project. Our on-policy distillation method will utilize the following algorithm:
 
+Algorithm.
+- Input:
+  - the SFT student $\pi_{\theta_0}$;
+  - the frozen teacher $\pi_{\text{teacher}}$;
+  - LIBERO's episodes $\mathcal{D}$ (task × initial state);
+  - batch size $B$, number of steps $K$, evaluation interval $N = 10$.
+- For $k = 0, \dots, K-1$:
+  a. Rollout: sample $B$ episodes from $\mathcal{D}$ and run $\pi_{\theta_k}$ on each in LIBERO. Record each token sequence $x$, its generated positions $\mathcal{G}(x)$, and $\log \pi_{\theta_k}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
+  b. Teacher prefill: run one forward pass of $\pi_{\text{teacher}}$ over each $x$, with the same tokens and no generation. This gives $\log \pi_{\text{teacher}}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
+  c. Advantages: compute $A_t$ as above for every generated token.
+  d. Update: take one gradient step on the policy-gradient loss, averaged over all generated tokens in the batch:
+     $$
+     \ell(\theta) = -\frac{1}{\sum_{x}|\mathcal{G}(x)|}\sum_{x}\sum_{t \in \mathcal{G}(x)} A_t ,\log \pi_\theta(x_t \mid x_{<t})
+     $$
+  e. Evaluate: if $(k+1) \bmod N = 0$, measure the success rate on validation episodes.
+- Output: $\pi_{\theta_K}$.
+
 
 
 Step 4: On-policy distillation
