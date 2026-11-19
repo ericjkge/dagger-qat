@@ -23,33 +23,22 @@ Next, we want to have an SFT-only baseline to demonstrate that on-policy distill
 
 Algorithm.
 - Input:
-  - the SFT student $\pi_{\theta_0}$;
+  - the student $\pi_{\theta_0}$;
   - the frozen teacher $\pi_{\text{teacher}}$;
   - LIBERO's episodes $\mathcal{D}$ (task × initial state);
   - batch size $B$, number of steps $K$, evaluation interval $N = 10$.
 - For $k = 0, \dots, K-1$:
-  a. Rollout: sample $B$ episodes from $\mathcal{D}$ and run $\pi_{\theta_k}$ on each in LIBERO. Record each token sequence $x$, its generated positions $\mathcal{G}(x)$, and $\log \pi_{\theta_k}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
-  b. Teacher prefill: run one forward pass of $\pi_{\text{teacher}}$ over each $x$, with the same tokens and no generation. This gives $\log \pi_{\text{teacher}}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
-  c. Advantages: compute $A_t$ as above for every generated token.
-  d. Update: take one gradient step on the policy-gradient loss, averaged over all generated tokens in the batch:
+	  a. Rollout: sample $B$ episodes from $\mathcal{D}$ and run $\pi_{\theta_k}$ on each in LIBERO. Record each token sequence $x$, its generated positions $\mathcal{G}(x)$, and $\log \pi_{\theta_k}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
+	  b. Teacher prefill: run one forward pass of $\pi_{\text{teacher}}$ over each $x$, with the same tokens and no generation. This gives $\log \pi_{\text{teacher}}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
+	  c. Advantages: compute $A_t$ as above for every generated token.
+	  d. Update: take one gradient step on the policy-gradient loss, averaged over all generated tokens in the batch:
      $$
      \ell(\theta) = -\frac{1}{\sum_{x}|\mathcal{G}(x)|}\sum_{x}\sum_{t \in \mathcal{G}(x)} A_t ,\log \pi_\theta(x_t \mid x_{<t})
      $$
   e. Evaluate: if $(k+1) \bmod N = 0$, measure the success rate on validation episodes.
 - Output: $\pi_{\theta_K}$.
 
-
-
-Step 4: On-policy distillation
-- Start from SFT checkpoint
-- Each step:
-	- The student runs LIBERO episodes.
-	- The teacher prefills those episodes and gives a log-prob for each student token.
-	- The per-token advantage is reverse KL loss, with no task reward.
-	- Do one update.
-- Evaluate every N=10 steps.
-$$
-\mathrm{KL}\left(\pi_\theta \,\|\, \pi_{\text{teacher}}\right) = \mathbb{E}_{x \sim \pi_\theta}\left[\log \pi_\theta(x_{t+1} \mid x_{1..t}) - \log \pi_{\text{teacher}}(x_{t+1} \mid x_{1..t})\right] $$
+I want to try using the SFT checkpoint as a student, as well as a untuned 
 
 Our final evaluation will use LIBERO (2000 episodes) with the same metrics and setup from the baseline evals. To assess generalization ability of the students, we will perform the following (with $\approx$ 10 epidoes per task for each perturbation):
 - LIBERO-Pro task perturbation (teacher: 57.4%)
