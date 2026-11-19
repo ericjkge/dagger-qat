@@ -8,7 +8,7 @@ status: active
 
 Here is a very rough baseline of the pipeline we plan to carry out for this project.
 
-Setup:
+**Setup.** 
 
 - Teacher: Qwen3.8-27B-PEAR-LIBERO_only (final checkpoint is mainly for real-world deployment and has no paper results)
     
