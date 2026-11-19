@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Step 2: SFT of a student on the collected episodes, on the GPUs of this machine.
-#   WORK_DIR=... MODEL=<student dir> EPISODES_DIR=<collect run>/episodes RUN=<run dir> [NGPUS=8] bash scripts/sft.sh
+# Step 2: SFT of a student on the collected episodes, on the GPUs of this machine (no Ray).
+#   MODEL=<student dir> EPISODES_DIR=<collect run>/episodes RUN=<run dir> bash scripts/sft.sh [overrides]
 source "$(dirname "$0")/common.sh"
 
 MODEL=${MODEL:?the student model directory}
@@ -11,7 +11,7 @@ mkdir -p "$RUN"
 # shellcheck source=/dev/null
 source "$PEAR/scripts/gpu_process_variables.sh" "$VERL_ENV"
 export PYTHONPATH=$PYTHON_PATH
-torchrun --standalone --nproc_per_node="${NGPUS:-8}" -m opd.sft \
+torchrun --standalone --nproc_per_node="${NGPUS:-$(nvidia-smi -L | wc -l)}" -m opd.sft \
   data.train_files="$EPISODES_DIR" \
   model.path="$MODEL" \
   trainer.default_local_dir="$RUN/ckpt" \

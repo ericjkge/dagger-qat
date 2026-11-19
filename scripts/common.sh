@@ -35,7 +35,7 @@ replace_args() {
 # MODEL_FILE), the rollout replicas and the Ray workers' environment. Reads GPU, RUN, ROLLOUT_NNODES, MODEL_FILE, MODEL
 # and the optional BENCH (libero | libero_plus | libero_pro), EPISODES, VAL_EPISODES, MAX_PROMPT, MAX_RESPONSE.
 pear_args() {
-  GPU=${GPU:?h100 | gb300 | o2}  # o2: HMS O2's A100 and L40S machines (configs/hardware/o2.sh)
+  GPU=${GPU:-generic}  # h100 | gb300: PEAR's own recipes; otherwise a profile of configs/hardware
   RUN=$(readlink -m "${RUN:?the run directory}")
   ROLLOUT_NNODES=${ROLLOUT_NNODES:?the Ray machines started as rollout}
   MODEL_FILE=${MODEL_FILE:?a file of configs/models}
@@ -64,7 +64,7 @@ pear_args() {
     # shellcheck source=/dev/null
     source "$ROOT/configs/hardware/$GPU.sh"
   fi
-  # on one machine the roles split its GPUs (scripts/slurm.sbatch)
+  # on one machine the roles split its GPUs (scripts/ray_node.sh)
   ROLLOUT_GPUS=${ROLLOUT_GPUS:-$GPUS_PER_NODE}
 
   local env_var=+ray_kwargs.ray_init.runtime_env.env_vars

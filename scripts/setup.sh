@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-time install on a GPU machine: PEAR's environments under WORK_DIR (verl, LIBERO and its perturbed variants,
+# One-time install, on a GPU machine: PEAR's environments under WORK_DIR (verl, LIBERO and its perturbed variants,
 # Mesa), then the teacher's and the students' weights at their pinned revisions.
 #   WORK_DIR=<a directory every node sees> bash scripts/setup.sh
 source "$(dirname "$0")/common.sh"

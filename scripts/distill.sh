@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Step 3: on-policy distillation of a student from its SFT checkpoint. Runs on the Ray head of a cluster with trainer,
-# rollout and teacher machines.
-#   WORK_DIR=... GPU=h100 TRAINER_NNODES=<n> ROLLOUT_NNODES=<n> TEACHER_NNODES=<n> \
-#     MODEL_FILE=configs/models/<student>.sh MODEL=<SFT checkpoint> TEACHER=<teacher dir> RUN=<run dir> \
-#     [STEPS=200] [BATCH=64] bash scripts/distill.sh [overrides]
+# Step 3: on-policy distillation of a student from its SFT checkpoint, on trainer, rollout and teacher machines (or one
+# machine whose GPUs TRAINER_GPUS, ROLLOUT_GPUS and TEACHER_GPUS split).
+#   MODEL_FILE=configs/models/<student>.sh MODEL=<SFT checkpoint> TEACHER=<teacher dir> RUN=<run dir> \
+#     [STEPS=200] [BATCH=64] bash scripts/run.sh scripts/distill.sh [overrides]
 source "$(dirname "$0")/common.sh"
 
 TRAINER_NNODES=${TRAINER_NNODES:?the Ray machines started as trainer}
