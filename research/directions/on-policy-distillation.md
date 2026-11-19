@@ -14,12 +14,11 @@ Here is a very rough baseline of the pipeline we plan to carry out for this proj
 - Infrastructure: PEAR repo (reuse LIBERO environment, prompt format, RL trainer)  
 
 **Workflow.** 
-- Step 1: Baselines
-	- Models: the Qwen3.5-9B and 4B base models. Use the paper’s numbers for the teacher at xhigh (74.4%) and low effort (21.9%)
-	- Evaluation: PEAR’s protocol, 2,000 episodes (40 tasks × 50 initial states).
-- Step 2: Teacher data
-	- Run the teacher on all 4 LIBERO suites.
-	- Keep only successful episodes, up to about 1,000.
+Step 1: Baselines
+- Models: the Qwen3.5-9B and 4B base models. Use the paper’s numbers for the teacher at xhigh (74.4%) and low effort (21.9%)
+- Evaluation: PEAR’s protocol, 2,000 episodes (40 tasks × 50 initial states).
+Step 2: Teacher data
+- Run the teacher on all 4 LIBERO suites.Keep only successful episodes, up to about 1,000.
 	- Save the full multi-round contexts: images, reasoning, and actions.
 - Step 3: SFT
 	- Fine-tune each student on the teacher episodes.
