@@ -19,7 +19,7 @@ We will first derive teacher data by running it on all 4 LIBERO suites, keeping 
 
 Next, we want to have an SFT-only baseline to demonstrate that on-policy distillation outperforms it. We will fine-tune each student on the teacher episodes only using standard SFT, then compute the loss on all generated tokens, using the same context format as at inference. We will evaluate results for this model
 
-**Our method.** This is my main contribution and focus Our on-policy distillation method will utilize the following algorithm:
+**Our method.** This is my main contribution and focus on this project. Our on-policy distillation method will utilize the following algorithm:
 
 
 
