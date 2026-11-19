@@ -38,7 +38,7 @@ Algorithm.
   e. Evaluate: if $(k+1) \bmod N = 0$, measure the success rate on validation episodes.
 - Output: $\pi_{\theta_K}$.
 
-I want to try using the SFT checkpoint as a student, as well as a untuned 
+I want to try using the SFT checkpoint as a student, as well as a untuned student to see whether OPD can perform well without this mid-training step.
 
 Our final evaluation will use LIBERO (2000 episodes) with the same metrics and setup from the baseline evals. To assess generalization ability of the students, we will perform the following (with $\approx$ 10 epidoes per task for each perturbation):
 - LIBERO-Pro task perturbation (teacher: 57.4%)
