@@ -4,15 +4,15 @@ status: active
 ---
 # on-policy-distillation
 
-**Mechanism.** Our goal is to distill the robot-use reasoning modelrecently trained by Song Han's group (https://arxiv.org/pdf/2611.18562) in order to reduce reasoning latency.
+**Mechanism.** Our goal is to use on-policy distillation on the robot-use reasoning model recently trained by Song Han's group (https://arxiv.org/pdf/2611.18562) in order to reduce reasoning latency.
 
 Here is a very rough baseline of the pipeline we plan to carry out for this project.
 
-**Setup.** Our  experimental setup will be as follows:
+**Setup.** Our experimental setup will be as follows:
+- Teacher: Qwen3.8-27B-PEAR-LIBERO_only
+- Student: Qwen3.5-9B, Qwen3.5-4B
 
 - Teacher: Qwen3.8-27B-PEAR-LIBERO_only (final checkpoint is mainly for real-world deployment and has no paper results)
-    
-- Student: Qwen3.5-9B (no smaller/open models between this and 3.8), Qwen3.5-4B (second size)
     
 - Infrastructure: PEAR repo (reuse LIBERO env, prompt format, RL trainer)
     
