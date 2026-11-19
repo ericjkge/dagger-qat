@@ -10,14 +10,18 @@ Here is a very rough baseline of the pipeline we plan to carry out for this proj
 
 **Setup.** Our experimental setup will be as follows:
 - Teacher: Qwen3.8-27B-PEAR-LIBERO_only ($\pi_{\text{teacher}}$)
-- Student: Qwen3.5-9B, Qwen3.5-4B ($\pi_)
+- Student: Qwen3.5-9B, Qwen3.5-4B ($\pi_\theta$)
 - Infrastructure: PEAR repo (reuse LIBERO environment, prompt format, RL trainer)  
 
 **Baselines.** We will evaluate the naive Qwen3.5-9B and 4B base models using PEAR's exact protocol, with 2000 episodes (40 teasks x 50 initial states). For comparisons, we will use the paper's numbers for the teacher at xhigh (74.4%) and low effort (21.9%).
 
-**Workflow.** We will first derive teacher data by running it on all 4 LIBERO suites, keeping only successful episodes (up to around 1000). We will save the full multi-round contexts, including images, reasoning, and actions. 
+We will first derive teacher data by running it on all 4 LIBERO suites, keeping only successful episodes (up to around 1000). We will save the full multi-round contexts, including images, reasoning, and actions. 
 
-Next, we want to fi
+Next, we want to have an SFT-only baseline to demonstrate that on-pocl
+
+**Workflow.** 
+
+Next, we want to fine tune each student on the teacher episodes
 
 Step 3: SFT
 - Fine-tune each student on the teacher episodes.
