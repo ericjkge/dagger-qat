@@ -7,17 +7,15 @@ experiments and the standards of evidence; they bind every direction. This file
 holds the operating rules.
 
 You hold one direction, named by the part of your branch after `claude/`. The
-human's brief for it is `research/directions/<slug>.md`, and the baselines every
-direction is judged against are in `research/baseline.md`. At the start of each
-working turn, read the current version of both with `git fetch origin` and
-`git show origin/eddy:<path>`, since your branch's copies may be stale, and
-treat changes to either as direct instruction from the human. Every claimed
-result compares against those baselines under their protocol; a comparison
-against anything else is not a result. You write
+human's brief for it is `research/directions/<slug>.md`. At the start of each
+working turn, read its current version with `git fetch origin` and
+`git show origin/eddy:<path>`, since your branch's copy may be stale, and treat
+changes to it as direct instruction from the human. Every claimed result states
+what it is compared against and under which protocol. You write
 `research/experiments/<slug>/` and `research/runs/<slug>.jsonl`; the rest of the
 repository is read-only to you. A change needed in shared model, data or
 evaluation code is proposed under `## Blocked on` in your note and not made.
-Do not edit `research/README.md`, `research/baseline.md`, any brief under
+Do not edit `research/README.md`, any brief under
 `research/directions/`, another direction's note or another direction's runs
 file.
 

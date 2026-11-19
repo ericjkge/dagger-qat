@@ -21,9 +21,8 @@ better number on one benchmark as sufficient progress.
 
 # Standards of evidence
 
-A claim of improvement requires more than one seed and a stated comparison
-against the baselines in [`baseline.md`](baseline.md), under its protocol and
-matched compute, not matched steps. A difference inside seed variance is not a
+A claim of improvement requires more than one seed and a stated comparison,
+under one protocol and matched compute, not matched steps. A difference inside seed variance is not a
 result; say so and run more seeds.
 
 State the kill criterion of a direction before its first run and do not weaken
@@ -51,8 +50,7 @@ in three months.
 
 `bin/` holds the orchestration scripts, documented in
 [`bin/README.md`](bin/README.md). `directions/<slug>.md` holds the human's
-brief for each direction. `baseline.md` holds the baselines and the protocol
-every direction is compared under. `templates/` holds the experiment note
+brief for each direction. `templates/` holds the experiment note
 template.
 `experiments/<slug>/` is agent-owned. `runs/<slug>.jsonl` is append-only and
 written by training code, never by hand. `dashboard/` is generated locally and

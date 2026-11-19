@@ -114,7 +114,7 @@ Refresh at once with `python research\bin\sync.py`; remove it with
 | You want to | Do |
 |---|---|
 | Check on everything | The Obsidian dashboard |
-| Redirect an agent | Edit its brief, `research/CLAUDE.md`, `README.md` or `baseline.md` in Obsidian; at its next prompt a hook shows the agent the diff since it last looked |
+| Redirect an agent | Edit its brief, `research/CLAUDE.md`, or `README.md` in Obsidian; at its next prompt a hook shows the agent the diff since it last looked |
 | Push a change in `eddy` to all running agents | On O2: `research/bin/redirect` merges `origin/eddy` and re-reads the rules; `research/bin/redirect "<message>"` sends anything else |
 | Talk to an agent or edit its code | A work session, above |
 | Start a direction | Write `research/directions/<slug>.md` with `status: active`; the host starts it within 5 minutes |
