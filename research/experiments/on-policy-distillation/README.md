@@ -58,6 +58,13 @@ The 4B student is reported alongside the 9B student but does not decide the dire
 - The suite passes, 70/70 with no warnings (job 60178211), on `main` 3871b03.
 - **2026-11-19, brief rewritten as prose:** setup with π_teacher and π_θ, base-model baselines, teacher data, an SFT-only baseline, the method with the reverse-KL formula (k1, as in `configs/step/distill.yaml`), and generalization evaluation. The "Our method" section is still being written.
 - **2026-11-19, brief:** "Our method" now holds the formal algorithm and is named the project's main contribution. A new ablation: on-policy distillation from the untuned base student as well as from the SFT checkpoint, to test whether the SFT warm start is needed. This needs no code: `scripts/distill.sh` with `MODEL=` set to the base model.
+- **2026-11-19, human:** run a short GPU smoke test; keep the code clean; this is a shared codebase.
+  - Raised `research/bin/submit` to one GPU machine per job (4 GPUs, 192 GB; origin/eddy defa9d4), per the earlier instruction to lift compute limits while staying fair to priority.
+  - `smoke/` holds the jobs. Each runs `main`'s code cloned on scratch at a pinned commit.
+    - `probe.sbatch` (60181075): driver, compute capability, network.
+    - `setup.sbatch` (60181101): `scripts/setup.sh` at 2dec0ee. Header: gpu / l40s:1 / 16 CPU / 64G / 12h. It installs PEAR's verl environment built for CUDA arch 8.0 and 8.9, LIBERO, and Qwen3.5-4B, then runs PEAR's checks.
+    - `eval.sbatch`: 4 episodes, eval then collect with the 4B, then `check.py`.
+  - The `setup.sh` fix (2dec0ee, not yet on `main`): it stops calling PEAR's `libero_run`, which downloads PEAR's 27B base model.
 - Correction: PEAR's continuous-token context keeps every round's reasoning under either chat template. The teacher's template matters for its reasoning-effort system instruction.
 - **2026-11-19, human:** removed `research/baseline.md` and the baseline requirement (origin/eddy 90000b2). Comparisons are stated per result.
 - **Tokenizer check (jobs 60171018, 60171577):** a 15-minute CPU job, `tokenizer_check/check.py`; two records in `runs/on-policy-distillation.jsonl`.
