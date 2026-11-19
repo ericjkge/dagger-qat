@@ -4,4 +4,4 @@ status: active
 ---
 # on-policy-distillation
 
-**Mechanism.** I want to build a 
+**Mechanism.** I will fill this in soon. This is just a placeholder note for now. 
