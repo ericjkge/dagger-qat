@@ -48,6 +48,14 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - `configs/hardware/generic.sh` covers any CUDA GPU; `GPU=h100` and `GPU=gb300` keep PEAR's tuned recipes.
   - The O2-specific `slurm.sbatch` is gone.
   - Target clusters: HMS O2 (A100, L40S, so `GPU=generic`) and Kempner on Cannon (H100, so `GPU=h100`). Both are reached through `sbatch [site flags] scripts/run.sh <step>`.
+- **2026-11-19, brief edited (origin/eddy):** reworded the brief into Setup and Workflow sections; the teacher, students and steps are unchanged.
+  - "Step 1: Baselines" (base Qwen3.5-9B/4B under PEAR's protocol) is still in the brief. In the repo that is `scripts/eval.sh` on a base student; there is no separate step.
+- **2026-11-19, human:** asked for clean, reproducible code checked by rigorous tests, plus a `requirements.txt`. The CPU test suite (`repo_tests/run.sbatch` builds a fresh environment from `requirements.txt`) found three pipeline bugs:
+  1. `distill.sh` failed to parse: an apostrophe inside `${VAR:?message}`.
+  2. Hydra refused PEAR's configs as defaults of ours, because they set `hydra.searchpath`. The steps are now overlays (`configs/step/*.yaml`, `+step=<step>`) on PEAR's/verl's configs as the top-level config.
+  3. Generic hardware inherited H100's 8 GPUs per node and 8-way sequence parallelism.
+- Collection now saves the rollout's own stored tensors (`input_ids`, `position_ids`, `loss_mask`, `multi_modal_inputs`), because verl's transfer queue does not keep raw images. This also removes a wrong Qwen2-VL rotary-position recomputation.
+- Correction: PEAR's continuous-token context keeps every round's reasoning under either chat template. The teacher's template matters for its reasoning-effort system instruction.
 - **2026-11-19, human:** removed `research/baseline.md` and the baseline requirement (origin/eddy 90000b2). Comparisons are stated per result.
 - **Tokenizer check (jobs 60171018, 60171577):** a 15-minute CPU job, `tokenizer_check/check.py`; two records in `runs/on-policy-distillation.jsonl`.
   - Teacher and both students share the vocabulary (248,320 entries), the merges and the normalizer.
