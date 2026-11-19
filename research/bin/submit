@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# submit <slug> <script.sbatch> [sbatch args...]
+#
+# The only sanctioned path to the Slurm queue. Prints a one-line plan, refuses
+# a job outside the compute limits below, then submits with the job tagged to
+# this agent so the heartbeat can find it. Agents run without permission
+# prompts, so these limits are the only gate.
+set -euo pipefail
+
+MAX_MINUTES=720   # per job
+MAX_GPUS=1        # per job
+MAX_MEM_GB=8      # per job; O2 deprioritizes users whose jobs mostly use under half their requested RAM
+MAX_JOBS=2        # queued or running, per direction
+
+SLUG="${1:-}"; shift || true
+SCRIPT="${1:-}"; shift || true
+
+if [[ -z "$SLUG" || -z "$SCRIPT" ]]; then
+  echo "usage: DESC=\"<what the job is for>\" submit <slug> <script.sbatch> [sbatch args...]" >&2
+  exit 1
+fi
+[[ -f "$SCRIPT" ]] || { echo "no such script: $SCRIPT" >&2; exit 1; }
+
+command -v sbatch >/dev/null 2>&1 || { echo "sbatch not found — are you on O2?" >&2; exit 1; }
+
+# Last occurrence wins, as in sbatch.
+hdr() { grep -E "^#SBATCH[[:space:]]+--$1" "$SCRIPT" | tail -n1 | sed -E "s/.*--$1[= ]//" || true; }
+refuse() { echo "  REFUSING: $*" >&2; exit 1; }
+
+PART=$(hdr partition); TIME=$(hdr time); GPUS=$(hdr gres); MEM=$(hdr mem); CPUS=$(hdr cpus-per-task); NODES=$(hdr nodes)
+# The job name carries a short description, so Slurm's end-of-job email says what the job was for.
+[[ -n "${DESC:-}" ]] || refuse "no DESC; run as DESC=\"<what the job is for, a few words>\" research/bin/submit ..."
+TAG="vla-${SLUG}--$(date -u +%m%d-%H%M)--$(tr -cs 'A-Za-z0-9' '-' <<< "$DESC" | cut -c1-60 | sed 's/^-*//; s/-*$//')"
+
+echo
+echo "  plan   ${PART:-<no partition>} / ${GPUS:-no gpu} / ${CPUS:-?} cpu / ${MEM:-?} / ${TIME:-<NO TIME LIMIT>}"
+echo "  script $SCRIPT"
+echo "  name   $TAG"
+[[ $# -gt 0 ]] && echo "  extra  $*"
+echo
+
+# Limits are read from the script header only, so the header must carry them.
+for arg in "$@"; do
+  case "$arg" in
+    -t*|--time*|-G*|--gres*|--gpus*|-a*|--array*|-N*|--nodes*)
+      refuse "$arg on the command line; set it in the #SBATCH header." ;;
+  esac
+done
+grep -qE "^#SBATCH[[:space:]]+(-[tGaN]([[:space:]=]|[0-9])|--gpus|--array)" "$SCRIPT" \
+  && refuse "use --time, --gres and --nodes in the header; short forms, --gpus* and --array are not allowed."
+
+[[ -n "$TIME" ]] || refuse "no --time in the script. Unbounded jobs are not allowed."
+[[ "$TIME" =~ ^(([0-9]+)-)?([0-9]+)(:([0-9]+))?(:([0-9]+))?$ ]] || refuse "cannot read --time=$TIME."
+d=${BASH_REMATCH[2]:-0}; a=${BASH_REMATCH[3]}; b=${BASH_REMATCH[5]:-}; c=${BASH_REMATCH[7]:-}
+if   [[ -n "${BASH_REMATCH[1]}" ]]; then MIN=$(( 10#$d*1440 + 10#$a*60 + 10#${b:-0} ))  # D-HH[:MM[:SS]]
+elif [[ -n "$c" ]];                then MIN=$(( 10#$a*60 + 10#$b ))                    # HH:MM:SS
+else                                    MIN=$(( 10#$a ))                                # MM[:SS]
+fi
+(( MIN <= MAX_MINUTES )) || refuse "--time=$TIME exceeds the ${MAX_MINUTES}-minute limit."
+
+N_GPU=0
+if [[ "$GPUS" == gpu* ]]; then
+  N_GPU=${GPUS##*:}; [[ "$N_GPU" =~ ^[0-9]+$ ]] || N_GPU=1
+fi
+(( N_GPU <= MAX_GPUS )) || refuse "--gres=$GPUS exceeds the ${MAX_GPUS}-GPU limit."
+[[ "$MEM" =~ ^([0-9]+)([MG]?)B?$ ]] || refuse "--mem=${MEM:-<none>}; set --mem in the header, e.g. --mem=6G."
+MEM_MB=${BASH_REMATCH[1]}; [[ "${BASH_REMATCH[2]}" == M ]] || MEM_MB=$(( MEM_MB * 1024 ))
+(( MEM_MB <= MAX_MEM_GB * 1024 )) || refuse "--mem=$MEM exceeds the ${MAX_MEM_GB}G limit; request about 1.5x the measured peak (sacct -o MaxRSS)."
+[[ -z "$NODES" || "$NODES" == 1 ]] || refuse "--nodes=$NODES; jobs are single-node."
+
+N_JOBS=$(squeue -h -u "$USER" -o %j | grep -c "^vla-${SLUG}--" || true)
+(( N_JOBS < MAX_JOBS )) || refuse "$N_JOBS jobs already queued or running for $SLUG (limit $MAX_JOBS)."
+
+OUT=$(sbatch --parsable \
+        --job-name="$TAG" \
+        --comment="agent:vla/$SLUG" \
+        --mail-type=END --mail-user=eddykang@college.harvard.edu \
+        "$@" "$SCRIPT")
+
+echo "  submitted $OUT"
+echo "  logs: squeue -j $OUT ; sacct -j $OUT"

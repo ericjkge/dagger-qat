@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# heartbeat <slug>
+#
+# Publishes a status blob for one agent every 10 minutes: its git head, unpushed
+# commits and Slurm jobs.
+#
+# It never touches the working tree. It builds a one-commit ref
+# refs/heartbeat/<slug>, outside refs/heads so it is not a branch, with git
+# plumbing and force-pushes it, so the idea branch's history stays clean and two
+# agents can never conflict (each owns a different ref).
+set -euo pipefail
+
+SLUG="${1:-}"
+[[ -z "$SLUG" ]] && { echo "usage: heartbeat <slug>" >&2; exit 1; }
+
+cd "$(git rev-parse --show-toplevel)"
+
+collect() {
+  HB_HEAD=$(git rev-parse --short HEAD) \
+  HB_MSG=$(git log -1 --pretty=%s) \
+  HB_AHEAD=$(git rev-list --count "origin/claude/$SLUG..HEAD" 2>/dev/null || echo 0) \
+  HB_JOBS=$(squeue -h -u "$USER" \
+              -O 'JobID:.14,Name:.34,State:.12,TimeUsed:.12,TimeLeft:.12,Comment:.40' \
+            | grep -E "agent:vla/$SLUG$" || true) \
+  python3 -c '
+import json, os, socket, time
+e = os.environ
+jobs = e["HB_JOBS"].strip()
+print(json.dumps({
+    "beat_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    "host": socket.gethostname(),
+    "head": e["HB_HEAD"],
+    "head_msg": e["HB_MSG"],
+    "unpushed": int(e["HB_AHEAD"]),
+    "n_jobs": len(jobs.splitlines()) if jobs else 0,
+    "jobs": jobs,
+}))'
+}
+
+publish() {
+  local blob tree commit
+  blob=$(collect | git hash-object -w --stdin)
+  tree=$(printf '100644 blob %s\t%s\n' "$blob" "$SLUG.json" | git mktree)
+  commit=$(git commit-tree "$tree" -m "heartbeat $SLUG")
+  git update-ref "refs/heartbeat/$SLUG" "$commit"
+  git push -q --force origin "refs/heartbeat/$SLUG:refs/heartbeat/$SLUG"
+}
+
+echo "heartbeat $SLUG every 600s -> origin refs/heartbeat/$SLUG"
+while true; do
+  if publish 2>/tmp/vla-hb-$SLUG.err; then
+    echo "$(date -u +%H:%M:%SZ) ok"
+  else
+    echo "$(date -u +%H:%M:%SZ) FAILED: $(tail -n1 /tmp/vla-hb-$SLUG.err)"
+  fi
+  sleep 600
+done

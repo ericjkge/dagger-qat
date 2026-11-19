@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# refresh-instructions [--start]
+# Claude Code hook for agents on claude/<slug> branches. Fetches origin/eddy and
+# prints a diff of every instruction file that changed since the agent last saw
+# it; Claude Code adds that output to the agent's context. Silent when nothing
+# changed or the branch is not claude/*. --start (SessionStart) records the
+# worktree's own copies as seen, since those are what the session loaded.
+set -uo pipefail
+
+SLUG=$(git branch --show-current 2>/dev/null); SLUG=${SLUG#claude/}
+[[ $(git branch --show-current 2>/dev/null) == claude/* ]] || exit 0
+BASE=origin/eddy
+FILES=(research/CLAUDE.md research/README.md research/baseline.md "research/directions/$SLUG.md")
+SEEN=$(git rev-parse --git-path instructions-seen)
+
+timeout 20 git fetch -q origin eddy 2>/dev/null || exit 0
+
+if [[ ${1:-} == --start ]]; then
+  for f in "${FILES[@]}"; do echo "$f $(git rev-parse -q --verify "HEAD:$f" || echo none)"; done > "$SEEN"
+fi
+
+out=""
+for f in "${FILES[@]}"; do
+  new=$(git rev-parse -q --verify "$BASE:$f") || continue
+  old=$(awk -v f="$f" '$1 == f {print $2}' "$SEEN" 2>/dev/null)
+  [[ $new == "$old" ]] && continue
+  if [[ -n $old && $old != none ]]; then
+    out+=$'\n'"### $f"$'\n'"$(git diff --no-color "$old" "$new")"$'\n'
+  else
+    out+=$'\n'"### $f (full text)"$'\n'"$(git show "$new")"$'\n'
+  fi
+done
+for f in "${FILES[@]}"; do echo "$f $(git rev-parse -q --verify "$BASE:$f" || echo none)"; done > "$SEEN"
+
+[[ -z $out ]] && exit 0
+cat <<EOF
+The human has updated your instructions on $BASE since you last read them. The
+changes below are direct instruction and supersede the earlier text; follow
+them from now on and record the redirection under current state in your note.
+Do not merge $BASE just for this; \`git show $BASE:<path>\` gives the full text.
+$out
+EOF

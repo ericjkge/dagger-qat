@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# new-idea <slug>
+# Creates branch claude/<slug>, its worktree and the experiment README for the
+# brief research/directions/<slug>.md. agent-host runs this for each new active
+# brief and starts the agent; the agent writes the hypothesis from the brief.
+set -euo pipefail
+
+SLUG="${1:-}"
+
+if [[ -z "$SLUG" ]]; then
+  echo "usage: new-idea <slug>" >&2
+  exit 1
+fi
+if [[ ! "$SLUG" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
+  echo "slug must be lowercase letters, digits and hyphens: $SLUG" >&2
+  exit 1
+fi
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+BASE="${BASE_BRANCH:-eddy}"
+BRANCH="claude/$SLUG"
+WT="$ROOT/.wt/$SLUG"
+EXP="research/experiments/$SLUG"
+
+git fetch origin --quiet
+git cat-file -e "origin/$BASE:research/directions/$SLUG.md" 2>/dev/null \
+  || { echo "no brief research/directions/$SLUG.md on origin/$BASE" >&2; exit 1; }
+if git show-ref --quiet "refs/heads/$BRANCH" "refs/remotes/origin/$BRANCH"; then
+  echo "branch $BRANCH already exists; add its worktree with: git worktree add $WT $BRANCH" >&2
+  exit 1
+fi
+
+git worktree add -b "$BRANCH" "$WT" "origin/$BASE"
+
+mkdir -p "$WT/$EXP" "$WT/research/runs"
+sed -e "s|SLUG|$SLUG|g" \
+    -e "s|STARTED|$(date -u +%Y-%m-%d)|g" \
+    "$ROOT/research/templates/experiment-README.md" > "$WT/$EXP/README.md"
+: > "$WT/research/runs/$SLUG.jsonl"
+
+( cd "$WT" \
+  && git add "$EXP/README.md" "research/runs/$SLUG.jsonl" \
+  && git commit -q -m "$SLUG: open direction" \
+  && git push -q -u origin "$BRANCH" )
+
+echo "branch   $BRANCH"
+echo "worktree $WT"
+echo "readme   $WT/$EXP/README.md"

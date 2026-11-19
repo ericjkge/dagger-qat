@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# redirect ["<message>"]
+# Types a message into every running agent. With no message, tells each agent
+# to merge origin/eddy and re-read research/CLAUDE.md and research/baseline.md.
+# Run anywhere on O2; it hops to the agent-host node, where the sessions live.
+set -euo pipefail
+
+HOST=$(cat "$HOME/.vla-agent-host")
+[[ $(hostname) == "$HOST" ]] || exec ssh -q "$HOST" "$(realpath "$0")" "$(printf '%q' "${1:-}")"
+
+MSG=${1:-"Instruction from the human: run git fetch origin && git merge --no-edit origin/eddy, then re-read research/CLAUDE.md and research/baseline.md and follow them from now on. Record this redirection under current state, commit and push."}
+
+for s in $(tmux ls -F '#S' | sed -n 's/^vla-//p'); do
+  tmux send-keys -t "=vla-$s:" -l "$MSG"
+  tmux send-keys -t "=vla-$s:" Enter
+  echo "sent to $s"
+done
