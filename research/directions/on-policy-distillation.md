@@ -8,9 +8,6 @@ status: active
 
 Here is a very rough baseline of the pipeline we plan to carry out for this project.
 
-
-**
-
 Setup:
 
 - Teacher: Qwen3.8-27B-PEAR-LIBERO_only (final checkpoint is mainly for real-world deployment and has no paper results)
@@ -89,6 +86,3 @@ Step 5: Final evaluation
 
 - Main plot: success rate vs. time per episode
     
-
-  
-**
