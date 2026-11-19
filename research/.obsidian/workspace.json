@@ -83,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "474b0668a51b6efb",
@@ -193,7 +192,6 @@
   "active": "13b63466138f77fc",
   "lastOpenFiles": [
     "directions/phase-and-action-sensitive.md",
-    "directions/on-policy-distillation.md",
     "directions/on-policy-distillation.md",
     "dashboard/phase-and-action-sensitive.md",
     "dashboard",
