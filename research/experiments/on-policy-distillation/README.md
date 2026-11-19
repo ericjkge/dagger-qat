@@ -40,7 +40,18 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - `configs/` holds the model files and one Hydra config per step. `scripts/` holds one script per step. `src/opd/` holds the eval, collect, SFT and distill entry points and the SFT dataset.
   - Step 4 uses verl's built-in on-policy distillation: `loss_mode=k1`, `use_policy_gradient=true`, `use_task_rewards=false`.
   - Not merged to `main` yet.
-- Found while checking the setup: the teacher's `tokenizer.json` and chat template differ from Qwen3.5's, although the vocabulary size (248,320) matches. Identical token ids are a precondition for distillation, and the first pilot must check this.
+- **Tokenizer check (jobs 60171018, 60171577):** a 15-minute CPU job, `tokenizer_check/check.py`; two records in `runs/on-policy-distillation.jsonl`.
+  - Teacher and both students share the vocabulary (248,320 entries), the merges and the normalizer.
+  - The teacher adds 7 audio/TTS special tokens (ids 248070–248076) that the students lack. LIBERO episodes never use them.
+  - The pre-tokenizer regex differs in one place: the students' regex keeps Unicode combining marks (`\p{M}`) attached to letters, and the teacher's does not. `trim_offsets` also differs, but it changes character offsets only, not ids.
+  - So ASCII text such as LIBERO instructions, action JSON and English reasoning gets the same ids under both. In distillation the teacher scores the student's token ids directly, so ids carry the same meaning on both sides.
+  - **Verdict:** compatible for this task.
+  - The vla environment's `tokenizers` could not load the teacher's file, so the check compares the `tokenizer.json` fields rather than encoding sample texts.
+- **The chat template is the real mismatch** (compared the Hub files directly). The teacher's template differs from Qwen3.5's in two ways:
+  1. It adds a reasoning-effort instruction to the system prompt: xhigh by default, or medium or low.
+  2. It keeps every earlier round's reasoning in the context (`preserve_thinking`, default true). Qwen3.5's template drops reasoning from turns before the last user query.
+
+  With their own templates, the students would see different multi-round contexts from the teacher, and from the teacher's SFT data. Proposed fix: give each student the teacher's `chat_template.jinja`. This is pending the human's decision.
 - No jobs have been submitted, because nothing can run yet; see "Blocked on".
 
 ## Results
