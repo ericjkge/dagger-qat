@@ -24,7 +24,7 @@ Not started.
 
 ## Results
 
-<!-- Numbers from runs/SLUG.jsonl: mean ± SE over seeds, against the baseline
+<!-- Numbers from runs/SLUG.jsonl: mean ± SE over seeds, against the stated comparison
      at matched compute. -->
 
 ## Next step

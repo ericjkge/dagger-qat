@@ -10,7 +10,7 @@ set -uo pipefail
 SLUG=$(git branch --show-current 2>/dev/null); SLUG=${SLUG#claude/}
 [[ $(git branch --show-current 2>/dev/null) == claude/* ]] || exit 0
 BASE=origin/eddy
-FILES=(research/CLAUDE.md research/README.md research/baseline.md "research/directions/$SLUG.md")
+FILES=(research/CLAUDE.md research/README.md "research/directions/$SLUG.md")
 SEEN=$(git rev-parse --git-path instructions-seen)
 
 timeout 20 git fetch -q origin eddy 2>/dev/null || exit 0
