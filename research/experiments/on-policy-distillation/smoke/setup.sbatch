@@ -3,7 +3,7 @@
 # O2's A100s (8.0) and L40S (8.9); MAX_JOBS keeps the compilers within the requested memory.
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:l40s:1
-#SBATCH --time=12:00:00
+#SBATCH --time=05:00:00
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 #SBATCH --output=/n/scratch/users/e/edk005/vla/on-policy-distillation/logs/setup-%j.out

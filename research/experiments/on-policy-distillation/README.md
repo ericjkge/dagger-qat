@@ -62,7 +62,7 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - Raised `research/bin/submit` to one GPU machine per job (4 GPUs, 192 GB; origin/eddy defa9d4), per the earlier instruction to lift compute limits while staying fair to priority.
   - `smoke/` holds the jobs. Each runs `main`'s code cloned on scratch at a pinned commit.
     - `probe.sbatch` (60181075): driver, compute capability, network.
-    - `setup.sbatch` (60181101): `scripts/setup.sh` at 2dec0ee. Header: gpu / l40s:1 / 16 CPU / 64G / 12h. It installs PEAR's verl environment built for CUDA arch 8.0 and 8.9, LIBERO, and Qwen3.5-4B, then runs PEAR's checks.
+    - `setup.sbatch` (60181374; 60181101 was cancelled and resubmitted with --time=05:00:00 to fit the GPU-minute cap): `scripts/setup.sh` at 2dec0ee. Header: gpu / l40s:1 / 16 CPU / 64G / 5h. It installs PEAR's verl environment built for CUDA arch 8.0 and 8.9, LIBERO, and Qwen3.5-4B, then runs PEAR's checks.
     - `eval.sbatch`: 4 episodes, eval then collect with the 4B, then `check.py`.
   - The `setup.sh` fix (2dec0ee, not yet on `main`): it stops calling PEAR's `libero_run`, which downloads PEAR's 27B base model.
 - Correction: PEAR's continuous-token context keeps every round's reasoning under either chat template. The teacher's template matters for its reasoning-effort system instruction.
