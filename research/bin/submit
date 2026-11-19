@@ -8,8 +8,9 @@
 set -euo pipefail
 
 MAX_MINUTES=720   # per job
-MAX_GPUS=1        # per job
-MAX_MEM_GB=8      # per job; O2 deprioritizes users whose jobs mostly use under half their requested RAM
+MAX_GPUS=4        # per job: one GPU machine
+MAX_MEM_GB=192    # per job; O2 deprioritizes users whose jobs mostly use under half their requested RAM, so request
+                  # about 1.5x a job's measured peak (sacct -o MaxRSS), not this cap
 MAX_JOBS=2        # queued or running, per direction
 
 SLUG="${1:-}"; shift || true
