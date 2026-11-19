@@ -1,6 +1,6 @@
 ---
 slug: on-policy-distillation
-status: running
+status: blocked
 hypothesis:
 kill_criterion:
 best_metric:
@@ -20,7 +20,7 @@ started: 2026-11-19
 
 ## Current state
 
-Not started.
+Not started; no jobs submitted. Checked 2026-11-19 against origin/eddy: the brief's mechanism is a placeholder ("I will fill this in soon"), `research/baseline.md` is empty, and the worktree has no `scripts/`, `configs/` or `src/`. No hypothesis or kill criterion can be derived until those exist.
 
 ## Results
 
@@ -29,11 +29,13 @@ Not started.
 
 ## Next step
 
-Define the kill criterion, then write the smallest experiment that could meet it.
+Once the brief and baseline land, write the hypothesis and kill criterion from them, then design the smallest pilot run.
 
 ## Blocked on
 
-<!-- Only fill if you need the human. Delete otherwise. -->
+- The brief `research/directions/on-policy-distillation.md` needs its mechanism filled in.
+- `research/baseline.md` needs the baselines and their protocol.
+- The execution code (`scripts/train.py` etc., `configs/`, `src/`) isn't on the branch yet.
 
 ## Dead ends
 
