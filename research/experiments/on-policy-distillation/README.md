@@ -35,6 +35,12 @@ The 4B student is reported alongside the 9B student but does not decide the dire
     4. Starting from the SFT checkpoint, run on-policy distillation. Each step, the student runs episodes, the teacher prefills them, and the per-token advantage is the reverse KL. There is no task reward, one update per step, and an evaluation every 10 steps.
     5. Run the final evaluation on LIBERO, plus LIBERO-Pro (teacher 57.4%) and LIBERO-Plus. The main plot is success rate against time per episode.
 - I wrote the hypothesis and kill criterion above from this brief, before any run.
+- **2026-11-19, human request in session:** set up a clean repo skeleton for `main`, with none of the agent orchestration. It is on branch `skeleton` (5e4e3d9), off `origin/main`:
+  - PEAR is a submodule at `third_party/pear`, pinned to faff474. The models are pinned at Hub revisions.
+  - `configs/` holds the model files and one Hydra config per step. `scripts/` holds one script per step. `src/opd/` holds the eval, collect, SFT and distill entry points and the SFT dataset.
+  - Step 4 uses verl's built-in on-policy distillation: `loss_mode=k1`, `use_policy_gradient=true`, `use_task_rewards=false`.
+  - Not merged to `main` yet.
+- Found while checking the setup: the teacher's `tokenizer.json` and chat template differ from Qwen3.5's, although the vocabulary size (248,320) matches. Identical token ids are a precondition for distillation, and the first pilot must check this.
 - No jobs have been submitted, because nothing can run yet; see "Blocked on".
 
 ## Results
@@ -48,7 +54,8 @@ When the PEAR code and teacher checkpoint are available, submit the Step 1 evalu
 ## Blocked on
 
 - **Baselines file:** `research/baseline.md` on origin/eddy is still empty. The brief's Step 1 names the baselines: base 9B and 4B, and teacher at 74.4% (xhigh) and 21.9% (low). Please confirm these are the binding baselines, or fill in `baseline.md`.
-- **Code and checkpoints:**
+- **Compute:** `research/bin/submit` allows 1 GPU, 8 GB RAM and 12 h per job. PEAR's recipes assume multi-node Ray clusters, and the 27B teacher alone needs about 54 GB in bf16. No pipeline step fits the current limits.
+- **Code and checkpoints (superseded by the `skeleton` branch for the code):**
   - The PEAR repo (LIBERO env, prompt format, RL trainer) is not on the cluster. I searched `/n/data1/.../edk005` and `/n/scratch/users/e/edk005`.
   - The teacher checkpoint is not on the cluster either.
   - This branch has no `scripts/`, `configs/` or `src/`.
