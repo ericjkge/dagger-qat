@@ -1,17 +1,10 @@
-# Step 3: on-policy distillation from the SFT checkpoint. The student runs LIBERO episodes, the teacher prefills them
-# and scores every student token; the per-token reward is the negative reverse KL (k1 estimator, policy-gradient
-# update), with no task reward. verl's distillation: third_party/pear verl docs/algo/opd.md.
-hydra:
-  searchpath:
-    - pkg://verl.trainer.config
-    - pkg://pear.models
-    - pkg://pear.configs
+# @package _global_
+# Step 3, on PEAR's training (pear/configs/training.yaml): on-policy distillation from the SFT checkpoint. The student
+# runs LIBERO episodes, the teacher prefills them and scores every student token; the per-token reward is the negative
+# reverse KL (k1 estimator, policy-gradient update), with no task reward (verl's docs/algo/opd.md).
 
-defaults:
-  - training
-  - _self_
-
-# a model file's chat template for the policy (configs/models): the students use the teacher's
+# a model file's chat template for the policy (configs/models): the students use the teacher's, which sets the
+# reasoning effort in the system prompt
 chat_template_file: null
 
 algorithm:

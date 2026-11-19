@@ -2,8 +2,10 @@
 # Sourced after a model file: any CUDA GPU that PEAR's H100 and GB300 recipes do not cover. The model runs on vLLM's own
 # Qwen3.5 implementation and verl's FSDP path with FlashAttention-2, without PEAR's Hopper/Blackwell kernels or the
 # LMCache sidecar. HARDWARE_ARGS replace the model file's arguments of the same keys.
-GPUS_PER_NODE=${GPUS_PER_NODE:-$(nvidia-smi -L | wc -l)}
-SP=${SP:-$GPUS_PER_NODE}  # Ulysses sequence parallelism of the actor
+# the machine's GPUs (NODE_GPUS when the machine running this is not one of the cluster's); the actor's Ulysses sequence
+# parallelism spans them, as in PEAR's recipes
+GPUS_PER_NODE=${NODE_GPUS:-$(nvidia-smi -L | wc -l)}
+SP=$GPUS_PER_NODE
 TOK_PER_GPU=$(((MAX_MODEL_LEN + SP - 1) / SP))
 HARDWARE_ARGS=(
   actor_rollout_ref.actor.fsdp_config.use_gpu_backend=false

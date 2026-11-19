@@ -12,26 +12,26 @@ export WORK_DIR PEAR
 # what every process imports: PEAR, its patched verl, and this repository's opd
 PYTHON_PATH=$PEAR/pear/utils/sitecustomize:$PEAR:$PEAR/3rdparty/verl/src:$ROOT/src
 
-# replace_args <array name> <override...>: drops the array's entries whose key (without a leading +) is an override's
-# key or under it, then appends the overrides. Hydra refuses two values for one key.
-replace_args() {
-  local -n args=$1
-  shift
-  local override key kept entry entry_key
-  for override in "$@"; do
-    key=${override%%=*}
+# merge_args <array name>: keeps the last value of every key, Hydra refusing two: a later entry replaces an earlier one
+# of the same key (with or without a leading +) or under it. A step's defaults, then the hardware's, then the user's.
+merge_args() {
+  local -n merged=$1
+  local entries=("${merged[@]}") kept=() entry key earlier earlier_key
+  for entry in "${entries[@]}"; do
+    key=${entry%%=*}
     key=${key#+}
-    kept=()
-    for entry in "${args[@]}"; do
-      entry_key=${entry%%=*}
-      entry_key=${entry_key#+}
-      [[ $entry_key == "$key" || $entry_key == "$key".* ]] || kept+=("$entry")
+    local survivors=()
+    for earlier in "${kept[@]}"; do
+      earlier_key=${earlier%%=*}
+      earlier_key=${earlier_key#+}
+      [[ $earlier_key == "$key" || $earlier_key == "$key".* ]] || survivors+=("$earlier")
     done
-    args=("${kept[@]}" "$override")
+    kept=("${survivors[@]}" "$entry")
   done
+  merged=("${kept[@]}")
 }
 
-# pear_args: fills RUN_ARGS with what a run on a LIBERO family needs: the episodes, the model's arguments (from
+# pear_args: fills RUN_ARGS, to which a step adds its own, with what a run on a LIBERO family needs: the episodes, the model's arguments (from
 # MODEL_FILE), the rollout replicas and the Ray workers' environment. Reads GPU, RUN, ROLLOUT_NNODES, MODEL_FILE, MODEL
 # and the optional BENCH (libero | libero_plus | libero_pro), EPISODES, VAL_EPISODES, MAX_PROMPT, MAX_RESPONSE.
 pear_args() {
@@ -100,13 +100,14 @@ pear_args() {
   fi
 }
 
-# pear_exec <module> [hydra overrides...]: runs an opd entrypoint on the Ray head, its log appended to $RUN/train.log;
-# the hardware's arguments replace those of the same keys.
+# pear_exec <step> [user overrides...]: runs the step's entry point (opd.<step>) on the Ray cluster with its overlay
+# (configs/step/<step>.yaml), RUN_ARGS, the hardware's arguments and the user's overrides, merged (merge_args); its log
+# is appended to $RUN/train.log.
 pear_exec() {
-  local module=$1
+  local step=$1
   shift
-  local args=("$@")
-  replace_args args "${HARDWARE_ARGS[@]}"
+  local args=("+step=$step" "${RUN_ARGS[@]}" "${HARDWARE_ARGS[@]}" "$@")
+  merge_args args
   mkdir -p "$RUN"
   # shellcheck source=/dev/null
   source "$PEAR/scripts/gpu_process_variables.sh" "$VERL_ENV"
@@ -114,5 +115,5 @@ pear_exec() {
   export VERL_USE_EXTERNAL_MODULES=$EXTERNAL_MODULES PYTHONPATH=$PYTHON_PATH
   # refuses a verl checkout other than PEAR's pinned commit and patches
   bash "$PEAR/3rdparty/verl/scripts/checkout_verl.sh" --check | tee -a "$RUN/train.log"
-  python -m "$module" "${args[@]}" 2>&1 | tee -a "$RUN/train.log"
+  python -m "opd.$step" --config-dir "$ROOT/configs" "${args[@]}" 2>&1 | tee -a "$RUN/train.log"
 }

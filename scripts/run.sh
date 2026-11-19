@@ -6,14 +6,14 @@
 #   - otherwise this machine alone, every role on it (scripts/ray_node.sh all).
 #   bash scripts/run.sh scripts/eval.sh [overrides]
 #   sbatch --nodes=3 --gpus-per-node=8 --export=ALL,ROLES="trainer rollout teacher" scripts/run.sh scripts/distill.sh
-STEP=${1:?a step script: scripts/collect.sh, scripts/distill.sh or scripts/eval.sh}
+STEP_SCRIPT=${1:?a step script: scripts/collect.sh, scripts/distill.sh or scripts/eval.sh}
 shift
 # by the step's path: under sbatch this file runs from a copy
-SCRIPTS=$(cd "$(dirname "$STEP")" && pwd -P)
+SCRIPTS=$(cd "$(dirname "$STEP_SCRIPT")" && pwd -P)
 source "$SCRIPTS/common.sh"
 
 if [ -n "${RAY_ADDRESS:-}" ]; then
-  exec bash "$STEP" "$@"
+  exec bash "$STEP_SCRIPT" "$@"
 fi
 
 PORT=${PORT:-6379}
@@ -58,4 +58,4 @@ count() {  # the machines of a role, at least 1: on one machine every role has i
 export ROLLOUT_NNODES=${ROLLOUT_NNODES:-$(count rollout)}
 export TRAINER_NNODES=${TRAINER_NNODES:-$(count trainer)}
 export TEACHER_NNODES=${TEACHER_NNODES:-$(count teacher)}
-bash "$STEP" "$@"
+bash "$STEP_SCRIPT" "$@"

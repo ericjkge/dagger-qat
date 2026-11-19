@@ -1,10 +1,9 @@
-"""Step 1: the teacher's evaluation, also saving each successful episode as the exact token sequence the rollout
-produced (prompt and response ids, the mask of the tokens the teacher generated) with its images, for SFT."""
+"""Step 1: the teacher's evaluation, which also writes each successful episode as an SFT example (opd.sft_data): the
+exact tensors the rollout fed the model."""
 
 from pathlib import Path
 
 import hydra
-import numpy as np
 import ray
 import torch
 import transfer_queue as tq
@@ -14,13 +13,15 @@ from pear.trainer.config import RunConfig
 from pear.trainer.runner import PearTaskRunner
 from verl.trainer.main_ppo import run_ppo
 
-from opd import CONFIGS, use_chat_template_file
+from opd import PEAR_CONFIGS, use_chat_template_file
+from opd.sft_data import sft_example
 
-FIELDS = ["prompts", "responses", "response_mask", "multi_modal_data"]
+# what verl's agent loop stores per trajectory (verl/trainer/ppo/v1/agent_loop_tq.py); loss_mask is the response mask
+FIELDS = ["input_ids", "position_ids", "loss_mask", "multi_modal_inputs"]
 
 
 class CollectionTrainer(EmbodiedEvaluationTrainer):
-    """PEAR's evaluation, which also writes <out_dir>/<uid>.pt for every successful episode."""
+    """PEAR's evaluation, which also writes <collect.out_dir>/<uid>.pt for every successful episode."""
 
     def _records(self, batch: tq.KVBatchMeta) -> list[dict]:
         records = super()._records(batch)
@@ -28,26 +29,20 @@ class CollectionTrainer(EmbodiedEvaluationTrainer):
         out_dir = Path(self.config.collect.out_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        # jagged columns unbind to their rows' own lengths
+        # tensor columns are stacked or jagged, unbinding to each row's own length; the non-tensor column comes back
+        # as a list-like of the backend's type
         rows = zip(
             records,
-            data["prompts"].unbind(),
-            data["responses"].unbind(),
-            data["response_mask"].unbind(),
-            data["multi_modal_data"],
+            data["input_ids"].unbind(),
+            data["position_ids"].unbind(),
+            data["loss_mask"].unbind(),
+            list(data["multi_modal_inputs"]),
             strict=True,
         )
-        for record, prompt, response, response_mask, multi_modal in rows:
+        for record, input_ids, position_ids, response_mask, multi_modal_inputs in rows:
             if record["score"] > 0:
-                episode = {
-                    "prompt_ids": prompt.clone(),
-                    "response_ids": response.clone(),
-                    "response_mask": response_mask.clone(),
-                    "images": [np.asarray(image) for image in multi_modal.get("images", [])],
-                    "data_source": record["data_source"],
-                    "extra_fields": record["extra_fields"],
-                }
-                torch.save(episode, out_dir / f"{record['uid']}.pt")
+                example = sft_example(input_ids, position_ids, response_mask, multi_modal_inputs)
+                torch.save(example, out_dir / f"{record['uid']}.pt")
 
         return records
 
@@ -61,7 +56,7 @@ class CollectionRunner(PearTaskRunner):
         return None
 
 
-@hydra.main(config_path=CONFIGS, config_name="collect", version_base=None)
+@hydra.main(config_path=PEAR_CONFIGS, config_name="embodied", version_base=None)
 def main(config: DictConfig) -> None:
     use_chat_template_file(config)
     RunConfig(config).prepare()

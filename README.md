@@ -14,9 +14,9 @@ can keep the teacher's success at a fraction of its time per episode. Training o
 distillation) avoids the compounding errors of imitating teacher trajectories alone.
 
 - **Teacher:** [Qwen3.8-27B-PEAR-LIBERO_only](https://huggingface.co/mit-han-lab/Qwen3.8-27B-PEAR-LIBERO_only)
-- **Students:** [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) and [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B). They share the teacher's tokenizer and
-  use its chat template, so student and teacher see every episode in the same layout: the same reasoning-effort
-  instruction, and every round's reasoning kept in the context.
+- **Students:** [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) and [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B). They share the teacher's tokenizer and use
+  its chat template, which sets the reasoning effort in the system prompt, so a student's prompts match the teacher's
+  token for token.
 - **Benchmarks:** LIBERO (2,000 episodes: 4 suites × 10 tasks × 50 initial states), LIBERO-Pro and LIBERO-Plus
 
 ## Pipeline
@@ -38,7 +38,7 @@ prompt format, the rollout and the trainer. Distillation uses the on-policy dist
 configs/
   models/       one file per model: its Hub repository and pinned revision
   hardware/     GPU profiles beyond PEAR's own H100 and GB300 recipes
-  *.yaml        one Hydra config per step
+  step/         each step's settings, an overlay on the PEAR or verl config it runs on
 scripts/        setup, one script per step, and the Ray launcher (run.sh, ray_node.sh)
 src/opd/        entry points, teacher-episode collection and the SFT dataset
 third_party/    PEAR, pinned as a submodule
@@ -88,6 +88,16 @@ To evaluate the teacher at another reasoning effort, add the override
 **Hardware.** `GPU=h100` or `GPU=gb300` uses PEAR's tuned recipes for those GPUs. The default, `GPU=generic`,
 runs on any CUDA GPU (`configs/hardware/generic.sh`) without PEAR's custom kernels. To add a profile, add a file to
 `configs/hardware/`.
+
+## Tests
+
+The tests run on CPU: they check the command each step builds, compose every step's config against PEAR's and verl's,
+and cover the SFT data and the chat template.
+
+```bash
+pip install -r requirements.txt
+pytest                # -m "not network" skips the tests that fetch pinned files from the Hugging Face Hub
+```
 
 ## Acknowledgments
 

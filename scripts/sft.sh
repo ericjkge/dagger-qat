@@ -11,10 +11,14 @@ mkdir -p "$RUN"
 # shellcheck source=/dev/null
 source "$PEAR/scripts/gpu_process_variables.sh" "$VERL_ENV"
 export PYTHONPATH=$PYTHON_PATH
-torchrun --standalone --nproc_per_node="${NGPUS:-$(nvidia-smi -L | wc -l)}" -m opd.sft \
-  data.train_files="$EPISODES_DIR" \
-  model.path="$MODEL" \
-  trainer.default_local_dir="$RUN/ckpt" \
-  trainer.experiment_name="$(basename "$RUN")" \
-  hydra.run.dir="$RUN/hydra" \
-  "$@" 2>&1 | tee -a "$RUN/train.log"
+ARGS=(
+  +step=sft
+  data.train_files="$EPISODES_DIR"
+  model.path="$MODEL"
+  trainer.default_local_dir="$RUN/ckpt"
+  trainer.experiment_name="$(basename "$RUN")"
+  hydra.run.dir="$RUN/hydra"
+  "$@"
+)
+merge_args ARGS
+torchrun --standalone --nproc_per_node="${NGPUS:-$(nvidia-smi -L | wc -l)}" -m opd.sft --config-dir "$ROOT/configs" "${ARGS[@]}" 2>&1 | tee -a "$RUN/train.log"

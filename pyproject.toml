@@ -7,11 +7,9 @@ name = "opd"
 version = "0.1.0"
 description = "On-policy distillation of PEAR's robot-use reasoning model into smaller students"
 requires-python = ">=3.10"
-# opd runs inside PEAR's verl environment (scripts/setup.sh); it declares no dependencies of its own
+# opd runs inside PEAR's training environment (scripts/setup.sh), which provides its dependencies; requirements.txt pins
+# the tests' CPU environment
 dependencies = []
-
-[project.optional-dependencies]
-dev = ["pytest", "ruff"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -26,3 +24,5 @@ select = ["E", "F", "UP", "B", "I"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+addopts = "--strict-markers"
+markers = ["network: downloads pinned files from the Hugging Face Hub"]
