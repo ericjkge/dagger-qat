@@ -25,21 +25,13 @@ Here is a very rough baseline of the pipeline we plan to carry out for this proj
 	- Fine-tune each student on the teacher episodes.
 	- Compute the loss on all generated tokens, using the same context format as at inference.
 	- Evaluate the result as the “SFT only” model.
-	- Step 4: On-policy distillation
-
-- Start from SFT checkpoint
-    
-
-- Each step:
-    
-
-1. The student runs LIBERO episodes.
-    
-2. The teacher prefills those episodes and gives a log-prob for each student token.
-    
-3. The per-token advantage is reverse KL loss, with no task reward.
-    
-4. Do one update.
+- Step 4: On-policy distillation
+	- Start from SFT checkpoint
+	- Each step:
+		- The student runs LIBERO episodes.
+		- The teacher prefills those episodes and gives a log-prob for each student token.
+		- The per-token advantage is reverse KL loss, with no task reward.
+		- Do one update.
     
 
 - Evaluate every N=10 steps.
