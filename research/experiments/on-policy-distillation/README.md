@@ -60,7 +60,7 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   1. It adds a reasoning-effort instruction to the system prompt: xhigh by default, or medium or low.
   2. It keeps every earlier round's reasoning in the context (`preserve_thinking`, default true). Qwen3.5's template drops reasoning from turns before the last user query.
 
-  With their own templates, the students would see different multi-round contexts from the teacher, and from the teacher's SFT data. Proposed fix: give each student the teacher's `chat_template.jinja`. This is pending the human's decision.
+  **2026-11-19, human decision:** the students use the teacher's chat template (`main` 9bc3873). The student model files set `chat_template_file` to the teacher's pinned `chat_template.jinja`, and `opd` passes it to verl's `actor_rollout_ref.model.custom_chat_template`.
 - No jobs have been submitted, because nothing can run yet; see "Blocked on".
 
 ## Results
