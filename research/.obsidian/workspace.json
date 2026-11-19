@@ -185,13 +185,18 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "13b63466138f77fc",
   "lastOpenFiles": [
-    "bin/README.md",
+    "directions/on-policy-distillation.md",
     "directions/phase-and-action-sensitive.md",
+    "dashboard/phase-and-action-sensitive.md",
+    "dashboard",
+    "directions/Untitled.md",
+    "bin/README.md",
     "Untitled.md",
     "templates/experiment-README.md",
     "README.md",
