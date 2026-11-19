@@ -4,4 +4,4 @@ status: active
 ---
 # on-policy-distillation
 
-**Mechanism.** I will fill this in soon. This is just a placeholder note for now. 
+**Mechanism.** Our goal is to distill the robot-use reasoning Here is a very rough baseline of the pipeline we plan to carry out for this project.
