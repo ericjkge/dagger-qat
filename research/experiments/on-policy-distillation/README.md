@@ -55,6 +55,8 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   2. Hydra refused PEAR's configs as defaults of ours, because they set `hydra.searchpath`. The steps are now overlays (`configs/step/*.yaml`, `+step=<step>`) on PEAR's/verl's configs as the top-level config.
   3. Generic hardware inherited H100's 8 GPUs per node and 8-way sequence parallelism.
 - Collection now saves the rollout's own stored tensors (`input_ids`, `position_ids`, `loss_mask`, `multi_modal_inputs`), because verl's transfer queue does not keep raw images. This also removes a wrong Qwen2-VL rotary-position recomputation.
+- The suite passes, 70/70 with no warnings (job 60178211), on `main` 3871b03.
+- **2026-11-19, brief rewritten as prose:** setup with π_teacher and π_θ, base-model baselines, teacher data, an SFT-only baseline, the method with the reverse-KL formula (k1, as in `configs/step/distill.yaml`), and generalization evaluation. The "Our method" section is still being written.
 - Correction: PEAR's continuous-token context keeps every round's reasoning under either chat template. The teacher's template matters for its reasoning-effort system instruction.
 - **2026-11-19, human:** removed `research/baseline.md` and the baseline requirement (origin/eddy 90000b2). Comparisons are stated per result.
 - **Tokenizer check (jobs 60171018, 60171577):** a 15-minute CPU job, `tokenizer_check/check.py`; two records in `runs/on-policy-distillation.jsonl`.
