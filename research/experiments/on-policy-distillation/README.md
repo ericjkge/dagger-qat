@@ -20,7 +20,7 @@ started: 2026-11-19
 
 ## Current state
 
-Not started; no jobs submitted. Checked 2026-11-19 against origin/eddy: the brief's mechanism is a placeholder ("I will fill this in soon"), `research/baseline.md` is empty, and the worktree has no `scripts/`, `configs/` or `src/`. No hypothesis or kill criterion can be derived until those exist.
+Not started; no jobs submitted. Checked 2026-11-19 against origin/eddy: the brief's mechanism is incomplete (as of origin/eddy 6f2df20 it reads "distill the robot-use reasoning" and then refers to a pipeline sketch that isn't in the file yet), `research/baseline.md` is empty, and the worktree has no `scripts/`, `configs/` or `src/`. No hypothesis or kill criterion can be derived until those exist.
 
 ## Results
 
@@ -33,7 +33,7 @@ Once the brief and baseline land, write the hypothesis and kill criterion from t
 
 ## Blocked on
 
-- The brief `research/directions/on-policy-distillation.md` needs its mechanism filled in.
+- The brief `research/directions/on-policy-distillation.md` needs its mechanism finished: what model is distilled into what, and the pipeline sketch it refers to.
 - `research/baseline.md` needs the baselines and their protocol.
 - The execution code (`scripts/train.py` etc., `configs/`, `src/`) isn't on the branch yet.
 
