@@ -43,6 +43,11 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - `main` is now a4330ed, one squashed commit. It adds `configs/hardware/o2.sh`, because O2 has A100-80GB and L40S nodes but no H100/GB300, so PEAR's Hopper/Blackwell kernels, FA3 and LMCache are off. It also adds `scripts/slurm.sbatch`: a Ray cluster per Slurm job, single-node on gpu_quad or up to 5 nodes on gpu_mpi_quad, with notes on sizing requests.
   - The pipeline is renumbered without the baselines step: collect, SFT, distill, eval.
   - The remote `skeleton` branch is deleted.
+- **2026-11-19, human:** make the pipeline transferable to any cluster, and make the README concise and outward-facing. `main` is now b6f46dd:
+  - `scripts/run.sh` runs a step on one machine, inside a Slurm allocation, or on an existing Ray cluster. `scripts/ray_node.sh` starts one machine's Ray node by role.
+  - `configs/hardware/generic.sh` covers any CUDA GPU; `GPU=h100` and `GPU=gb300` keep PEAR's tuned recipes.
+  - The O2-specific `slurm.sbatch` is gone.
+  - Target clusters: HMS O2 (A100, L40S, so `GPU=generic`) and Kempner on Cannon (H100, so `GPU=h100`). Both are reached through `sbatch [site flags] scripts/run.sh <step>`.
 - **2026-11-19, human:** removed `research/baseline.md` and the baseline requirement (origin/eddy 90000b2). Comparisons are stated per result.
 - **Tokenizer check (jobs 60171018, 60171577):** a 15-minute CPU job, `tokenizer_check/check.py`; two records in `runs/on-policy-distillation.jsonl`.
   - Teacher and both students share the vocabulary (248,320 entries), the merges and the normalizer.
