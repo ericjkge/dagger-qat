@@ -9,8 +9,8 @@ status: active
 Here is a very rough baseline of the pipeline we plan to carry out for this project.
 
 **Setup.** Our experimental setup will be as follows:
-- Teacher: Qwen3.8-27B-PEAR-LIBERO_only
-- Student: Qwen3.5-9B, Qwen3.5-4B
+- Teacher: Qwen3.8-27B-PEAR-LIBERO_only ($\pi_{\text{teacher}}$)
+- Student: Qwen3.5-9B, Qwen3.5-4B ($\pi_)
 - Infrastructure: PEAR repo (reuse LIBERO environment, prompt format, RL trainer)  
 
 **Baselines.** We will evaluate the naive Qwen3.5-9B and 4B base models using PEAR's exact protocol, with 2000 episodes (40 teasks x 50 initial states). For comparisons, we will use the paper's numbers for the teacher at xhigh (74.4%) and low effort (21.9%).
@@ -31,9 +31,8 @@ Step 4: On-policy distillation
 	- The per-token advantage is reverse KL loss, with no task reward.
 	- Do one update.
 - Evaluate every N=10 steps.
-
-KL(πθ​∣∣πteacher​)=Ex∼πθ​​[logπθ​(xt+1​∣x1..t​)−logπteacher​(xt+1​∣x1..t​)]
-
+$$
+\mathrm{KL}\left(\pi_\theta \,\|\, \pi_{\text{teacher}}\right) = \mathbb{E}_{x \sim \pi_\theta}\left[\log \pi_\theta(x_{t+1} \mid x_{1..t}) - \log \pi_{\text{teacher}}(x_{t+1} \mid x_{1..t})\right] $$
 
 Step 5: Final evaluation
 - LIBERO (2,000 episodes): all metrics from Step 1.
