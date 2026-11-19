@@ -39,7 +39,11 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - PEAR is a submodule at `third_party/pear`, pinned to faff474. The models are pinned at Hub revisions.
   - `configs/` holds the model files and one Hydra config per step. `scripts/` holds one script per step. `src/opd/` holds the eval, collect, SFT and distill entry points and the SFT dataset.
   - Step 4 uses verl's built-in on-policy distillation: `loss_mode=k1`, `use_policy_gradient=true`, `use_task_rewards=false`.
-  - Not merged to `main` yet.
+  - **2026-11-19, human:** compute limits for the skeleton lifted, as long as jobs stay sized for fairshare priority. Run no experiments yet. Push straight to `main` with no agent setup and no Claude co-author line.
+  - `main` is now a4330ed, one squashed commit. It adds `configs/hardware/o2.sh`, because O2 has A100-80GB and L40S nodes but no H100/GB300, so PEAR's Hopper/Blackwell kernels, FA3 and LMCache are off. It also adds `scripts/slurm.sbatch`: a Ray cluster per Slurm job, single-node on gpu_quad or up to 5 nodes on gpu_mpi_quad, with notes on sizing requests.
+  - The pipeline is renumbered without the baselines step: collect, SFT, distill, eval.
+  - The remote `skeleton` branch is deleted.
+- **2026-11-19, human:** removed `research/baseline.md` and the baseline requirement (origin/eddy 90000b2). Comparisons are stated per result.
 - **Tokenizer check (jobs 60171018, 60171577):** a 15-minute CPU job, `tokenizer_check/check.py`; two records in `runs/on-policy-distillation.jsonl`.
   - Teacher and both students share the vocabulary (248,320 entries), the merges and the normalizer.
   - The teacher adds 7 audio/TTS special tokens (ids 248070–248076) that the students lack. LIBERO episodes never use them.
@@ -64,7 +68,6 @@ When the PEAR code and teacher checkpoint are available, submit the Step 1 evalu
 
 ## Blocked on
 
-- **Baselines file:** `research/baseline.md` on origin/eddy is still empty. The brief's Step 1 names the baselines: base 9B and 4B, and teacher at 74.4% (xhigh) and 21.9% (low). Please confirm these are the binding baselines, or fill in `baseline.md`.
 - **Compute:** `research/bin/submit` allows 1 GPU, 8 GB RAM and 12 h per job. PEAR's recipes assume multi-node Ray clusters, and the 27B teacher alone needs about 54 GB in bf16. No pipeline step fits the current limits.
 - **Code and checkpoints (superseded by the `skeleton` branch for the code):**
   - The PEAR repo (LIBERO env, prompt format, RL trainer) is not on the cluster. I searched `/n/data1/.../edk005` and `/n/scratch/users/e/edk005`.
