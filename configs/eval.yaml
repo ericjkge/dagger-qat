@@ -1,0 +1,11 @@
+# Step 4: one pass of a policy over an episode file (PEAR's embodied evaluation). The records land in
+# $RUN/val_dumps/eval_<step>.jsonl, the success rate in eval_<step>_summary.json.
+hydra:
+  searchpath:
+    - pkg://verl.trainer.config
+    - pkg://pear.models
+    - pkg://pear.configs
+
+defaults:
+  - embodied
+  - _self_

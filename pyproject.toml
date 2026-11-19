@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opd"
+version = "0.1.0"
+description = "On-policy distillation of PEAR's robot-use reasoning model into smaller students"
+requires-python = ">=3.10"
+# opd runs inside PEAR's verl environment (scripts/setup.sh); it declares no dependencies of its own
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["third_party"]
+
+[tool.ruff.lint]
+select = ["E", "F", "UP", "B", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

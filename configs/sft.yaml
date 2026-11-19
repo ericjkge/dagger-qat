@@ -1,0 +1,28 @@
+# Step 2: SFT of a student on the teacher's successful episodes, the loss on every token the teacher generated, in the
+# exact token sequence the rollout produced (opd.sft_data), so training sees the inference context format.
+hydra:
+  searchpath:
+    - pkg://verl.trainer.config
+
+defaults:
+  - sft_trainer_engine
+  - _self_
+
+data:
+  train_files: ???  # the directory opd.collect wrote
+  val_files: null
+  train_max_samples: 1000
+  pad_mode: no_padding
+  max_length: 163840  # PEAR's LIBERO training budget: 4096 prompt + 160000 response tokens
+  truncation: error
+  custom_cls:
+    path: pkg://opd.sft_data
+    name: EpisodeDataset
+
+model:
+  path: ???
+  trust_remote_code: true
+
+trainer:
+  total_epochs: 2
+  logger: ["console", "file"]

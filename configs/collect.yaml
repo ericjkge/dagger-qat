@@ -1,0 +1,13 @@
+# Step 1: the teacher's evaluation, keeping each successful episode's exact tokens and images for SFT.
+hydra:
+  searchpath:
+    - pkg://verl.trainer.config
+    - pkg://pear.models
+    - pkg://pear.configs
+
+defaults:
+  - embodied
+  - _self_
+
+collect:
+  out_dir: ${run_dir}/episodes  # one <uid>.pt per successful episode (opd.collect)

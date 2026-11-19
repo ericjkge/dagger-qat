@@ -1,0 +1,46 @@
+# Step 3: on-policy distillation from the SFT checkpoint. The student runs LIBERO episodes, the teacher prefills them
+# and scores every student token; the per-token reward is the negative reverse KL (k1 estimator, policy-gradient
+# update), with no task reward. verl's distillation: third_party/pear verl docs/algo/opd.md.
+hydra:
+  searchpath:
+    - pkg://verl.trainer.config
+    - pkg://pear.models
+    - pkg://pear.configs
+
+defaults:
+  - training
+  - _self_
+
+algorithm:
+  filter_groups:
+    enable: false  # DAPO's filter drops groups without reward variance: with no task reward it would drop them all
+  rollout_correction:
+    score_centering: false  # an RL variance reduction on task rewards, not part of distillation
+
+actor_rollout_ref:
+  actor:
+    use_kl_loss: false  # the teacher is the only target
+    policy_loss:
+      rollout_correction:
+        score_centering: false
+  rollout:
+    n: 1  # no group baseline is needed: the advantage is per token
+
+distillation:
+  enabled: true
+  nnodes: ???  # the teacher's own GPU machines
+  n_gpus_per_node: ???
+  teacher_models:
+    teacher_model:
+      model_path: ???
+      inference:
+        tensor_model_parallel_size: ???
+  distillation_loss:
+    loss_mode: k1
+    use_policy_gradient: true
+    policy_loss_mode: vanilla
+    use_task_rewards: false
+
+trainer:
+  test_freq: 10  # evaluate every 10 updates
+  val_before_train: true
