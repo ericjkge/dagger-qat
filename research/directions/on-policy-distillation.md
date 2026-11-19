@@ -17,16 +17,12 @@ Here is a very rough baseline of the pipeline we plan to carry out for this proj
 
 We will first derive teacher data by running it on all 4 LIBERO suites, keeping only successful episodes (up to around 1000). We will save the full multi-round contexts, including images, reasoning, and actions. 
 
-Next, we want to have an SFT-only baseline to demonstrate that on-pocl
+Next, we want to have an SFT-only baseline to demonstrate that on-policy distillation outperforms it. We will fine-tune each student on the teacher episodes only using standard SFT, then compute the loss on all generated tokens, using the same context format as at inference. We will evaluate results for this model
 
-**Workflow.** 
+**Our method.** Our on-policy distillation method will utilize the following algorithm:
 
-Next, we want to fine tune each student on the teacher episodes
 
-Step 3: SFT
-- Fine-tune each student on the teacher episodes.
-- Compute the loss on all generated tokens, using the same context format as at inference.
-- Evaluate the result as the “SFT only” model.
+
 Step 4: On-policy distillation
 - Start from SFT checkpoint
 - Each step:
