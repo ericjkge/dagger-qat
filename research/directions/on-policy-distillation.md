@@ -34,6 +34,9 @@ Step 4: On-policy distillation
 $$
 \mathrm{KL}\left(\pi_\theta \,\|\, \pi_{\text{teacher}}\right) = \mathbb{E}_{x \sim \pi_\theta}\left[\log \pi_\theta(x_{t+1} \mid x_{1..t}) - \log \pi_{\text{teacher}}(x_{t+1} \mid x_{1..t})\right] $$
 
+Our final evaluation will use LIBERO (2000 episodes) with the same metrics and setup from the baseline evals. To assess generalization ability of the students, we will perform the following (with $\approx$ 10 epidoes per task for each perturbation):
+
+
 Step 5: Final evaluation
 - LIBERO (2,000 episodes): all metrics from Step 1.
 - Generalization (students only; about 10 episodes per task for each perturbation):
