@@ -19,7 +19,7 @@ We will first derive teacher data by running it on all 4 LIBERO suites, keeping 
 
 Next, we want to have an SFT-only baseline to demonstrate that on-policy distillation outperforms it. We will fine-tune each student on the teacher episodes only using standard SFT, then compute the loss on all generated tokens, using the same context format as at inference. We will evaluate results for this model
 
-**Our method.** This is my main contribution and focus on this project. Our on-policy distillation method will utilize the following algorithm:
+**Our method.** This is *my main contribution* and focus on this project. Our on-policy distillation method will utilize the following algorithm:
 
 **Algorithm 1. On-policy distillation**
 Input: Student $\pi_{\theta_0}$; frozen teacher $\pi_\text{teacher}$; LIBERO episodes $\mathcal{D}$ (task x initial state), batch size $\mathcal{B}$ , # steps $K$, eval interval $N=10$. 
@@ -35,7 +35,7 @@ Input: Student $\pi_{\theta_0}$; frozen teacher $\pi_\text{teacher}$; LIBERO epi
 
 I want to try using the SFT checkpoint as a student, as well as a untuned student to see whether OPD can perform well without this mid-training step.
 
-Our final evaluation will use LIBERO (2000 episodes) with the same metrics and setup from the baseline evals. To assess generalization ability of the students, we will perform the following (with $\approx$ 10 epidoes per task for each perturbation):
+Our final evaluation will use LIBERO (2000 episodes) with the same metrics and setup from the baseline evals. To assess generalization ability of the students, we will perform the following (with $\approx$ 10 episodes per task for each perturbation):
 - LIBERO-Pro task perturbation (teacher: 57.4%)
 - LIBERO-Plus language and layout perturbations
 
