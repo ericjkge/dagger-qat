@@ -101,6 +101,8 @@ The 4B student is reported alongside the 9B student but does not decide the dire
     2. `vanilla` is PPO's clipped ratio against the sampler's log-probs. With fresh rollouts and one update, the ratio is about 1, differing only by the vLLM/FSDP numeric mismatch, so the gradient is A_t ∇log π_θ up to that factor.
     3. Still untested on GPU: the teacher prefill on multimodal inputs. The smoke test's part 2 covers it.
 
+- **2026-11-20, brief updated again (origin/eddy).** Algorithm 1's inner steps are renumbered 1–5 (rollout, teacher prefill, advantages, update, evaluate). Nothing else changed, and neither does the audit above.
+
 ## Results
 
 None yet.
