@@ -60,11 +60,21 @@ The 4B student is reported alongside the 9B student but does not decide the dire
 - **2026-11-19, brief:** "Our method" now holds the formal algorithm and is named the project's main contribution. A new ablation: on-policy distillation from the untuned base student as well as from the SFT checkpoint, to test whether the SFT warm start is needed. This needs no code: `scripts/distill.sh` with `MODEL=` set to the base model.
 - **2026-11-19, human:** run a short GPU smoke test; keep the code clean; this is a shared codebase.
   - Raised `research/bin/submit` to one GPU machine per job (4 GPUs, 192 GB; origin/eddy defa9d4), per the earlier instruction to lift compute limits while staying fair to priority.
-  - `smoke/` holds the jobs. Each runs `main`'s code cloned on scratch at a pinned commit.
-    - `probe.sbatch` (60181075): driver, compute capability, network.
-    - `setup.sbatch` (60181374; 60181101 was cancelled and resubmitted with --time=05:00:00 to fit the GPU-minute cap): `scripts/setup.sh` at 2dec0ee. Header: gpu / l40s:1 / 16 CPU / 64G / 5h. It installs PEAR's verl environment built for CUDA arch 8.0 and 8.9, LIBERO, and Qwen3.5-4B, then runs PEAR's checks.
-    - `eval.sbatch`: 4 episodes, eval then collect with the 4B, then `check.py`.
-  - The `setup.sh` fix (2dec0ee, not yet on `main`): it stops calling PEAR's `libero_run`, which downloads PEAR's 27B base model.
+  - **Human: make the GPU test as short as possible while still covering the full pipeline.** `smoke/` now holds two jobs, each running `main`'s code cloned on scratch at a pinned commit (a478227):
+    - `setup.sbatch` (60181670). Header: gpu / l40s:1 / 16 CPU / 64G / 4h. It installs PEAR's verl environment built for CUDA arch 8.9 only, plus LIBERO and Qwen3.5-4B, then runs PEAR's checks.
+    - `pipeline.sbatch` (60181671, starts after setup succeeds). Header: gpu / l40s:3 / 16 CPU / 96G / 1.5h. It runs the four steps:
+      1. collect: 2 episodes, all kept.
+      2. SFT: 2 updates, with a Hugging Face export.
+      3. distill: 2 updates plus a validation pass. The teacher is the 4B base, the student is the SFT model.
+      4. export with PEAR's script, then eval: 2 episodes.
+
+      `check.py` then verifies every output and appends a record to the runs file.
+  - Cancelled the probe (60181075) and the earlier setup jobs (60181101, 60181374). The account's GPU-minute cap (`GrpTRESRunMins gres/gpu=12000`, nearly all held by learned-hierarchy jobs) makes small, short requests start sooner.
+  - Fixes found while building the smoke test (a478227):
+    - `setup.sh` no longer calls PEAR's `libero_run`, which downloads PEAR's 27B base model.
+    - SFT now also saves a Hugging Face model, which distillation and eval need.
+    - `collect.min_score` sets which episodes are kept (default 1, successes only).
+    - TensorBoard logs go to the run directory, not the repo.
 - Correction: PEAR's continuous-token context keeps every round's reasoning under either chat template. The teacher's template matters for its reasoning-effort system instruction.
 - **2026-11-19, human:** removed `research/baseline.md` and the baseline requirement (origin/eddy 90000b2). Comparisons are stated per result.
 - **Tokenizer check (jobs 60171018, 60171577):** a 15-minute CPU job, `tokenizer_check/check.py`; two records in `runs/on-policy-distillation.jsonl`.

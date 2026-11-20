@@ -3,7 +3,7 @@
   "data_source": "suite",
   "env": {
     "suite": ["libero_spatial", "libero_goal"],
-    "task_id": "0-1",
+    "task_id": "0",
     "trial_id": "0"
   }
 }
