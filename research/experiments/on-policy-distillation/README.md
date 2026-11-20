@@ -62,6 +62,7 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - Raised `research/bin/submit` to one GPU machine per job (4 GPUs, 192 GB; origin/eddy defa9d4), per the earlier instruction to lift compute limits while staying fair to priority.
   - **Human: make the GPU test as short as possible while still covering the full pipeline.** `smoke/` now holds two jobs, each running `main`'s code cloned on scratch at a pinned commit (a478227):
     - `setup.sbatch` (60185384). Header: short / 16 CPU / 64G / 4h, no GPU. It installs PEAR's verl environment built for CUDA arch 8.9 only, plus LIBERO and Qwen3.5-4B. It replaced GPU setup jobs (60181670 and earlier), which every GPU partition estimated would start the next day; `setup.sh` now builds without a GPU given `CUDA_ARCH` (bc23adb).
+    - Setup completed in 57 min with a peak RSS of 48 GB. PEAR's CPU environment tests passed (18). Qwen3.5-4B is pinned at 851bf6e (8.8 GB); the verl environment is 14 GB.
     - `pipeline.sbatch` (60185385, starts after setup succeeds). Header: gpu / l40s:3 / 16 CPU / 96G / 1.5h. It first runs PEAR's GPU and LIBERO checks (`setup.sh` on the GPU node), then the four steps. It runs the four steps:
       1. collect: 2 episodes, all kept.
       2. SFT: 2 updates, with a Hugging Face export.
