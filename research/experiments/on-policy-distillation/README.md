@@ -63,13 +63,10 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - **Human: make the GPU test as short as possible while still covering the full pipeline.** `smoke/` now holds two jobs, each running `main`'s code cloned on scratch at a pinned commit (a478227):
     - `setup.sbatch` (60185384). Header: short / 16 CPU / 64G / 4h, no GPU. It installs PEAR's verl environment built for CUDA arch 8.9 only, plus LIBERO and Qwen3.5-4B. It replaced GPU setup jobs (60181670 and earlier), which every GPU partition estimated would start the next day; `setup.sh` now builds without a GPU given `CUDA_ARCH` (bc23adb).
     - Setup completed in 57 min with a peak RSS of 48 GB. PEAR's CPU environment tests passed (18). Qwen3.5-4B is pinned at 851bf6e (8.8 GB); the verl environment is 14 GB.
-    - `pipeline.sbatch` (60185385, starts after setup succeeds). Header: gpu / l40s:3 / 16 CPU / 96G / 1.5h. It first runs PEAR's GPU and LIBERO checks (`setup.sh` on the GPU node), then the four steps. It runs the four steps:
-      1. collect: 2 episodes, all kept.
-      2. SFT: 2 updates, with a Hugging Face export.
-      3. distill: 2 updates plus a validation pass. The teacher is the 4B base, the student is the SFT model.
-      4. export with PEAR's script, then eval: 2 episodes.
-
-      `check.py` then verifies every output and appends a record to the runs file.
+    - **Human: split the test and run it as soon as possible without priority penalties.** The single 3-GPU pipeline job (60185385) is replaced by two jobs on `gpu_requeue`, which is preemptible and billed at 0.1 per GPU instead of 5. Both run code bc23adb and share outputs in `runs/smoke-bc23adb`.
+      - `part1.sbatch` (60188766). Header: gpu_requeue / l40s:1 / 8 CPU / 64G / 1h15. PEAR's GPU and LIBERO checks, collect 2 episodes (all kept), SFT 2 updates with the optimizer offloaded to CPU, then eval of the SFT model.
+      - `part2.sbatch` (60188767, after part 1). Header: gpu_requeue / l40s:3 / 12 CPU / 80G / 1h15. Distill 2 updates plus a validation pass, export, then eval of the distilled model.
+      - `check.py` verifies each part's steps.
   - Cancelled the probe (60181075) and the earlier setup jobs (60181101, 60181374). The account's GPU-minute cap (`GrpTRESRunMins gres/gpu=12000`, nearly all held by learned-hierarchy jobs) makes small, short requests start sooner.
   - Fixes found while building the smoke test (a478227):
     - `setup.sh` no longer calls PEAR's `libero_run`, which downloads PEAR's 27B base model.

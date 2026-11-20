@@ -13,3 +13,19 @@ if [ ! -d "$CODE" ]; then
 fi
 cd "$CODE"
 echo "code $(git rev-parse HEAD) on $(hostname): $(nvidia-smi --query-gpu=name,driver_version --format=csv,noheader 2> /dev/null || echo no GPU)"
+
+# the smoke test's shared settings: 2 episodes, 4096-token responses, Qwen3.5-4B in both roles (the teacher's mechanics
+# are the same at 27B) with the teacher's chat template at its pinned revision (without the teacher's weights)
+export EPISODES=$SMOKE/episodes.json VAL_EPISODES=$SMOKE/episodes.json MAX_RESPONSE=4096 LIBERO_SERVERS=2 TP=1
+BASE=$WORK_DIR/models/Qwen3.5-4B
+STUDENT_FILE=$CODE/configs/models/qwen3_5_4b.sh
+TEMPLATE=$OUT/tokenizers/Qwen3.8-27B-PEAR-LIBERO_only/chat_template.jinja
+RUNS=$OUT/runs/smoke-${CODE_SHA:0:7}
+SFT_MODEL=$RUNS/sft/ckpt/global_step_2/huggingface
+mkdir -p "$RUNS"
+
+stage() {  # stage <name> <command...>: runs it, recording its seconds in $RUNS/seconds
+  local start=$SECONDS
+  "${@:2}"
+  echo "$1 $((SECONDS - start))" >> "$RUNS/seconds"
+}
