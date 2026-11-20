@@ -1,7 +1,5 @@
 # On-Policy Distillation for Robot-Use Reasoning Models
 
-On-policy distillation of a robot-use reasoning model into smaller, faster students.
-
 ## Motivation
 
 [PEAR](https://arxiv.org/abs/2611.18562) trains a 27B reasoning model to control robots, with reinforcement learning
