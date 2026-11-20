@@ -21,7 +21,7 @@ Next, we want to have an SFT-only baseline to demonstrate that on-policy distill
 
 **Our method.** This is my main contribution and focus on this project. Our on-policy distillation method will utilize the following algorithm:
 
-Algorithm.
+**Algorithm 1. **
 - Input:
   - the student $\pi_{\theta_0}$;
   - the frozen teacher $\pi_{\text{teacher}}$;
