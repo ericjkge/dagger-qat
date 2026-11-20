@@ -89,6 +89,18 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   **2026-11-19, human decision:** the students use the teacher's chat template (`main` 9bc3873). The student model files set `chat_template_file` to the teacher's pinned `chat_template.jinja`, and `opd` passes it to verl's `actor_rollout_ref.model.custom_chat_template`.
 - No jobs have been submitted, because nothing can run yet; see "Blocked on".
 
+- **2026-11-20, brief updated (origin/eddy, Algorithm 1 reformatted).** The algorithm is unchanged: the brief now numbers it as "Algorithm 1. On-policy distillation" and fixes the "epidoes" typo. I audited `main`'s distill step against it, reading verl `trainer/distillation/losses.py` and PEAR's `configs/{base,training}.yaml`:
+  - **Matches:**
+    - The advantage: `k1` gives log π_θ − log π_teacher, and the advantage is its negative, detached, per token, with no discounting.
+    - No task reward, a token-mean loss, one update per step (mini-batch equal to the batch), and B episodes per step (`rollout.n=1`).
+    - The teacher scores the student's own token sequence.
+    - An evaluation every 10 steps, plus one before training.
+    - Both student initialisations: `MODEL` is either the SFT checkpoint or the base model.
+  - **Gaps:**
+    1. PEAR's separate-async trainer trains on episodes up to 4 policy versions old (`max_off_policy_threshold: 5`), and an episode can continue across a weight update. Algorithm 1 samples every episode from π_θk. `trainer.v1.sampler.max_off_policy_threshold=1` would keep only episodes generated entirely under the current version, at a throughput cost. This needs a human decision.
+    2. `vanilla` is PPO's clipped ratio against the sampler's log-probs. With fresh rollouts and one update, the ratio is about 1, differing only by the vLLM/FSDP numeric mismatch, so the gradient is A_t ∇log π_θ up to that factor.
+    3. Still untested on GPU: the teacher prefill on multimodal inputs. The smoke test's part 2 covers it.
+
 ## Results
 
 None yet.
