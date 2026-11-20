@@ -1,8 +1,8 @@
 #!/bin/bash
-# scripts/setup.sh for the smoke test: PEAR's training environment and LIBERO, the 4B student, PEAR's checks. Built for
-# the L40S (8.9) the smoke test runs on, one architecture to keep the build short; MAX_JOBS keeps the compilers within the requested memory.
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu:l40s:1
+# scripts/setup.sh for the smoke test on a CPU machine (no GPU time spent compiling): PEAR's training environment and
+# LIBERO, and the 4B student. Built for the L40S (8.9) the smoke test runs on, one architecture to keep the build short;
+# MAX_JOBS keeps the compilers within the requested memory. PEAR's GPU checks run first in pipeline.sbatch.
+#SBATCH --partition=short
 #SBATCH --time=04:00:00
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G

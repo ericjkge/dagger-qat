@@ -1,6 +1,6 @@
 #!/bin/bash
 # GPU smoke test of the whole pipeline at the smallest size that runs every step's real code path, on one machine of 3
-# GPUs, with Qwen3.5-4B in both roles (the teacher's mechanics are the same at 27B):
+# GPUs, with Qwen3.5-4B in both roles (the teacher's mechanics are the same at 27B), after PEAR's environment checks:
 #   1. collect: 2 LIBERO episodes, every episode kept (collect.min_score=0: a base 4B seldom succeeds)
 #   2. SFT: 2 updates on them, saved also as a Hugging Face model
 #   3. distill: 2 updates from the SFT model, after a validation pass, on a trainer, a rollout and a teacher GPU
@@ -27,6 +27,8 @@ stage() {  # stage <name> <command...>: runs it, recording its seconds
   echo "$1 $((SECONDS - start))" >> "$RUNS/seconds"
 }
 
+# PEAR's checks of the training environment on this GPU and of a LIBERO step (setup.sh, its install already done)
+stage check env CUDA_ARCH=8.9 BENCHES=libero MODEL_FILES=configs/models/qwen3_5_4b.sh bash scripts/setup.sh
 stage collect env ROLLOUT_GPUS=1 MODEL=$BASE RUN=$RUNS/collect \
   bash scripts/run.sh scripts/collect.sh collect.min_score=0 chat_template_file="$TEMPLATE"
 stage sft env MODEL=$BASE EPISODES_DIR=$RUNS/collect/episodes RUN=$RUNS/sft NGPUS=1 \

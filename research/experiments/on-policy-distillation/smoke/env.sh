@@ -12,4 +12,4 @@ if [ ! -d "$CODE" ]; then
   git -C "$CODE" submodule update -q --init
 fi
 cd "$CODE"
-echo "code $(git rev-parse HEAD) on $(hostname): $(nvidia-smi --query-gpu=name,driver_version --format=csv,noheader | head -1)"
+echo "code $(git rev-parse HEAD) on $(hostname): $(nvidia-smi --query-gpu=name,driver_version --format=csv,noheader 2> /dev/null || echo no GPU)"
