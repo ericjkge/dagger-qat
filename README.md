@@ -1,4 +1,4 @@
-# robot-distillation
+# On-Policy Distillation for Robot-Use Reasoning Models
 
 On-policy distillation of a robot-use reasoning model into smaller, faster students.
 
