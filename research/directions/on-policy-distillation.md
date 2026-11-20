@@ -21,7 +21,8 @@ Next, we want to have an SFT-only baseline to demonstrate that on-policy distill
 
 **Our method.** This is my main contribution and focus on this project. Our on-policy distillation method will utilize the following algorithm:
 
-**Algorithm 1. **
+**Algorithm 1. On-policy distillation**
+Input: Student $\pi_{\theta_0}$; frozen teacher $\pi_\text{teacher}$; LIBERO episodes $\mathcal{D}$ (task x initial state), batch size $\mathcal{B}
 - Input:
   - the student $\pi_{\theta_0}$;
   - the frozen teacher $\pi_{\text{teacher}}$;
