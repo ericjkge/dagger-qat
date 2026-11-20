@@ -24,13 +24,13 @@ Next, we want to have an SFT-only baseline to demonstrate that on-policy distill
 **Algorithm 1. On-policy distillation**
 Input: Student $\pi_{\theta_0}$; frozen teacher $\pi_\text{teacher}$; LIBERO episodes $\mathcal{D}$ (task x initial state), batch size $\mathcal{B}$ , # steps $K$, eval interval $N=10$. 
 1. For $k=0, \dots,K-1$:
-	2. Rollout: sample $B$ episodes from $\mathcal{D}$ and run $\pi_{\theta_k}$ on each in LIBERO. Record each token sequence $x$, its generated positions $\mathcal{G}(x)$, and $\log \pi_{\theta_k}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
-	3. Teacher prefill: run one forward pass of $\pi_{\text{teacher}}$ over each $x$, with the same tokens and no generation. This gives $\log \pi_{\text{teacher}}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
-	4. Advantages: compute $A_t$ as above for every generated token.
-	5. Update: take one gradient step on the policy-gradient loss, averaged over all generated tokens in the batch: $$
+	1. Rollout: sample $B$ episodes from $\mathcal{D}$ and run $\pi_{\theta_k}$ on each in LIBERO. Record each token sequence $x$, its generated positions $\mathcal{G}(x)$, and $\log \pi_{\theta_k}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
+	2. Teacher prefill: run one forward pass of $\pi_{\text{teacher}}$ over each $x$, with the same tokens and no generation. This gives $\log \pi_{\text{teacher}}(x_t \mid x_{<t})$ for $t \in \mathcal{G}(x)$.
+	3. Advantages: compute $A_t$ as above for every generated token.
+	4. Update: take one gradient step on the policy-gradient loss, averaged over all generated tokens in the batch: $$
 	     \ell(\theta) = -\frac{1}{\sum_{x}|\mathcal{G}(x)|}\sum_{x}\sum_{t \in \mathcal{G}(x)} A_t ,\log \pi_\theta(x_t \mid x_{<t})
 	     $$
-	6. Evaluate: if $(k+1) \bmod N = 0$, measure the success rate on validation episodes.
+	5. Evaluate: if $(k+1) \bmod N = 0$, measure the success rate on validation episodes.
 2. Return $\pi_{\theta_K}$.
 
 I want to try using the SFT checkpoint as a student, as well as a untuned student to see whether OPD can perform well without this mid-training step.
