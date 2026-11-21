@@ -113,6 +113,9 @@ The 4B student is reported alongside the 9B student but does not decide the dire
 - **2026-11-21, part 1 got past the queue, then failed on a relative path; fixed and resubmitted.** Part 1 (60338005) ran its checks (103 s), and collect's storage units all started. It then failed after 3.4 minutes, at 03:40, creating the dataset: `FileNotFoundError: Custom module file not found: module_path='pear/agent_loop/dataset.py'`. PEAR's `base.yaml` names `data.custom_cls.path` and `actor_rollout_ref.rollout.agent.agent_loop_config_path` relative to PEAR's root, because PEAR's own `start_ray_node.sh` starts Ray from there. Our launcher does not, and these are the only two such paths in PEAR's configs.
   - Fix (main, a8fe07f): `scripts/common.sh` passes both as absolute paths under `$PEAR`, like `tool_config_path`. `test_every_referenced_repository_file_exists` now covers them. The scripts and configs tests pass (44 of 44).
   - Resubmitted on a8fe07f: part 1 60338213, part 2 60338214 (afterok).
+- **2026-11-21, part 1 reached vLLM's launch, then failed on Slurm's GPU variables; fixed and resubmitted.** Part 1 (60338213) got past the dataset. It failed at 03:47 starting the rollout replica's `CheckpointEngineWorker`, with verl's `ValueError: Please don't set ROCR_VISIBLE_DEVICES when HIP/CUDA_VISIBLE_DEVICES is set` (`single_controller/base/worker.py`). Slurm's GPU allocation exports AMD's `ROCR_VISIBLE_DEVICES` beside `CUDA_VISIBLE_DEVICES`, and Ray's workers inherit both.
+  - Fix (main, e642cd7): `scripts/ray_node.sh` unsets `ROCR_VISIBLE_DEVICES` when `CUDA_VISIBLE_DEVICES` is set. This is a no-op off Slurm. The static checks pass (14 of 14).
+  - Resubmitted on e642cd7: part 1 60338413, part 2 60338414 (afterok).
 
 ## Results
 
