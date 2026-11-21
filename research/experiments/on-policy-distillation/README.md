@@ -102,6 +102,10 @@ The 4B student is reported alongside the 9B student but does not decide the dire
     3. Still untested on GPU: the teacher prefill on multimodal inputs. The smoke test's part 2 covers it.
 
 - **2026-11-20, brief updated again (origin/eddy).** Algorithm 1's inner steps are renumbered 1–5 (rollout, teacher prefill, advantages, update, evaluate). Nothing else changed, and neither does the audit above.
+- **2026-11-21, smoke part 1 failed on a config error; fixed and resubmitted.** Part 1 (60188766) started at 02:55 on an L40S. Its PEAR GPU and LIBERO checks passed, but collect stopped at config composition after 3.5 minutes: `scripts/common.sh` passed `+…env_vars.TENSORBOARD_DIR`, and PEAR's `base.yaml` already sets that key (to `${run_dir}/tensorboard`, which is already the run directory), so Hydra refused the `+`. The raylet SIGKILL in the log is only Ray's teardown. Part 2 (60188767) was cancelled by its dependency.
+  - The CPU suite does catch it (`test_eval_and_collect_run_one_pass`). The earlier passing run predates the override.
+  - Fix: the override is removed, and a test now checks that `TENSORBOARD_DIR` is the run's `tensorboard/`. I folded the fix into the unpushed skeleton commit; `skeleton-local` is now 026aef1 (ebf7349, 58a51e7, 026aef1 on origin/main bcaded2).
+  - Resubmitted on 026aef1 with unchanged headers: CPU suite 60335813 (short), part 1 60335814 (gpu_requeue, l40s:1), part 2 60335815 (gpu_requeue, l40s:3, afterok).
 
 ## Results
 
