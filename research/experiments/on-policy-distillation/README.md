@@ -119,6 +119,10 @@ The 4B student is reported alongside the 9B student but does not decide the dire
 - **2026-11-21, collect passed; SFT hit the same variable; fix moved and resubmitted.** Part 1 (60338413) passed the checks (115 s) and collect (443 s), writing both episodes. SFT then failed at 04:00 with the same `ROCR_VISIBLE_DEVICES` error: it starts through torchrun, not `ray_node.sh`.
   - Fix: the unset moved to `scripts/common.sh`, which every step sources. It replaces e642cd7 as 6a64ffc. The offline tests pass (64 of 64, network tests skipped).
   - Resubmitted on 6a64ffc: part 1 60338905, part 2 60338906 (afterok).
+- **2026-11-21, SFT ran out of GPU memory; offload fixed and resubmitted.** Part 1 (60338905) passed the checks (163 s) and collect (446 s). SFT then started and ran out of memory at 04:24, in Adam's first step (`_init_group`), at 42.3 GB allocated on the 44 GB L40S. A 4B's fp32 parameters, gradients and Adam state are about 64 GB, and `engine.optimizer_offload` moves the state off the GPU only between steps. SFT also ran FSDP1, verl's SFT default, where FSDP2's `offload_policy` does nothing.
+  - Main (2055b84): `configs/step/sft.yaml` sets `engine.strategy: fsdp2`, as PEAR trains its actor, with a test. The offline tests pass (64 of 64).
+  - Smoke: SFT passes `engine.offload_policy=true` in place of `optimizer_offload`, and part 1's `--mem` goes from 64G to 128G for that host-side state. This is smoke-only, since full runs use A100-80GB or H100 GPUs, several per run.
+  - Resubmitted on 2055b84: part 1 60339780, part 2 60339781 (afterok).
 
 ## Results
 
