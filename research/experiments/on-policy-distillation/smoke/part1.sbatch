@@ -15,11 +15,11 @@ source /n/data1/hms/dbmi/zitnik/lab/users/edk005/robot-distillation/.wt/on-polic
 # PEAR's checks of the training environment on this GPU and of a LIBERO step (setup.sh, its install already done)
 stage check env CUDA_ARCH=8.9 BENCHES=libero MODEL_FILES=configs/models/qwen3_5_4b.sh bash scripts/setup.sh
 stage collect env MODEL=$BASE RUN=$RUNS/collect \
-  bash scripts/run.sh scripts/collect.sh collect.min_score=0 chat_template_file="$TEMPLATE"
+  bash scripts/run.sh scripts/collect.sh collect.min_score=0 chat_template_file="$TEMPLATE" "$UNITS"
 stage sft env MODEL=$BASE EPISODES_DIR=$RUNS/collect/episodes RUN=$RUNS/sft NGPUS=1 \
   bash scripts/sft.sh trainer.total_training_steps=2 data.train_batch_size=2 data.micro_batch_size_per_gpu=1 \
   engine.optimizer_offload=true trainer.logger='[console]'
 stage eval_sft env MODEL_FILE=$STUDENT_FILE MODEL=$SFT_MODEL RUN=$RUNS/eval-sft \
-  bash scripts/run.sh scripts/eval.sh chat_template_file="$TEMPLATE"
+  bash scripts/run.sh scripts/eval.sh chat_template_file="$TEMPLATE" "$UNITS"
 
 "$WORK_DIR/envs/verl/bin/python" "$SMOKE/check.py" "$RUNS" "$CODE_SHA" "$SLURM_JOB_ID" collect sft eval-sft

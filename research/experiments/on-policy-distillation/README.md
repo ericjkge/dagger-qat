@@ -106,6 +106,10 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - The CPU suite does catch it (`test_eval_and_collect_run_one_pass`). The earlier passing run predates the override.
   - Fix: the override is removed, and a test now checks that `TENSORBOARD_DIR` is the run's `tensorboard/`. I folded the fix into the unpushed skeleton commit; `skeleton-local` is now 026aef1 (ebf7349, 58a51e7, 026aef1 on origin/main bcaded2).
   - Resubmitted on 026aef1 with unchanged headers: CPU suite 60335813 (short), part 1 60335814 (gpu_requeue, l40s:1), part 2 60335815 (gpu_requeue, l40s:3, afterok).
+- **2026-11-21, CPU suite passed; part 1 hung on Ray CPUs; fixed and resubmitted.** The CPU suite (60335813) passed 70 of 70 on 026aef1. Part 1 (60335814) started at 03:05. PEAR's checks passed in 146 s, then collect hung with the GPU idle: PEAR's `base.yaml` gives the data queue 32 storage units (verl's default is 8), and each takes one Ray CPU (`@ray.remote(num_cpus=1)` in `transfer_queue/storage/simple_storage.py`). The job has 8 CPUs, so 7 units started, 24 stayed `PENDING_CREATION`, and the runner waited on them forever. I cancelled 60335814 and 60335815 at 03:40, 35 minutes in.
+  - Smoke fix (here): `env.sh` sets `UNITS=transfer_queue.backend.SimpleStorage.num_data_storage_units=2`, and every Ray stage passes it. It composes in both `embodied` and `training`.
+  - Main: a README note that Ray needs more than 32 CPUs, or a lower `num_data_storage_units` (65c78b8). Full runs should request more than 32 CPUs per Ray cluster or set this override. A snapshot resumes only with the same number of units, so a run keeps one value throughout.
+  - Resubmitted on 65c78b8 (026aef1 plus the README): part 1 60338005, part 2 60338006 (afterok), headers unchanged.
 
 ## Results
 

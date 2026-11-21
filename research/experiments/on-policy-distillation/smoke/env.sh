@@ -22,6 +22,8 @@ STUDENT_FILE=$CODE/configs/models/qwen3_5_4b.sh
 TEMPLATE=$OUT/tokenizers/Qwen3.8-27B-PEAR-LIBERO_only/chat_template.jinja
 RUNS=$OUT/runs/smoke-${CODE_SHA:0:7}
 SFT_MODEL=$RUNS/sft/ckpt/global_step_2/huggingface
+# PEAR's queue has 32 storage units of 1 CPU each, more than these jobs' CPUs: with them Ray waits forever
+UNITS=transfer_queue.backend.SimpleStorage.num_data_storage_units=2
 mkdir -p "$RUNS"
 
 stage() {  # stage <name> <command...>: runs it, recording its seconds in $RUNS/seconds

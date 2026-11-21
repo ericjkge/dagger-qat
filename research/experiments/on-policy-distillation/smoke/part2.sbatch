@@ -12,9 +12,9 @@ source /n/data1/hms/dbmi/zitnik/lab/users/edk005/robot-distillation/.wt/on-polic
 
 stage distill env TRAINER_GPUS=1 ROLLOUT_GPUS=1 TEACHER_GPUS=1 TEACHER_TP=1 STEPS=2 BATCH=2 \
   MODEL_FILE=$STUDENT_FILE MODEL=$SFT_MODEL TEACHER=$BASE RUN=$RUNS/distill \
-  bash scripts/run.sh scripts/distill.sh chat_template_file="$TEMPLATE"
+  bash scripts/run.sh scripts/distill.sh chat_template_file="$TEMPLATE" "$UNITS"
 stage export bash third_party/pear/scripts/export_checkpoint.sh "$RUNS/distill/ckpt/global_step_2" "$RUNS/distilled"
 stage eval_distilled env ROLLOUT_GPUS=1 MODEL_FILE=$STUDENT_FILE MODEL=$RUNS/distilled RUN=$RUNS/eval-distilled CKPT_STEP=2 \
-  bash scripts/run.sh scripts/eval.sh chat_template_file="$TEMPLATE"
+  bash scripts/run.sh scripts/eval.sh chat_template_file="$TEMPLATE" "$UNITS"
 
 "$WORK_DIR/envs/verl/bin/python" "$SMOKE/check.py" "$RUNS" "$CODE_SHA" "$SLURM_JOB_ID" distill eval-distilled
