@@ -110,6 +110,9 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - Smoke fix (here): `env.sh` sets `UNITS=transfer_queue.backend.SimpleStorage.num_data_storage_units=2`, and every Ray stage passes it. It composes in both `embodied` and `training`.
   - Main: a README note that Ray needs more than 32 CPUs, or a lower `num_data_storage_units` (65c78b8). Full runs should request more than 32 CPUs per Ray cluster or set this override. A snapshot resumes only with the same number of units, so a run keeps one value throughout.
   - Resubmitted on 65c78b8 (026aef1 plus the README): part 1 60338005, part 2 60338006 (afterok), headers unchanged.
+- **2026-11-21, part 1 got past the queue, then failed on a relative path; fixed and resubmitted.** Part 1 (60338005) ran its checks (103 s), and collect's storage units all started. It then failed after 3.4 minutes, at 03:40, creating the dataset: `FileNotFoundError: Custom module file not found: module_path='pear/agent_loop/dataset.py'`. PEAR's `base.yaml` names `data.custom_cls.path` and `actor_rollout_ref.rollout.agent.agent_loop_config_path` relative to PEAR's root, because PEAR's own `start_ray_node.sh` starts Ray from there. Our launcher does not, and these are the only two such paths in PEAR's configs.
+  - Fix (main, a8fe07f): `scripts/common.sh` passes both as absolute paths under `$PEAR`, like `tool_config_path`. `test_every_referenced_repository_file_exists` now covers them. The scripts and configs tests pass (44 of 44).
+  - Resubmitted on a8fe07f: part 1 60338213, part 2 60338214 (afterok).
 
 ## Results
 

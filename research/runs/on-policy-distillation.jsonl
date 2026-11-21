@@ -4,3 +4,4 @@
 {"kind": "smoke", "part": 2, "job": 60188767, "code": "bc23adb", "state": "CANCELLED", "cause": "dependency on part 1"}
 {"kind": "repo_tests", "job": 60335813, "code": "026aef1", "state": "COMPLETED", "passed": 70, "failed": 0}
 {"kind": "smoke", "part": 1, "job": 60335814, "code": "026aef1", "state": "CANCELLED", "elapsed": "00:35", "stage_failed": "collect", "cause": "hang: 32 TransferQueue storage units x 1 CPU > 8 job CPUs", "fixed_by": "num_data_storage_units=2 in smoke/env.sh"}
+{"kind": "smoke", "part": 1, "job": 60338005, "code": "65c78b8", "state": "FAILED", "elapsed": "00:03:23", "stage_failed": "collect", "cause": "relative data.custom_cls.path pear/agent_loop/dataset.py not found from Ray worker cwd", "fixed_in": "a8fe07f"}
