@@ -123,6 +123,10 @@ The 4B student is reported alongside the 9B student but does not decide the dire
   - Main (2055b84): `configs/step/sft.yaml` sets `engine.strategy: fsdp2`, as PEAR trains its actor, with a test. The offline tests pass (64 of 64).
   - Smoke: SFT passes `engine.offload_policy=true` in place of `optimizer_offload`, and part 1's `--mem` goes from 64G to 128G for that host-side state. This is smoke-only, since full runs use A100-80GB or H100 GPUs, several per run.
   - Resubmitted on 2055b84: part 1 60339780, part 2 60339781 (afterok).
+- **2026-11-21, collect passes and is checked; SFT moved to part 2.** Part 1 (60339780, 2055b84) passed the checks (107 s) and collect (406 s). Its SFT, on one GPU with FSDP2's CPU offload, completed both updates and was writing `global_step_2` (with `huggingface/` begun) when the host ran out of memory at 128G: about 64 GB of pinned fp32 state plus the full model gathered for saving. Slurm reported `OUT_OF_MEMORY`.
+  - `check.py collect` on that run passes: 2 episodes written, 5,129 and 5,140 tokens. The base 4B took 0 actions in either episode (success 0.0). It reasons until the 4,096-token response cap without acting, which is expected of an untuned student. Collect at the teacher's real scale is still unexercised; this test checks the mechanics only.
+  - Restructured. Part 1 is the checks plus collect (45 min, 64G). Part 2 is SFT on 2 GPUs (FSDP2 shards the fp32 parameters and gradients, about 8 GB each per GPU, plus `optimizer_offload`: Adam's 16 GB per GPU is loaded only for the update), eval of the SFT model, distill, export, and eval of the distilled model (1h45, 96G, 3×L40S). No offload policy is needed, and no main change.
+  - Part 2 (60340381) was submitted alone on 2055b84, reusing this collect's episodes. Part 2's old dependent job 60339781 had been cancelled with part 1.
 
 ## Results
 
